@@ -1,0 +1,2671 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Artools Precision Pen</title>
+    <meta name="description" content="A Artools Precision Pen redefine o equilíbrio entre peso, fluxo e design." />
+
+    <!-- ============================================================
+         FONTES — mesmas famílias do design_system.html (Aura v2.0)
+         Inter (sans / UI) · Space Grotesk (display) · JetBrains Mono (micro-labels)
+         ============================================================ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind + Iconify — mesmas dependências do design system -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+    <script>
+        /* Tokens copiados 1:1 do tailwind.config do design_system.html */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        stone: {
+                            50: '#fafaf9', 100: '#f5f5f4', 200: '#e7e5e4', 300: '#d6d3d1', 400: '#a8a29e',
+                            500: '#78716c', 600: '#57534e', 700: '#44403c', 800: '#292524', 900: '#1c1917',
+                        },
+                        'surface-light': '#EAEAE5',
+                    },
+                    animation: {
+                        'spin-slow': 'spin 8s linear infinite',
+                    },
+                },
+            },
+        };
+    </script>
+
+    <style>
+        /* ============================================================
+           BASE — idêntico ao design system (Surface Main #EAEAE5 / texto #1C1C1C)
+           ============================================================ */
+        :root {
+            --surface: #EAEAE5;
+            --heavy: #1c1917;
+            --neutral: #78716c;
+            --soft: #e7e5e4;
+        }
+
+        html.lenis,
+        html.lenis body {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--surface);
+            color: #1C1C1C;
+            overflow-x: clip; /* 'clip' (não 'hidden') para não quebrar position: sticky */
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* NOISE GRAIN — do design system */
+        .noise {
+            position: fixed;
+            inset: 0;
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+
+        /* ===== BOX DE COMPRA (modal flutuante -> WhatsApp) ===== */
+        .buy-modal { position: fixed; inset: 0; z-index: 10000; display: grid; place-items: center; padding: 16px;
+            visibility: hidden; pointer-events: none; transition: visibility 0s linear .5s; }
+        .buy-modal.is-open { visibility: visible; pointer-events: auto; transition: none; }
+        .buy-backdrop { position: absolute; inset: 0; background: rgba(28,25,23,.45); backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px); opacity: 0; transition: opacity .4s ease; }
+        .buy-modal.is-open .buy-backdrop { opacity: 1; }
+        .buy-card { position: relative; width: min(100%, 440px); max-height: calc(100dvh - 32px); overflow-y: auto;
+            border-radius: 1.75rem; opacity: 0; transform: translateY(24px) scale(.97);
+            transition: opacity .45s cubic-bezier(.16,1,.3,1), transform .55s cubic-bezier(.16,1,.3,1); }
+        .buy-modal.is-open .buy-card { opacity: 1; transform: none; }
+        /* Moldura com feixe girando (mesma técnica do btn-beam) */
+        .buy-ring { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; }
+        .buy-ring::before { content: ""; position: absolute; inset: -50%;
+            background: conic-gradient(from 90deg, transparent 0%, transparent 65%, #a8a29e 85%, #1c1917 100%);
+            animation: spin 6s linear infinite; }
+        @media (prefers-reduced-motion: reduce) { .buy-ring::before { animation: none; } }
+
+
+        /* NAVBAR — vidro denso (legível sobre vídeo/fotos) + tema escuro automático */
+        .site-header {
+            background-color: rgba(245, 245, 240, .82);
+            border-color: rgba(214, 211, 209, .8);
+            -webkit-backdrop-filter: blur(20px) saturate(1.4);
+            backdrop-filter: blur(20px) saturate(1.4);
+            box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset, 0 8px 24px -16px rgba(28, 25, 23, .25);
+            transition: background-color .5s ease, border-color .5s ease, box-shadow .5s ease;
+        }
+        .site-header .nav-mark { background: #1c1917; color: #fff; transition: background-color .5s, color .5s; }
+        .site-header .nav-brand { color: #1c1917; transition: color .5s; }
+        .site-header .nav-brand-sub { color: #78716c; transition: color .5s; }
+        .site-header .nav-tag { color: #78716c; border-color: #d6d3d1; transition: color .5s, border-color .5s; }
+        .site-header .nav-links a { color: #44403c; transition: color .3s; }
+        .site-header .nav-links a:hover { color: #1c1917; }
+        .site-header .btn-beam-content { transition: background-color .5s, color .5s; }
+
+        .site-header.is-dark {
+            background-color: rgba(28, 25, 23, .78);
+            border-color: rgba(255, 255, 255, .08);
+            box-shadow: 0 1px 0 rgba(255, 255, 255, .04) inset, 0 8px 24px -16px rgba(0, 0, 0, .6);
+        }
+        .site-header.is-dark .nav-mark { background: #fafaf9; color: #1c1917; }
+        .site-header.is-dark .nav-brand { color: #fafaf9; }
+        .site-header.is-dark .nav-brand-sub,
+        .site-header.is-dark .nav-tag { color: #a8a29e; }
+        .site-header.is-dark .nav-tag { border-color: rgba(255, 255, 255, .15); }
+        .site-header.is-dark .nav-links a { color: #d6d3d1; }
+        .site-header.is-dark .nav-links a:hover { color: #fff; }
+        .site-header.is-dark .btn-beam-content { background-color: #fafaf9; color: #1c1917; }
+
+        /* BEAM BUTTON — do design system (borda cônica girando no hover) */
+        .btn-beam {
+            position: relative;
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        .btn-beam::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            z-index: -1;
+            background: conic-gradient(from 90deg at 50% 50%, #E2E8F0 0%, #000000 50%, #E2E8F0 100%);
+            animation: spin 4s linear infinite;
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .btn-beam:hover::before {
+            opacity: 1;
+        }
+
+        .btn-beam-content {
+            background-color: var(--heavy);
+            color: white;
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            border-radius: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* TEXT MASK REVEAL — do design system (entrada das linhas do H1) */
+        .text-reveal-wrapper {
+            overflow: hidden;
+            display: block;
+            padding-bottom: 0.06em;
+            /* evita cortar descendentes (g, q) */
+        }
+
+        .text-reveal-content {
+            display: block;
+            transform: translateY(110%);
+            opacity: 0;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s ease;
+        }
+
+        .is-loaded .text-reveal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(2rem);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .is-loaded .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        /* FADE GLOBAL — elementos sem entrada própria surgem ao entrar na tela.
+           Só esconde quando o JS marcou <html class="fx-fade"> (sem JS / reduced motion = tudo visível). */
+        html.fx-fade [data-fx]:not(.fx-in) { opacity: 0 !important; }
+
+        .delay-100 { transition-delay: .1s; }
+        .delay-200 { transition-delay: .2s; }
+        .delay-300 { transition-delay: .3s; }
+        .delay-500 { transition-delay: .5s; }
+        .delay-700 { transition-delay: .7s; }
+
+        /* ============================================================
+           HERO — específicos desta página
+           ============================================================ */
+
+        /* Linha 2 do H1: texto vazado (outline) */
+        .text-outline {
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--heavy);
+            text-stroke: 1.5px var(--heavy);
+        }
+
+        /* ------------------------------------------------------------
+           COREOGRAFIA DO SCROLL (sem pin — só CSS sticky):
+           0 → 100vh    texto rola para cima de verdade (parallax + fade),
+                        vídeo avança no fundo
+           100 → 200vh  2ª dobra sobe POR CIMA do vídeo (cortina) enquanto
+                        ele termina — sem vão entre as dobras
+           ------------------------------------------------------------ */
+        .scroll-track {
+            position: relative;
+            height: 360vh;
+            height: 360svh;
+        }
+
+        .hero-stage {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            height: 100svh;
+            /* evita salto da barra de URL no mobile */
+            width: 100%;
+            overflow: hidden;
+            transform-origin: 50% 30%;
+        }
+
+        .hero-copy-layer {
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 100vh;
+            height: 100svh;
+            z-index: 10;
+        }
+
+        /* 2ª dobra sobrepõe a última tela da trilha */
+        .fold-overlap {
+            margin-top: -100vh;
+            margin-top: -100svh;
+            box-shadow: 0 -40px 80px -30px rgba(28, 25, 23, .18);
+        }
+
+        /* Vídeo: multiply funde o fundo claro de estúdio do vídeo com #EAEAE5 */
+        .hero-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 70% 50%;
+            mix-blend-mode: multiply;
+            pointer-events: none;
+        }
+
+        /* Fonte dos frames: precisa estar no DOM e "renderizável" para o
+           requestVideoFrameCallback disparar, mas invisível ao usuário */
+        .video-source {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            opacity: 0.001;
+            pointer-events: none;
+            left: 0;
+            top: 0;
+        }
+
+        /* Véu de legibilidade: só aparece onde o texto pode sobrepor o produto */
+        .hero-veil {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            /* A caneta ocupa a metade esquerda do 1º frame: o texto fica SOBRE ela de propósito,
+               então o véu é mais denso onde está o texto (até ~45%) e some antes do meio */
+            background: linear-gradient(90deg, rgba(234, 234, 229, .92) 0%, rgba(234, 234, 229, .72) 32%, rgba(234, 234, 229, .3) 50%, rgba(234, 234, 229, 0) 64%);
+        }
+
+        @media (max-width: 1023px) { /* empilhado até lg: texto embaixo, véu de baixo para cima */
+            .hero-video {
+                object-position: 65% 30%;
+            }
+
+            .hero-veil {
+                background: linear-gradient(0deg, rgba(234, 234, 229, .96) 0%, rgba(234, 234, 229, .88) 50%, rgba(234, 234, 229, .5) 72%, rgba(234, 234, 229, 0) 86%);
+            }
+        }
+
+        /* Scroll indicator: linha vertical com "gota" descendo */
+        .scroll-line {
+            width: 1px;
+            height: 48px;
+            background: var(--stone-300, #d6d3d1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scroll-line::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: -40%;
+            width: 1px;
+            height: 40%;
+            background: var(--heavy);
+            animation: scrollDrop 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+        }
+
+        @keyframes scrollDrop {
+            0% { top: -40%; }
+            100% { top: 100%; }
+        }
+
+        /* ============================================================
+           2ª DOBRA
+           ============================================================ */
+
+        /* FLASHLIGHT CARD — do design system */
+        .flashlight-card {
+            background: rgba(255, 255, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+            transition: background-color .5s, box-shadow .5s, border-color .5s, transform .5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .flashlight-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(255, 255, 255, 0.8), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .flashlight-card:hover::before { opacity: 1; }
+
+        /* Card ativo (hover no card OU no callout correspondente) */
+        .spec-card.is-active {
+            background: rgba(255, 255, 255, 0.85);
+            border-color: #d6d3d1;
+            box-shadow: 0 20px 25px -5px rgba(28, 25, 23, .06), 0 8px 10px -6px rgba(28, 25, 23, .06);
+            transform: translateY(-2px);
+        }
+
+
+        /* GRID BACKGROUND — do design system */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+        }
+
+        /* MARQUEE — do design system */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 30s linear infinite;
+        }
+
+        /* ---- Desenho técnico: modo render x modo blueprint ---- */
+        .pen-stage .pen-render { transition: opacity .8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .pen-stage .bp-outline,
+        .pen-stage .bp-internal { opacity: 0; transition: opacity .8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .pen-stage.is-blueprint .pen-render { opacity: .07; }
+        .pen-stage.is-blueprint .bp-outline,
+        .pen-stage.is-blueprint .bp-internal { opacity: 1; }
+        .pen-stage { transition: background-color .8s; }
+        .pen-stage.is-blueprint { background-color: rgba(255, 255, 255, .85); }
+
+        /* Callouts numerados */
+        .callout { cursor: pointer; }
+        .callout .leader { stroke: #a8a29e; stroke-width: 1; fill: none; transition: stroke .3s; }
+        .callout .dot { fill: #1c1917; }
+        .callout .ring { fill: #fff; stroke: #1c1917; stroke-width: 1; transition: fill .3s; }
+        .callout .pulse { fill: none; stroke: #1c1917; stroke-width: 1; opacity: 0; transform-box: fill-box; transform-origin: center; }
+        .callout text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            fill: #1c1917;
+            text-anchor: middle;
+            dominant-baseline: central;
+            pointer-events: none;
+            transition: fill .3s;
+        }
+        .callout.is-active .leader { stroke: #1c1917; }
+        .callout.is-active .ring { fill: #1c1917; }
+        .callout.is-active text { fill: #fff; }
+        .callout.is-active .pulse { animation: calloutPulse 1.6s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+
+        @keyframes calloutPulse {
+            0% { opacity: .6; transform: scale(1); }
+            100% { opacity: 0; transform: scale(2.2); }
+        }
+
+        /* Toggle ligado (estado visual do componente do DS) */
+        label:has(#blueprint-toggle:focus-visible) .toggle-bg { outline: 2px solid #1c1917; outline-offset: 2px; }
+
+        /* ============================================================
+           3ª DOBRA — um dia com a Pigmentum
+           ============================================================ */
+        /* Régua de 24h: tick a cada hora, tick maior a cada 6h */
+        .day-ruler {
+            background-image:
+                linear-gradient(to right, #a8a29e 1px, transparent 1px),
+                linear-gradient(to right, #d6d3d1 1px, transparent 1px);
+            background-size: 25% 100%, calc(100% / 24) 50%;
+            background-position: 0 0, 0 100%;
+            background-repeat: repeat-x;
+            border-bottom: 1px solid #d6d3d1;
+        }
+
+        /* Painel muda de dia para noite */
+        .day-panel .day-fg,
+        .day-panel .day-muted { transition: color .8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .day-panel .day-bar { transition: background-color .8s; }
+        .day-panel { transition: border-color .8s; }
+        .day-panel.is-night { border-color: #292524; }
+        .day-panel.is-night .day-fg { color: #fafaf9; }
+        .day-panel.is-night .day-muted { color: #a8a29e; }
+        .day-panel.is-night .day-bar { background-color: #fafaf9; }
+        .day-panel.is-night .day-ruler { opacity: .5; }
+
+        /* Card do gráfico e stat tiles na versão noturna */
+        .day-chart-card, .day-tile { transition: background-color .8s, border-color .8s; }
+        .day-chart-card .day-ink-value, .day-tile span:first-child { transition: color .8s; }
+        .day-panel.is-night .day-chart-card,
+        .day-panel.is-night .day-tile { background-color: rgba(255, 255, 255, .06); border-color: rgba(255, 255, 255, .1); }
+        .day-panel.is-night .day-chart-card .day-ink-value,
+        .day-panel.is-night .day-tile span:first-child { color: #fafaf9; }
+        #day-ink-line, #day-ink-dot { transition: stroke .8s, fill .8s; }
+        .day-panel.is-night #day-ink-line { stroke: #fafaf9; }
+        .day-panel.is-night #day-ink-dot { stroke: #fafaf9; fill: #1c1917; }
+
+        /* Fundo sutil: grid do DS desvanecendo nas bordas */
+        .day-grid-mask {
+            -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 0%, transparent 75%);
+            mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 0%, transparent 75%);
+        }
+
+        /* Orbs do DS flutuando lentamente */
+        @keyframes dayFloat {
+            0%, 100% { translate: 0 0; }
+            50% { translate: 24px -32px; }
+        }
+        .day-orb { animation: dayFloat 18s ease-in-out infinite; will-change: transform; }
+        .day-orb-delay { animation-duration: 22s; animation-delay: -6s; }
+
+        /* Estrelas do card noturno (pontos de 1px) */
+        .day-stars {
+            background-image:
+                radial-gradient(1px 1px at 12% 22%, #fff 50%, transparent 51%),
+                radial-gradient(1px 1px at 34% 68%, #fff 50%, transparent 51%),
+                radial-gradient(1px 1px at 58% 14%, #fff 50%, transparent 51%),
+                radial-gradient(1px 1px at 76% 46%, #fff 50%, transparent 51%),
+                radial-gradient(1px 1px at 88% 80%, #fff 50%, transparent 51%),
+                radial-gradient(1px 1px at 46% 88%, #fff 50%, transparent 51%),
+                radial-gradient(1.5px 1.5px at 66% 30%, #fff 50%, transparent 51%);
+            animation: dayTwinkle 4s ease-in-out infinite alternate;
+        }
+        @keyframes dayTwinkle { from { opacity: .2; } to { opacity: .5; } }
+
+        /* Ícone do momento atual vira o ícone escuro do glass card do DS */
+        .day-card .day-icon { transition: background .5s, color .5s, transform .5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .5s; }
+        .day-card.is-current .day-icon {
+            background: #1c1917;
+            color: #fff;
+            border-color: #1c1917;
+            box-shadow: none;
+            transform: scale(1.1);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .day-orb, .day-stars, .animate-marquee { animation: none; }
+        }
+
+        /* Foco no momento atual (só quando o JS está ativo) */
+        .day-track.is-ready .day-card {
+            transition: opacity .6s cubic-bezier(0.16, 1, 0.3, 1), transform .6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .6s, background-color .5s;
+        }
+        @media (min-width: 1024px) {
+            .day-track.is-ready .day-card:not(.is-current) { opacity: .4; transform: scale(.98); }
+        }
+        .day-track .day-card.is-current:not(.bg-stone-900) {
+            background: rgba(255, 255, 255, .85);
+            box-shadow: 0 20px 25px -5px rgba(28, 25, 23, .06), 0 8px 10px -6px rgba(28, 25, 23, .06);
+        }
+
+        /* ============================================================
+           TEXTURA + VERBETES DE FUNDO
+           ============================================================ */
+        /* Papel: fibras alongadas (turbulência anisotrópica) + grão fino, multiplicados sobre tudo */
+        .paper-texture {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: .045;
+            mix-blend-mode: multiply;
+            background-image:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02 0.32' numOctaves='4' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.1  0 0 0 0 0.09  0 0 0 1.6 -0.55'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 -0.35'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+        }
+
+        /* Verbete de dicionário gigante, em contorno vazado */
+        .lexicon { pointer-events: none; user-select: none; }
+        .lex-word {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: clamp(6rem, 19vw, 19rem);
+            line-height: .8;
+            letter-spacing: -0.05em;
+            white-space: nowrap;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(28, 25, 23, .13);
+            will-change: transform;
+        }
+        .lex-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .4rem 1.5rem;
+            margin-bottom: .75rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: #a8a29e;
+        }
+        .lex-defs {
+            margin-top: 1.25rem;
+            max-width: 22rem;
+            display: grid;
+            gap: .35rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            line-height: 1.6;
+            color: #a8a29e;
+        }
+        .lex-defs b { color: #78716c; font-weight: 500; margin-right: .25rem; }
+
+        .lexicon-compact .lex-word { font-size: clamp(5rem, 14vw, 14rem); }
+
+        /* Variante vertical (lida de baixo para cima, colada à borda) */
+        .lexicon-vertical {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+        .lexicon-vertical .lex-word { font-size: clamp(6rem, 14vw, 15rem); }
+        .lexicon-vertical .lex-defs { margin-top: 0; margin-right: 1.25rem; max-width: none; max-height: 26rem; }
+
+
+        @media (max-width: 767px) {
+            .lex-defs { display: none; }
+        }
+
+        /* ============================================================
+           4ª DOBRA — box com glow "flow"
+           ============================================================ */
+        @keyframes glowSpin { to { transform: rotate(360deg); } }
+
+        /* Moldura: 1px de borda base + feixe de luz girando por trás (btn-beam do DS) */
+        .glow-frame {
+            overflow: hidden;
+            background: rgba(255, 255, 255, .1);
+            box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .6);
+            transform-style: preserve-3d;
+            transition: transform .2s ease-out;
+        }
+        .glow-spin {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 200%;
+            aspect-ratio: 1;
+            translate: -50% -50%;
+            background: conic-gradient(from 0deg, transparent 0 58%, rgba(255, 255, 255, .2) 68%, #fff 76%, rgba(255, 255, 255, .2) 84%, transparent 92%);
+            animation: glowSpin 6s linear infinite;
+            pointer-events: none;
+        }
+        .glow-box {
+            isolation: isolate;
+            background: linear-gradient(180deg, rgb(41, 37, 36) 0%, rgb(28, 25, 23) 100%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06);
+        }
+        /* Halo externo: o mesmo feixe, desfocado, vazando para fora da box */
+        .glow-halo {
+            position: absolute;
+            inset: -6px;
+            border-radius: 1.3rem;
+            overflow: hidden;
+            filter: blur(24px);
+            opacity: .55;
+            pointer-events: none;
+            z-index: 0;
+        }
+        /* flashlight do DS em versão escura */
+        .glow-box.flashlight-card::before {
+            background: radial-gradient(500px circle at var(--mouse-x, 50%) var(--mouse-y, 0), rgba(255, 255, 255, .09), transparent 40%);
+        }
+        .glow-text { text-shadow: 0 0 40px rgba(255, 255, 255, .35); }
+
+        /* blob morph (Fluid Geometry do template) */
+        @keyframes flowMorph {
+            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: rotate(0deg) scale(1); }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: rotate(8deg) scale(1.04); }
+        }
+        .flow-blob { animation: flowMorph 8s ease-in-out infinite; pointer-events: none; }
+        .flow-blob-ring { animation-duration: 11s; animation-direction: reverse; }
+
+        /* grid do DS em branco, com máscara */
+        .flow-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, rgba(255, 255, 255, .04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, .04) 1px, transparent 1px);
+            -webkit-mask-image: radial-gradient(ellipse 60% 60% at 70% 50%, #000, transparent 75%);
+            mask-image: radial-gradient(ellipse 60% 60% at 70% 50%, #000, transparent 75%);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .glow-spin, .flow-blob { animation: none; }
+        }
+
+        /* Scrollbar do design system */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--surface); }
+        ::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a8a29e; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .scroll-line::after { animation: none; }
+            .text-reveal-content, .reveal { transition: none; }
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-stone-800 selection:text-white">
+
+    <div class="noise"></div>
+    <!-- Textura de papel: fibras sutis sobre o site inteiro (complementa o grão do DS) -->
+    <div class="paper-texture" aria-hidden="true"></div>
+
+    <!-- ============================================================
+         NAVBAR — padrão do design system (vidro + borda stone-300)
+         Vidro denso para legibilidade; vira escura sozinha sobre as dobras
+         escuras ([data-nav-dark]) — cores em .site-header no <style>.
+         ============================================================ -->
+    <header id="site-header" class="site-header fixed top-0 inset-x-0 z-50 border-b">
+        <div class="max-w-[1440px] mx-auto flex justify-between items-center px-6 py-4">
+            <a href="#" class="flex items-center gap-2" aria-label="Artools — início">
+                <div class="nav-mark w-8 h-8 flex items-center justify-center rounded-sm">
+                    <iconify-icon icon="solar:pen-new-square-bold-duotone" class="text-xl"></iconify-icon>
+                </div>
+                <span class="nav-brand font-display font-medium tracking-tight text-lg">ARTOOLS<span
+                        class="nav-brand-sub">.PEN</span></span>
+                <span class="nav-tag hidden sm:inline ml-2 pl-3 border-l text-[10px] font-mono uppercase tracking-widest">Conceito</span>
+            </a>
+            <nav class="nav-links hidden md:flex items-center gap-8 text-xs font-mono uppercase tracking-widest">
+                <a href="#explorar" data-scroll-to>Design</a>
+                <a href="#explorar" data-scroll-to>Tecnologia</a>
+                <a href="#explorar" data-scroll-to>Especificações</a>
+            </nav>
+            <button type="button" data-buy class="btn-beam px-[1px] py-[1px] rounded-full">
+                <span class="btn-beam-content px-5 py-2 rounded-full text-xs font-mono uppercase tracking-widest">
+                    Comprar
+                </span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- ============================================================
+             HERO — trilha de 300vh; .hero-stage (vídeo) é sticky ao fundo,
+             o texto fica numa camada que rola normalmente por cima
+             ============================================================ -->
+        <section class="scroll-track" id="hero-track" aria-label="Apresentação da Artools Precision Pen">
+            <div class="hero-stage" id="hero-stage">
+
+                <!-- Canvas: superfície de render do scrubbing (frames pré-decodificados).
+                     O <video> abaixo é só a FONTE dos frames — fica invisível. -->
+                <canvas class="hero-video" id="hero-canvas" aria-hidden="true"></canvas>
+                <video class="video-source" id="hero-video" src="./video.mp4" muted playsinline preload="auto"
+                    disablepictureinpicture disableremoteplayback aria-hidden="true" tabindex="-1"></video>
+                <div class="hero-veil"></div>
+
+                <!-- Indicador de preparo dos frames (some quando termina) -->
+                <div id="frames-loader" class="absolute top-[72px] inset-x-0 z-20 h-px bg-stone-300/60 transition-opacity duration-700">
+                    <span id="frames-loader-bar" class="block h-full w-full bg-stone-900 origin-left"
+                        style="transform: scaleX(0)"></span>
+                </div>
+
+                <!-- Scroll indicator -->
+                <div id="scroll-indicator"
+                    class="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3 reveal delay-700">
+                    <span class="text-[10px] font-mono uppercase tracking-[0.25em] text-stone-500">Role a página</span>
+                    <span class="scroll-line" aria-hidden="true"></span>
+                </div>
+
+                <!-- Progresso (micro-label mono, canto inferior direito) -->
+                <div class="hidden md:flex absolute bottom-8 right-8 z-10 items-center gap-3 font-mono text-[10px]
+                            uppercase tracking-widest text-stone-400">
+                    <span id="progress-label">000</span>
+                    <span class="w-24 h-px bg-stone-300 relative overflow-hidden">
+                        <span id="progress-bar" class="absolute inset-y-0 left-0 w-full bg-stone-900 origin-left"
+                            style="transform: scaleX(0)"></span>
+                    </span>
+                    <span>100</span>
+                </div>
+            </div>
+
+            <!-- Camada de texto: rola com a página (não é sticky) -->
+            <div class="hero-copy-layer">
+                <div class="relative z-10 h-full max-w-[1440px] mx-auto px-6 md:px-16 lg:px-24
+                            flex flex-col justify-end lg:justify-center pb-32 lg:pb-0 pt-24">
+                    <div id="hero-copy" class="max-w-xl lg:max-w-2xl will-change-transform">
+
+                        <h1 class="font-display font-bold tracking-tighter leading-[0.88] text-stone-900
+                                   text-[clamp(2.25rem,5.6vw,5rem)] mb-5 md:mb-6 whitespace-nowrap">
+                            <span class="text-reveal-wrapper"><span class="text-reveal-content">A caneta</span></span>
+                            <span class="text-reveal-wrapper"><span
+                                    class="text-reveal-content delay-200 text-outline">mais tecnológica</span></span>
+                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-300">do
+                                    mundo.</span></span>
+                        </h1>
+
+                        <p class="text-base md:text-xl text-stone-500 max-w-md md:max-w-lg leading-relaxed font-light
+                                  reveal delay-500">
+                            Uma fineliner de ponta 0,1 que pesa 9 gramas e não borra nem com marca-texto por cima.
+                            Para quem passa o dia com uma caneta na mão.
+                        </p>
+
+                        <div class="mt-8 md:mt-12 flex flex-wrap gap-3 md:gap-4 reveal delay-700">
+                            <!-- Primário: pill preto, elevação + preenchimento deslizante (padrão do DS) -->
+                            <a href="#comprar" class="group relative px-8 py-4 bg-stone-900 text-white overflow-hidden rounded-full
+                                      transition-all duration-300 hover:shadow-2xl hover:shadow-stone-900/20 hover:-translate-y-1">
+                                <span class="absolute inset-0 bg-stone-700 translate-y-full group-hover:translate-y-0
+                                             transition-transform duration-500 ease-out"></span>
+                                <span class="relative z-10 font-mono text-xs uppercase tracking-widest flex items-center gap-2">
+                                    Comprar Agora
+                                    <iconify-icon icon="solar:arrow-right-linear"
+                                        class="text-base group-hover:translate-x-1 transition-transform"></iconify-icon>
+                                </span>
+                            </a>
+                            <!-- Secundário: pill com stroke sutil -->
+                            <a href="#explorar" data-scroll-to class="group px-8 py-4 border border-stone-300 bg-white/40 backdrop-blur-sm
+                                      hover:bg-white transition-colors rounded-full text-stone-900 font-mono text-xs
+                                      uppercase tracking-widest flex items-center gap-2">
+                                Explorar
+                                <iconify-icon icon="solar:arrow-down-linear"
+                                    class="text-base group-hover:translate-y-0.5 transition-transform"></iconify-icon>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             PRÓXIMA DOBRA — destino do botão "Explorar ↓"
+             ============================================================ -->
+        <!-- ============================================================
+             2ª DOBRA — ESPECIFICAÇÕES
+             Layout bento (inspirado na referência) + desenho técnico da
+             caneta em SVG, com callouts numerados ligados aos cards.
+             ============================================================ -->
+        <section id="explorar" class="fold-overlap relative z-20 overflow-x-clip rounded-t-[2rem] md:rounded-t-[3rem] border-t border-stone-300 bg-stone-100">
+
+            <!-- Linhas verticais de grid — padrão do design system -->
+            <div class="absolute inset-0 pointer-events-none z-0 max-w-[1440px] mx-auto grid grid-cols-12 opacity-40" aria-hidden="true">
+                <div class="hidden md:block col-span-1 border-r border-stone-300"></div>
+                <div class="hidden md:block col-span-3 border-r border-stone-300"></div>
+                <div class="hidden md:block col-span-4 border-r border-stone-300"></div>
+                <div class="hidden md:block col-span-3 border-r border-stone-300"></div>
+            </div>
+            <!-- Brilho de estúdio difuso -->
+            <div class="absolute -top-40 right-[-10%] w-[700px] h-[700px] rounded-full bg-gradient-to-br from-white to-transparent blur-3xl opacity-70 pointer-events-none" aria-hidden="true"></div>
+
+            <!-- Verbete de fundo: PRECISÃO -->
+            <div class="lexicon lexicon-compact absolute top-[6.5rem] md:top-[8rem] right-0 z-0 text-right pr-6 md:pr-16" aria-hidden="true">
+                <div class="lex-meta justify-end">
+                    <span class="text-stone-500">pre·ci·são</span><span>/pɾe.siˈzɐ̃w̃/</span><span>s.f.</span><span>lat. praecisio</span><span class="hidden md:inline normal-case tracking-normal">— exatidão rigorosa; ausência de desvio.</span>
+                </div>
+                <p class="lex-word" data-lex-drift="-6">Precisão</p>
+            </div>
+
+            <div class="relative z-10 max-w-[1440px] mx-auto px-6 md:px-16 lg:px-24 pt-20 md:pt-28 pb-16 md:pb-24">
+
+                <!-- ---------- Cabeçalho ---------- -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-6 items-end mb-14 md:mb-20">
+                    <div class="lg:col-span-8">
+                        <h2 class="font-display font-medium tracking-tighter leading-[0.95] text-[clamp(2.5rem,6vw,5.25rem)]">
+                            <span class="text-reveal-wrapper"><span class="fold-line block text-stone-900">Feita no detalhe.</span></span>
+                            <span class="text-reveal-wrapper"><span class="fold-line block text-stone-300">Precisão de 0,1 mm.</span></span>
+                        </h2>
+                        <p class="fold-fade mt-8 max-w-lg text-base md:text-lg text-stone-500 font-light leading-relaxed">
+                            Ponta, tinta e corpo foram pensados juntos. Por isso o traço da última página do
+                            caderno sai igual ao da primeira.
+                        </p>
+                    </div>
+
+                    <!-- Stat tiles (componente do design system) -->
+                    <div class="lg:col-span-4 grid grid-cols-3 gap-3">
+                        <div class="fold-fade p-4 border border-stone-200 bg-white hover:scale-105 transition-transform duration-300 flex flex-col items-center justify-center gap-2 rounded-sm">
+                            <span class="text-2xl font-bold font-display">±5<span class="text-sm text-stone-400 ml-0.5">µm</span></span>
+                            <span class="text-[10px] uppercase font-mono text-stone-400 text-center">Tolerância</span>
+                        </div>
+                        <div class="fold-fade p-4 border border-stone-200 bg-white hover:scale-105 transition-transform duration-300 flex flex-col items-center justify-center gap-2 rounded-sm">
+                            <span class="text-2xl font-bold font-display">9<span class="text-sm text-stone-400 ml-0.5">g</span></span>
+                            <span class="text-[10px] uppercase font-mono text-stone-400 text-center">Peso total</span>
+                        </div>
+                        <div class="fold-fade p-4 border border-stone-200 bg-white hover:scale-105 transition-transform duration-300 flex flex-col items-center justify-center gap-2 rounded-sm">
+                            <span class="text-2xl font-bold font-display">1<span class="text-sm text-stone-400 ml-0.5">km</span></span>
+                            <span class="text-[10px] uppercase font-mono text-stone-400 text-center">De traço</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ---------- Bento: desenho técnico + cards ---------- -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-5">
+
+                    <!-- PAINEL DA CANETA -->
+                    <div class="lg:col-span-5 lg:sticky lg:top-24 lg:self-start">
+                        <div id="pen-stage" class="fold-card pen-stage relative h-[640px] lg:h-[calc(100vh-8rem)] lg:max-h-[860px] rounded-lg border border-stone-200 bg-white/50 backdrop-blur-sm overflow-hidden bg-grid">
+
+                            <!-- Toggle (componente do design system) -->
+                            <label class="absolute top-5 right-5 z-10 flex items-center gap-3 cursor-pointer select-none">
+                                <span class="font-mono text-[10px] uppercase tracking-widest text-stone-500">Modo técnico</span>
+                                <span class="relative w-10 h-6 bg-stone-300 rounded-full transition-colors toggle-bg hover:bg-stone-400">
+                                    <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform toggle-dot shadow-sm"></span>
+                                </span>
+                                <input id="blueprint-toggle" type="checkbox" class="sr-only">
+                            </label>
+
+
+                            <!-- Desenho vetorial da caneta -->
+                            <svg id="pen-svg" viewBox="0 0 360 880" class="absolute inset-0 m-auto h-[88%] w-full" role="img"
+                                aria-label="Ilustração da caneta Artools Pigmentum com marcações técnicas">
+                                <defs>
+                                    <!-- Sombreamento cilíndrico do plástico branco -->
+                                    <linearGradient id="g-body" x1="0" x2="1" y1="0" y2="0">
+                                        <stop offset="0" stop-color="#c9c9c4" />
+                                        <stop offset=".22" stop-color="#efefeb" />
+                                        <stop offset=".42" stop-color="#ffffff" />
+                                        <stop offset=".72" stop-color="#ebebe7" />
+                                        <stop offset="1" stop-color="#b9b9b4" />
+                                    </linearGradient>
+                                    <linearGradient id="g-cap" x1="0" x2="1" y1="0" y2="0">
+                                        <stop offset="0" stop-color="#d1d1cc" />
+                                        <stop offset=".25" stop-color="#f6f6f3" />
+                                        <stop offset=".45" stop-color="#ffffff" />
+                                        <stop offset=".75" stop-color="#efefeb" />
+                                        <stop offset="1" stop-color="#c2c2bd" />
+                                    </linearGradient>
+                                    <linearGradient id="g-metal" x1="0" x2="1" y1="0" y2="0">
+                                        <stop offset="0" stop-color="#57534e" />
+                                        <stop offset=".5" stop-color="#e7e5e4" />
+                                        <stop offset="1" stop-color="#44403c" />
+                                    </linearGradient>
+                                    <linearGradient id="g-window" x1="0" x2="1" y1="0" y2="1">
+                                        <stop offset="0" stop-color="#a8a29e" />
+                                        <stop offset="1" stop-color="#e7e5e4" />
+                                    </linearGradient>
+                                    <filter id="f-shadow" x="-50%" y="-200%" width="200%" height="500%">
+                                        <feGaussianBlur stdDeviation="6" />
+                                    </filter>
+                                </defs>
+
+                                <!-- Eixo central (traço-ponto de desenho técnico) -->
+                                <path class="bp-internal" d="M180 24 V856" stroke="#a8a29e" stroke-width="1" stroke-dasharray="12 4 2 4" fill="none" />
+
+                                <!-- ===== RENDER (ilustração sombreada) ===== -->
+                                <g class="pen-render">
+                                    <ellipse cx="180" cy="858" rx="64" ry="6" fill="rgba(28,25,23,.22)" filter="url(#f-shadow)" />
+                                    <!-- agulha -->
+                                    <path d="M178.5 790 H181.5 V828 L180 834 L178.5 828 Z" fill="url(#g-metal)" />
+                                    <!-- cone -->
+                                    <path d="M162 750 H198 L189 792 H171 Z" fill="url(#g-body)" />
+                                    <!-- anel sextavado -->
+                                    <rect x="150" y="718" width="60" height="32" rx="3" fill="url(#g-cap)" />
+                                    <path d="M150 729 H210 M150 739 H210" stroke="rgba(28,25,23,.06)" />
+                                    <!-- corpo -->
+                                    <rect x="153" y="304" width="54" height="416" fill="url(#g-body)" />
+                                    <!-- tampa -->
+                                    <path d="M158 56 H202 Q212 56 212 66 V306 H148 V66 Q148 56 158 56 Z" fill="url(#g-cap)" />
+                                    <rect x="148" y="292" width="64" height="14" rx="2" fill="url(#g-body)" opacity=".7" />
+                                    <!-- visor -->
+                                    <rect x="166" y="92" width="28" height="52" rx="8" fill="url(#g-window)" />
+                                    <rect x="170" y="97" width="6" height="40" rx="3" fill="#fff" opacity=".55" />
+                                    <!-- clip de arame -->
+                                    <path d="M148 76 L133 80 Q126 82 126 90 V260 Q126 272 135 267 L148 252" fill="none" stroke="url(#g-metal)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <!-- tipografia do corpo (lida da tampa para a ponta) -->
+                                    <text x="186" y="440" transform="rotate(90 186 440)" text-anchor="middle" dominant-baseline="middle"
+                                        font-family="Space Grotesk" font-size="17" letter-spacing="7" fill="#1c1917">ARTOOLS</text>
+                                    <text x="172" y="470" transform="rotate(90 172 470)" text-anchor="middle" dominant-baseline="middle"
+                                        font-family="Inter" font-weight="600" font-size="6.5" letter-spacing="1.4" fill="#1c1917">PIGMENT INK PEN</text>
+                                    <text x="186" y="588" transform="rotate(90 186 588)" text-anchor="middle" dominant-baseline="middle"
+                                        font-family="Space Grotesk" font-style="italic" font-weight="600" font-size="15" fill="#1c1917">Pigmentum</text>
+                                    <text x="182" y="680" transform="rotate(90 182 680)" text-anchor="middle" dominant-baseline="middle"
+                                        font-family="JetBrains Mono" font-weight="500" font-size="11" fill="#1c1917">0.1</text>
+                                </g>
+
+                                <!-- ===== BLUEPRINT (contornos que se desenham) ===== -->
+                                <g class="bp-outline" fill="none" stroke="#1c1917" stroke-width="1.1" stroke-linejoin="round">
+                                    <path class="draw" pathLength="1" d="M158 56 H202 Q212 56 212 66 V306 H148 V66 Q148 56 158 56 Z" />
+                                    <path class="draw" pathLength="1" d="M174 92 H186 Q194 92 194 100 V136 Q194 144 186 144 H174 Q166 144 166 136 V100 Q166 92 174 92 Z" />
+                                    <path class="draw" pathLength="1" d="M148 76 L133 80 Q126 82 126 90 V260 Q126 272 135 267 L148 252" />
+                                    <path class="draw" pathLength="1" d="M153 306 V718 M207 306 V718" />
+                                    <path class="draw" pathLength="1" d="M150 718 H210 V750 H150 Z" />
+                                    <path class="draw" pathLength="1" d="M162 750 H198 L189 792 H171 Z" />
+                                    <path class="draw" pathLength="1" d="M178.5 792 V828 L180 834 L181.5 828 V792" />
+                                </g>
+                                <!-- Internos: reservatório de tinta + alimentador capilar -->
+                                <g class="bp-internal" fill="none" stroke="#78716c" stroke-width="1">
+                                    <path d="M164 330 H196 V700 H164 Z" stroke-dasharray="4 4" />
+                                    <path d="M176 700 V790 M184 700 V790" stroke-dasharray="2 3" />
+                                    <text x="180" y="515" transform="rotate(90 180 515)" text-anchor="middle" dominant-baseline="middle"
+                                        font-family="JetBrains Mono" font-size="8" letter-spacing="2" fill="#78716c" stroke="none">RESERVATÓRIO · 1.2 ML</text>
+                                </g>
+
+                                <!-- ===== COTAS ===== -->
+                                <g class="dims" fill="none" stroke="#a8a29e" stroke-width="1">
+                                    <!-- comprimento -->
+                                    <path class="draw" pathLength="1" d="M330 56 V834" />
+                                    <path d="M324 56 H336 M324 834 H336" />
+                                    <path d="M214 56 H322 M184 834 H322" stroke-dasharray="2 3" opacity=".7" />
+                                    <text x="344" y="445" transform="rotate(90 344 445)" text-anchor="middle" dominant-baseline="middle"
+                                        font-family="JetBrains Mono" font-size="10" letter-spacing="2" fill="#78716c" stroke="none">140 MM</text>
+                                    <!-- diâmetro -->
+                                    <path class="draw" pathLength="1" d="M148 34 H212" />
+                                    <path d="M148 28 V40 M212 28 V40 M148 40 V54 M212 40 V54" />
+                                    <text x="180" y="18" text-anchor="middle" font-family="JetBrains Mono" font-size="10"
+                                        letter-spacing="2" fill="#78716c" stroke="none">Ø 10 MM</text>
+                                </g>
+
+                                <!-- ===== CALLOUTS (ligados aos cards via data-spec) ===== -->
+                                <g class="callout" data-spec="1">
+                                    <circle class="dot" cx="181" cy="826" r="2.5" />
+                                    <path class="draw leader" pathLength="1" d="M183 826 H281" />
+                                    <circle class="ring" cx="292" cy="826" r="11" />
+                                    <circle class="pulse" cx="292" cy="826" r="11" />
+                                    <text x="292" y="826">01</text>
+                                </g>
+                                <g class="callout" data-spec="2">
+                                    <circle class="dot" cx="196" cy="560" r="2.5" />
+                                    <path class="draw leader" pathLength="1" d="M198 560 H281" />
+                                    <circle class="ring" cx="292" cy="560" r="11" />
+                                    <circle class="pulse" cx="292" cy="560" r="11" />
+                                    <text x="292" y="560">02</text>
+                                </g>
+                                <g class="callout" data-spec="3">
+                                    <circle class="dot" cx="172" cy="772" r="2.5" />
+                                    <path class="draw leader" pathLength="1" d="M170 772 H79" />
+                                    <circle class="ring" cx="68" cy="772" r="11" />
+                                    <circle class="pulse" cx="68" cy="772" r="11" />
+                                    <text x="68" y="772">03</text>
+                                </g>
+                                <g class="callout" data-spec="4">
+                                    <circle class="dot" cx="207" cy="380" r="2.5" />
+                                    <path class="draw leader" pathLength="1" d="M209 380 H281" />
+                                    <circle class="ring" cx="292" cy="380" r="11" />
+                                    <circle class="pulse" cx="292" cy="380" r="11" />
+                                    <text x="292" y="380">04</text>
+                                </g>
+                                <g class="callout" data-spec="5">
+                                    <circle class="dot" cx="126" cy="170" r="2.5" />
+                                    <path class="draw leader" pathLength="1" d="M124 170 H79" />
+                                    <circle class="ring" cx="68" cy="170" r="11" />
+                                    <circle class="pulse" cx="68" cy="170" r="11" />
+                                    <text x="68" y="170">05</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- CARDS DE ESPECIFICAÇÃO -->
+                    <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5 content-start">
+
+                        <!-- 01 · Ponta -->
+                        <article class="fold-card spec-card flashlight-card group rounded-lg border border-stone-200 p-7 md:p-8 flex flex-col" data-spec="1">
+                            <div class="relative z-10 mt-auto">
+                                <p class="font-display font-medium tracking-tighter text-5xl mb-3">0,1<span class="text-2xl text-stone-400 ml-1">mm</span></p>
+                                <h3 class="text-xl font-display font-medium tracking-tight mb-2">Ponta de agulha em aço inox</h3>
+                                <p class="text-sm text-stone-500 leading-relaxed mb-6">Linhas finas como um fio de cabelo, com tolerância de ±5 mícrons. Idênticas do primeiro ao último traço.</p>
+                                <!-- linha de 0,1 mm que se desenha no hover -->
+                                <div class="h-px bg-stone-200 relative overflow-hidden"><span class="absolute inset-y-0 left-0 w-0 bg-stone-900 group-hover:w-full transition-all duration-1000 ease-out"></span></div>
+                            </div>
+                        </article>
+
+                        <!-- 02 · Tinta -->
+                        <article class="fold-card spec-card flashlight-card group rounded-lg border border-stone-200 p-7 md:p-8 flex flex-col" data-spec="2">
+                            <div class="relative z-10 mt-auto">
+                                <p class="font-display font-medium tracking-tighter text-5xl mb-3">100<span class="text-2xl text-stone-400 ml-1">anos</span></p>
+                                <h3 class="text-xl font-display font-medium tracking-tight mb-2">Tinta pigmentada de arquivo</h3>
+                                <p class="text-sm text-stone-500 leading-relaxed">Preto absoluto, à prova d'água e resistente a UV. Não borra sobre marcadores nem desbota com o tempo.</p>
+                            </div>
+                        </article>
+
+                        <!-- 03 · Fluxo (card largo com traço que se desenha no scroll) -->
+                        <article class="fold-card spec-card flashlight-card group sm:col-span-2 rounded-lg border border-stone-200 p-7 md:p-10 relative overflow-hidden" data-spec="3">
+                            <div class="relative z-10 grid md:grid-cols-2 gap-8 items-end">
+                                <div>
+                                    <h3 class="text-2xl font-display font-medium tracking-tight mb-2">Fluxo capilar contínuo</h3>
+                                    <p class="text-sm text-stone-500 leading-relaxed max-w-sm">Um feltro dentro do corpo solta só a tinta que a ponta precisa. Dá para escrever perto de um quilômetro de linha antes de ela acabar.</p>
+                                </div>
+                                <div>
+                                    <p class="font-display font-medium tracking-tighter text-6xl md:text-7xl mb-4 tabular-nums"><span id="flow-counter">0</span><span class="text-3xl text-stone-400 ml-1">m</span></p>
+                                    <svg viewBox="0 0 400 90" class="w-full h-20 overflow-visible" aria-hidden="true">
+                                        <path d="M2 70 C 40 70, 50 20, 90 30 S 140 80, 180 55 S 230 8, 270 30 S 330 78, 360 40 S 392 18, 398 22"
+                                            fill="none" stroke="#e7e5e4" stroke-width="1.5" stroke-linecap="round" />
+                                        <path id="flow-path" pathLength="1" d="M2 70 C 40 70, 50 20, 90 30 S 140 80, 180 55 S 230 8, 270 30 S 330 78, 360 40 S 392 18, 398 22"
+                                            fill="none" stroke="#1c1917" stroke-width="1.5" stroke-linecap="round" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- 04 · Corpo -->
+                        <article class="fold-card spec-card flashlight-card group rounded-lg border border-stone-200 p-7 md:p-8 flex flex-col" data-spec="4">
+                            <div class="relative z-10 mt-auto">
+                                <p class="font-display font-medium tracking-tighter text-5xl mb-3">9<span class="text-2xl text-stone-400 ml-1">g</span></p>
+                                <h3 class="text-xl font-display font-medium tracking-tight mb-2">Corpo leve e sextavado</h3>
+                                <p class="text-sm text-stone-500 leading-relaxed">Pesa 9 gramas e tem seis faces, então não sai rolando da mesa. Dá para escrever por horas sem cansar a mão.</p>
+                            </div>
+                        </article>
+
+                        <!-- 05 · Clip -->
+                        <article class="fold-card spec-card flashlight-card group rounded-lg border border-stone-200 p-7 md:p-8 flex flex-col" data-spec="5">
+                            <div class="relative z-10 mt-auto">
+                                <p class="font-display font-medium tracking-tighter text-5xl mb-3">10k<span class="text-2xl text-stone-400 ml-1">ciclos</span></p>
+                                <h3 class="text-xl font-display font-medium tracking-tight mb-2">Clip em aço mola temperado</h3>
+                                <p class="text-sm text-stone-500 leading-relaxed">Volta para o lugar mesmo depois de dez mil aberturas e segura firme no bolso da camisa.</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Marquee (componente do design system) -->
+            <div class="relative z-10 border-t border-stone-300 bg-stone-100/50 py-4 overflow-hidden" aria-hidden="true">
+                <div class="animate-marquee whitespace-nowrap">
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">Só 9 gramas</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">Ponta 0,1 mm</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">Tinta de arquivo</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">À prova d'água</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">1 km de traço</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">Só 9 gramas</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">Ponta 0,1 mm</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">Tinta de arquivo</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">À prova d'água</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">1 km de traço</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             3ª DOBRA — UM DIA COM A PIGMENTUM
+             Relógio sticky (esq.) avança conforme os momentos do dia
+             rolam (dir.). Painel e fundo da seção escurecem do dia
+             para a noite; a tinta quase não se move.
+             Componentes: glass card, flashlight, stat tiles, data viz,
+             badges, tooltip, avatars e marquee — todos do design system.
+             ============================================================ -->
+        <section id="dia" class="relative z-20 border-t border-stone-300 bg-[#EAEAE5] overflow-x-clip">
+
+            <!-- ===== FUNDO SUTIL ===== -->
+            <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+                <!-- grid do DS com máscara radial (some nas bordas) -->
+                <div class="absolute inset-0 bg-grid day-grid-mask opacity-60"></div>
+                <!-- orbs desfocados do DS (flutuam + parallax) -->
+                <div id="day-orb-a" class="day-orb absolute top-[-8%] left-[-12%] w-[640px] h-[640px] bg-gradient-to-br from-white to-transparent rounded-full blur-3xl opacity-80"></div>
+                <div id="day-orb-b" class="day-orb day-orb-delay absolute top-[35%] right-[-14%] w-[560px] h-[560px] bg-gradient-to-br from-stone-200 to-transparent rounded-full blur-3xl opacity-60"></div>
+                <div id="day-orb-c" class="day-orb absolute bottom-[-10%] left-[20%] w-[520px] h-[520px] bg-gradient-to-tr from-white to-stone-300/50 rounded-full blur-3xl opacity-50"></div>
+                <!-- "entardecer": tom que escurece a seção conforme o relógio avança -->
+                <div id="day-dusk" class="absolute inset-0 bg-gradient-to-b from-transparent via-stone-300/40 to-stone-400/30 opacity-0"></div>
+                <!-- Verbete de fundo: PIGMENTUM (vertical, borda direita) -->
+                <div class="lexicon lexicon-vertical absolute top-[18%] right-[-2rem] md:right-0">
+                    <div class="lex-meta">
+                        <span class="text-stone-500">pig·men·tum</span><span>/pigˈmẽ.tũ/</span><span>s.m.</span><span>lat. pingere, pintar</span>
+                    </div>
+                    <p class="lex-word" data-lex-drift="10">Pigmentum</p>
+                </div>
+                <!-- linhas verticais do DS (12 colunas) -->
+                <div class="absolute inset-0 max-w-[1440px] mx-auto grid grid-cols-12 opacity-40">
+                    <div class="hidden md:block col-span-1 border-r border-stone-300"></div>
+                    <div class="hidden md:block col-span-1 border-r border-stone-300"></div>
+                    <div class="hidden md:block col-span-1 border-r border-stone-300"></div>
+                    <div class="hidden md:block col-span-1 border-r border-stone-300"></div>
+                    <div class="hidden md:block col-span-1 border-r border-stone-300"></div>
+                    <div class="hidden md:block col-span-1 border-r border-stone-300"></div>
+                    <div class="hidden md:block col-span-1 border-r border-stone-300"></div>
+                    <div class="hidden md:block col-span-1 border-r border-stone-300"></div>
+                    <div class="hidden md:block col-span-1 border-r border-stone-300"></div>
+                    <div class="hidden md:block col-span-1 border-r border-stone-300"></div>
+                    <div class="hidden md:block col-span-1 border-r border-stone-300"></div>
+                </div>
+            </div>
+
+            <!-- Marquee do DS: a agenda do dia -->
+            <div class="relative z-10 border-b border-stone-300 bg-stone-100/50 backdrop-blur-sm py-4 overflow-hidden" aria-hidden="true">
+                <div class="animate-marquee whitespace-nowrap">
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">07:30 · Café</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">10:00 · Reunião</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">13:00 · Em trânsito</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">16:00 · Revisão</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">23:40 · Ideia</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">07:30 · Café</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">10:00 · Reunião</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">13:00 · Em trânsito</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">16:00 · Revisão</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">23:40 · Ideia</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                </div>
+            </div>
+
+            <div class="relative z-10 max-w-[1440px] mx-auto px-6 md:px-16 lg:px-24 pt-20 md:pt-28 pb-20 md:pb-28">
+
+                <!-- ---------- Cabeçalho ---------- -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-14 md:mb-20">
+                    <div class="lg:col-span-8">
+                        <h2 class="font-display font-medium tracking-tighter leading-[0.95] text-[clamp(2.5rem,6vw,5.25rem)]">
+                            <span class="text-reveal-wrapper"><span class="day-line block text-stone-900">Do primeiro café</span></span>
+                            <span class="text-reveal-wrapper"><span class="day-line block text-stone-300">à última ideia.</span></span>
+                        </h2>
+                    </div>
+                    <p class="day-fade lg:col-span-4 text-base md:text-lg text-stone-500 font-light leading-relaxed text-balance">
+                        Caneta boa é aquela que você esquece que está usando. Acompanhe a Pigmentum
+                        do café da manhã até a ideia que aparece antes de dormir.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-10">
+
+                    <!-- ===== RELÓGIO (sticky) ===== -->
+                    <div class="lg:col-span-5 sticky top-[76px] lg:top-28 self-start z-20">
+                        <div id="day-panel" class="day-panel relative overflow-hidden rounded-xl border border-white/50 bg-white/60 backdrop-blur-md shadow-lg p-5 md:p-8 lg:p-10">
+                            <!-- camada noturna -->
+                            <div id="day-night" class="absolute inset-0 bg-stone-900 opacity-0 pointer-events-none"></div>
+                            <!-- brilho que acompanha o horário -->
+                            <div id="day-glow" class="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-gradient-to-br from-white to-transparent blur-3xl opacity-90 pointer-events-none"></div>
+
+                            <div class="relative z-10">
+                                <div class="flex items-center justify-end mb-3 md:mb-8">
+                                    <span class="relative w-6 h-6 text-xl">
+                                        <iconify-icon id="day-sun" icon="solar:sun-2-linear" class="day-fg absolute inset-0 animate-spin-slow transition-opacity duration-700"></iconify-icon>
+                                        <iconify-icon id="day-moon" icon="solar:moon-stars-linear" class="day-fg absolute inset-0 opacity-0 scale-50 transition-all duration-700"></iconify-icon>
+                                    </span>
+                                </div>
+
+                                <div class="flex items-end justify-between gap-4 lg:block">
+                                    <div>
+                                        <p id="day-clock" class="day-fg font-display font-medium tracking-tighter tabular-nums leading-none text-stone-900 text-5xl md:text-7xl lg:text-[7rem]">07:30</p>
+                                        <p id="day-moment" class="day-muted mt-2 lg:mt-4 font-mono text-xs uppercase tracking-widest text-stone-500">Lista do café</p>
+                                    </div>
+                                    <!-- tinta (mobile) -->
+                                    <div class="lg:hidden text-right shrink-0">
+                                        <span class="day-muted font-mono text-[10px] uppercase tracking-widest text-stone-400 block mb-1">Tinta</span>
+                                        <span class="day-ink-value day-fg font-display font-bold text-2xl tabular-nums">100%</span>
+                                    </div>
+                                </div>
+
+                                <!-- Data Visualization do DS: tinta ao longo do dia -->
+                                <div class="hidden lg:block mt-10 p-5 rounded-lg border border-stone-200 bg-white/70 day-chart-card">
+                                    <div class="mb-4">
+                                        <span class="text-[10px] uppercase font-mono text-stone-400 block mb-1">Tinta restante</span>
+                                        <span class="day-ink-value text-3xl font-display font-medium tabular-nums text-stone-900">100%</span>
+                                    </div>
+                                    <svg viewBox="0 0 100 30" class="w-full h-auto overflow-visible" aria-hidden="true">
+                                        <defs>
+                                            <linearGradient id="inkGradient" x1="0" x2="0" y1="0" y2="1">
+                                                <stop offset="0%" stop-color="#1c1917" stop-opacity="0.1" />
+                                                <stop offset="100%" stop-color="#1c1917" stop-opacity="0" />
+                                            </linearGradient>
+                                        </defs>
+                                        <path d="M0 4 L15.5 6.4 L34 8.4 L52.6 11.2 L100 16 V30 H0 Z" fill="url(#inkGradient)" />
+                                        <path d="M0 4 L15.5 6.4 L34 8.4 L52.6 11.2 L100 16" fill="none" stroke="#d6d3d1" stroke-width="1.5"
+                                            vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path id="day-ink-line" pathLength="1" d="M0 4 L15.5 6.4 L34 8.4 L52.6 11.2 L100 16" fill="none" stroke="#1c1917" stroke-width="1.5"
+                                            vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" />
+                                        <circle id="day-ink-dot" cx="0" cy="4" r="2.5" fill="#EAEAE5" stroke="#1c1917" stroke-width="2" />
+                                    </svg>
+                                </div>
+
+                                <!-- Régua de 24h -->
+                                <div class="hidden md:block mt-6 lg:mt-8">
+                                    <div class="relative h-7">
+                                        <div class="day-ruler absolute inset-x-0 bottom-0 h-3"></div>
+                                        <span id="day-marker" class="absolute bottom-0 w-px h-7 bg-stone-900 day-bar" style="left: 31%">
+                                            <span class="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-stone-900 day-bar"></span>
+                                        </span>
+                                    </div>
+                                    <div class="day-muted flex justify-between mt-2 font-mono text-[10px] text-stone-400">
+                                        <span>00h</span><span>06h</span><span>12h</span><span>18h</span><span>24h</span>
+                                    </div>
+                                </div>
+
+                                <!-- Stat tiles do DS -->
+                                <div class="hidden lg:grid mt-8 grid-cols-3 gap-3">
+                                    <div class="day-tile p-3 border border-stone-200 bg-white hover:scale-105 transition-transform duration-300 flex flex-col items-center justify-center gap-1 rounded-sm">
+                                        <span id="day-hours" class="text-xl font-bold font-display tabular-nums text-stone-900">0h00</span>
+                                        <span class="text-[10px] uppercase font-mono text-stone-400">De uso</span>
+                                    </div>
+                                    <div class="day-tile p-3 border border-stone-200 bg-white hover:scale-105 transition-transform duration-300 flex flex-col items-center justify-center gap-1 rounded-sm">
+                                        <span class="text-xl font-bold font-display text-stone-900">0</span>
+                                        <span class="text-[10px] uppercase font-mono text-stone-400">Borrões</span>
+                                    </div>
+                                    <div class="day-tile p-3 border border-stone-200 bg-white hover:scale-105 transition-transform duration-300 flex flex-col items-center justify-center gap-1 rounded-sm">
+                                        <span class="text-xl font-bold font-display text-stone-900">0</span>
+                                        <span class="text-[10px] uppercase font-mono text-stone-400">Vazamentos</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== MOMENTOS DO DIA (glass cards do DS) ===== -->
+                    <div id="day-track" class="day-track lg:col-span-7 flex flex-col gap-5 md:gap-6">
+
+                        <!-- 07:30 -->
+                        <article class="day-card flashlight-card group rounded-xl border border-white/50 bg-white/60 backdrop-blur-md shadow-lg hover:shadow-xl transition-all duration-500 p-7 md:p-10"
+                            data-time="07:30" data-moment="Lista do café" data-ink="100" data-night="0">
+                            <div class="relative z-10">
+                                <div class="flex items-center justify-between mb-8">
+                                    <span class="text-xs font-mono uppercase tracking-widest text-stone-500 border border-stone-200 px-2 py-1 rounded-sm bg-stone-50">07:30</span>
+                                    <div class="day-icon w-12 h-12 rounded-full bg-gradient-to-br from-stone-100 to-stone-200 border border-stone-100 flex items-center justify-center text-xl shadow-inner">
+                                        <iconify-icon icon="solar:cup-hot-linear"></iconify-icon>
+                                    </div>
+                                </div>
+                                <h3 class="text-2xl md:text-3xl font-display font-normal tracking-tight mb-3 group-hover:translate-x-2 transition-transform duration-300">Destampou, escreveu.</h3>
+                                <p class="text-sm md:text-base text-stone-500 leading-relaxed max-w-md mb-8">Nada de rabiscar o canto da folha para a tinta "pegar". A tinta sai na primeira encostada no papel, toda manhã.</p>
+                                <svg viewBox="0 0 400 40" class="w-full max-w-md h-10 overflow-visible" aria-hidden="true">
+                                    <path class="day-stroke" pathLength="1" d="M2 28 C 30 6, 52 34, 80 18 S 130 8, 160 22 S 210 34, 240 16 S 300 8, 330 20 S 380 30, 398 14"
+                                        fill="none" stroke="#1c1917" stroke-width="1.5" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                        </article>
+
+                        <!-- 10:00 -->
+                        <article class="day-card flashlight-card group rounded-xl border border-white/50 bg-white/60 backdrop-blur-md shadow-lg hover:shadow-xl transition-all duration-500 p-7 md:p-10"
+                            data-time="10:00" data-moment="Reunião que importa" data-ink="99.4" data-night="0">
+                            <div class="relative z-10">
+                                <div class="flex items-center justify-between mb-8">
+                                    <span class="text-xs font-mono uppercase tracking-widest text-stone-500 border border-stone-200 px-2 py-1 rounded-sm bg-stone-50">10:00</span>
+                                    <div class="day-icon w-12 h-12 rounded-full bg-gradient-to-br from-stone-100 to-stone-200 border border-stone-100 flex items-center justify-center text-xl shadow-inner">
+                                        <iconify-icon icon="solar:notebook-linear"></iconify-icon>
+                                    </div>
+                                </div>
+                                <h3 class="text-2xl md:text-3xl font-display font-normal tracking-tight mb-3 group-hover:translate-x-2 transition-transform duration-300">Seca antes de você virar a página.</h3>
+                                <p class="text-sm md:text-base text-stone-500 leading-relaxed max-w-md mb-8">Três segundos e o traço está fixo. Anote rápido, arraste a mão, feche o caderno. Canhotos, finalmente, em paz.</p>
+                                <div class="grid grid-cols-2 gap-3 max-w-md">
+                                    <div class="p-4 rounded-lg border border-dashed border-stone-300 bg-stone-100/60">
+                                        <span class="block font-mono text-[10px] uppercase tracking-widest text-stone-400 mb-3">Caneta comum</span>
+                                        <span class="block font-display text-xl text-stone-500 blur-[1.5px] skew-x-[-8deg] opacity-80">Reunião 10h</span>
+                                    </div>
+                                    <div class="p-4 rounded-lg border border-stone-200 bg-white shadow-sm">
+                                        <span class="block font-mono text-[10px] uppercase tracking-widest text-stone-400 mb-3">Pigmentum</span>
+                                        <span class="block font-display text-xl text-stone-900">Reunião 10h</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- 13:00 -->
+                        <article class="day-card flashlight-card group rounded-xl border border-white/50 bg-white/60 backdrop-blur-md shadow-lg hover:shadow-xl transition-all duration-500 p-7 md:p-10 relative overflow-hidden"
+                            data-time="13:00" data-moment="Bolso, bolsa, avião" data-ink="98.9" data-night="0.12">
+                            <iconify-icon icon="solar:plain-2-linear" class="absolute -right-4 -bottom-6 text-[10rem] text-stone-200/70 group-hover:-translate-y-2 group-hover:translate-x-2 transition-transform duration-700 z-0"></iconify-icon>
+                            <div class="relative z-10">
+                                <div class="flex items-center justify-between mb-8">
+                                    <span class="text-xs font-mono uppercase tracking-widest text-stone-500 border border-stone-200 px-2 py-1 rounded-sm bg-stone-50">13:00</span>
+                                    <div class="day-icon w-12 h-12 rounded-full bg-gradient-to-br from-stone-100 to-stone-200 border border-stone-100 flex items-center justify-center text-xl shadow-inner">
+                                        <iconify-icon icon="solar:case-linear"></iconify-icon>
+                                    </div>
+                                </div>
+                                <h3 class="text-2xl md:text-3xl font-display font-normal tracking-tight mb-3 group-hover:translate-x-2 transition-transform duration-300">Vai com você. Não vaza em você.</h3>
+                                <p class="text-sm md:text-base text-stone-500 leading-relaxed max-w-md">Tampa vedada e clip de aço que segura firme. No bolso da camisa, no fundo da bolsa ou dentro do avião, a sua roupa continua limpa.</p>
+                            </div>
+                        </article>
+
+                        <!-- 16:00 -->
+                        <article class="day-card flashlight-card group rounded-xl border border-white/50 bg-white/60 backdrop-blur-md shadow-lg hover:shadow-xl transition-all duration-500 p-7 md:p-10"
+                            data-time="16:00" data-moment="Marca-texto por cima" data-ink="98.2" data-night="0.3">
+                            <div class="relative z-10">
+                                <div class="flex items-center justify-between mb-8">
+                                    <span class="text-xs font-mono uppercase tracking-widest text-stone-500 border border-stone-200 px-2 py-1 rounded-sm bg-stone-50">16:00</span>
+                                    <div class="day-icon w-12 h-12 rounded-full bg-gradient-to-br from-stone-100 to-stone-200 border border-stone-100 flex items-center justify-center text-xl shadow-inner">
+                                        <iconify-icon icon="solar:pallete-2-linear"></iconify-icon>
+                                    </div>
+                                </div>
+                                <h3 class="text-2xl md:text-3xl font-display font-normal tracking-tight mb-3 group-hover:translate-x-2 transition-transform duration-300">Marca-texto, aquarela, café. Pode vir.</h3>
+                                <p class="text-sm md:text-base text-stone-500 leading-relaxed max-w-md mb-8">O pigmento se fixa nas fibras do papel e não se dissolve. Pode grifar, pintar ou derramar café por cima que o traço fica onde você deixou.</p>
+                                <!-- Hover: marca-texto passa por cima (sem apagar o traço) -->
+                                <div class="relative inline-block">
+                                    <span class="relative z-10 font-display text-2xl md:text-3xl text-stone-900">Ideia aprovada.</span>
+                                    <span class="absolute left-[-4px] right-[-4px] bottom-1 h-4 bg-stone-300/70 mix-blend-multiply origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out rounded-sm"></span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- 23:40 (card escuro — "Media Card" do DS) -->
+                        <article class="day-card group rounded-xl border border-stone-800 bg-stone-900 text-white p-7 md:p-10 relative overflow-hidden shadow-2xl"
+                            data-time="23:40" data-moment="A ideia da madrugada" data-ink="97" data-night="1">
+                            <div class="absolute top-[-30%] right-[-20%] w-[420px] h-[420px] rounded-full bg-gradient-to-br from-stone-700/60 to-transparent blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-1000"></div>
+                            <!-- estrelas sutis -->
+                            <div class="day-stars absolute inset-0 pointer-events-none opacity-40" aria-hidden="true"></div>
+                            <div class="relative z-10">
+                                <div class="flex items-center justify-between mb-8">
+                                    <span class="inline-block px-2 py-1 bg-white/10 backdrop-blur text-white text-[10px] font-mono uppercase tracking-widest rounded-sm">23:40</span>
+                                    <div class="w-12 h-12 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-xl text-white group-hover:scale-110 transition-transform">
+                                        <iconify-icon icon="solar:moon-stars-linear"></iconify-icon>
+                                    </div>
+                                </div>
+                                <h3 class="text-2xl md:text-3xl font-display font-normal tracking-tight mb-3 group-hover:translate-x-2 transition-transform duration-300">Esqueceu destampada? Ela esperou.</h3>
+                                <p class="text-sm md:text-base text-stone-400 leading-relaxed max-w-md mb-8">A ideia chegou à meia-noite e a caneta estava largada sem tampa desde a tarde. A ponta aguenta até 24 horas aberta sem ressecar, então ainda estava pronta.</p>
+                                <div class="flex items-end gap-10">
+                                    <div>
+                                        <span class="block font-display font-medium tracking-tighter text-5xl">24<span class="text-2xl text-stone-500 ml-1">h</span></span>
+                                        <span class="block font-mono text-[10px] uppercase tracking-widest text-stone-500 mt-1">Sem tampa</span>
+                                    </div>
+                                    <div>
+                                        <span class="block font-display font-medium tracking-tighter text-5xl">97<span class="text-2xl text-stone-500 ml-1">%</span></span>
+                                        <span class="block font-mono text-[10px] uppercase tracking-widest text-stone-500 mt-1">Tinta ao fim do dia</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- ---------- CTA de fechamento (footer do DS como referência) ---------- -->
+                <div class="day-fade mt-20 md:mt-28 relative overflow-hidden rounded-xl bg-stone-900 text-white p-8 md:p-16 shadow-2xl">
+                    <div class="absolute bottom-0 left-0 w-full overflow-hidden pointer-events-none opacity-5" aria-hidden="true">
+                        <p class="text-[18vw] lg:text-[14rem] font-display font-bold leading-none whitespace-nowrap">PIGMENTUM</p>
+                    </div>
+                    <div class="absolute -top-32 -left-24 w-[480px] h-[480px] rounded-full bg-gradient-to-br from-stone-700/50 to-transparent blur-3xl pointer-events-none" aria-hidden="true"></div>
+                    <div class="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-10">
+                        <div>
+                            <h3 class="font-display font-medium tracking-tighter leading-[0.95] text-4xl md:text-6xl">
+                                Um dia inteiro.<br><span class="text-stone-500">Nenhuma falha.</span>
+                            </h3>
+                        </div>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="#comprar" class="group relative px-8 py-4 bg-white text-stone-900 overflow-hidden rounded-full
+                                      transition-all duration-300 hover:shadow-2xl hover:shadow-black/40 hover:-translate-y-1">
+                                <span class="absolute inset-0 bg-stone-200 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></span>
+                                <span class="relative z-10 font-mono text-xs uppercase tracking-widest flex items-center gap-2">
+                                    Comprar Agora
+                                    <iconify-icon icon="solar:arrow-right-linear" class="text-base group-hover:translate-x-1 transition-transform"></iconify-icon>
+                                </span>
+                            </a>
+                            <a href="#explorar" data-scroll-to class="px-8 py-4 border border-stone-700 hover:bg-white/5 transition-colors rounded-full text-white font-mono text-xs uppercase tracking-widest">
+                                Ver especificações
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             4ª DOBRA — GARANTIA (vídeo de fundo + box com glow "flow")
+             Efeitos adaptados de templates/animations-gemini2:
+             · Fluid Geometry → blob "morph" desfocado atrás da box
+             · Nexus fog canvas → névoa fluindo sobre o vídeo
+             · Swoosh → sublinhado desenhado no destaque
+             · Nexus parallax → tilt 3D sutil da box com o mouse
+             Paleta e componentes: design_system.html (stone, btn, badges)
+             ============================================================ -->
+        <section id="garantia" data-nav-dark class="flow-section relative z-30 -mt-12 rounded-t-[2rem] md:rounded-t-[3rem] overflow-hidden bg-stone-900 text-white">
+
+            <!-- ===== FUNDO: vídeo + névoa + véus ===== -->
+            <div class="absolute inset-0 z-0" aria-hidden="true">
+                <video id="flow-video" class="absolute inset-0 w-full h-full object-cover opacity-70 will-change-transform"
+                    src="./video2.mp4" muted loop playsinline preload="metadata" disablepictureinpicture></video>
+                <!-- névoa fluindo (canvas) -->
+                <canvas id="flow-fog" class="absolute inset-0 w-full h-full mix-blend-screen opacity-80"></canvas>
+                <!-- véus para legibilidade + fusão com o rodapé -->
+                <div class="absolute inset-0 bg-gradient-to-r from-stone-900/90 via-stone-900/50 to-stone-900/20"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-stone-900/60 via-transparent to-stone-900"></div>
+                <!-- grid do DS, bem leve -->
+                <div class="absolute inset-0 flow-grid opacity-40"></div>
+            </div>
+
+            <div class="relative z-10 max-w-[1440px] mx-auto px-6 md:px-16 lg:px-24 min-h-[100svh] py-24 md:py-32 grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-10 items-center">
+
+                <!-- ===== TEXTO ===== -->
+                <div class="lg:col-span-7">
+                    <h2 class="font-display font-medium tracking-tighter leading-[0.95] text-[clamp(2.25rem,4.2vw,4.5rem)]">
+                        <span class="text-reveal-wrapper"><span class="flow-line block">Escreva por 30 dias.</span></span>
+                        <span class="text-reveal-wrapper"><span class="flow-line block text-stone-500">Se falhar, é por nossa conta.</span></span>
+                    </h2>
+                    <p class="flow-fade mt-8 max-w-md text-base md:text-lg text-stone-400 font-light leading-relaxed">
+                        Use no caderno, no bolso, de madrugada. Se em 30 dias ela falhar um traço,
+                        a gente troca a caneta ou devolve o seu dinheiro.
+                    </p>
+                </div>
+
+                <!-- ===== BOX COM GLOW ===== -->
+                <div class="lg:col-span-5 flex justify-center lg:justify-end" style="perspective: 1200px;">
+                    <div id="flow-box-wrap" class="flow-fade relative w-full max-w-md">
+
+                        <!-- blob "morph" desfocado (Fluid Geometry) atrás da box -->
+                        <div class="flow-blob absolute -inset-10 bg-white/20 blur-3xl" aria-hidden="true"></div>
+                        <div class="flow-blob flow-blob-ring absolute -inset-6 border border-white/10" aria-hidden="true"></div>
+
+                        <!-- halo: cópia desfocada do feixe, por fora da box -->
+                        <div class="glow-halo" aria-hidden="true"><span class="glow-spin"></span></div>
+                        <!-- moldura de 1px: o feixe gira atrás e só aparece na borda -->
+                        <div id="flow-box" class="glow-frame relative z-10 rounded-2xl p-px">
+                        <span class="glow-spin" aria-hidden="true"></span>
+                        <div class="glow-box flashlight-card relative z-10 rounded-[calc(1rem-1px)] p-8 md:p-10">
+                            <div class="relative z-10">
+                                <div class="flex items-center justify-between mb-10">
+                                    <span class="inline-flex items-center px-4 py-2 md:px-5 md:py-2.5 bg-white/15 backdrop-blur border border-white/25 text-white text-sm md:text-base font-mono font-semibold uppercase tracking-[0.25em] rounded-md shadow-[0_0_24px_rgba(255,255,255,.15)]">Garantia</span>
+                                    <div class="w-12 h-12 rounded-full bg-white text-stone-900 flex items-center justify-center text-xl shadow-[0_0_30px_rgba(255,255,255,.35)]">
+                                        <iconify-icon icon="solar:shield-check-linear"></iconify-icon>
+                                    </div>
+                                </div>
+                                <!-- destaque + swoosh do template -->
+                                <div class="relative inline-block mb-2">
+                                    <p class="relative z-10 font-display font-medium tracking-tighter leading-none text-7xl md:text-8xl glow-text">30 dias</p>
+                                    <svg class="absolute -bottom-3 left-0 w-full h-4 text-white/70" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
+                                        <path id="flow-swoosh" pathLength="1" d="M3 15 Q 50 3 97 13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+                                    </svg>
+                                </div>
+                                <p class="text-stone-400 text-sm mt-6 mb-8">para testar no seu dia a dia.</p>
+
+                                <ul class="space-y-3 mb-10 text-sm text-stone-300">
+                                    <li class="flex items-center gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-lg text-white"></iconify-icon>Troca imediata se a ponta falhar</li>
+                                    <li class="flex items-center gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-lg text-white"></iconify-icon>Frete de devolução por nossa conta</li>
+                                    <li class="flex items-center gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-lg text-white"></iconify-icon>Reembolso em até 7 dias úteis</li>
+                                </ul>
+
+                                <div class="flex flex-wrap items-center gap-4">
+                                    <a href="#comprar" class="group relative px-7 py-4 bg-white text-stone-900 overflow-hidden rounded-full transition-all duration-300 hover:shadow-[0_0_40px_rgba(255,255,255,.35)] hover:-translate-y-1">
+                                        <span class="absolute inset-0 bg-stone-200 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></span>
+                                        <span class="relative z-10 font-mono text-xs uppercase tracking-widest flex items-center gap-2">
+                                            Testar a minha
+                                            <iconify-icon icon="solar:arrow-right-linear" class="text-base group-hover:translate-x-1 transition-transform"></iconify-icon>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             5ª DOBRA — ASSINATURA
+             A caneta (SVG) pousa no papel, assina "Pigmentum", desenha o
+             floreio e levanta. Toca sozinha ao entrar na tela (uma vez);
+             botão "Assinar de novo" repete.
+             ============================================================ -->
+        <section id="assinatura" class="relative z-40 -mt-12 rounded-t-[2rem] md:rounded-t-[3rem] overflow-hidden bg-[#EAEAE5] text-stone-900 shadow-[0_-40px_80px_-30px_rgba(0,0,0,.35)]">
+            <!-- fundo sutil (orbs + grid do DS) -->
+            <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+                <div class="absolute inset-0 bg-grid day-grid-mask opacity-50"></div>
+                <div class="day-orb absolute -top-40 left-[10%] w-[600px] h-[600px] rounded-full bg-gradient-to-br from-white to-transparent blur-3xl opacity-80"></div>
+                <div class="day-orb day-orb-delay absolute -bottom-40 right-[5%] w-[520px] h-[520px] rounded-full bg-gradient-to-tr from-white to-stone-300/50 blur-3xl opacity-60"></div>
+            </div>
+
+            <div class="relative z-10 max-w-[1440px] mx-auto px-6 md:px-16 lg:px-24 py-24 md:py-32 text-center">
+                <p class="font-display font-medium tracking-tight text-2xl md:text-3xl text-stone-500 mb-16 md:mb-28">Aqui ela assina o próprio nome.</p>
+
+                <svg id="sig-svg" viewBox="0 0 1000 360" class="w-full max-w-5xl mx-auto h-auto overflow-visible" role="img" aria-label="Caneta assinando Pigmentum à mão">
+                    <defs>
+                        <!-- Tinta absorvida pelo papel: bordas levemente irregulares -->
+                        <filter id="ink" x="-5%" y="-20%" width="110%" height="140%">
+                            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="n" />
+                            <feDisplacementMap in="SourceGraphic" in2="n" scale="1.4" xChannelSelector="R" yChannelSelector="G" result="d" />
+                            <feGaussianBlur in="d" stdDeviation="0.3" />
+                        </filter>
+                        <filter id="pen-shadow" x="-20%" y="-50%" width="140%" height="200%">
+                            <feGaussianBlur stdDeviation="5" />
+                        </filter>
+                        <filter id="lens-drop" x="-50%" y="-50%" width="200%" height="200%">
+                            <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#1c1917" flood-opacity=".22" />
+                        </filter>
+                        <!-- lupa: recorte circular + grade de papel milimetrado -->
+                        <clipPath id="lens-clip"><circle cx="0" cy="0" r="66" /></clipPath>
+                        <pattern id="lens-grid" width="12" height="12" patternUnits="userSpaceOnUse">
+                            <path d="M12 0 H0 V12" fill="none" stroke="#e7e5e4" stroke-width="1" />
+                        </pattern>
+                        <radialGradient id="lens-glass" cx="35%" cy="30%" r="75%">
+                            <stop offset="0" stop-color="#fff" stop-opacity=".55" />
+                            <stop offset=".45" stop-color="#fff" stop-opacity="0" />
+                            <stop offset="1" stop-color="#1c1917" stop-opacity=".08" />
+                        </radialGradient>
+                        <!-- sombreamento cilíndrico (caneta deitada) -->
+                        <linearGradient id="sp-body" x1="0" x2="0" y1="0" y2="1">
+                            <stop offset="0" stop-color="#c9c9c4" /><stop offset=".25" stop-color="#f4f4f1" />
+                            <stop offset=".45" stop-color="#ffffff" /><stop offset=".75" stop-color="#e7e7e3" />
+                            <stop offset="1" stop-color="#b5b5b0" />
+                        </linearGradient>
+                        <linearGradient id="sp-metal" x1="0" x2="0" y1="0" y2="1">
+                            <stop offset="0" stop-color="#57534e" /><stop offset=".5" stop-color="#e7e5e4" /><stop offset="1" stop-color="#44403c" />
+                        </linearGradient>
+                    </defs>
+
+                    <!-- linha de assinatura -->
+                    <path d="M110 300 H920" stroke="#d6d3d1" stroke-width="1" stroke-dasharray="3 5" fill="none" />
+                    <text x="110" y="326" font-family="JetBrains Mono" font-size="11" letter-spacing="3" fill="#a8a29e">X</text>
+                    <text x="920" y="326" text-anchor="end" font-family="JetBrains Mono" font-size="10" letter-spacing="3" fill="#a8a29e">PIGMENTUM 0.1</text>
+
+                    <!-- ===== TINTA: traços cursivos desenhados à mão, na ordem em que a caneta escreve ===== -->
+                    <g id="sig-ink" transform="translate(0 232) skewX(-10) translate(0 -232)" filter="url(#ink)" fill="none" stroke="#1c1917" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- 1 · P -->
+                        <path class="sig-stroke" d="M150 238 C 155 200, 165 140, 178 84 C 205 58, 292 64, 287 114 C 283 156, 222 168, 182 150" />
+                        <!-- 2 · igmentum (sem tirar a caneta do papel) -->
+                        <path class="sig-stroke" d="M228 232 C 238 214, 248 190, 255 176 C 251 200, 248 224, 258 232 C 268 237, 282 216, 292 200 C 298 182, 318 172, 328 182 C 337 196, 322 226, 302 222 C 286 218, 290 190, 312 180 C 326 174, 334 180, 331 196 C 328 240, 322 290, 300 305 C 282 316, 268 300, 284 280 C 300 260, 332 240, 352 226 C 358 205, 362 186, 368 179 C 376 174, 386 181, 384 200 C 383 214, 381 225, 381 232 C 383 205, 393 178, 406 178 C 419 178, 419 200, 417 215 C 416 225, 415 230, 417 232 C 421 205, 431 178, 444 178 C 457 178, 456 205, 453 220 C 451 233, 461 237, 472 228 C 487 218, 506 205, 504 190 C 502 177, 485 180, 482 196 C 478 216, 491 236, 511 232 C 522 229, 530 221, 536 211 C 541 196, 545 182, 548 178 C 549 196, 547 216, 547 232 C 551 205, 563 178, 577 178 C 591 178, 589 205, 587 220 C 586 233, 596 237, 607 228 C 615 210, 623 170, 631 132 C 627 166, 621 205, 623 225 C 625 237, 641 235, 652 225 C 657 210, 661 191, 663 180 C 661 201, 657 225, 669 232 C 683 237, 693 210, 699 180 C 697 201, 693 225, 703 232 C 713 237, 723 229, 730 221 C 735 205, 739 186, 745 179 C 752 174, 762 181, 760 200 C 759 214, 757 225, 757 232 C 759 205, 769 178, 782 178 C 795 178, 795 200, 793 215 C 792 225, 791 230, 793 232 C 797 205, 807 178, 820 178 C 833 178, 832 205, 829 220 C 827 233, 838 237, 852 226 C 872 211, 892 200, 908 194" />
+                        <!-- 3 · pingo do i -->
+                        <path class="sig-stroke" d="M259 149 C 262 145, 267 148, 264 153 C 261 157, 256 154, 259 149" />
+                        <!-- 4 · corte do t -->
+                        <path class="sig-stroke" d="M606 158 C 636 151, 664 150, 694 155" />
+                        <!-- 5 · floreio -->
+                        <path class="sig-stroke" d="M168 272 C 350 304, 610 256, 882 262 C 922 263, 938 250, 926 243" />
+                    </g>
+
+                    <!-- sombra da caneta no papel -->
+                    <g id="sig-shadow" opacity="0">
+                        <g transform="rotate(-38)">
+                            <path d="M0 0 L32 -9 H238 V9 H32 Z" fill="rgba(28,25,23,.28)" filter="url(#pen-shadow)" />
+                        </g>
+                    </g>
+
+                    <!-- caneta (ponta na origem, corpo para a direita, inclinada) -->
+                    <g id="sig-pen" opacity="0">
+                        <g transform="rotate(-38)">
+                            <path d="M0 -0.9 H15 V0.9 H0 Z" fill="url(#sp-metal)" />
+                            <path d="M0 0 L2 -0.9 V0.9 Z" fill="#1c1917" />
+                            <path d="M15 -2.6 L33 -8.2 V8.2 L15 2.6 Z" fill="url(#sp-body)" />
+                            <rect x="33" y="-10" width="12" height="20" rx="1.5" fill="url(#sp-body)" />
+                            <rect x="45" y="-9" width="186" height="18" fill="url(#sp-body)" />
+                            <rect x="231" y="-9.6" width="9" height="19.2" rx="3" fill="url(#sp-body)" />
+                            <text x="96" y="3.6" font-family="Space Grotesk" font-size="9.5" letter-spacing="4.5" fill="#1c1917">ARTOOLS</text>
+                            <text x="176" y="3.2" font-family="Space Grotesk" font-style="italic" font-weight="600" font-size="8.5" fill="#1c1917">Pigmentum</text>
+                            <text x="214" y="3" font-family="JetBrains Mono" font-size="6.5" fill="#1c1917">0.1</text>
+                        </g>
+                    </g>
+
+                    <!-- ===== LUPA ×3: acompanha a ponta mostrando o traço de 0,1 mm ===== -->
+                    <g id="sig-lens" opacity="0" pointer-events="none">
+                        <g id="sig-lens-pos">
+                            <!-- haste ligando a lupa à ponta -->
+                            <path id="sig-lens-arm" d="M0 0 L0 0" stroke="#a8a29e" stroke-width="1" stroke-dasharray="2 3" fill="none" />
+                            <g filter="url(#lens-drop)">
+                                <circle r="66" fill="#f7f7f4" />
+                            </g>
+                            <g clip-path="url(#lens-clip)">
+                                <rect x="-66" y="-66" width="132" height="132" fill="url(#lens-grid)" />
+                                <g id="sig-lens-content"><use href="#sig-ink" /></g>
+                                <!-- ponta da agulha ampliada -->
+                                <g id="sig-lens-tip" transform="rotate(-38)">
+                                    <path d="M0 -2.4 H60 V2.4 H0 Z" fill="url(#sp-metal)" />
+                                    <path d="M60 -8 L110 -22 V22 L60 8 Z" fill="url(#sp-body)" />
+                                </g>
+                                <circle r="66" fill="url(#lens-glass)" />
+                            </g>
+                            <circle r="66" fill="none" stroke="#fff" stroke-width="4" />
+                            <circle r="68.5" fill="none" stroke="#d6d3d1" stroke-width="1" />
+                            <text y="90" text-anchor="middle" font-family="JetBrains Mono" font-size="10" letter-spacing="2.5" fill="#78716c">×3 · 0,1 MM</text>
+                        </g>
+                    </g>
+                </svg>
+
+                <div class="mt-8 flex justify-center">
+                    <button id="sig-replay" type="button" class="px-4 py-2 text-stone-500 hover:text-stone-900 text-sm font-medium transition-colors inline-flex items-center gap-2 group">
+                        <iconify-icon icon="solar:restart-linear" class="group-hover:-rotate-180 transition-transform duration-500"></iconify-icon>
+                        Assinar de novo
+                    </button>
+                </div>
+
+                <!-- Fechamento: voltar ao topo + comprar (botões do design system, iguais aos da hero) -->
+                <div class="mt-20 md:mt-28 pt-12 border-t border-stone-300/70 max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
+                    <a href="#hero-track" data-scroll-to class="group w-full sm:w-auto px-8 py-4 border border-stone-300 bg-white/40 backdrop-blur-sm
+                              hover:bg-white transition-colors rounded-full text-stone-900 font-mono text-xs
+                              uppercase tracking-widest flex items-center justify-center gap-2">
+                        <iconify-icon icon="solar:arrow-up-linear" class="text-base group-hover:-translate-y-1 transition-transform"></iconify-icon>
+                        Voltar ao início
+                    </a>
+                    <a href="#comprar" class="group relative w-full sm:w-auto px-8 py-4 bg-stone-900 text-white overflow-hidden rounded-full
+                              transition-all duration-300 hover:shadow-2xl hover:shadow-stone-900/20 hover:-translate-y-1">
+                        <span class="absolute inset-0 bg-stone-700 translate-y-full group-hover:translate-y-0
+                                     transition-transform duration-500 ease-out"></span>
+                        <span class="relative z-10 font-mono text-xs uppercase tracking-widest flex items-center justify-center gap-2">
+                            Comprar Agora
+                            <iconify-icon icon="solar:arrow-right-linear"
+                                class="text-base group-hover:translate-x-1 transition-transform"></iconify-icon>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <footer id="comprar" data-nav-dark class="relative overflow-hidden bg-stone-900 text-stone-400 pt-16 md:pt-20 pb-16 px-8 md:px-12">
+            <!-- Aviso de portfólio: produto conceitual, números fictícios -->
+            <div class="relative z-10 max-w-[1440px] mx-auto mb-10 border border-stone-700 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-4 md:gap-10 md:items-center">
+                <span class="shrink-0 inline-flex items-center gap-2 self-start px-3 py-1.5 rounded-full border border-stone-600 text-[10px] font-mono uppercase tracking-widest text-stone-300">
+                    <iconify-icon icon="solar:info-circle-linear" class="text-sm"></iconify-icon>
+                    Estudo pessoal
+                </span>
+                <p class="text-sm leading-relaxed text-stone-400 max-w-3xl">
+                    Projeto conceitual de portfólio (UI e interação), sem vínculo comercial. A Artools Pigmentum não está à venda.
+                    Especificações e números de uso são <span class="text-stone-200">fictícios</span>,
+                    criados só para compor a narrativa da página.
+                </p>
+            </div>
+            <div class="relative z-10 max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between gap-6 text-xs font-mono">
+                <span>Artools · estudo de UI · 2026</span>
+                <span>PRECISION PEN · v1.0 · conceito</span>
+            </div>
+        </footer>
+    </main>
+
+
+    <!-- ============================================================
+         BOX DE COMPRA — abre em qualquer CTA "Comprar" e leva ao WhatsApp
+         ============================================================ -->
+    <div id="buy-modal" class="buy-modal" role="dialog" aria-modal="true" aria-labelledby="buy-title" aria-hidden="true">
+        <div class="buy-backdrop" data-buy-close></div>
+        <div class="buy-card shadow-2xl shadow-stone-900/30">
+            <div class="buy-ring" aria-hidden="true"></div>
+            <div class="relative m-px rounded-[calc(1.75rem-1px)] bg-[#F5F5F0] text-stone-900 p-7 md:p-9 overflow-hidden">
+                <div class="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-stone-300/50 blur-3xl" aria-hidden="true"></div>
+
+                <button type="button" data-buy-close aria-label="Fechar"
+                    class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full flex items-center justify-center text-stone-400 hover:text-stone-900 hover:bg-stone-200/70 transition-colors">
+                    <iconify-icon icon="solar:close-circle-linear" class="text-xl"></iconify-icon>
+                </button>
+
+                <div class="relative">
+                    <h2 id="buy-title" class="pr-10font-display font-bold tracking-tighter leading-[0.95] text-[clamp(1.75rem,6vw,2.25rem)]">
+                        Que bom que você deu <span class="text-outline">mais um passo</span>.
+                    </h2>
+                    <p class="mt-4 text-stone-500 leading-relaxed font-light">
+                        Um passo para melhorar o seu dia a dia, traço por traço. Fale com um vendedor no WhatsApp:
+                        ele tira suas dúvidas e fecha o pedido da sua Pigmentum com você.
+                    </p>
+
+                    <div class="mt-8 flex flex-col gap-2">
+                        <a id="buy-whatsapp" href="#" target="_blank" rel="noopener"
+                            class="group relative px-8 py-4 bg-stone-900 text-white overflow-hidden rounded-full text-center transition-all duration-300 hover:shadow-2xl hover:shadow-stone-900/25 hover:-translate-y-0.5">
+                            <span class="absolute inset-0 bg-[#1f7a4d] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></span>
+                            <span class="relative z-10 font-mono text-xs uppercase tracking-widest inline-flex items-center justify-center gap-2">
+                                <iconify-icon icon="ic:baseline-whatsapp" class="text-lg"></iconify-icon>
+                                Falar com um vendedor
+                                <iconify-icon icon="solar:arrow-right-up-linear" class="text-base group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></iconify-icon>
+                            </span>
+                        </a>
+                        <button type="button" data-buy-close
+                            class="px-8 py-3 rounded-full text-stone-500 hover:text-stone-900 font-mono text-[11px] uppercase tracking-widest transition-colors">
+                            Continuar explorando
+                        </button>
+                    </div>
+
+                    <p class="mt-4 pt-5 border-t border-stone-200 text-[11px] text-stone-400 flex items-center gap-2">
+                        <iconify-icon icon="solar:chat-round-line-linear" class="text-sm"></iconify-icon>
+                        Você será redirecionado para o WhatsApp em uma nova aba.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         BIBLIOTECAS — Lenis + GSAP + ScrollTrigger
+         ============================================================ -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+    <script>
+        (() => {
+            'use strict';
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            const video = document.getElementById('hero-video');
+            const copy = document.getElementById('hero-copy');
+            const indicator = document.getElementById('scroll-indicator');
+            const progressBar = document.getElementById('progress-bar');
+            const progressLabel = document.getElementById('progress-label');
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            /* ----------------------------------------------------------
+               1. ANIMAÇÃO DE ENTRADA (mask reveal + fade do DS)
+               ---------------------------------------------------------- */
+            requestAnimationFrame(() => document.body.classList.add('is-loaded'));
+
+            /* ----------------------------------------------------------
+               2. LENIS — rolagem suave sincronizada com o ticker do GSAP
+                  (um único loop de RAF para Lenis + ScrollTrigger)
+               ---------------------------------------------------------- */
+            let lenis = null;
+            if (!reduceMotion && typeof Lenis !== 'undefined') {
+                lenis = new Lenis({
+                    duration: 1.2,
+                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                    smoothWheel: true,
+                });
+                lenis.on('scroll', ScrollTrigger.update);
+                gsap.ticker.add((time) => lenis.raf(time * 1000));
+                gsap.ticker.lagSmoothing(0);
+            }
+
+            // Links internos (Explorar ↓, nav) usam o Lenis quando disponível
+            document.querySelectorAll('[data-scroll-to]').forEach((link) => {
+                link.addEventListener('click', (e) => {
+                    const target = document.querySelector(link.getAttribute('href'));
+                    if (!target) return;
+                    e.preventDefault();
+                    lenis ? lenis.scrollTo(target, { duration: 1.6 })
+                          : target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+                });
+            });
+
+
+            /* ----------------------------------------------------------
+               BOX DE COMPRA — todo CTA "Comprar" abre o box; o botão
+               leva ao WhatsApp do vendedor com mensagem pré-preenchida
+               ---------------------------------------------------------- */
+            (() => {
+                const WHATSAPP = '5586988291213';
+                const MSG = 'Olá! Vim pela página da Artools e tenho interesse na caneta Pigmentum.';
+                const modal = document.getElementById('buy-modal');
+                if (!modal) return;
+                const wa = document.getElementById('buy-whatsapp');
+                wa.href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(MSG);
+                let lastFocus = null;
+
+                const isOpen = () => modal.classList.contains('is-open');
+                const open = (e) => {
+                    e.preventDefault();
+                    lastFocus = document.activeElement;
+                    modal.classList.add('is-open');
+                    modal.setAttribute('aria-hidden', 'false');
+                    if (lenis) lenis.stop();
+                    document.documentElement.style.overflow = 'hidden';
+                    setTimeout(() => wa.focus({ preventScroll: true }), 60);
+                };
+                const close = () => {
+                    if (!isOpen()) return;
+                    modal.classList.remove('is-open');
+                    modal.setAttribute('aria-hidden', 'true');
+                    if (lenis) lenis.start();
+                    document.documentElement.style.overflow = '';
+                    if (lastFocus) lastFocus.focus({ preventScroll: true });
+                };
+
+                document.querySelectorAll('[data-buy], a[href="#comprar"]').forEach((el) => el.addEventListener('click', open));
+                modal.querySelectorAll('[data-buy-close]').forEach((el) => el.addEventListener('click', close));
+                wa.addEventListener('click', () => setTimeout(close, 300));
+                document.addEventListener('keydown', (e) => {
+                    if (!isOpen()) return;
+                    if (e.key === 'Escape') close();
+                    if (e.key === 'Tab') { // mantém o foco dentro do box
+                        const f = modal.querySelectorAll('a[href], button');
+                        const first = f[0], last = f[f.length - 1];
+                        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+                        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+                    }
+                });
+            })();
+
+
+            /* ----------------------------------------------------------
+               FADE GLOBAL — o que ainda não tinha entrada animada surge com
+               fade + leve subida + desfoque saindo. Usa element.animate()
+               (não mexe em transform/transition/opacity das classes, então
+               não briga com hovers nem com o foco dos cards do dia).
+               Irmãos entram em sequência (stagger).
+               ---------------------------------------------------------- */
+            (() => {
+                if (reduceMotion || !('IntersectionObserver' in window) || !Element.prototype.animate) return;
+
+                const targets = new Set([
+                    ...document.querySelectorAll('header > div > *'),                 // logo, menu, Comprar
+                    ...document.querySelectorAll('.lexicon'),                          // verbetes de fundo
+                    ...[...document.querySelectorAll('.animate-marquee')].map((m) => m.parentElement), // faixas
+                    ...document.querySelectorAll('#day-panel, #dia .day-card'),        // relógio + momentos do dia
+                    ...document.querySelectorAll('#assinatura > .relative.z-10 > *'),  // frase, assinatura, botões
+                    ...document.querySelectorAll('#comprar > div'),                    // rodapé
+                ]);
+                if (!targets.size) return;
+
+                // stagger entre irmãos que entram juntos
+                const order = new Map();
+                targets.forEach((el) => {
+                    el.setAttribute('data-fx', '');
+                    const sibs = [...targets].filter((t) => t.parentElement === el.parentElement);
+                    order.set(el, Math.min(sibs.indexOf(el), 4));
+                });
+                document.documentElement.classList.add('fx-fade');
+
+                const reveal = (el, extraDelay = 0) => {
+                    el.classList.add('fx-in');
+                    const to = parseFloat(getComputedStyle(el).opacity) || 1;
+                    // desfoque só onde não há backdrop-filter (filter + backdrop no mesmo nó pisca no Chrome)
+                    const cs = getComputedStyle(el);
+                    const blur = (cs.backdropFilter && cs.backdropFilter !== 'none') ? 'blur(0px)' : 'blur(8px)';
+                    el.animate(
+                        [
+                            { opacity: 0, translate: '0 28px', filter: blur },
+                            { opacity: to, translate: '0 0', filter: 'blur(0px)' },
+                        ],
+                        { duration: 1100, delay: extraDelay + order.get(el) * 90, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'backwards' }
+                    );
+                };
+
+                const io = new IntersectionObserver((entries) => {
+                    entries.forEach((e) => {
+                        if (!e.isIntersecting) return;
+                        io.unobserve(e.target);
+                        reveal(e.target);
+                    });
+                }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+
+                targets.forEach((el) => {
+                    // header entra junto com a hero (depois do mask reveal começar)
+                    if (el.closest('header')) reveal(el, 250);
+                    else io.observe(el);
+                });
+            })();
+
+
+            /* ----------------------------------------------------------
+               NAVBAR ADAPTÁVEL — fica escura quando a linha do meio da barra
+               está sobre uma área [data-nav-dark] (garantia, rodapé)
+               ---------------------------------------------------------- */
+            (() => {
+                const header = document.getElementById('site-header');
+                const darks = [...document.querySelectorAll('[data-nav-dark]')];
+                if (!header || !darks.length) return;
+                let ticking = false;
+                const update = () => {
+                    ticking = false;
+                    const y = header.offsetHeight / 2;
+                    const dark = darks.some((el) => { const r = el.getBoundingClientRect(); return r.top <= y && r.bottom >= y; });
+                    header.classList.toggle('is-dark', dark);
+                };
+                const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+                window.addEventListener('scroll', onScroll, { passive: true });
+                window.addEventListener('resize', onScroll);
+                if (lenis) lenis.on('scroll', onScroll);
+                update();
+            })();
+
+            /* ==========================================================
+               3. MOTOR DE FRAMES (canvas)
+               ----------------------------------------------------------
+               Por que não scrubbing direto no <video>?
+               Cada `video.currentTime = x` dispara um SEEK: o decoder volta
+               ao keyframe anterior e decodifica até x. Em MP4s comuns
+               (keyframe a cada 2–5s) isso leva dezenas de ms e trava.
+
+               Solução (técnica usada pela Apple): ter todos os frames já
+               decodificados como imagens e apenas DESENHÁ-LOS num canvas.
+               Desenhar uma imagem pronta custa < 1ms → 60fps estáveis.
+
+               Como não há sequência de imagens pré-exportada, os frames
+               são extraídos NO NAVEGADOR: o vídeo toca uma única vez, mudo
+               e invisível, e cada frame apresentado é capturado via
+               requestVideoFrameCallback. A rolagem já funciona durante a
+               extração com os frames disponíveis.
+               ========================================================== */
+            const canvas = document.getElementById('hero-canvas');
+            const ctx = canvas.getContext('2d', { alpha: false });
+            const loader = document.getElementById('frames-loader');
+            const loaderBar = document.getElementById('frames-loader-bar');
+            const isMobile = window.matchMedia('(max-width: 767px)').matches;
+
+            const CONFIG = {
+                maxFrameWidth: isMobile ? 960 : 1600, // resolução máxima armazenada por frame
+                maxFrames: 360,                        // teto de memória
+                captureRate: 1,                        // 1x = captura TODOS os frames (2x pulava frames)
+                jpegQuality: 0.88,
+                smoothing: 0.25,                       // inércia do playhead (0–1; menor = mais suave)
+                focus: window.matchMedia('(max-width: 1023px)').matches ? { x: 0.65, y: 0.30 } : { x: 0.70, y: 0.50 }, // "object-position" (empilhado até lg, igual ao CSS)
+            };
+
+            const frames = [];          // [{ t: segundos, img: Canvas | Image }] em ordem de tempo
+            const playhead = { target: 0, current: 0 };
+            let duration = 0;
+            let frameW = 0, frameH = 0;
+            let lastKey = '';
+
+            /* ---- Canvas responsivo (DPR-aware) ---- */
+            function resizeCanvas() {
+                const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                canvas.width = Math.round(canvas.clientWidth * dpr);
+                canvas.height = Math.round(canvas.clientHeight * dpr);
+                ctx.imageSmoothingQuality = 'high';
+                ctx.fillStyle = '#EAEAE5'; // evita canvas preto antes do 1º frame
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                lastKey = ''; // força redesenho
+            }
+            resizeCanvas();
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(resizeCanvas, 100);
+            });
+
+            /* ---- Desenho com "object-fit: cover" ---- */
+            function drawCover(img, alpha) {
+                const cw = canvas.width, ch = canvas.height;
+                const iw = img.naturalWidth || img.width, ih = img.naturalHeight || img.height;
+                const s = Math.max(cw / iw, ch / ih);
+                const dw = iw * s, dh = ih * s;
+                ctx.globalAlpha = alpha;
+                ctx.drawImage(img, (cw - dw) * CONFIG.focus.x, (ch - dh) * CONFIG.focus.y, dw, dh);
+            }
+
+            /* ---- Busca binária: último frame com t <= tempo ---- */
+            function frameIndexAt(t) {
+                let lo = 0, hi = frames.length - 1;
+                while (lo < hi) {
+                    const mid = (lo + hi + 1) >> 1;
+                    if (frames[mid].t <= t) lo = mid; else hi = mid - 1;
+                }
+                return lo;
+            }
+
+            /* ---- Loop de render (no ticker do GSAP, junto com Lenis) ----
+               - lerp no playhead → inércia suave, sem degraus
+               - crossfade entre 2 frames vizinhos → movimento contínuo
+                 mesmo quando a rolagem é mais lenta que o fps do vídeo */
+            function render() {
+                if (!frames.length) return;
+                const diff = playhead.target - playhead.current;
+                playhead.current = Math.abs(diff) < 0.0005 ? playhead.target : playhead.current + diff * CONFIG.smoothing;
+
+                // Frame mais próximo (sem crossfade: misturar 2 frames gerava
+                // "fantasmas" em movimentos rápidos, como a mão entrando)
+                const t = playhead.current;
+                let i = frameIndexAt(t);
+                const b = frames[i + 1];
+                if (b && t - frames[i].t > (b.t - frames[i].t) / 2) i++;
+
+                const key = i + ':' + frames[i].img.constructor.name;
+                if (key === lastKey) return; // nada mudou → não redesenha
+                lastKey = key;
+
+                ctx.globalAlpha = 1;
+                ctx.fillStyle = '#EAEAE5';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                drawCover(frames[i].img, 1);
+            }
+            gsap.ticker.add(render);
+            window.__hero = { frames, playhead }; // inspeção/debug no console
+
+            /* ---- Captura de um frame ----
+               Desenha o frame atual do vídeo num canvas (síncrono = frame exato),
+               depois comprime para JPEG em segundo plano para poupar memória.
+               Em file:// o canvas fica "tainted" e toBlob falha: mantemos o canvas. */
+            let lastCapturedT = -1;
+            const minGap = () => duration / CONFIG.maxFrames;
+
+            function captureFrame(t) {
+                if (t <= lastCapturedT || (lastCapturedT >= 0 && t - lastCapturedT < minGap())) return;
+                lastCapturedT = t;
+
+                const c = document.createElement('canvas');
+                c.width = frameW; c.height = frameH;
+                c.getContext('2d').drawImage(video, 0, 0, frameW, frameH);
+                const entry = { t, img: c };
+                frames.push(entry);
+                lastKey = '';
+
+                try {
+                    c.toBlob((blob) => {
+                        if (!blob) return;
+                        const img = new Image();
+                        img.src = URL.createObjectURL(blob);
+                        img.decode().then(() => {
+                            entry.img = img;      // troca pela versão comprimida
+                            c.width = c.height = 0; // libera o bitmap bruto
+                        }).catch(() => {});
+                    }, 'image/jpeg', CONFIG.jpegQuality);
+                } catch (_) { /* SecurityError em file:// — segue com o canvas */ }
+
+                loaderBar.style.transform = `scaleX(${Math.min(1, t / duration)})`;
+            }
+
+            /* ---- Estratégia A: play invisível + requestVideoFrameCallback ---- */
+            function extractByPlayback() {
+                return new Promise((resolve, reject) => {
+                    let finished = false;
+                    const finish = () => { if (!finished) { finished = true; resolve(); } };
+
+                    const onFrame = (_now, meta) => {
+                        if (finished) return;
+                        captureFrame(meta.mediaTime);
+                        video.requestVideoFrameCallback(onFrame);
+                    };
+
+                    video.addEventListener('ended', finish, { once: true });
+                    // Rede de segurança caso 'ended' não dispare
+                    setTimeout(finish, (duration / CONFIG.captureRate) * 1000 + 4000);
+
+                    video.requestVideoFrameCallback(onFrame);
+                    video.playbackRate = CONFIG.captureRate;
+                    const p = video.play();
+                    // Autoplay bloqueado (ex.: iOS em modo economia) → estratégia B
+                    if (p && p.catch) p.catch((err) => { finished = true; reject(err); });
+                });
+            }
+
+            /* ---- Estratégia B (fallback): seeks sequenciais, uma única vez ---- */
+            async function extractBySeeking() {
+                const count = Math.min(CONFIG.maxFrames, Math.max(30, Math.round(duration * 24)));
+                for (let k = 0; k < count; k++) {
+                    const t = (k / (count - 1)) * (duration - 0.04);
+                    await new Promise((res) => {
+                        video.addEventListener('seeked', res, { once: true });
+                        video.currentTime = t;
+                    });
+                    captureFrame(t);
+                }
+            }
+
+            async function extractFrames() {
+                // rVFC não dispara em aba oculta: espera a aba ficar visível
+                if (document.hidden) {
+                    await new Promise((r) => document.addEventListener('visibilitychange', r, { once: true }));
+                }
+                const scale = Math.min(1, CONFIG.maxFrameWidth / video.videoWidth);
+                frameW = Math.round(video.videoWidth * scale);
+                frameH = Math.round(video.videoHeight * scale);
+
+                try {
+                    if (!('requestVideoFrameCallback' in HTMLVideoElement.prototype)) throw new Error('no-rvfc');
+                    await extractByPlayback();
+                    // Se capturou pouco (ex.: aba trocada no meio), completa via seeks
+                    if (frames.length < Math.min(30, duration * 10)) throw new Error('too-few');
+                } catch (_) {
+                    video.pause();
+                    frames.length = 0; lastCapturedT = -1;
+                    await extractBySeeking();
+                }
+
+                // Libera o decoder: o vídeo não é mais necessário
+                video.pause();
+                video.removeAttribute('src');
+                video.load();
+                loaderBar.style.transform = 'scaleX(1)';
+                loader.style.opacity = '0';
+            }
+
+            /* ==========================================================
+               4. SCROLLTRIGGER — criado só após loadedmetadata
+                  (garante video.duration válido, nunca NaN)
+               ========================================================== */
+            video.pause(); // fallback contra autoplay
+            let initialized = false;
+
+            function initScrollScene() {
+                if (initialized || !isFinite(video.duration) || video.duration <= 0) return;
+                initialized = true;
+                duration = video.duration;
+
+                const vh = () => window.innerHeight;
+
+                // 4a. Vídeo: avança durante 0 → 2 telas de scroll (trilha de 360vh).
+                //     A cortina começa em 1.6 telas; o vídeo termina com ela cobrindo ~40%.
+                //     Curva ease-out: o final desacelera e "pousa" em vez de acabar de supetão.
+                const videoEase = gsap.parseEase('power1.out');
+                ScrollTrigger.create({
+                    trigger: '#hero-track',
+                    start: 'top top',
+                    end: () => '+=' + vh() * 2.0,
+                    invalidateOnRefresh: true,
+                    onUpdate: (self) => {
+                        // progresso (com ease) → alvo do playhead (o render faz o lerp)
+                        playhead.target = videoEase(self.progress) * duration;
+                        const pct = Math.round(self.progress * 100);
+                        progressLabel.textContent = String(pct).padStart(3, '0');
+                        progressBar.style.transform = `scaleX(${self.progress})`;
+                    },
+                });
+
+                // 4b. Texto: já rola com a página; o parallax o faz subir MAIS rápido
+                //     que o scroll (sensação de profundidade) e desaparecer
+                gsap.to(copy, {
+                    y: () => -vh() * 0.3,
+                    opacity: 0,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: '#hero-track', start: 'top top', end: () => '+=' + vh() * 0.45,
+                        scrub: 0.3, invalidateOnRefresh: true,
+                    },
+                });
+
+                // 4c. Indicador de scroll some nos primeiros pixels
+                gsap.to(indicator, {
+                    opacity: 0, y: 12, ease: 'none',
+                    scrollTrigger: { trigger: '#hero-track', start: 'top top', end: '+=160', scrub: true },
+                });
+
+                // 4d. Leve push-in da câmera enquanto o vídeo roda
+                gsap.fromTo(canvas, { scale: 1 }, {
+                    scale: 1.06, ease: 'none',
+                    scrollTrigger: {
+                        trigger: '#hero-track', start: 'top top', end: () => '+=' + vh() * 2.0,
+                        scrub: true, invalidateOnRefresh: true,
+                    },
+                });
+
+                // 4e. Cortina: quando a 2ª dobra sobe, o palco do vídeo recua e escurece
+                gsap.to('#hero-stage', {
+                    scale: 0.94, opacity: 0.5, ease: 'power1.in',
+                    scrollTrigger: { trigger: '#explorar', start: 'top bottom', end: 'top top', scrub: true },
+                });
+
+                initFold();
+                ScrollTrigger.sort();    // garante que o pin da hero seja calculado antes da 2ª dobra
+                ScrollTrigger.refresh();
+                extractFrames();
+            }
+
+            /* ==========================================================
+               5. SEGUNDA DOBRA — especificações
+               ========================================================== */
+            let foldReady = false;
+
+            /* ==========================================================
+               6. TERCEIRA DOBRA — relógio do dia
+               ========================================================== */
+            function initDay() {
+                const section = document.getElementById('dia');
+                const track = document.getElementById('day-track');
+                const cards = [...section.querySelectorAll('.day-card')];
+                const panel = document.getElementById('day-panel');
+                const night = document.getElementById('day-night');
+                const clockEl = document.getElementById('day-clock');
+                const momentEl = document.getElementById('day-moment');
+                const inkEls = section.querySelectorAll('.day-ink-value');
+                const inkLine = document.getElementById('day-ink-line');
+                const inkDot = document.getElementById('day-ink-dot');
+                const hoursEl = document.getElementById('day-hours');
+                const dusk = document.getElementById('day-dusk');
+                const glow = document.getElementById('day-glow');
+                const marker = document.getElementById('day-marker');
+                const sun = document.getElementById('day-sun');
+                const moon = document.getElementById('day-moon');
+
+                const toMin = (s) => { const [h, m] = s.split(':').map(Number); return h * 60 + m; };
+                const state = { m: toMin(cards[0].dataset.time), ink: 100 };
+
+                // Gráfico de tinta (Data Viz do DS): x = horário (07:30→23:40), y = tinta (100%→95%)
+                const START = toMin('07:30'), END = toMin('23:40');
+                const pad = (n) => String(n).padStart(2, '0');
+                gsap.set(inkLine, { strokeDasharray: 1, strokeDashoffset: 1 });
+
+                // Desenha relógio, tinta, gráfico, horas de uso e marcador da régua
+                const draw = () => {
+                    const m = Math.round(state.m);
+                    clockEl.textContent = pad(Math.floor(m / 60)) + ':' + pad(m % 60);
+                    const ink = (Math.round(state.ink * 10) / 10).toLocaleString('pt-BR') + '%';
+                    inkEls.forEach((el) => { el.textContent = ink; });
+                    const p = Math.min(1, Math.max(0, (state.m - START) / (END - START)));
+                    inkLine.style.strokeDashoffset = 1 - p;
+                    inkDot.setAttribute('cx', (p * 100).toFixed(2));
+                    inkDot.setAttribute('cy', (4 + (100 - state.ink) / 5 * 20).toFixed(2));
+                    const used = Math.max(0, m - START);
+                    hoursEl.textContent = Math.floor(used / 60) + 'h' + pad(used % 60);
+                    marker.style.left = (m / 1440 * 100) + '%';
+                };
+
+                // Flashlight nos cards claros
+                section.querySelectorAll('.flashlight-card').forEach((card) => {
+                    card.addEventListener('mousemove', (e) => {
+                        const r = card.getBoundingClientRect();
+                        card.style.setProperty('--mouse-x', `${e.clientX - r.left}px`);
+                        card.style.setProperty('--mouse-y', `${e.clientY - r.top}px`);
+                    });
+                });
+
+                let current = -1;
+                const activate = (i) => {
+                    if (i === current) return;
+                    current = i;
+                    const c = cards[i];
+                    const sky = parseFloat(c.dataset.night) || 0;
+                    cards.forEach((x, k) => x.classList.toggle('is-current', k === i));
+                    momentEl.textContent = c.dataset.moment;
+
+                    // relógio "gira" até o novo horário (também ao voltar)
+                    gsap.to(state, {
+                        m: toMin(c.dataset.time), ink: parseFloat(c.dataset.ink),
+                        duration: reduceMotion ? 0 : 1, ease: 'power3.out', onUpdate: draw,
+                    });
+                    // céu: dia → entardecer → noite
+                    // curva quadrática: tarde fica clara, o escuro chega de verdade só à noite
+                    const dark = sky * sky;
+                    gsap.to(night, { opacity: dark * 0.96, duration: reduceMotion ? 0 : 1, ease: 'power2.out' });
+                    // fundo da seção "entardece" de leve; brilho do painel apaga à noite
+                    gsap.to(dusk, { opacity: Math.sqrt(dark) * 0.9, duration: reduceMotion ? 0 : 1.4, ease: 'power2.out' });
+                    gsap.to(glow, { opacity: 0.9 - sky * 0.75, duration: reduceMotion ? 0 : 1.2 });
+                    panel.classList.toggle('is-night', sky > 0.5);
+                    sun.style.opacity = sky > 0.5 ? 0 : 1;
+                    sun.style.transform = sky > 0.5 ? 'scale(.5) rotate(-90deg)' : '';
+                    moon.style.opacity = sky > 0.5 ? 1 : 0;
+                    moon.style.transform = sky > 0.5 ? 'scale(1)' : 'scale(.5)';
+                };
+
+                // "Primeiro traço" (card 07:30) se desenha ao entrar na tela
+                const stroke = section.querySelector('.day-stroke');
+                gsap.set(stroke, { strokeDasharray: 1, strokeDashoffset: reduceMotion ? 0 : 1 });
+                if (!reduceMotion) {
+                    gsap.to(stroke, {
+                        strokeDashoffset: 0, autoRound: false, duration: 1.8, ease: 'power2.inOut',
+                        scrollTrigger: { trigger: stroke, start: 'top 80%', once: true },
+                    });
+                }
+
+                // Cada card vira o "momento atual" ao cruzar o centro da tela
+                cards.forEach((c, i) => {
+                    ScrollTrigger.create({
+                        trigger: c, start: 'top 60%', end: 'bottom 60%',
+                        onToggle: (self) => { if (self.isActive) activate(i); },
+                    });
+                });
+
+                track.classList.add('is-ready');
+                cards[0].classList.add('is-current');
+                current = 0;
+                draw();
+
+                if (reduceMotion) return;
+
+                // Parallax sutil dos orbs de fundo (velocidades diferentes = profundidade)
+                [['#day-orb-a', -120], ['#day-orb-b', 160], ['#day-orb-c', -80]].forEach(([sel, dist]) => {
+                    gsap.fromTo(sel, { y: -dist / 2 }, {
+                        y: dist / 2, ease: 'none',
+                        scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: true },
+                    });
+                });
+
+                // Entradas
+                gsap.from(section.querySelectorAll('.day-line'), {
+                    yPercent: 110, opacity: 0, duration: 1.2, ease: 'expo.out', stagger: 0.12,
+                    scrollTrigger: { trigger: section, start: 'top 75%', once: true },
+                });
+                section.querySelectorAll('.day-fade').forEach((el) => {
+                    gsap.from(el, {
+                        y: 32, opacity: 0, duration: 1, ease: 'expo.out',
+                        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+                    });
+                });
+            }
+
+            /* ==========================================================
+               7. QUARTA DOBRA — vídeo, névoa, glow box
+               ========================================================== */
+            function initFlow() {
+                const section = document.getElementById('garantia');
+                const vid = document.getElementById('flow-video');
+                const fog = document.getElementById('flow-fog');
+                const box = document.getElementById('flow-box');
+                const fctx = fog.getContext('2d');
+                let visible = false, fw = 0, fh = 0, raf = 0;
+
+                // Névoa (adaptada do fog canvas do template): 3 manchas radiais à deriva
+                const blobs = [
+                    { vx: 0.35, vy: 0.2, a: 0.07 },
+                    { vx: -0.25, vy: 0.3, a: 0.05 },
+                    { vx: 0.3, vy: -0.22, a: 0.06 },
+                ];
+                const resizeFog = () => {
+                    const r = section.getBoundingClientRect();
+                    fw = fog.width = Math.round(r.width / 2);   // meia resolução: névoa é desfocada mesmo
+                    fh = fog.height = Math.round(r.height / 2);
+                    blobs.forEach((b) => {
+                        b.r = Math.max(fw, fh) * 0.45;
+                        if (b.x === undefined) { b.x = Math.random() * fw; b.y = Math.random() * fh; }
+                    });
+                };
+                const drawFog = () => {
+                    fctx.clearRect(0, 0, fw, fh);
+                    blobs.forEach((b) => {
+                        b.x += b.vx; b.y += b.vy;
+                        if (b.x < -b.r * .3 || b.x > fw + b.r * .3) b.vx *= -1;
+                        if (b.y < -b.r * .3 || b.y > fh + b.r * .3) b.vy *= -1;
+                        const g = fctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
+                        g.addColorStop(0, `rgba(255,255,255,${b.a})`);
+                        g.addColorStop(1, 'rgba(255,255,255,0)');
+                        fctx.fillStyle = g;
+                        fctx.fillRect(b.x - b.r, b.y - b.r, b.r * 2, b.r * 2);
+                    });
+                    if (visible) raf = requestAnimationFrame(drawFog);
+                };
+                resizeFog();
+                window.addEventListener('resize', resizeFog);
+
+                // Vídeo e névoa só rodam com a seção visível (economia de CPU/bateria)
+                new IntersectionObserver(([entry]) => {
+                    visible = entry.isIntersecting;
+                    if (visible) {
+                        const p = vid.play(); if (p && p.catch) p.catch(() => {});
+                        if (!reduceMotion) { cancelAnimationFrame(raf); drawFog(); }
+                    } else {
+                        vid.pause();
+                    }
+                }, { threshold: 0.05 }).observe(section);
+                if (reduceMotion) { drawFog(); }
+
+                // Flashlight do DS
+                box.addEventListener('mousemove', (e) => {
+                    const r = box.getBoundingClientRect();
+                    box.style.setProperty('--mouse-x', `${e.clientX - r.left}px`);
+                    box.style.setProperty('--mouse-y', `${e.clientY - r.top}px`);
+                });
+
+                if (reduceMotion) return;
+
+                // Tilt 3D sutil (parallax do Nexus do template)
+                const wrap = document.getElementById('flow-box-wrap');
+                wrap.addEventListener('mousemove', (e) => {
+                    const r = wrap.getBoundingClientRect();
+                    const x = (e.clientX - r.left) / r.width - 0.5;
+                    const y = (e.clientY - r.top) / r.height - 0.5;
+                    box.style.transform = `rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
+                });
+                wrap.addEventListener('mouseleave', () => { box.style.transform = ''; });
+
+                // Vídeo: leve zoom-out com o scroll (profundidade)
+                gsap.fromTo(vid, { scale: 1.15 }, {
+                    scale: 1, ease: 'none',
+                    scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: true },
+                });
+
+                // Entradas
+                gsap.from(section.querySelectorAll('.flow-line'), {
+                    yPercent: 110, opacity: 0, duration: 1.2, ease: 'expo.out', stagger: 0.12,
+                    scrollTrigger: { trigger: section, start: 'top 70%', once: true },
+                });
+                gsap.from(section.querySelectorAll('.flow-fade'), {
+                    y: 40, opacity: 0, duration: 1.1, ease: 'expo.out', stagger: 0.1,
+                    scrollTrigger: { trigger: section, start: 'top 65%', once: true },
+                });
+
+                // Swoosh sob "30 dias": desenhado PELO SCROLL — avança ao descer, recua ao subir.
+                // Começa quando "30 dias" entra pela parte de baixo da tela e completa ao chegar perto do centro.
+                const sw = document.getElementById('flow-swoosh');
+                gsap.set(sw, { strokeDasharray: 1, strokeDashoffset: 1 });
+                gsap.to(sw, {
+                    strokeDashoffset: 0, autoRound: false, ease: 'none',
+                    scrollTrigger: { trigger: sw.closest('svg'), start: 'top 95%', end: 'top 45%', scrub: 0.6 },
+                });
+            }
+
+            /* ==========================================================
+               8. ASSINATURA — caneta escrevendo no papel
+               ========================================================== */
+            function initSignature() {
+                const section = document.getElementById('assinatura');
+                const strokes = [...section.querySelectorAll('.sig-stroke')];
+                const pen = document.getElementById('sig-pen');
+                const shadow = document.getElementById('sig-shadow');
+                const lens = document.getElementById('sig-lens');
+                const lensPos = document.getElementById('sig-lens-pos');
+                const lensContent = document.getElementById('sig-lens-content');
+                const lensArm = document.getElementById('sig-lens-arm');
+                const caption = document.getElementById('sig-caption');
+                const mmEl = document.getElementById('sig-mm');
+                const led = document.getElementById('sig-led');
+                const replay = document.getElementById('sig-replay');
+
+                const SPEED = 330;          // unidades SVG por segundo (ritmo calmo)
+                const WET = '#78716c';      // tinta fresca (úmida, mais clara)
+                const DRY = '#1c1917';      // tinta seca
+                const MM_PER_UNIT = 0.25;   // escala do contador de mm
+                const lengths = strokes.map((p) => p.getTotalLength());
+                let tl = null, drawn = 0, rot = 0;
+
+                // Caneta + sombra + lupa seguem a ponta (x,y). lift = altura no ar.
+                const place = (x, y, lift = 0, targetRot = 0) => {
+                    rot += (targetRot - rot) * 0.18; // inclinação suavizada
+                    pen.setAttribute('transform', `translate(${x} ${y - lift}) rotate(${rot})`);
+                    shadow.setAttribute('transform', `translate(${x + 8 + lift * 0.6} ${y + 10 + lift * 0.25}) rotate(${rot})`);
+                    shadow.setAttribute('opacity', Math.max(0, 1 - lift / 160).toFixed(2));
+                    // lupa acima-à-esquerda da ponta (corpo da caneta vai para cima-direita)
+                    const lx = Math.max(80, x - 150), ly = Math.max(-10, y - 140);
+                    lensPos.setAttribute('transform', `translate(${lx} ${ly})`);
+                    lensContent.setAttribute('transform', `scale(3) translate(${-x} ${-(y - lift)})`);
+                    lensArm.setAttribute('d', `M${(x - lx) * 0.3} ${(y - lift - ly) * 0.3} L${x - lx - 6} ${y - lift - ly - 6}`);
+                };
+                // a tinta tem inclinação itálica (skewX -10° em torno da linha de base y=232):
+                // converte o ponto do path para a mesma inclinação, para a ponta ficar sobre a tinta
+                const SKEW = Math.tan(10 * Math.PI / 180);
+                const pt = (p, d) => { const q = p.getPointAtLength(d); return { x: q.x - SKEW * (q.y - 232), y: q.y }; };
+                const angleRot = (p, d, L) => {
+                    const q1 = pt(p, Math.max(0, d - 3));
+                    const q2 = pt(p, Math.min(L, d + 3));
+                    return Math.sin(Math.atan2(q2.y - q1.y, q2.x - q1.x)) * 5; // ±5° conforme a direção
+                };
+                const setMM = () => { if (mmEl) mmEl.textContent = (drawn * MM_PER_UNIT).toFixed(1).replace('.', ',').padStart(5, '0'); };
+
+                const reset = () => {
+                    strokes.forEach((p, i) => {
+                        gsap.killTweensOf(p);
+                        p.style.strokeDasharray = lengths[i];
+                        p.style.strokeDashoffset = lengths[i];
+                        p.style.stroke = WET;
+                    });
+                    drawn = 0; setMM();
+                    gsap.set([pen, shadow, lens], { opacity: 0 });
+                    if (caption) caption.style.opacity = 0;
+                    if (led) led.classList.remove('animate-pulse');
+                };
+
+                const build = () => {
+                    if (tl) tl.kill();
+                    reset();
+                    const first = pt(strokes[0], 0);
+                    const st = { x: first.x + 220, y: first.y - 220, lift: 170 };
+                    tl = gsap.timeline({ paused: true });
+
+                    // pousa: desce do alto-direita até o início do "P"
+                    tl.set(pen, { opacity: 1 })
+                      .to(st, {
+                          x: first.x, y: first.y, lift: 0, duration: 1.6, ease: 'power3.out',
+                          onUpdate: () => place(st.x, st.y, st.lift, -6),
+                      })
+                      .to(lens, { opacity: 1, duration: 0.6, ease: 'power2.out' }, '-=0.5')
+                      .call(() => led && led.classList.add('animate-pulse'));
+
+                    strokes.forEach((p, i) => {
+                        const L = lengths[i];
+                        const before = lengths.slice(0, i).reduce((a, b) => a + b, 0); // mm já escritos
+                        if (i > 0) {
+                            // levanta, cruza o ar em arco e pousa no próximo traço
+                            const A = pt(strokes[i - 1], lengths[i - 1]);
+                            const B = pt(p, 0);
+                            const dist = Math.hypot(B.x - A.x, B.y - A.y);
+                            const o = { t: 0 };
+                            tl.to(o, {
+                                t: 1, duration: 0.45 + dist / 700, ease: 'power2.inOut',
+                                onUpdate: () => place(A.x + (B.x - A.x) * o.t, A.y + (B.y - A.y) * o.t,
+                                    Math.sin(o.t * Math.PI) * (16 + dist * 0.08), -4),
+                            }, '+=0.12');
+                        }
+                        // escreve: a tinta aparece exatamente onde a ponta passa
+                        const o = { d: 0 };
+                        tl.to(o, {
+                            d: L, duration: Math.max(0.35, L / SPEED), ease: 'sine.inOut',
+                            onUpdate: () => {
+                                p.style.strokeDashoffset = L - o.d;
+                                drawn = before + o.d; setMM();
+                                const q = pt(p, o.d);
+                                place(q.x, q.y, 0, angleRot(p, o.d, L));
+                            },
+                            // tinta seca: do cinza úmido ao preto
+                            onComplete: () => gsap.to(p, { stroke: DRY, duration: 2.2, ease: 'power1.out' }),
+                        });
+                    });
+
+                    // levanta e sai; lupa recolhe; legenda aparece
+                    const end = pt(strokes[strokes.length - 1], lengths[lengths.length - 1]);
+                    const o = { lift: 0 };
+                    tl.to(lens, { opacity: 0, duration: 0.5 }, '+=0.2')
+                      .to(o, {
+                          lift: 170, duration: 1.4, ease: 'power2.inOut',
+                          onUpdate: () => place(end.x + o.lift * 0.7, end.y, o.lift, 6),
+                      }, '<')
+                      .to(pen, { opacity: 0, duration: 0.5 }, '-=0.4')
+                      .call(() => led && led.classList.remove('animate-pulse'));
+                    if (caption) tl.to(caption, { opacity: 1, duration: 0.8 }, '-=0.2');
+                };
+
+                const finalState = () => {
+                    strokes.forEach((p) => { p.style.strokeDasharray = 'none'; p.style.strokeDashoffset = 0; p.style.stroke = DRY; });
+                    drawn = lengths.reduce((a, b) => a + b, 0); setMM();
+                    if (caption) caption.style.opacity = 1;
+                };
+
+                if (reduceMotion) { finalState(); replay.hidden = true; return; }
+
+                reset();
+                ScrollTrigger.create({
+                    trigger: '#sig-svg', start: 'top 70%', once: true,
+                    onEnter: () => { build(); tl.play(0); },
+                });
+                replay.addEventListener('click', () => { build(); tl.play(0); });
+            }
+
+            function initFold() {
+                if (foldReady) return;
+                foldReady = true;
+                initDay();
+                initFlow();
+                initSignature();
+
+                const section = document.getElementById('explorar');
+                const stage = document.getElementById('pen-stage');
+                const toggle = document.getElementById('blueprint-toggle');
+                const isDesktop = () => window.matchMedia('(min-width: 1024px)').matches;
+
+                /* ---- Flashlight dos cards (efeito do design system) ---- */
+                section.querySelectorAll('.flashlight-card').forEach((card) => {
+                    card.addEventListener('mousemove', (e) => {
+                        const r = card.getBoundingClientRect();
+                        card.style.setProperty('--mouse-x', `${e.clientX - r.left}px`);
+                        card.style.setProperty('--mouse-y', `${e.clientY - r.top}px`);
+                    });
+                });
+
+                /* ---- Card <-> callout: hover em um acende o outro ---- */
+                const setActive = (id, on) =>
+                    section.querySelectorAll(`[data-spec="${id}"]`).forEach((el) => el.classList.toggle('is-active', on));
+
+                section.querySelectorAll('[data-spec]').forEach((el) => {
+                    const id = el.dataset.spec;
+                    el.addEventListener('mouseenter', () => setActive(id, true));
+                    el.addEventListener('mouseleave', () => setActive(id, false));
+                });
+
+                // Toque/clique num callout: no mobile rola até o card correspondente
+                section.querySelectorAll('.callout').forEach((c) => {
+                    c.addEventListener('click', () => {
+                        const id = c.dataset.spec;
+                        const card = section.querySelector(`.spec-card[data-spec="${id}"]`);
+                        setActive(id, true);
+                        setTimeout(() => setActive(id, false), 1800);
+                        if (!isDesktop() && card) {
+                            lenis ? lenis.scrollTo(card, { offset: -96, duration: 1.2 })
+                                  : card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    });
+                });
+
+                /* ---- Modo técnico: render ↔ blueprint ---- */
+                const outlines = stage.querySelectorAll('.bp-outline .draw');
+                gsap.set(outlines, { strokeDasharray: 1, strokeDashoffset: 0 });
+
+                toggle.addEventListener('change', () => {
+                    const on = toggle.checked;
+                    const label = toggle.closest('label');
+                    stage.classList.toggle('is-blueprint', on);
+                    label.querySelector('.toggle-bg').classList.toggle('bg-stone-900', on);
+                    label.querySelector('.toggle-dot').classList.toggle('translate-x-4', on);
+                    if (on && !reduceMotion) {
+                        // os contornos "são desenhados" peça por peça
+                        gsap.fromTo(outlines, { strokeDashoffset: 1 },
+                            { strokeDashoffset: 0, autoRound: false, duration: 1.4, stagger: 0.09, ease: 'power2.inOut' });
+                    }
+                });
+
+                /* ---- Contador de fluxo (card 03) ---- */
+                const flowPath = document.getElementById('flow-path');
+                const flowCounter = document.getElementById('flow-counter');
+
+                if (reduceMotion) {
+                    flowCounter.textContent = '1.000';
+                    return; // sem animações de entrada
+                }
+
+                const flow = { v: 0 };
+                gsap.set(flowPath, { strokeDasharray: 1, strokeDashoffset: 1 });
+                gsap.timeline({
+                    scrollTrigger: { trigger: flowPath.closest('article'), start: 'top 85%', end: 'bottom 35%', scrub: 0.6 },
+                })
+                    .to(flowPath, { strokeDashoffset: 0, autoRound: false, ease: 'none' }, 0)
+                    .to(flow, {
+                        v: 1000, ease: 'none',
+                        onUpdate: () => { flowCounter.textContent = Math.round(flow.v).toLocaleString('pt-BR'); },
+                    }, 0);
+
+                /* ---- Entradas ---- */
+                // Título: mask reveal linha a linha (mesma linguagem da hero)
+                gsap.from(section.querySelectorAll('.fold-line'), {
+                    yPercent: 110, opacity: 0, duration: 1.2, ease: 'expo.out', stagger: 0.12,
+                    scrollTrigger: { trigger: section, start: 'top 75%', once: true },
+                });
+                gsap.from(section.querySelectorAll('.fold-fade'), {
+                    y: 32, opacity: 0, duration: 1, ease: 'expo.out', stagger: 0.08,
+                    scrollTrigger: { trigger: section, start: 'top 70%', once: true },
+                });
+
+                // Cards entram em lote, com stagger
+                const cards = section.querySelectorAll('.fold-card');
+                gsap.set(cards, { opacity: 0, y: 48 });
+                ScrollTrigger.batch(cards, {
+                    start: 'top 90%',
+                    once: true,
+                    onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, duration: 1.1, ease: 'expo.out', stagger: 0.1 }),
+                });
+
+                // Cotas e linhas de chamada se desenham quando o painel aparece
+                const lines = stage.querySelectorAll('.dims .draw, .callout .leader');
+                const marks = stage.querySelectorAll('.callout .ring, .callout text, .callout .dot');
+                gsap.set(lines, { strokeDasharray: 1, strokeDashoffset: 1 });
+                gsap.set(marks, { opacity: 0 });
+                gsap.timeline({ scrollTrigger: { trigger: stage, start: 'top 70%', once: true } })
+                    .to(lines, { strokeDashoffset: 0, autoRound: false, duration: 1.2, ease: 'power2.inOut', stagger: 0.06 }, 0.4)
+                    .to(marks, { opacity: 1, duration: 0.5, stagger: 0.03 }, '-=0.7');
+
+                // Parallax sutil do desenho
+                gsap.fromTo('#pen-svg', { y: 30 }, {
+                    y: -30, ease: 'none',
+                    scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: true },
+                });
+            }
+
+            /* Verbetes de fundo: deriva lenta com o scroll (data-lex-drift = % de deslocamento) */
+            if (!reduceMotion) {
+                document.querySelectorAll('.lex-word[data-lex-drift]').forEach((word) => {
+                    const d = parseFloat(word.dataset.lexDrift);
+                    const vertical = word.closest('.lexicon-vertical');
+                    const from = vertical ? { yPercent: -d } : { xPercent: -d };
+                    const to = vertical ? { yPercent: d } : { xPercent: d };
+                    gsap.fromTo(word, from, Object.assign(to, {
+                        ease: 'none',
+                        scrollTrigger: { trigger: word.closest('section, footer'), start: 'top bottom', end: 'bottom top', scrub: true },
+                    }));
+                });
+            }
+
+            // Se o vídeo falhar/demorar, a 2ª dobra funciona mesmo assim
+            setTimeout(() => { if (!foldReady) { initFold(); ScrollTrigger.refresh(); } }, 4000);
+            video.addEventListener('error', () => { if (!foldReady) { initFold(); ScrollTrigger.refresh(); } }, { once: true });
+
+            if (video.readyState >= 1) {
+                initScrollScene();
+            } else {
+                video.addEventListener('loadedmetadata', initScrollScene, { once: true });
+            }
+
+            // Recalcula posições quando fontes terminam de carregar (altura do H1 muda)
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(() => ScrollTrigger.refresh());
+            }
+        })();
+    </script>
+</body>
+
+</html>
