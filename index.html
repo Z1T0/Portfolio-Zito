@@ -987,9 +987,25 @@ body.is-loaded .arch-layer .go-to-project-btn{animation:tag-pop .9s var(--ease-s
 .mini-avatar.has-photo{color:transparent}
 .mini-avatar .status-dot{z-index:2}
 
-/* troca de tema: círculo saindo do botão (View Transitions) */
-::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
-::view-transition-new(root){z-index:9999}
+/* troca de tema: círculo saindo do botão (View Transitions).
+   Só vale durante a troca de tema (classe .vt-theme), para não anular a transição entre páginas. */
+html.vt-theme::view-transition-old(root),html.vt-theme::view-transition-new(root){animation:none;mix-blend-mode:normal}
+html.vt-theme::view-transition-new(root){z-index:9999}
+
+/* transição entre páginas (portfólio <-> estudo de caso). Mesmo bloco no estudo de caso. */
+@media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}}
+::view-transition-group(*){animation-duration:.7s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+::view-transition-old(root){animation:vt-out .35s cubic-bezier(.4,0,1,1) both}
+::view-transition-new(root){animation:vt-in .6s cubic-bezier(.2,.8,.2,1) .12s both}
+@keyframes vt-out{to{opacity:0;transform:scale(.985)}}
+@keyframes vt-in{from{opacity:0;transform:translateY(24px)}}
+/* imagem do card -> imagem principal: preenche sem esticar */
+::view-transition-old(case-media),::view-transition-new(case-media){width:100%;height:100%;object-fit:cover;overflow:clip}
+::view-transition-image-pair(case-media){border-radius:20px;overflow:clip}
+/* título do card -> título grande: cresce mantendo a proporção, alinhado à esquerda */
+::view-transition-old(case-title),::view-transition-new(case-title){width:auto;height:100%}
+/* navegadores sem transição entre páginas: fade curto antes de sair */
+body.is-leaving{opacity:0;transition:opacity .22s ease}
 
 /* Botão de tema na sidebar */
 .theme-toggle{position:absolute;z-index:6;top:4px;right:4px;width:40px;height:40px;font-size:18px;box-shadow:var(--sh-sm)}
@@ -1646,11 +1662,39 @@ const CONTENT = {
     if (reduce || !document.startViewTransition) { applyTheme(next); return; }
     const r = b.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
     const end = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
-    document.startViewTransition(() => applyTheme(next)).ready.then(() => {
+    root.classList.add("vt-theme");
+    const vt = document.startViewTransition(() => applyTheme(next));
+    vt.ready.then(() => {
       root.animate({ clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${end}px at ${x}px ${y}px)`] },
         { duration: 750, easing: "cubic-bezier(.65,0,.35,1)", pseudoElement: "::view-transition-new(root)" });
     });
+    vt.finished.finally(() => root.classList.remove("vt-theme"));
   });
+
+  /* ---------- TRANSIÇÃO PARA O ESTUDO DE CASO ----------
+     Ao sair para um estudo de caso, a imagem e o título do card ganham nomes de transição:
+     o navegador faz eles "viajarem" até a imagem e o título da página nova. */
+  const caseCard = (url) => $$(".project-actions a.link-arrow[href]")
+    .find((a) => a.href === url.split("#")[0])?.closest(".project");
+  const clearCaseNames = () => $$(".project-media, .project-head h3").forEach((el) => { el.style.viewTransitionName = ""; });
+  addEventListener("pageswap", (e) => {
+    const url = e.viewTransition && e.activation?.entry?.url;
+    const card = url && caseCard(url);
+    if (!card) return;
+    card.querySelector(".project-media").style.viewTransitionName = "case-media";
+    card.querySelector(".project-head h3").style.viewTransitionName = "case-title";
+  });
+  addEventListener("pageshow", (e) => { if (e.persisted) { clearCaseNames(); document.body.classList.remove("is-leaving"); } });
+  // sem suporte a transição entre páginas (ex.: Firefox): fade curto e depois navega
+  if (!("CSSViewTransitionRule" in window) && !reduce) {
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest(".project-actions a.link-arrow[href]");
+      if (!a || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      document.body.classList.add("is-leaving");
+      setTimeout(() => { location.href = a.href; }, 220);
+    });
+  }
   // segue o sistema enquanto a pessoa não escolher um tema
   matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", (e) => {
     let saved = null; try { saved = localStorage.getItem("theme"); } catch (_) {}

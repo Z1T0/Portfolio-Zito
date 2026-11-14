@@ -13,6 +13,12 @@
 (function(){var t;try{t=localStorage.getItem("theme")}catch(e){}
 if(t!=="dark"&&t!=="light")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
 document.documentElement.dataset.theme=t;document.getElementById("metaTheme").content=t==="dark"?"#0A0B0F":"#FFFFFF";})();
+/* transição entre páginas: ao chegar, marca a página; ao sair, tira os nomes
+   (na volta ao portfólio fica só o fade, sem a imagem tentar voltar para o card) */
+addEventListener("pagereveal",function(e){if(e.viewTransition)document.documentElement.classList.add("vt-arrive");});
+addEventListener("pageswap",function(e){if(!e.viewTransition)return;
+document.querySelectorAll(".hero-media .shot,.intro h1").forEach(function(el){el.style.viewTransitionName="none";});});
+addEventListener("pageshow",function(e){if(e.persisted)document.querySelectorAll(".hero-media .shot,.intro h1").forEach(function(el){el.style.viewTransitionName="";});});
 </script>
 <meta property="og:type" content="article">
 <meta property="og:locale" content="pt_BR">
@@ -226,6 +232,22 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 .rv{opacity:0;transform:translateY(18px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out)}
 .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rv{opacity:1;transform:none;transition:none}}
+
+/* Transição entre páginas (portfólio <-> estudo de caso). Mesmo bloco no index.html.
+   A imagem e o título do card no portfólio "viajam" até estes dois elementos. */
+.hero-media .shot{view-transition-name:case-media}
+.intro h1{view-transition-name:case-title}
+/* chegando por transição: título e imagem já visíveis (a transição faz a entrada) */
+.vt-arrive .intro.rv,.vt-arrive .hero-media.rv{opacity:1;transform:none;transition:none}
+@media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}}
+::view-transition-group(*){animation-duration:.7s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+::view-transition-old(root){animation:vt-out .35s cubic-bezier(.4,0,1,1) both}
+::view-transition-new(root){animation:vt-in .6s cubic-bezier(.2,.8,.2,1) .12s both}
+@keyframes vt-out{to{opacity:0;transform:scale(.985)}}
+@keyframes vt-in{from{opacity:0;transform:translateY(24px)}}
+::view-transition-old(case-media),::view-transition-new(case-media){width:100%;height:100%;object-fit:cover;overflow:clip}
+::view-transition-image-pair(case-media){border-radius:20px;overflow:clip}
+::view-transition-old(case-title),::view-transition-new(case-title){width:auto;height:100%}
 </style>
 </head>
 <body>
@@ -251,6 +273,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       <p class="lead">Como fazer uma caneta comum, que ninguém para pra olhar, parecer um produto que <span class="serif">dá vontade de ter</span>.</p>
       <div class="intro-actions">
         <a class="theme-btn theme-btn--primary" href="artools/index.html" target="_blank" rel="noopener">Ver a landing ao vivo<iconify-icon icon="lucide:arrow-up-right"></iconify-icon></a>
+        <a class="theme-btn theme-btn--outline" href="https://www.figma.com/design/AJAIQgCQfMty0yV0la4cAx" target="_blank" rel="noopener">Ver no Figma<iconify-icon icon="lucide:figma"></iconify-icon><span class="sr-only">(abre em nova aba)</span></a>
         <a class="theme-btn theme-btn--outline" href="#teste">Ir para o teste com usuários<iconify-icon icon="lucide:arrow-down"></iconify-icon></a>
       </div>
       <dl class="facts">
@@ -435,6 +458,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     </div>
 
     <p class="note rv" style="margin-top:20px"><b>Achado de acessibilidade:</b> o grafite <code>#78716C</code> sobre o fundo papel tem contraste de 4,0:1, um pouco abaixo do mínimo recomendado para texto pequeno (4,5:1). No design system, a regra passou a ser usar <code>#57534E</code> (6,3:1) para texto pequeno sobre o papel.</p>
+    <p class="note rv" style="margin-top:12px"><b>No Figma:</b> documentei a página publicada em um arquivo com as variáveis de cor (modos claro e escuro), os estilos de texto, os componentes, as telas desktop e mobile e uma revisão crítica com o que eu corrigiria. <a href="https://www.figma.com/design/AJAIQgCQfMty0yV0la4cAx" target="_blank" rel="noopener" style="font-weight:600">Abrir o arquivo no Figma<span class="sr-only"> (abre em nova aba)</span></a></p>
   </section>
 
   <!-- 06 TESTE -->
