@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EasyLog · Estudo de caso · Antonio Zito</title>
+<meta name="description" content="Estudo de caso do EasyLog: entregas locais por assinatura em Teresina, com app do lojista, app do motorista e painel web. Problema, decisões de produto, fluxo de ponta a ponta, design system, limites e aprendizados.">
+<meta name="author" content="Antonio Zito Menezes do Desterro Junior">
+<meta name="theme-color" content="#FFFFFF" id="metaTheme">
+<meta name="color-scheme" content="light dark">
+<script>
+/* mesmo tema do portfólio: salvo ou o do sistema */
+(function(){var t;try{t=localStorage.getItem("theme")}catch(e){}
+if(t!=="dark"&&t!=="light")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+document.documentElement.dataset.theme=t;document.getElementById("metaTheme").content=t==="dark"?"#0A0B0F":"#FFFFFF";})();
+addEventListener("pagereveal",function(e){if(e.viewTransition)document.documentElement.classList.add("vt-arrive");});
+addEventListener("pageswap",function(e){if(!e.viewTransition)return;
+document.querySelectorAll(".hero-media .shot,.intro h1").forEach(function(el){el.style.viewTransitionName="none";});});
+addEventListener("pageshow",function(e){if(e.persisted)document.querySelectorAll(".hero-media .shot,.intro h1").forEach(function(el){el.style.viewTransitionName="";});});
+</script>
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="EasyLog · Estudo de caso">
+<meta property="og:description" content="Entregas locais por assinatura: o lojista sabe quanto vai pagar no mês e o motorista fica com o frete inteiro.">
+<meta property="og:image" content="assets/projects/easylog-case/web-dashboard.webp">
+
+<link rel="preload" href="assets/ds/fonts/inter-display-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script src="assets/ds/js/iconify-icon.min.js"></script>
+
+<style>
+@font-face{font-family:"Inter Display";src:url("assets/ds/fonts/inter-display-500.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Inter Display";src:url("assets/ds/fonts/inter-display-600.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Inter Display";src:url("assets/ds/fonts/inter-display-700.woff2") format("woff2");font-weight:700;font-display:swap}
+
+/* Tokens do portfólio (index.html) */
+:root{
+  color-scheme:light;
+  --white:#FFFFFF;--snow:#F6F7FA;--mist:#E9ECF3;--lilac:#DFE0EB;--steel:#C7CCD8;--graphite:#474747;--ink:#101010;--black:#0A0A0A;
+  --blue:#3458FF;--blue-600:#2442D9;--blue-pale:#CDD5FB;--blue-tint:#EEF1FF;
+  --accent:var(--blue);--on-color:#FFFFFF;
+  --background:var(--white);--foreground:var(--ink);
+  --ok:#0B7A47;--ok-soft:#E6F5EE;--no:#C8102E;--no-soft:#FFF0F2;
+  --font-display:"Inter Display","Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --font-serif:"Instrument Serif",Georgia,serif;
+  --r-sm:10px;--r-md:20px;--r-pill:999px;
+  --sh-md:0 10px 30px -12px rgba(16,16,16,.18);
+  --sh-glow:0 14px 40px -12px rgba(52,88,255,.55);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --gutter:16px;--max:1080px;
+}
+@media (min-width:768px){:root{--gutter:32px}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --white:#13151B;--snow:#191C24;--mist:#262A35;--lilac:#2C3140;--steel:#4A5163;--graphite:#A6ADBC;--ink:#F1F3F8;--black:#FFFFFF;
+  --blue-tint:#18204A;--blue-pale:#33448F;
+  --accent:#8EA2FF;
+  --background:#0A0B0F;
+  --ok:#3DDC97;--ok-soft:#0F2A1F;--no:#FF7A8E;--no-soft:#2A1218;
+  --sh-md:0 14px 34px -12px rgba(0,0,0,.7);
+  --sh-glow:0 14px 40px -12px rgba(52,88,255,.6);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-body);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,video{max-width:100%;display:block}
+a{color:inherit}
+::selection{background:var(--blue);color:var(--on-color)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:8px}
+.serif{font-family:var(--font-serif);font-style:italic;font-weight:400;letter-spacing:-.02em}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip-link{position:fixed;left:16px;top:-60px;z-index:3000;background:var(--ink);color:var(--white);padding:10px 16px;border-radius:var(--r-pill);text-decoration:none;font-weight:500;transition:top .3s var(--ease-out)}
+.skip-link:focus{top:16px}
+
+/* Topo */
+.topbar{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--background) 82%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--mist)}
+.topbar-in{max-width:calc(var(--max) + 2*var(--gutter));margin:0 auto;padding:12px var(--gutter);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.back{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-family:var(--font-display);font-weight:500;font-size:15px;padding:8px 14px 8px 10px;border-radius:var(--r-pill);border:1px solid var(--steel);transition:border-color .3s,background .3s}
+.back:hover{border-color:var(--ink);background:var(--snow)}
+.back{white-space:nowrap}.back .short{display:none}
+@media (max-width:480px){.back .full{display:none}.back .short{display:inline}}
+.top-right{display:flex;align-items:center;gap:8px}
+.btn-icon{width:42px;height:42px;border-radius:50%;display:inline-grid;place-items:center;border:1px solid var(--steel);background:var(--white);font-size:18px;cursor:pointer;color:var(--ink);transition:background .3s,color .3s,border-color .3s}
+.btn-icon:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
+
+/* Botões (DS .theme-btn, versão simples) */
+.theme-btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:var(--r-pill);border:1px solid transparent;font-family:var(--font-display);font-weight:500;font-size:15px;text-decoration:none;white-space:nowrap;transition:background .3s var(--ease-out),box-shadow .6s var(--ease-out),border-color .3s,transform .3s var(--ease-out)}
+.theme-btn:active{transform:scale(.97)}
+.theme-btn--primary{background:var(--ink);color:var(--white)}
+.theme-btn--primary:hover{box-shadow:var(--sh-glow)}
+.theme-btn--outline{background:transparent;color:var(--ink);border-color:var(--steel)}
+.theme-btn--outline:hover{border-color:var(--ink);background:var(--snow)}
+
+/* Layout */
+.wrap{max-width:calc(var(--max) + 2*var(--gutter));margin:0 auto;padding:0 var(--gutter)}
+main{display:flex;flex-direction:column;gap:96px;padding:56px 0 96px}
+@media (max-width:640px){main{gap:72px;padding-top:36px}}
+section{scroll-margin-top:90px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;line-height:1;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+h1,h2,h3{font-family:var(--font-display);margin:0;text-wrap:balance;letter-spacing:-.03em}
+h1{font-weight:600;font-size:clamp(40px,7vw,76px);line-height:1}
+h2{font-weight:600;font-size:clamp(28px,4vw,42px);line-height:1.1}
+h3{font-weight:600;font-size:20px;line-height:1.3;letter-spacing:-.015em}
+p{margin:0}
+.lead{font-size:clamp(18px,2.2vw,22px);color:var(--graphite);max-width:60ch;line-height:1.55}
+.muted{color:var(--graphite)}
+.prose{display:flex;flex-direction:column;gap:16px;max-width:68ch}
+.sec-head{display:flex;flex-direction:column;gap:14px;margin-bottom:32px}
+.sec-head .num{font-family:var(--font-display);font-weight:500;color:var(--graphite);font-size:15px;letter-spacing:.02em}
+.sec-head p{max-width:64ch;color:var(--graphite)}
+
+/* Abertura */
+.intro{display:flex;flex-direction:column;gap:22px}
+.intro-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--mist);border-radius:var(--r-md);margin-top:18px;overflow:hidden}
+.facts div{padding:18px 20px;border-left:1px solid var(--mist);display:flex;flex-direction:column;gap:6px;min-width:0}
+.facts div:first-child{border-left:0}
+.facts dt{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--graphite)}
+.facts dd{margin:0;font-size:15px;line-height:1.45}
+@media (max-width:820px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.facts div:nth-child(3){border-left:0}.facts div:nth-child(n+3){border-top:1px solid var(--mist)}}
+@media (max-width:420px){.facts{grid-template-columns:minmax(0,1fr)}.facts div{border-left:0}.facts div+div{border-top:1px solid var(--mist)}}
+
+/* Mídia */
+.shot{margin:0;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--mist);background:var(--snow);box-shadow:var(--sh-md)}
+.shot img,.shot video{width:100%;height:auto}
+figcaption,.cap{font-size:14px;color:var(--graphite);line-height:1.5;margin-top:10px}
+figure{margin:0}
+.hero-media{margin-top:40px}
+
+/* Resumo */
+.tldr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:820px){.tldr{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--snow);border:1px solid var(--mist);border-radius:var(--r-md);padding:24px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card .k{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.card p{font-size:16px;line-height:1.6}
+.big{font-family:var(--font-display);font-weight:600;font-size:44px;letter-spacing:-.04em;line-height:1}
+.big small{font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--graphite);margin-left:6px}
+
+/* Duas colunas */
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}
+@media (max-width:820px){.split{grid-template-columns:minmax(0,1fr);gap:24px}}
+.quote{border-left:3px solid var(--blue);padding:4px 0 4px 20px;font-family:var(--font-display);font-weight:500;font-size:clamp(20px,2.6vw,26px);line-height:1.35;letter-spacing:-.02em}
+.note{background:var(--blue-tint);border-radius:var(--r-sm);padding:16px 18px;font-size:15.5px;line-height:1.6}
+.note b{color:var(--accent)}
+
+/* Referências */
+.refs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:820px){.refs{grid-template-columns:minmax(0,1fr)}}
+.refs ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:15.5px}
+.plus{display:flex;align-items:center;justify-content:center;gap:14px;margin:22px 0 14px;font-family:var(--font-display);font-weight:500;color:var(--graphite);flex-wrap:wrap;text-align:center}
+.plus b{color:var(--ink)}
+.steps{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;counter-reset:s}
+@media (max-width:820px){.steps{grid-template-columns:minmax(0,1fr)}}
+.steps li{counter-increment:s;border:1px solid var(--mist);border-radius:var(--r-md);padding:18px;font-size:15px;line-height:1.55;display:flex;flex-direction:column;gap:8px}
+.steps li::before{content:counter(s);width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:var(--white);font-family:var(--font-display);font-weight:600;font-size:14px}
+.steps .who{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--graphite)}
+
+/* Estrutura */
+.flow{list-style:none;margin:0 0 40px;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+@media (max-width:900px){.flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.flow li{border:1px solid var(--mist);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.flow .n{font-family:var(--font-display);font-weight:600;font-size:13px;color:var(--accent)}
+.flow .t{font-family:var(--font-display);font-weight:600;font-size:15px;line-height:1.25}
+.flow .q{font-size:13.5px;color:var(--graphite);line-height:1.4}
+.part{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:40px;align-items:center;padding:36px 0;border-top:1px solid var(--mist)}
+.part.alt .part-text{order:2}
+@media (max-width:820px){.part{grid-template-columns:minmax(0,1fr);gap:20px}.part.alt .part-text{order:0}}
+.part-text{display:flex;flex-direction:column;gap:12px}
+.part-text .q{font-family:var(--font-serif);font-style:italic;font-size:22px;color:var(--accent);line-height:1.3}
+.part-text p{font-size:16.5px}
+.tag{display:inline-flex;align-self:flex-start;align-items:center;gap:6px;font-size:12.5px;font-weight:600;padding:5px 10px;border-radius:var(--r-pill);background:var(--snow);border:1px solid var(--mist);color:var(--graphite)}
+.pair{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1fr);gap:16px;align-items:end}
+@media (max-width:560px){.pair{grid-template-columns:minmax(0,1fr)}}
+
+/* Design system */
+.swatches{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:720px){.swatches{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.sw{border:1px solid var(--mist);border-radius:var(--r-md);overflow:hidden}
+.sw i{display:block;height:96px}
+.sw div{padding:12px 14px;display:flex;flex-direction:column;gap:2px;font-size:14px}
+.sw b{font-family:var(--font-display);font-size:16px}
+.sw code{font-size:13px;color:var(--graphite)}
+.fonts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+@media (max-width:720px){.fonts{grid-template-columns:minmax(0,1fr)}}
+.font{border:1px solid var(--mist);border-radius:var(--r-md);padding:20px;display:flex;flex-direction:column;gap:6px}
+.font .aa{font-size:52px;line-height:1;margin-bottom:6px;color:var(--ink)}
+.font span{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--graphite)}
+.font p{font-size:15px;color:var(--graphite)}
+
+/* Tabelas */
+.table-wrap{border:1px solid var(--mist);border-radius:var(--r-md);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15.5px;line-height:1.5}
+th,td{text-align:left;padding:14px 18px;border-top:1px solid var(--mist);vertical-align:top}
+thead th{border-top:0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--graphite);background:var(--snow)}
+td.before{color:var(--graphite);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--no) 60%,transparent)}
+.res{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:4px 10px;border-radius:var(--r-pill);white-space:nowrap}
+.res.ok{background:var(--ok-soft);color:var(--ok)}
+.res.no{background:var(--no-soft);color:var(--no)}
+@media (max-width:640px){
+  .stack thead{display:none}
+  .stack tr{display:block;padding:14px 16px;border-top:1px solid var(--mist)}
+  .stack tr:first-child{border-top:0}
+  .stack td{display:block;border:0;padding:4px 0}
+}
+
+/* Vídeo */
+.frames{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:14px;align-items:center}
+.frames .arrow{font-size:22px;color:var(--graphite)}
+@media (max-width:640px){.frames{grid-template-columns:minmax(0,1fr)}.frames .arrow{justify-self:center;transform:rotate(90deg)}}
+
+/* Aprendizados */
+.learn{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:28px}
+@media (max-width:720px){.learn{grid-template-columns:minmax(0,1fr)}}
+.learn .card iconify-icon{font-size:24px;color:var(--accent)}
+.next{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.next li{display:flex;gap:12px;align-items:flex-start;font-size:16px}
+.next iconify-icon{flex:none;margin-top:4px;color:var(--accent)}
+
+/* Fim */
+.end{border-top:1px solid var(--mist);padding-top:40px;display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+.end p{max-width:64ch}
+footer{border-top:1px solid var(--mist);padding:24px 0 40px;font-size:14px;color:var(--graphite)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+
+/* Entrada suave */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rv{opacity:1;transform:none;transition:none}}
+
+/* Transição entre páginas (portfólio <-> estudo de caso). Mesmo bloco no index.html.
+   A imagem e o título do card no portfólio "viajam" até estes dois elementos. */
+.hero-media .shot{view-transition-name:case-media}
+.intro h1{view-transition-name:case-title}
+/* chegando por transição: título e imagem já visíveis (a transição faz a entrada) */
+.vt-arrive .intro.rv,.vt-arrive .hero-media.rv{opacity:1;transform:none;transition:none}
+@media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}}
+::view-transition-group(*){animation-duration:.7s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+::view-transition-old(root){animation:vt-out .35s cubic-bezier(.4,0,1,1) both}
+::view-transition-new(root){animation:vt-in .6s cubic-bezier(.2,.8,.2,1) .12s both}
+@keyframes vt-out{to{opacity:0;transform:scale(.985)}}
+@keyframes vt-in{from{opacity:0;transform:translateY(24px)}}
+::view-transition-old(case-media),::view-transition-new(case-media){width:100%;height:100%;object-fit:cover;overflow:clip}
+::view-transition-image-pair(case-media){border-radius:20px;overflow:clip}
+::view-transition-old(case-title),::view-transition-new(case-title){width:auto;height:100%}
+
+
+/* EasyLog: telas de celular, palco da abertura e tabelas de preço */
+.stage{border-radius:var(--r-md);background:#092F4E;padding:40px 24px 0;display:flex;justify-content:center;align-items:flex-end;gap:20px;overflow:hidden;border:1px solid var(--mist);box-shadow:var(--sh-md)}
+.stage .phone{width:min(240px,30%);flex:none;border-radius:22px 22px 0 0;border-bottom:0;box-shadow:0 -10px 40px -10px rgba(0,0,0,.45)}
+.stage .phone:nth-child(2){width:min(270px,34%)}
+@media (max-width:560px){.stage{padding:24px 12px 0;gap:8px}.stage .phone{border-radius:12px 12px 0 0}}
+.phone{margin:0;border-radius:24px;overflow:hidden;border:1px solid var(--mist);background:#fff;box-shadow:var(--sh-md)}
+.phone img{width:100%;height:auto}
+.phones{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+.phones.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:640px){.phones.three{grid-template-columns:repeat(2,minmax(0,1fr))}.phones.three figure:nth-child(3){display:none}}
+.phones figcaption{margin-top:8px;font-size:13px}
+.who-l,.who-m,.who-w{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.who-l{background:#F9991F}.who-m{background:#2DA66B}.who-w{background:#6B8BA8}
+.legend{display:flex;flex-wrap:wrap;gap:18px;font-size:14px;color:var(--graphite);margin:-12px 0 24px}
+.status{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.status span{font-size:13px;font-weight:600;padding:5px 12px;border-radius:var(--r-pill)}
+.kw{font-family:var(--font-display);font-weight:700;letter-spacing:.08em;font-size:clamp(30px,5vw,44px);line-height:1;color:#092F4E;background:#fff;border:2px dashed #6B8BA8;border-radius:14px;padding:18px 20px;text-align:center}
+.kw small{display:block;font-family:var(--font-body);font-size:11px;letter-spacing:.06em;font-weight:600;color:#494A50;margin-bottom:10px}
+.price td:nth-child(n+2),.price th:nth-child(n+2){white-space:nowrap}
+.flag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:var(--r-pill);background:var(--blue-tint);color:var(--accent);margin-left:6px;vertical-align:2px}
+.open{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:720px){.open{grid-template-columns:minmax(0,1fr)}}
+.open li{border:1px solid var(--mist);border-radius:var(--r-md);padding:20px 22px;display:flex;flex-direction:column;gap:8px}
+.open li b{font-family:var(--font-display);font-size:17px;font-weight:600;letter-spacing:-.01em}
+.open li p{font-size:15.5px;color:var(--graphite)}
+.open .lvl{align-self:flex-start;font-size:12px;font-weight:600;padding:3px 10px;border-radius:var(--r-pill)}
+.lvl.alta{background:var(--no-soft);color:var(--no)}
+.lvl.media{background:#FEF1DE;color:#9A4F06}
+:root[data-theme="dark"] .lvl.media{background:#2E2210;color:#F9C46B}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="back" href="index.html#projeto-hub"><iconify-icon icon="lucide:arrow-left"></iconify-icon><span class="full">Voltar ao portfólio</span><span class="short">Portfólio</span></a>
+    <div class="top-right">
+      <a class="theme-btn theme-btn--outline" href="https://www.figma.com/design/jkjjwENNY1rHJQgjxkmBqy?node-id=84-1140" target="_blank" rel="noopener" style="height:42px;padding:0 16px;font-size:14px">Ver o protótipo<iconify-icon icon="lucide:arrow-up-right"></iconify-icon><span class="sr-only">(abre em nova aba)</span></a>
+      <button class="btn-icon" id="themeToggle" type="button" aria-label="Alternar tema claro e escuro"><iconify-icon icon="lucide:moon"></iconify-icon></button>
+    </div>
+  </div>
+</header>
+
+<main id="conteudo">
+
+  <!-- ABERTURA -->
+  <section class="wrap">
+    <div class="intro rv">
+      <span class="eyebrow"><iconify-icon icon="lucide:book-open"></iconify-icon>Estudo de caso · Produto digital · 2026</span>
+      <h1>EasyLog</h1>
+      <p class="lead">Entregas de loja de bairro em Teresina, cobradas por assinatura. O lojista sabe quanto vai pagar no mês e o motorista fica com <span class="serif">o frete inteiro</span>.</p>
+      <div class="intro-actions">
+        <a class="theme-btn theme-btn--primary" href="https://www.figma.com/design/jkjjwENNY1rHJQgjxkmBqy?node-id=84-1140" target="_blank" rel="noopener">Ver o protótipo no Figma<iconify-icon icon="lucide:arrow-up-right"></iconify-icon><span class="sr-only">(abre em nova aba)</span></a>
+        <a class="theme-btn theme-btn--outline" href="#entrega">Seguir a entrega #4830<iconify-icon icon="lucide:arrow-down"></iconify-icon></a>
+        <a class="theme-btn theme-btn--outline" href="#limites">Ir para os limites<iconify-icon icon="lucide:arrow-down"></iconify-icon></a>
+      </div>
+      <dl class="facts">
+        <div><dt>Tipo</dt><dd>Projeto pessoal, continuação do Hub Logístico que fiz em 2025</dd></div>
+        <div><dt>Meu papel</dt><dd>Definição do produto, regras de negócio, preços, fluxos e revisão de cada tela</dd></div>
+        <div><dt>Ferramentas</dt><dd>Figma, e o Claude para escrever os prompts e montar as telas no Figma</dd></div>
+        <div><dt>Entrega</dt><dd>106 telas em três frentes, design system e um protótipo de ponta a ponta</dd></div>
+      </dl>
+    </div>
+    <figure class="hero-media rv">
+      <div class="shot stage">
+        <img class="phone" src="assets/projects/easylog-case/lojista-inicio.webp" width="360" height="800" alt="App do lojista: início da Tintas & Tintas Dirceu, com o botão Nova entrega, o resumo do dia e duas entregas em andamento." fetchpriority="high">
+        <img class="phone" src="assets/projects/easylog-case/motorista-novo-pedido.webp" width="360" height="800" alt="App do motorista: novo pedido com 28 segundos para aceitar, valor de R$ 38,50, carga grande num utilitário, retirada na Tintas & Tintas Dirceu e destino no Jóquei.">
+        <img class="phone" src="assets/projects/easylog-case/lojista-confirmar-retirada.webp" width="360" height="800" alt="App do lojista: conferência da palavra-chave de retirada ESTRELA-94, com a lista de itens e o botão Confirmar retirada.">
+      </div>
+      <figcaption>App do lojista, app do motorista e de novo o lojista, todos na mesma entrega.</figcaption>
+    </figure>
+  </section>
+
+  <!-- RESUMO -->
+  <section class="wrap" aria-labelledby="resumo-t">
+    <h2 id="resumo-t" class="sr-only">Resumo</h2>
+    <div class="tldr">
+      <div class="card rv"><span class="k">Desafio</span><p>A loja de bairro paga comissão alta por pedido nas plataformas grandes, e o motorista perde parte de cada corrida em taxa. Os dois entregam para quem não conhecem.</p></div>
+      <div class="card rv"><span class="k">O que fiz</span><p>Desenhei o serviço inteiro: o app de quem pede, o app de quem entrega e o painel de quem administra a loja, contando a mesma entrega nas três frentes.</p></div>
+      <div class="card rv"><span class="k">Resultado</span><p class="big">106 <small>telas no Figma</small></p><p>e um protótipo de 18 passos que acompanha uma entrega da loja até o painel. Ainda não testei com ninguém, e isso está na seção de limites.</p></div>
+    </div>
+  </section>
+
+  <!-- 01 ORIGEM -->
+  <section class="wrap" id="origem">
+    <div class="sec-head rv"><span class="num">01</span><h2>De onde veio</h2></div>
+    <div class="split">
+      <div class="prose rv">
+        <p>Em 2025 fiz o Hub Logístico, meu primeiro app: 33 telas do app do motorista, do cadastro até a entrega concluída. Ele ligava lojas a motoristas autônomos de Teresina.</p>
+        <p>Voltando a ele, vi que faltava quem pede. Toda entrega começa com alguém no balcão da loja, e essa pessoa não aparecia no projeto. Também não estava claro como o serviço se pagava.</p>
+        <p>O EasyLog é o mesmo problema visto inteiro: quem pede, quem entrega, quem administra e como o dinheiro circula entre eles.</p>
+      </div>
+      <div class="prose rv">
+        <p class="quote">Desenhar só o motorista era desenhar metade de uma entrega.</p>
+        <p class="note"><b>Mudanças em relação ao Hub Logístico:</b> entrou o app do lojista, o painel web e o modelo de assinatura. O motorista ganhou utilitário (tipo Fiorino) além de moto e carro, e a bicicleta saiu.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 PROBLEMA -->
+  <section class="wrap" id="problema">
+    <div class="sec-head rv"><span class="num">02</span><h2>O problema, dos dois lados</h2><p>Não fiz pesquisa com lojistas nem com motoristas. O problema abaixo vem do que eu vejo no comércio de Teresina e do que já tinha levantado no Hub Logístico.</p></div>
+    <div class="refs">
+      <div class="card rv">
+        <span class="k">Lojista</span>
+        <p>Mercadinho, farmácia, loja de material de construção. Não tem volume para manter motorista fixo.</p>
+        <ul>
+          <li>As plataformas grandes cobram comissão por pedido e comem a margem</li>
+          <li>Essas plataformas priorizam restaurante e rede grande</li>
+          <li>Carga maior que uma moto aguenta, como tinta e caixa, fica sem opção barata</li>
+        </ul>
+      </div>
+      <div class="card rv">
+        <span class="k">Motorista</span>
+        <p>Autônomo, de moto, carro ou utilitário. Usa o celular na rua, com uma mão e sol na tela.</p>
+        <ul>
+          <li>Perde parte de cada corrida em taxa</li>
+          <li>Aceita pedido sem saber o que vai levar, para onde e por quanto</li>
+          <li>Tem renda instável de uma semana para outra</li>
+        </ul>
+      </div>
+    </div>
+    <p class="plus rv">Nos dois casos, <b>a loja entrega a mercadoria a um desconhecido</b> e <b>o motorista não sabe se está entregando à pessoa certa</b></p>
+  </section>
+
+  <!-- 03 FRENTES -->
+  <section class="wrap" id="frentes">
+    <div class="sec-head rv"><span class="num">03</span><h2>Quem usa cada frente</h2><p>Desenhei cada frente para o lugar onde ela é usada. O destinatário, cliente da loja, não tem app: recebe um link e uma palavra-chave por WhatsApp ou SMS.</p></div>
+    <div class="table-wrap rv">
+      <table class="stack">
+        <thead><tr><th scope="col">Frente</th><th scope="col">Quem usa e onde</th><th scope="col">O que isso pede da interface</th></tr></thead>
+        <tbody>
+          <tr><td><span class="who-l"></span><b>App do lojista</b></td><td>Dono ou atendente, no balcão, entre um cliente e outro</td><td>Pedir uma entrega em poucos toques e conferir a retirada sem sair do balcão. A meta foi criar uma entrega em menos de um minuto.</td></tr>
+          <tr><td><span class="who-m"></span><b>App do motorista</b></td><td>Motorista autônomo, na rua, em movimento</td><td>Valor, endereço e próxima ação legíveis de relance. Botões grandes (48 px), poucos passos por tela e um modo de alto contraste.</td></tr>
+          <tr><td><span class="who-w"></span><b>Painel web</b></td><td>Dono ou gestor, no computador, planejando o mês</td><td>Visão do mês inteiro: volume, custo, uso do plano, várias unidades, equipe e faturas.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 04 DECISÕES -->
+  <section class="wrap" id="decisoes">
+    <div class="sec-head rv"><span class="num">04</span><h2>Decisões de produto</h2><p>Antes de qualquer tela, defini as regras. Elas aparecem em quase todos os fluxos, então mudar uma depois significaria refazer dezenas de telas.</p></div>
+
+    <div class="part">
+      <div class="part-text rv">
+        <span class="tag">1 · Assinatura em vez de comissão</span>
+        <p class="q">"Quanto eu vou pagar este mês?"</p>
+        <p>O lojista paga um plano com um pacote de entregas incluído e só paga taxa no que passar do pacote. Dentro do pacote, a taxa EasyLog aparece como R$ 0,00 na tela, para ele ver que não está sendo cobrado de novo.</p>
+        <p>O motorista paga uma assinatura e fica com 100% do frete. Escolhi esse modelo porque a taxa por corrida é justamente a reclamação dos dois lados.</p>
+      </div>
+      <div class="rv">
+        <div class="table-wrap">
+          <table class="price">
+            <thead><tr><th scope="col">Lojista</th><th scope="col">Mensal</th><th scope="col">Incluídas</th><th scope="col">Excedente</th></tr></thead>
+            <tbody>
+              <tr><td>Essencial</td><td>R$ 89</td><td>60</td><td>R$ 1,50</td></tr>
+              <tr><td>Pro <span class="flag">recomendado</span></td><td>R$ 189</td><td>200</td><td>R$ 0,99</td></tr>
+              <tr><td>Rede</td><td>R$ 349</td><td>ilimitado</td><td>sem taxa</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-wrap" style="margin-top:12px">
+          <table class="price">
+            <thead><tr><th scope="col">Motorista</th><th scope="col">Preço</th><th scope="col">Taxa por entrega</th></tr></thead>
+            <tbody>
+              <tr><td>Semanal</td><td>R$ 24,90</td><td>nenhuma</td></tr>
+              <tr><td>Pro <span class="flag">recomendado</span></td><td>R$ 79,90 / mês</td><td>nenhuma</td></tr>
+              <tr><td>Trimestral</td><td>R$ 199,90</td><td>nenhuma</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="cap">O plano semanal existe para o motorista que ainda está testando e não quer se comprometer com um mês.</p>
+      </div>
+    </div>
+
+    <div class="part alt">
+      <div class="part-text rv">
+        <span class="tag">2 · O veículo certo para a carga</span>
+        <p class="q">"Isso cabe numa moto?"</p>
+        <p>O lojista informa o tamanho da carga, e o app sugere o veículo: moto até 20 kg, carro até 200 kg, utilitário até 650 kg. O pedido só vai para motoristas com veículo compatível. Assim o motorista de moto não recebe um pedido de duas latas de tinta de 18 litros.</p>
+      </div>
+      <figure class="rv" style="max-width:300px;justify-self:center">
+        <div class="phone"><img src="assets/projects/easylog-case/lojista-veiculo-valor.webp" width="360" height="800" loading="lazy" alt="Nova entrega, etapa 3 de 3: utilitário leve recomendado para a carga, frete de R$ 38,50 com 100% para o motorista, taxa EasyLog de R$ 0,00 dentro do plano e o aviso de que é a entrega 143 de 200."></div>
+        <figcaption>Antes de pedir, o lojista vê na mesma tela o frete, a taxa zerada e em que ponto do pacote está ("entrega 143 de 200").</figcaption>
+      </figure>
+    </div>
+
+    <div class="part">
+      <div class="part-text rv">
+        <span class="tag">3 · Duas palavras-chave</span>
+        <p class="q">"É a pessoa certa?"</p>
+        <p>Cada entrega tem duas palavras-chave. Na loja, o motorista mostra a de retirada e o lojista confere antes de liberar a mercadoria. No destino, quem recebe diz a palavra de entrega, que chegou por WhatsApp, e o motorista digita para concluir.</p>
+        <p>Preferi palavra a código numérico porque é mais fácil de falar em voz alta no balcão ou no portão, e mais difícil de errar.</p>
+      </div>
+      <div class="rv" style="display:flex;flex-direction:column;gap:12px">
+        <div class="kw"><small>PALAVRA-CHAVE DE RETIRADA</small>ESTRELA-94</div>
+        <div class="kw"><small>PALAVRA-CHAVE DE ENTREGA</small>BRASIL-58</div>
+      </div>
+    </div>
+
+    <div class="part alt">
+      <div class="part-text rv">
+        <span class="tag">4 · Tudo à vista antes do aceite</span>
+        <p class="q">"Vale a pena aceitar?"</p>
+        <p>O pedido chega com o valor em destaque, o tipo de carga, a loja, o bairro de destino e a distância total. O motorista decide em 30 segundos sem abrir outra tela. No Hub Logístico o card mostrava a quantidade de itens, mas não o tamanho da carga.</p>
+      </div>
+      <figure class="phone rv" style="max-width:300px;justify-self:center"><img src="assets/projects/easylog-case/motorista-novo-pedido.webp" width="360" height="800" loading="lazy" alt="Novo pedido no app do motorista: você recebe R$ 38,50, utilitário, carga grande com 2 latas de 18 L e 1 rolo, 6,4 km no total, retirada e destino, botões Recusar e Aceitar entrega."></figure>
+    </div>
+  </section>
+
+  <!-- 05 ENTREGA #4830 -->
+  <section class="wrap" id="entrega">
+    <div class="sec-head rv"><span class="num">05</span><h2>Uma entrega de ponta a ponta</h2><p>Para conferir se as três frentes conversavam, criei uma história única e usei os mesmos dados em todas as telas: a loja Tintas &amp; Tintas Dirceu, a administradora Mariana, o motorista Carlos Eduardo e a entrega #4830, de duas latas de tinta para o Jóquei. O protótipo no Figma segue essa entrega em 18 passos.</p></div>
+    <p class="legend rv"><span><span class="who-l"></span>App do lojista</span><span><span class="who-m"></span>App do motorista</span><span><span class="who-w"></span>Painel web</span></p>
+
+    <div class="part">
+      <div class="part-text rv">
+        <span class="tag"><span class="who-l"></span>10:45 · Mariana pede</span>
+        <p>No balcão, Mariana toca em "Nova entrega" e preenche três etapas: quem recebe, o que vai e qual veículo. O frete de R$ 38,50 aparece antes de ela confirmar.</p>
+      </div>
+      <div class="phones rv">
+        <figure class="phone"><img src="assets/projects/easylog-case/lojista-inicio.webp" width="360" height="800" loading="lazy" alt="Início do app do lojista com o botão Nova entrega, o resumo de hoje e as entregas em andamento."></figure>
+        <figure class="phone"><img src="assets/projects/easylog-case/lojista-veiculo-valor.webp" width="360" height="800" loading="lazy" alt="Etapa de veículo e custo da nova entrega, com total a pagar de R$ 38,50."></figure>
+      </div>
+    </div>
+
+    <div class="part alt">
+      <div class="part-text rv">
+        <span class="tag"><span class="who-m"></span>Carlos aceita e vai à loja</span>
+        <p>Carlos recebe o pedido com tudo à vista e aceita. Na loja, o app mostra a palavra ESTRELA-94 em letras grandes, para ele virar o celular para o balcão.</p>
+      </div>
+      <div class="phones rv">
+        <figure class="phone"><img src="assets/projects/easylog-case/motorista-novo-pedido.webp" width="360" height="800" loading="lazy" alt="Novo pedido com timer, valor e carga."></figure>
+        <figure class="phone"><img src="assets/projects/easylog-case/motorista-retirada.webp" width="360" height="800" loading="lazy" alt="Motorista na loja: palavra-chave de retirada ESTRELA-94 em destaque, itens do pedido e o aviso Aguardando confirmação do lojista."></figure>
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="part-text rv">
+        <span class="tag"><span class="who-l"></span>Mariana confere e libera</span>
+        <p>Mariana compara a palavra da tela do Carlos com a do app dela e confirma a retirada. O cliente, Marcos, recebe nesse momento o link de acompanhamento e a palavra de entrega por WhatsApp.</p>
+      </div>
+      <div class="phones rv">
+        <figure class="phone"><img src="assets/projects/easylog-case/lojista-confirmar-retirada.webp" width="360" height="800" loading="lazy" alt="Conferência de segurança no app do lojista com a palavra ESTRELA-94 e o botão Confirmar retirada e liberar mercadoria."></figure>
+        <figure class="phone"><img src="assets/projects/easylog-case/lojista-a-caminho.webp" width="360" height="800" loading="lazy" alt="Lojista acompanha a rota no mapa, com chegada prevista às 11:22, os dados do motorista e o aviso de que o link foi enviado ao destinatário."></figure>
+      </div>
+    </div>
+
+    <div class="part alt">
+      <div class="part-text rv">
+        <span class="tag"><span class="who-m"></span>11:22 · Entrega concluída</span>
+        <p>No Jóquei, Marcos diz BRASIL-58. Carlos digita, conclui e vê o valor creditado: R$ 38,50, com a taxa EasyLog em R$ 0,00 na mesma tela.</p>
+      </div>
+      <div class="phones rv">
+        <figure class="phone"><img src="assets/projects/easylog-case/motorista-destino-palavra.webp" width="360" height="800" loading="lazy" alt="Conferência de entrega: campo com a palavra BRASIL-58 informada pelo destinatário e o botão Concluir entrega."></figure>
+        <figure class="phone"><img src="assets/projects/easylog-case/motorista-concluida.webp" width="360" height="800" loading="lazy" alt="Entrega concluída: valor ganho de R$ 38,50, taxa EasyLog de R$ 0,00 e total do dia."></figure>
+      </div>
+    </div>
+
+    <div class="rv" style="padding-top:36px;border-top:1px solid var(--mist)">
+      <span class="tag" style="margin-bottom:14px"><span class="who-w"></span>No painel web</span>
+      <figure><div class="shot"><img src="assets/projects/easylog-case/web-entregas.webp" width="1440" height="1024" loading="lazy" alt="Painel web, lista de entregas: tabela com código, destinatário, bairro, veículo, motorista, status, valor e data. A linha #4830, de Marcos Vinícius Mendes no Jóquei, aparece como Entregue, R$ 38,50."></div><figcaption>A mesma entrega #4830 aparece na lista do painel, com filtros por período, status e veículo.</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 06 PAINEL -->
+  <section class="wrap" id="painel">
+    <div class="sec-head rv"><span class="num">06</span><h2>O painel de quem administra</h2><p>O app é para as entregas do dia. No painel, o dono olha o mês: quantas entregas foram feitas, quanto custaram, quando o pacote vai acabar e se vale trocar de plano.</p></div>
+    <figure class="rv"><div class="shot"><img src="assets/projects/easylog-case/web-dashboard.webp" width="1440" height="1024" loading="lazy" alt="Dashboard do painel web: 142 de 200 entregas no mês, custo total de R$ 2.345,82, custo médio de R$ 16,52, tempo médio de 38 minutos, gráfico de entregas por dia, uso do plano e tabela de entregas em andamento."></div><figcaption>Dashboard. O uso do plano (142 de 200) fica ao lado do gráfico, porque é a primeira coisa que o dono quer saber.</figcaption></figure>
+    <div class="split" style="margin-top:28px">
+      <figure class="rv"><div class="shot"><img src="assets/projects/easylog-case/web-mapa.webp" width="1440" height="1024" loading="lazy" alt="Mapa ao vivo de Teresina com seis entregas em andamento, lista lateral com status e filtros por etapa."></div><figcaption>Mapa ao vivo das entregas em andamento, de todas as unidades.</figcaption></figure>
+      <figure class="rv"><div class="shot"><img src="assets/projects/easylog-case/web-planos.webp" width="1440" height="1024" loading="lazy" alt="Assinatura e planos: plano Pro ativo, barra de 142 de 200 entregas com o aviso de que o pacote acaba por volta de 20/11, e a comparação entre Essencial, Pro e Rede."></div><figcaption>Assinatura: o painel avisa quando o pacote deve acabar ("por volta de 20/11") e compara os planos.</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 07 ENTRADA E ASSINATURA -->
+  <section class="wrap" id="cadastro">
+    <div class="sec-head rv"><span class="num">07</span><h2>Entrar e assinar</h2><p>O motorista manda CNH, selfie e documento do veículo, e o cadastro passa por análise de até 48 horas antes da primeira corrida. A tela de espera mostra o status de cada item, para ele saber o que falta.</p></div>
+    <div class="phones three">
+      <figure class="rv"><div class="phone"><img src="assets/projects/easylog-case/motorista-em-analise.webp" width="360" height="800" loading="lazy" alt="Cadastro em análise: perfil e documentos em análise, veículo em análise e pagamento aprovado."></div><figcaption><span class="who-m"></span>Cadastro em análise, item por item</figcaption></figure>
+      <figure class="rv"><div class="phone"><img src="assets/projects/easylog-case/motorista-planos.webp" width="360" height="800" loading="lazy" alt="Escolha do plano do motorista: Semanal R$ 24,90, Pro R$ 79,90 recomendado e Trimestral R$ 199,90, sem taxa por entrega."></div><figcaption><span class="who-m"></span>Planos do motorista</figcaption></figure>
+      <figure class="rv"><div class="phone"><img src="assets/projects/easylog-case/lojista-planos.webp" width="360" height="800" loading="lazy" alt="Planos para o balcão: Essencial R$ 89, Pro R$ 189 recomendado e Rede R$ 349, com entregas incluídas e excedente."></div><figcaption><span class="who-l"></span>Planos do lojista</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 08 DESIGN SYSTEM -->
+  <section class="wrap" id="design-system">
+    <div class="sec-head rv"><span class="num">08</span><h2>Design system</h2><p>Parti do Mobile Apps Prototyping Kit e do Map Navigation UI Kit para os apps, e da estrutura do Simple Design System para o painel. As cores saíram da logo. São 49 componentes no arquivo do design system, com 3 coleções de variáveis e 17 estilos de texto.</p></div>
+
+    <div class="swatches rv">
+      <div class="sw"><i style="background:#092F4E"></i><div><b>Marinho</b><code>#092F4E</code><span class="muted">Ação e botão principal</span></div></div>
+      <div class="sw"><i style="background:#2DA66B"></i><div><b>Verde</b><code>#2DA66B</code><span class="muted">Sucesso e dinheiro recebido</span></div></div>
+      <div class="sw"><i style="background:#F9991F"></i><div><b>Laranja</b><code>#F9991F</code><span class="muted">Alerta e destino no mapa</span></div></div>
+      <div class="sw"><i style="background:#1F2024"></i><div><b>Grafite</b><code>#1F2024</code><span class="muted">Texto principal</span></div></div>
+    </div>
+    <p class="cap rv">Cada cor tem um papel fixo. O verde só aparece quando dá certo ou quando entra dinheiro, e o laranja marca o destino em todos os mapas.</p>
+
+    <div class="split" style="margin-top:28px">
+      <div class="card rv">
+        <span class="k">Status com par de cores</span>
+        <p>Os 12 status (entrega, cadastro e assinatura) viraram variáveis com fundo e texto já combinados, para nenhuma tela inventar a própria cor de alerta.</p>
+        <div class="status">
+          <span style="background:#E8E9F1;color:#494A50">Aguardando</span>
+          <span style="background:#E8EEF4;color:#092F4E">A caminho da retirada</span>
+          <span style="background:#FEF1DE;color:#9A4F06">Retirada</span>
+          <span style="background:#E6F6EC;color:#1E7A4C">Entregue</span>
+          <span style="background:#FFE2E5;color:#B42330">Cancelada</span>
+        </div>
+      </div>
+      <div class="card rv">
+        <span class="k">Tipografia</span>
+        <p class="aa" style="font-family:Inter,sans-serif;font-weight:800;font-size:52px;line-height:1;letter-spacing:-.02em">Aa</p>
+        <p>Inter nas três frentes. Criei dois estilos que o kit não tinha: <b>Number</b>, para valores em reais, e <b>Keyword</b>, em 40 px com espaçamento largo, para a palavra-chave ser lida a um braço de distância.</p>
+      </div>
+    </div>
+
+    <h3 class="rv" style="margin:48px 0 16px">Acessibilidade</h3>
+    <div class="learn" style="margin-top:0">
+      <div class="card rv"><iconify-icon icon="lucide:contrast"></iconify-icon><h3>Contraste AA em todo texto</h3><p>Auditei 3.171 textos nas três frentes. O cinza <code>#8F9098</code>, que vinha do kit como cor de texto secundário, saiu do texto e ficou só em ícone desativado e borda.</p></div>
+      <div class="card rv"><iconify-icon icon="lucide:pointer"></iconify-icon><h3>Área de toque</h3><p>48 × 48 px nos apps e 24 × 24 no painel. Quando o elemento visível é menor, como um toggle ou link de texto, ele fica dentro de uma área de toque transparente.</p></div>
+    </div>
+
+    <div class="part" style="margin-top:24px">
+      <div class="part-text rv">
+        <span class="tag">Modo alto contraste</span>
+        <p>Para o sol forte, a coleção de cores tem um segundo modo que escurece os tons médios e os cinzas. O motorista liga em Configurações.</p>
+        <p>Comparando as duas telas lado a lado, a diferença ficou pequena demais: a tela padrão já era escura o bastante, e o modo mexe em poucos tons. Isso entrou nos limites.</p>
+      </div>
+      <div class="phones rv">
+        <figure><div class="phone"><img src="assets/projects/easylog-case/motorista-novo-pedido.webp" width="360" height="800" loading="lazy" alt="Novo pedido no modo padrão."></div><figcaption>Padrão</figcaption></figure>
+        <figure><div class="phone"><img src="assets/projects/easylog-case/motorista-alto-contraste.webp" width="360" height="800" loading="lazy" alt="Mesmo pedido no modo alto contraste, visualmente muito parecido com o padrão."></div><figcaption>Alto contraste</figcaption></figure>
+      </div>
+    </div>
+    <p class="note rv" style="margin-top:12px"><b>No Figma:</b> a página 🎨 Design System do arquivo de telas reúne cores, status, tipografia, espaçamentos, sombras, ícones e componentes, montada com instâncias dos componentes reais. <a href="https://www.figma.com/design/jkjjwENNY1rHJQgjxkmBqy?node-id=88-45" target="_blank" rel="noopener" style="font-weight:600">Abrir a prancha<span class="sr-only"> (abre em nova aba)</span></a></p>
+  </section>
+
+  <!-- 09 PROCESSO -->
+  <section class="wrap" id="processo">
+    <div class="sec-head rv"><span class="num">09</span><h2>Como trabalhei com a IA</h2><p>Eu decidi o produto e a IA executou. Dividi o trabalho em dez subpartes (design system, depois três para cada frente), cada uma com a lista de telas e um checklist. Assim dava para revisar uma parte antes de pedir a próxima.</p></div>
+    <ol class="steps">
+      <li class="rv"><span class="who">Eu</span>Defini o problema, as três frentes, os preços, o glossário ("motorista", nunca "entregador") e a história de referência.</li>
+      <li class="rv"><span class="who">Claude</span>Escreveu os prompts de cada subparte a partir das minhas decisões e montou as telas no Figma, usando os componentes do design system.</li>
+      <li class="rv"><span class="who">Eu</span>Revisei cada subparte no Figma e pedi correções antes de seguir para a próxima.</li>
+      <li class="rv"><span class="who">Eu + Claude</span>Fiz uma rodada de consistência entre as frentes e a auditoria de acessibilidade.</li>
+    </ol>
+
+    <h3 class="rv" style="margin:48px 0 16px">O que a revisão encontrou</h3>
+    <p class="muted rv" style="max-width:66ch;margin-bottom:20px">Gerando uma frente de cada vez, cada uma ficou certa sozinha e as três não batiam entre si. A história única da entrega #4830 saiu dessa rodada.</p>
+    <div class="table-wrap rv">
+      <table class="stack">
+        <thead><tr><th scope="col">Antes</th><th scope="col">Depois</th></tr></thead>
+        <tbody>
+          <tr><td class="before">O painel usava códigos EL-24830, e os apps, #4830</td><td>Todos os códigos no formato #48xx</td></tr>
+          <tr><td class="before">O motorista do cadastro tinha outro nome e outra placa</td><td>Carlos Eduardo, Fiorino QRS-4E21, em todas as telas</td></tr>
+          <tr><td class="before">Preços e dados de exemplo espalhados pelos prompts de cada frente</td><td>Uma tabela de regras e da história de referência no Figma, com a coluna "onde aparece"</td></tr>
+          <tr><td class="before">196 componentes no arquivo de telas, com ícones repetidos</td><td>Ícones unificados, e as variações do lojista com o sufixo "· Lojista"</td></tr>
+          <tr><td class="before">Textos secundários em cinza #8F9098, abaixo do AA</td><td>Cinza mais escuro; o #8F9098 ficou só em ícone e borda</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 10 LIMITES -->
+  <section class="wrap" id="limites">
+    <div class="sec-head rv"><span class="num">10</span><h2>Limites e perguntas em aberto</h2><p>Antes de chamar o projeto de pronto, faltam estas coisas.</p></div>
+    <ul class="open">
+      <li class="rv"><span class="lvl alta">Alta</span><b>Ninguém testou</b><p>Não conversei com lojistas nem com motoristas, e ninguém usou o protótipo. O problema e as soluções são hipóteses minhas.</p></li>
+      <li class="rv"><span class="lvl alta">Alta</span><b>Preços sem validação</b><p>Não sei se R$ 79,90 por mês cabe no bolso do motorista nem se as assinaturas pagam a operação. Os números foram decididos por coerência entre eles, sem pesquisa.</p></li>
+      <li class="rv"><span class="lvl alta">Alta</span><b>Quem define o frete?</b><p>O frete de R$ 38,50 aparece pronto. Não desenhei a regra de cálculo (distância, veículo, carga) nem se o motorista pode recusar por achar baixo.</p></li>
+      <li class="rv"><span class="lvl media">Média</span><b>A tela do destinatário não existe</b><p>Marcos recebe um link de acompanhamento por WhatsApp, mas a página que esse link abre não foi desenhada.</p></li>
+      <li class="rv"><span class="lvl media">Média</span><b>"Menos de um minuto" não foi medido</b><p>Criar uma entrega leva três etapas e uma revisão. É a meta, mas sem um teste cronometrado não sei se ela foi cumprida.</p></li>
+      <li class="rv"><span class="lvl media">Média</span><b>Alto contraste fraco</b><p>As telas no modo alto contraste ficaram quase iguais às padrão. O modo precisa de mudanças mais visíveis, como fundo do mapa mais claro e bordas mais grossas.</p></li>
+      <li class="rv"><span class="lvl media">Média</span><b>Design system não publicado</b><p>As telas usam uma cópia dos componentes, e não a biblioteca. Antes de publicar, uns 150 componentes que só existem nas telas precisam ir para o arquivo do design system.</p></li>
+      <li class="rv"><span class="lvl media">Média</span><b>Protótipo feito de cópias</b><p>As 18 telas do protótipo são cópias das originais. Uma mudança numa tela precisa ser repetida à mão na cópia.</p></li>
+    </ul>
+  </section>
+
+  <!-- 11 APRENDIZADOS -->
+  <section class="wrap" id="aprendizados">
+    <div class="sec-head rv"><span class="num">11</span><h2>Aprendizados</h2></div>
+    <p class="quote rv">No Hub Logístico eu aprendi a fechar um fluxo. Aqui aprendi que um serviço tem vários fluxos que precisam contar a mesma história.</p>
+
+    <div class="learn">
+      <div class="card rv"><iconify-icon icon="lucide:git-merge"></iconify-icon><h3>Uma história amarra as frentes</h3><p>Usar a mesma loja, o mesmo motorista e a mesma entrega em todas as telas mostrou na hora onde as frentes se contradiziam.</p></div>
+      <div class="card rv"><iconify-icon icon="lucide:scale"></iconify-icon><h3>Regra de negócio vem antes da tela</h3><p>O preço aparece no cadastro, no pedido, no recibo, na assinatura e no painel. Definir antes evitou refazer dezenas de telas.</p></div>
+      <div class="card rv"><iconify-icon icon="lucide:sparkles"></iconify-icon><h3>Gerar por partes cria divergência</h3><p>Gerar uma frente por vez deixou cada uma coerente por dentro e diferente das outras. A revisão entre frentes teve que ser minha.</p></div>
+      <div class="card rv"><iconify-icon icon="lucide:contrast"></iconify-icon><h3>Conferir na tela, lado a lado</h3><p>O modo alto contraste existe nas variáveis, mas só olhando as telas lado a lado vi que ele quase não muda nada.</p></div>
+    </div>
+
+    <h3 class="rv" style="margin-top:48px">Próximos passos</h3>
+    <ul class="next rv">
+      <li><iconify-icon icon="lucide:mic"></iconify-icon>Conversar com cinco lojistas do Dirceu e do Jóquei e cinco motoristas sobre como entregam hoje e quanto pagam.</li>
+      <li><iconify-icon icon="lucide:timer"></iconify-icon>Testar o protótipo com tarefas: um lojista cria uma entrega (cronometrada) e um motorista aceita um pedido na rua, no sol.</li>
+      <li><iconify-icon icon="lucide:calculator"></iconify-icon>Desenhar a regra do frete e a conta da plataforma, para saber se os preços fecham.</li>
+      <li><iconify-icon icon="lucide:link"></iconify-icon>Desenhar a página de acompanhamento que o destinatário abre pelo link.</li>
+      <li><iconify-icon icon="lucide:sun"></iconify-icon>Refazer o modo alto contraste e testar com o celular no sol.</li>
+      <li><iconify-icon icon="lucide:library"></iconify-icon>Publicar o design system como biblioteca e trocar a cópia nas telas.</li>
+    </ul>
+
+    <div class="end rv" style="margin-top:56px">
+      <p class="muted">Projeto pessoal. O EasyLog, a Tintas &amp; Tintas Dirceu, as pessoas, os preços e os números das telas são fictícios.</p>
+      <div class="intro-actions">
+        <a class="theme-btn theme-btn--primary" href="https://www.figma.com/design/jkjjwENNY1rHJQgjxkmBqy?node-id=84-1140" target="_blank" rel="noopener">Ver o protótipo no Figma<iconify-icon icon="lucide:arrow-up-right"></iconify-icon><span class="sr-only">(abre em nova aba)</span></a>
+        <a class="theme-btn theme-btn--outline" href="index.html#projeto-hub"><iconify-icon icon="lucide:arrow-left"></iconify-icon>Voltar ao portfólio</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer><div class="wrap"><span>Antonio Zito · UX/UI Designer em formação</span><span>Estudo de caso · EasyLog · 2026</span></div></footer>
+
+<script>
+(function(){
+  var btn=document.getElementById("themeToggle"),root=document.documentElement,meta=document.getElementById("metaTheme");
+  function paint(){var d=root.dataset.theme==="dark";btn.innerHTML='<iconify-icon icon="lucide:'+(d?"sun":"moon")+'"></iconify-icon>';btn.setAttribute("aria-pressed",d);meta.content=d?"#0A0B0F":"#FFFFFF";}
+  btn.addEventListener("click",function(){root.dataset.theme=root.dataset.theme==="dark"?"light":"dark";try{localStorage.setItem("theme",root.dataset.theme)}catch(e){}paint();});
+  paint();
+  var els=document.querySelectorAll(".rv");
+  if(!("IntersectionObserver" in window)){els.forEach(function(e){e.classList.add("in")});return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}})},{rootMargin:"0px 0px -8% 0px",threshold:.05});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>

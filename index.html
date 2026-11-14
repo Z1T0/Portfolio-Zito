@@ -567,7 +567,7 @@ body.is-loaded .arch-layer .go-to-project-btn{animation:tag-pop .9s var(--ease-s
 .project-actions .theme-btn[aria-disabled="true"]:hover{background:var(--ink)}
 .project-actions [aria-disabled="true"]::before{display:none}
 
-/* --- Preview: Hub Logístico (celulares em CSS) --- */
+/* --- Preview: EasyLog (telas do protótipo em molduras de celular) --- */
 .mock-hub{position:absolute;inset:0;background:var(--g-arch);overflow:hidden}
 .mock-hub::before{content:"";position:absolute;inset:0;background-image:linear-gradient(to right,rgba(255,255,255,.14) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.14) 1px,transparent 1px);background-size:4cqw 4cqw;-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000,transparent 75%);mask-image:radial-gradient(ellipse at 50% 30%,#000,transparent 75%)}
 .mock-hub .phones{position:absolute;inset:0;transform-origin:50% 100%}
@@ -576,6 +576,7 @@ body.is-loaded .arch-layer .go-to-project-btn{animation:tag-pop .9s var(--ease-s
 .phone{position:absolute;bottom:-14cqw;left:50%;width:20cqw;aspect-ratio:9/19;padding:.8cqw;border-radius:4cqw;background:#0E0F12;box-shadow:0 3cqw 6cqw -2cqw rgba(3,35,109,.55),inset 0 0 0 .25cqw #2A2C33;font-family:var(--font-body);color:var(--ink);transition:translate .9s var(--ease-out),rotate .9s var(--ease-out);translate:-50% 0}
 .phone::before{content:"";position:absolute;z-index:3;left:50%;top:1.7cqw;width:6cqw;height:1.6cqw;translate:-50% 0;border-radius:2cqw;background:#0E0F12}
 .phone .scr{position:relative;height:100%;border-radius:3.3cqw;background:var(--white);overflow:hidden;font-size:1.25cqw;line-height:1.3}
+.phone .scr img{display:block;box-sizing:border-box;width:100%;height:100%;padding-top:4.2cqw;background:#fff;object-fit:cover;object-position:50% 0}
 .phone.p-left{rotate:-9deg;translate:-132% 0;z-index:1}
 .phone.p-right{rotate:9deg;translate:32% 0;z-index:1}
 .phone.p-center{z-index:2;width:23cqw;bottom:-5cqw}
@@ -1328,7 +1329,7 @@ const CONTENT = {
     stats: [
       { value: 4, plus: true, unit: "anos", text: "treinando e dando suporte a usuários de sistemas web", icon: "lucide:headset" },
       { value: 5, unit: "anos", text: "criando peças gráficas como designer autônomo", icon: "lucide:palette" },
-      { value: 33, unit: "telas", text: "prototipadas no app do motorista do Hub Logístico", icon: "lucide:smartphone" },
+      { value: 106, unit: "telas", text: "no EasyLog, entre apps e painel web", icon: "lucide:smartphone" },
       { value: 2, unit: "cursos", text: "em andamento na EBAC: UX Design e Design Gráfico", icon: "lucide:graduation-cap" }
     ],
     courses: [
@@ -1370,7 +1371,7 @@ const CONTENT = {
       { icon: "lucide:pen-tool", text: "Designer autônomo desde 2021" }
     ],
     lead: "Há mais de quatro anos atendo e treino quem usa sistemas web de gestão todos os dias, e foi ali que aprendi a perceber [[onde a pessoa trava]] antes de pensar em qualquer tela.",
-    body: "No design, começo pelo problema e por quem vai usar. Desenho o fluxo, depois o wireframe e só então o visual no Figma. No <strong>Hub Logístico</strong> fiz o app do motorista inteiro, do cadastro com foto da CNH ao aviso de novo pedido, pensando em alguém que usa o celular com uma mão, no meio da rua. Como designer autônomo, crio peças para pequenos negócios desde 2021, o que me ensinou a conversar com o cliente e entregar no prazo.",
+    body: "No design, começo pelo problema e por quem vai usar. Desenho o fluxo, depois o wireframe e só então o visual no Figma. No <strong>EasyLog</strong> desenhei um serviço de entregas inteiro, do cadastro do motorista com foto da CNH ao painel web do lojista, pensando em quem usa o celular com uma mão, no meio da rua. Como designer autônomo, crio peças para pequenos negócios desde 2021, o que me ensinou a conversar com o cliente e entregar no prazo.",
     pillarsTitle: "Como eu trabalho",
     pillarsText: "Três coisas que levo para todo projeto.",
     pillars: [
@@ -1394,24 +1395,24 @@ const CONTENT = {
   projects: {
     kicker: "Projetos",
     title: "O que eu já <span class='serif'>tirei do papel.</span>",
-    text: "Cada projeto conta o problema, o que eu fiz e o que saiu dele. O Hub Logístico é o mais completo.",
+    text: "Cada projeto conta o problema, o que eu fiz e o que saiu dele. O EasyLog é o mais completo.",
     // preview: "hub" (celulares em CSS), "video" (poster + vídeo em loop) ou "print" (composição de peças)
     // href vazio = botão aparece desativado com "Em breve"
     list: [
       {
         id: "hub",
-        title: "Hub <span class='serif'>Logístico</span>",
-        category: { text: "App mobile", icon: "lucide:smartphone" },
-        year: "2025",
-        summary: "App do motorista num marketplace que liga supermercados e lojas a entregadores autônomos.",
+        title: "Easy<span class='serif'>Log</span>",
+        category: { text: "App mobile e painel web", icon: "lucide:smartphone" },
+        year: "2026",
+        summary: "Entregas de loja de bairro em Teresina, cobradas por assinatura. Começou em 2025 como o Hub Logístico, só com o app do motorista.",
         preview: { type: "hub" },
         featured: true,
-        problem: "A loja precisa de alguém confiável para entregar, e o motorista MEI precisa provar quem é antes do primeiro pedido. Mandar documento pelo celular costuma ser onde a pessoa desiste.",
-        solution: "Desenhei o app do motorista no Figma. Quebrei o cadastro em 4 etapas curtas, com foto da CNH e selfie guiadas, e o aviso de novo pedido mostra retirada, destino e valor numa tela só.",
-        result: { value: "33", unit: "telas prototipadas", text: "Do primeiro acesso até a entrega concluída. Foi meu primeiro app, e foi aqui que aprendi a fechar o fluxo antes de abrir o visual." },
-        tech: [ { text: "Figma", icon: "logos:figma" }, { text: "Protótipo navegável", icon: "lucide:mouse-pointer-click" }, { text: "Wireframes", icon: "lucide:layout-template" }, { text: "Mobile", icon: "lucide:smartphone" } ],
-        demo: { label: "Ver protótipo", href: "" },
-        case: { label: "Estudo de caso", href: "", icon: "lucide:book-open" }
+        problem: "A loja de bairro paga comissão alta por pedido nas plataformas grandes, e o motorista perde parte de cada corrida em taxa. Os dois entregam mercadoria para quem não conhecem.",
+        solution: "Voltei ao app do motorista e desenhei o que faltava: o app do lojista e o painel web. Defini a assinatura no lugar da comissão, os preços e uma palavra-chave para confirmar a retirada e outra para a entrega. O Claude montou as telas no Figma, e eu revisei cada uma.",
+        result: { value: "106", unit: "telas em três frentes", text: "Com design system próprio e um protótipo de 18 passos que segue uma entrega da loja até o painel. Ainda falta testar com lojistas e motoristas." },
+        tech: [ { text: "Figma", icon: "logos:figma" }, { text: "Protótipo navegável", icon: "lucide:mouse-pointer-click" }, { text: "Design system", icon: "lucide:component" }, { text: "Mobile e web", icon: "lucide:monitor-smartphone" }, { text: "Claude", icon: "lucide:sparkles" } ],
+        demo: { label: "Ver protótipo", href: "https://www.figma.com/design/jkjjwENNY1rHJQgjxkmBqy?node-id=84-1140" },
+        case: { label: "Estudo de caso", href: "estudo-de-caso-easylog.html", icon: "lucide:book-open" }
       },
       {
         id: "artools",
@@ -1826,26 +1827,9 @@ const CONTENT = {
   const previewHTML = (pv, title) => {
     if (pv.type === "hub") return `
       <div class="mock-hub" aria-hidden="true"><div class="rings"></div><div class="phones">
-        <div class="phone p-left"><div class="scr"><div class="sbar"><span>9:41</span><span>●●●</span></div><div class="pad">
-          <div class="steps"><i class="on"></i><i class="on"></i><i></i><i></i></div>
-          <p class="k">Etapa 2 de 4</p><p class="h">Foto da CNH</p><p class="k">Frente do documento, sem plástico e com boa luz.</p>
-          <div class="cnh"><iconify-icon icon="lucide:id-card"></iconify-icon>Encaixe a CNH aqui</div>
-          <div class="btn">Tirar foto</div></div></div></div>
-        <div class="phone p-right"><div class="scr"><div class="sbar"><span>9:41</span><span>●●●</span></div><div class="pad center">
-          <div class="wait"><iconify-icon icon="lucide:hourglass"></iconify-icon></div>
-          <p class="h">Cadastro em análise</p><p class="k">A resposta chega em até 48h.</p>
-          <div class="checks"><span><iconify-icon icon="lucide:circle-check"></iconify-icon>Dados pessoais</span><span><iconify-icon icon="lucide:circle-check"></iconify-icon>CNH frente e verso</span><span><iconify-icon icon="lucide:circle-check"></iconify-icon>Selfie</span></div></div></div></div>
-        <div class="phone p-center"><div class="scr">
-          <div class="map"></div>
-          <svg class="route" viewBox="0 0 100 210" preserveAspectRatio="none"><path d="M28 46 C 40 60, 34 76, 52 82 S 70 80, 74 84"/></svg>
-          <span class="pin me"></span><span class="pin a"></span><span class="pin b"></span>
-          <div class="sheet"><div class="grab"></div>
-            <div class="top"><span class="new">Novo pedido recebido</span><span class="timer">0:28</span></div>
-            <div class="stop"><i></i><span><b>Retirada</b><small>Supermercado Centro</small></span></div>
-            <div class="stop to"><i></i><span><b>Entrega</b><small>Rua Paissandu, 1240</small></span></div>
-            <div class="money"><b>R$ 38,00</b><span>6,2 km · 2 volumes</span></div>
-            <div class="btn">Aceitar pedido</div><div class="btn ghost">Recusar</div>
-          </div></div></div>
+        <div class="phone p-left"><div class="scr"><img src="assets/projects/easylog-case/lojista-inicio.webp" alt="" width="360" height="800" loading="lazy"></div></div>
+        <div class="phone p-right"><div class="scr"><img src="assets/projects/easylog-case/motorista-planos.webp" alt="" width="360" height="800" loading="lazy"></div></div>
+        <div class="phone p-center"><div class="scr"><img src="assets/projects/easylog-case/motorista-novo-pedido.webp" alt="" width="360" height="800" loading="lazy"></div></div>
       </div></div>`;
     if (pv.type === "video") return `
       <div class="mock-video">
