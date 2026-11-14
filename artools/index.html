@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Artools Precision Pen</title>
-    <meta name="description" content="A Artools Precision Pen redefine o equilíbrio entre peso, fluxo e design." />
+    <title>Artools Pigmentum</title>
+    <meta name="description" content="A Artools Pigmentum redefine o equilíbrio entre peso, fluxo e design." />
 
     <!-- ============================================================
          FONTES — mesmas famílias do design_system.html (Aura v2.0)
@@ -584,6 +584,7 @@
 
         @media (max-width: 767px) {
             .lex-defs { display: none; }
+            .lexicon-compact { display: none; } /* no celular o verbete "Precisão" cobria o título */
         }
 
         /* ============================================================
@@ -684,8 +685,7 @@
                 <div class="nav-mark w-8 h-8 flex items-center justify-center rounded-sm">
                     <iconify-icon icon="solar:pen-new-square-bold-duotone" class="text-xl"></iconify-icon>
                 </div>
-                <span class="nav-brand font-display font-medium tracking-tight text-lg">ARTOOLS<span
-                        class="nav-brand-sub">.PEN</span></span>
+                <span class="nav-brand font-display font-medium tracking-tight text-lg">ARTOOLS</span>
                 <span class="nav-tag hidden sm:inline ml-2 pl-3 border-l text-[10px] font-mono uppercase tracking-widest">Conceito</span>
             </a>
             <nav class="nav-links hidden md:flex items-center gap-8 text-xs font-mono uppercase tracking-widest">
@@ -706,7 +706,7 @@
              HERO — trilha de 300vh; .hero-stage (vídeo) é sticky ao fundo,
              o texto fica numa camada que rola normalmente por cima
              ============================================================ -->
-        <section class="scroll-track" id="hero-track" aria-label="Apresentação da Artools Precision Pen">
+        <section class="scroll-track" id="hero-track" aria-label="Apresentação da Artools Pigmentum">
             <div class="hero-stage" id="hero-stage">
 
                 <!-- Canvas: superfície de render do scrubbing (frames pré-decodificados).
@@ -1163,7 +1163,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-10">
 
                     <!-- ===== RELÓGIO (sticky) ===== -->
-                    <div class="lg:col-span-5 sticky top-[76px] lg:top-28 self-start z-20">
+                    <div class="lg:col-span-5 lg:sticky lg:top-28 self-start z-20">
                         <div id="day-panel" class="day-panel relative overflow-hidden rounded-xl border border-white/50 bg-white/60 backdrop-blur-md shadow-lg p-5 md:p-8 lg:p-10">
                             <!-- camada noturna -->
                             <div id="day-night" class="absolute inset-0 bg-stone-900 opacity-0 pointer-events-none"></div>
@@ -1640,7 +1640,7 @@
             </div>
             <div class="relative z-10 max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between gap-6 text-xs font-mono">
                 <span>Artools · estudo de UI · 2026</span>
-                <span>PRECISION PEN · v1.0 · conceito</span>
+                <span>PIGMENTUM · v1.0 · conceito</span>
             </div>
         </footer>
     </main>
@@ -1662,7 +1662,7 @@
                 </button>
 
                 <div class="relative">
-                    <h2 id="buy-title" class="pr-10font-display font-bold tracking-tighter leading-[0.95] text-[clamp(1.75rem,6vw,2.25rem)]">
+                    <h2 id="buy-title" class="pr-10 font-display font-bold tracking-tighter leading-[0.95] text-[clamp(1.75rem,6vw,2.25rem)]">
                         Que bom que você deu <span class="text-outline">mais um passo</span>.
                     </h2>
                     <p class="mt-4 text-stone-500 leading-relaxed font-light">

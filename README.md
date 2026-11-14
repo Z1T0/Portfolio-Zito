@@ -8,7 +8,7 @@ Portfólio pessoal de Antonio Zito, UX/UI Designer em Teresina, PI. Site estáti
 | --- | --- |
 | `index.html` | Portfólio: apresentação, projetos, experiência e contato |
 | `design_system.html` | Design system do portfólio: tokens, tipografia e componentes |
-| `artools/` | Estudo de caso **Artools Precision Pen**: landing page com vídeo controlado pelo scroll |
+| `artools/` | Estudo de caso **Artools Pigmentum**: landing page com vídeo controlado pelo scroll |
 
 ## Estrutura
 
