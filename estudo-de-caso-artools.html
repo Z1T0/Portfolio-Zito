@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Artools Pigmentum · Estudo de caso · Antonio Zito</title>
+<meta name="description" content="Estudo de caso da landing page Artools Pigmentum: como fazer uma caneta comum parecer um produto premium. Público, referências, estrutura, design system, teste com usuários e aprendizados.">
+<meta name="author" content="Antonio Zito Menezes do Desterro Junior">
+<meta name="theme-color" content="#FFFFFF" id="metaTheme">
+<meta name="color-scheme" content="light dark">
+<script>
+/* mesmo tema do portfólio: salvo ou o do sistema */
+(function(){var t;try{t=localStorage.getItem("theme")}catch(e){}
+if(t!=="dark"&&t!=="light")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+document.documentElement.dataset.theme=t;document.getElementById("metaTheme").content=t==="dark"?"#0A0B0F":"#FFFFFF";})();
+</script>
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Artools Pigmentum · Estudo de caso">
+<meta property="og:description" content="Como fazer uma caneta comum parecer um produto premium.">
+<meta property="og:image" content="assets/projects/artools-case/hero.webp">
+
+<link rel="preload" href="assets/ds/fonts/inter-display-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="assets/ds/js/iconify-icon.min.js"></script>
+
+<style>
+@font-face{font-family:"Inter Display";src:url("assets/ds/fonts/inter-display-500.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Inter Display";src:url("assets/ds/fonts/inter-display-600.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Inter Display";src:url("assets/ds/fonts/inter-display-700.woff2") format("woff2");font-weight:700;font-display:swap}
+
+/* Tokens do portfólio (index.html) */
+:root{
+  color-scheme:light;
+  --white:#FFFFFF;--snow:#F6F7FA;--mist:#E9ECF3;--lilac:#DFE0EB;--steel:#C7CCD8;--graphite:#474747;--ink:#101010;--black:#0A0A0A;
+  --blue:#3458FF;--blue-600:#2442D9;--blue-pale:#CDD5FB;--blue-tint:#EEF1FF;
+  --accent:var(--blue);--on-color:#FFFFFF;
+  --background:var(--white);--foreground:var(--ink);
+  --ok:#0B7A47;--ok-soft:#E6F5EE;--no:#C8102E;--no-soft:#FFF0F2;
+  --font-display:"Inter Display","Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --font-serif:"Instrument Serif",Georgia,serif;
+  --r-sm:10px;--r-md:20px;--r-pill:999px;
+  --sh-md:0 10px 30px -12px rgba(16,16,16,.18);
+  --sh-glow:0 14px 40px -12px rgba(52,88,255,.55);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --gutter:16px;--max:1080px;
+}
+@media (min-width:768px){:root{--gutter:32px}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --white:#13151B;--snow:#191C24;--mist:#262A35;--lilac:#2C3140;--steel:#4A5163;--graphite:#A6ADBC;--ink:#F1F3F8;--black:#FFFFFF;
+  --blue-tint:#18204A;--blue-pale:#33448F;
+  --accent:#8EA2FF;
+  --background:#0A0B0F;
+  --ok:#3DDC97;--ok-soft:#0F2A1F;--no:#FF7A8E;--no-soft:#2A1218;
+  --sh-md:0 14px 34px -12px rgba(0,0,0,.7);
+  --sh-glow:0 14px 40px -12px rgba(52,88,255,.6);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-body);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,video{max-width:100%;display:block}
+a{color:inherit}
+::selection{background:var(--blue);color:var(--on-color)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:8px}
+.serif{font-family:var(--font-serif);font-style:italic;font-weight:400;letter-spacing:-.02em}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip-link{position:fixed;left:16px;top:-60px;z-index:3000;background:var(--ink);color:var(--white);padding:10px 16px;border-radius:var(--r-pill);text-decoration:none;font-weight:500;transition:top .3s var(--ease-out)}
+.skip-link:focus{top:16px}
+
+/* Topo */
+.topbar{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--background) 82%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--mist)}
+.topbar-in{max-width:calc(var(--max) + 2*var(--gutter));margin:0 auto;padding:12px var(--gutter);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.back{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-family:var(--font-display);font-weight:500;font-size:15px;padding:8px 14px 8px 10px;border-radius:var(--r-pill);border:1px solid var(--steel);transition:border-color .3s,background .3s}
+.back:hover{border-color:var(--ink);background:var(--snow)}
+.back{white-space:nowrap}.back .short{display:none}
+@media (max-width:480px){.back .full{display:none}.back .short{display:inline}}
+.top-right{display:flex;align-items:center;gap:8px}
+.btn-icon{width:42px;height:42px;border-radius:50%;display:inline-grid;place-items:center;border:1px solid var(--steel);background:var(--white);font-size:18px;cursor:pointer;color:var(--ink);transition:background .3s,color .3s,border-color .3s}
+.btn-icon:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
+
+/* Botões (DS .theme-btn, versão simples) */
+.theme-btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:var(--r-pill);border:1px solid transparent;font-family:var(--font-display);font-weight:500;font-size:15px;text-decoration:none;white-space:nowrap;transition:background .3s var(--ease-out),box-shadow .6s var(--ease-out),border-color .3s,transform .3s var(--ease-out)}
+.theme-btn:active{transform:scale(.97)}
+.theme-btn--primary{background:var(--ink);color:var(--white)}
+.theme-btn--primary:hover{box-shadow:var(--sh-glow)}
+.theme-btn--outline{background:transparent;color:var(--ink);border-color:var(--steel)}
+.theme-btn--outline:hover{border-color:var(--ink);background:var(--snow)}
+
+/* Layout */
+.wrap{max-width:calc(var(--max) + 2*var(--gutter));margin:0 auto;padding:0 var(--gutter)}
+main{display:flex;flex-direction:column;gap:96px;padding:56px 0 96px}
+@media (max-width:640px){main{gap:72px;padding-top:36px}}
+section{scroll-margin-top:90px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;line-height:1;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+h1,h2,h3{font-family:var(--font-display);margin:0;text-wrap:balance;letter-spacing:-.03em}
+h1{font-weight:600;font-size:clamp(40px,7vw,76px);line-height:1}
+h2{font-weight:600;font-size:clamp(28px,4vw,42px);line-height:1.1}
+h3{font-weight:600;font-size:20px;line-height:1.3;letter-spacing:-.015em}
+p{margin:0}
+.lead{font-size:clamp(18px,2.2vw,22px);color:var(--graphite);max-width:60ch;line-height:1.55}
+.muted{color:var(--graphite)}
+.prose{display:flex;flex-direction:column;gap:16px;max-width:68ch}
+.sec-head{display:flex;flex-direction:column;gap:14px;margin-bottom:32px}
+.sec-head .num{font-family:var(--font-display);font-weight:500;color:var(--graphite);font-size:15px;letter-spacing:.02em}
+.sec-head p{max-width:64ch;color:var(--graphite)}
+
+/* Abertura */
+.intro{display:flex;flex-direction:column;gap:22px}
+.intro-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--mist);border-radius:var(--r-md);margin-top:18px;overflow:hidden}
+.facts div{padding:18px 20px;border-left:1px solid var(--mist);display:flex;flex-direction:column;gap:6px;min-width:0}
+.facts div:first-child{border-left:0}
+.facts dt{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--graphite)}
+.facts dd{margin:0;font-size:15px;line-height:1.45}
+@media (max-width:820px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.facts div:nth-child(3){border-left:0}.facts div:nth-child(n+3){border-top:1px solid var(--mist)}}
+@media (max-width:420px){.facts{grid-template-columns:minmax(0,1fr)}.facts div{border-left:0}.facts div+div{border-top:1px solid var(--mist)}}
+
+/* Mídia */
+.shot{margin:0;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--mist);background:var(--snow);box-shadow:var(--sh-md)}
+.shot img,.shot video{width:100%;height:auto}
+figcaption,.cap{font-size:14px;color:var(--graphite);line-height:1.5;margin-top:10px}
+figure{margin:0}
+.hero-media{margin-top:40px}
+
+/* Resumo */
+.tldr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:820px){.tldr{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--snow);border:1px solid var(--mist);border-radius:var(--r-md);padding:24px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card .k{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.card p{font-size:16px;line-height:1.6}
+.big{font-family:var(--font-display);font-weight:600;font-size:44px;letter-spacing:-.04em;line-height:1}
+.big small{font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--graphite);margin-left:6px}
+
+/* Duas colunas */
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}
+@media (max-width:820px){.split{grid-template-columns:minmax(0,1fr);gap:24px}}
+.quote{border-left:3px solid var(--blue);padding:4px 0 4px 20px;font-family:var(--font-display);font-weight:500;font-size:clamp(20px,2.6vw,26px);line-height:1.35;letter-spacing:-.02em}
+.note{background:var(--blue-tint);border-radius:var(--r-sm);padding:16px 18px;font-size:15.5px;line-height:1.6}
+.note b{color:var(--accent)}
+
+/* Referências */
+.refs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:820px){.refs{grid-template-columns:minmax(0,1fr)}}
+.refs ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:15.5px}
+.plus{display:flex;align-items:center;justify-content:center;gap:14px;margin:22px 0 14px;font-family:var(--font-display);font-weight:500;color:var(--graphite);flex-wrap:wrap;text-align:center}
+.plus b{color:var(--ink)}
+.steps{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;counter-reset:s}
+@media (max-width:820px){.steps{grid-template-columns:minmax(0,1fr)}}
+.steps li{counter-increment:s;border:1px solid var(--mist);border-radius:var(--r-md);padding:18px;font-size:15px;line-height:1.55;display:flex;flex-direction:column;gap:8px}
+.steps li::before{content:counter(s);width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:var(--white);font-family:var(--font-display);font-weight:600;font-size:14px}
+.steps .who{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--graphite)}
+
+/* Estrutura */
+.flow{list-style:none;margin:0 0 40px;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+@media (max-width:900px){.flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.flow li{border:1px solid var(--mist);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.flow .n{font-family:var(--font-display);font-weight:600;font-size:13px;color:var(--accent)}
+.flow .t{font-family:var(--font-display);font-weight:600;font-size:15px;line-height:1.25}
+.flow .q{font-size:13.5px;color:var(--graphite);line-height:1.4}
+.part{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:40px;align-items:center;padding:36px 0;border-top:1px solid var(--mist)}
+.part.alt .part-text{order:2}
+@media (max-width:820px){.part{grid-template-columns:minmax(0,1fr);gap:20px}.part.alt .part-text{order:0}}
+.part-text{display:flex;flex-direction:column;gap:12px}
+.part-text .q{font-family:var(--font-serif);font-style:italic;font-size:22px;color:var(--accent);line-height:1.3}
+.part-text p{font-size:16.5px}
+.tag{display:inline-flex;align-self:flex-start;align-items:center;gap:6px;font-size:12.5px;font-weight:600;padding:5px 10px;border-radius:var(--r-pill);background:var(--snow);border:1px solid var(--mist);color:var(--graphite)}
+.pair{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1fr);gap:16px;align-items:end}
+@media (max-width:560px){.pair{grid-template-columns:minmax(0,1fr)}}
+
+/* Design system */
+.swatches{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:720px){.swatches{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.sw{border:1px solid var(--mist);border-radius:var(--r-md);overflow:hidden}
+.sw i{display:block;height:96px}
+.sw div{padding:12px 14px;display:flex;flex-direction:column;gap:2px;font-size:14px}
+.sw b{font-family:var(--font-display);font-size:16px}
+.sw code{font-size:13px;color:var(--graphite)}
+.fonts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+@media (max-width:720px){.fonts{grid-template-columns:minmax(0,1fr)}}
+.font{border:1px solid var(--mist);border-radius:var(--r-md);padding:20px;display:flex;flex-direction:column;gap:6px}
+.font .aa{font-size:52px;line-height:1;margin-bottom:6px;color:var(--ink)}
+.font span{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--graphite)}
+.font p{font-size:15px;color:var(--graphite)}
+
+/* Tabelas */
+.table-wrap{border:1px solid var(--mist);border-radius:var(--r-md);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15.5px;line-height:1.5}
+th,td{text-align:left;padding:14px 18px;border-top:1px solid var(--mist);vertical-align:top}
+thead th{border-top:0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--graphite);background:var(--snow)}
+td.before{color:var(--graphite);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--no) 60%,transparent)}
+.res{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:4px 10px;border-radius:var(--r-pill);white-space:nowrap}
+.res.ok{background:var(--ok-soft);color:var(--ok)}
+.res.no{background:var(--no-soft);color:var(--no)}
+@media (max-width:640px){
+  .stack thead{display:none}
+  .stack tr{display:block;padding:14px 16px;border-top:1px solid var(--mist)}
+  .stack tr:first-child{border-top:0}
+  .stack td{display:block;border:0;padding:4px 0}
+}
+
+/* Vídeo */
+.frames{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:14px;align-items:center}
+.frames .arrow{font-size:22px;color:var(--graphite)}
+@media (max-width:640px){.frames{grid-template-columns:minmax(0,1fr)}.frames .arrow{justify-self:center;transform:rotate(90deg)}}
+
+/* Aprendizados */
+.learn{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:28px}
+@media (max-width:720px){.learn{grid-template-columns:minmax(0,1fr)}}
+.learn .card iconify-icon{font-size:24px;color:var(--accent)}
+.next{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.next li{display:flex;gap:12px;align-items:flex-start;font-size:16px}
+.next iconify-icon{flex:none;margin-top:4px;color:var(--accent)}
+
+/* Fim */
+.end{border-top:1px solid var(--mist);padding-top:40px;display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+.end p{max-width:64ch}
+footer{border-top:1px solid var(--mist);padding:24px 0 40px;font-size:14px;color:var(--graphite)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+
+/* Entrada suave */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rv{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="back" href="index.html#projeto-artools"><iconify-icon icon="lucide:arrow-left"></iconify-icon><span class="full">Voltar ao portfólio</span><span class="short">Portfólio</span></a>
+    <div class="top-right">
+      <a class="theme-btn theme-btn--outline top-landing" href="artools/index.html" target="_blank" rel="noopener" style="height:42px;padding:0 16px;font-size:14px">Ver a landing<iconify-icon icon="lucide:arrow-up-right"></iconify-icon><span class="sr-only">(abre em nova aba)</span></a>
+      <button class="btn-icon" id="themeToggle" type="button" aria-label="Alternar tema claro e escuro"><iconify-icon icon="lucide:moon"></iconify-icon></button>
+    </div>
+  </div>
+</header>
+
+<main id="conteudo">
+
+  <!-- ABERTURA -->
+  <section class="wrap">
+    <div class="intro rv">
+      <span class="eyebrow"><iconify-icon icon="lucide:book-open"></iconify-icon>Estudo de caso · Landing page · 2026</span>
+      <h1>Artools Pigmentum</h1>
+      <p class="lead">Como fazer uma caneta comum, que ninguém para pra olhar, parecer um produto que <span class="serif">dá vontade de ter</span>.</p>
+      <div class="intro-actions">
+        <a class="theme-btn theme-btn--primary" href="artools/index.html" target="_blank" rel="noopener">Ver a landing ao vivo<iconify-icon icon="lucide:arrow-up-right"></iconify-icon></a>
+        <a class="theme-btn theme-btn--outline" href="#teste">Ir para o teste com usuários<iconify-icon icon="lucide:arrow-down"></iconify-icon></a>
+      </div>
+      <dl class="facts">
+        <div><dt>Tipo</dt><dd>Estudo pessoal, a partir de um desafio do curso da Asimov</dd></div>
+        <div><dt>Meu papel</dt><dd>Pesquisa de referências, direção visual, estrutura, textos e teste</dd></div>
+        <div><dt>Ferramentas</dt><dd>Claude e Antigravity (código), Gemini (imagens), Google Flow com Veo 3 (vídeo)</dd></div>
+        <div><dt>Entrega</dt><dd>Landing page responsiva em HTML, CSS e JavaScript</dd></div>
+      </dl>
+    </div>
+    <figure class="hero-media rv">
+      <div class="shot"><img src="assets/projects/artools-case/hero.webp" width="1440" height="900" alt="Primeira tela da landing: o título 'A caneta mais tecnológica do mundo.' ao lado da caneta branca Artools Pigmentum, com os botões Comprar agora e Explorar." fetchpriority="high"></div>
+      <figcaption>A primeira tela da landing, no computador.</figcaption>
+    </figure>
+  </section>
+
+  <!-- RESUMO -->
+  <section class="wrap" aria-labelledby="resumo-t">
+    <h2 id="resumo-t" class="sr-only">Resumo</h2>
+    <div class="tldr">
+      <div class="card rv"><span class="k">Desafio</span><p>Caneta é barata, todo mundo tem várias, e foto de catálogo não muda essa ideia. Como fazer alguém sentir que vale pagar mais por uma?</p></div>
+      <div class="card rv"><span class="k">O que fiz</span><p>Uma landing que trata a caneta como lançamento de tecnologia: vídeo que avança com o scroll, detalhes técnicos, uso no dia a dia, garantia e compra.</p></div>
+      <div class="card rv"><span class="k">Resultado</span><p class="big">4 <small>de 5 hipóteses confirmadas</small></p><p>no teste com 4 pessoas. A que não se confirmou, a compra pelo WhatsApp, virou o principal aprendizado.</p></div>
+    </div>
+  </section>
+
+  <!-- 01 CONTEXTO -->
+  <section class="wrap" id="contexto">
+    <div class="sec-head rv"><span class="num">01</span><h2>Contexto e objetivo</h2></div>
+    <div class="split">
+      <div class="prose rv">
+        <p>O ponto de partida foi um desafio do curso da Asimov: criar a landing page de um produto. O produto proposto era uma caneta, e foi isso que me interessou.</p>
+        <p>A caneta é um objeto de pouco valor, que todo mundo usa e ninguém repara. Isso me pareceu um bom teste para a landing page: mostrar como o design consegue fazer um produto comum parecer valioso.</p>
+        <p>Pensei no momento em que a pessoa chega à página. Ela já viu a caneta numa vitrine ou numa rede social e veio ao site saber mais. Já está interessada; o que falta é a confirmação de que vale o investimento.</p>
+      </div>
+      <div class="prose rv">
+        <p class="quote">A página serve para confirmar uma vontade que a pessoa já tem, para ela comprar sem medo de se arrepender.</p>
+        <p class="note"><b>As duas dúvidas que a página responde:</b> "vale o preço?" e "e se eu me arrepender?".</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 PÚBLICO -->
+  <section class="wrap" id="publico">
+    <div class="sec-head rv"><span class="num">02</span><h2>Para quem é</h2></div>
+    <div class="split">
+      <div class="prose rv">
+        <p><b>Profissionais de escritório que escrevem e assinam documentos todos os dias</b>, num perfil mais sofisticado.</p>
+        <p>Para essas pessoas, a caneta também é um acessório de estilo e status, como um relógio: pela caneta que alguém carrega, dá para ter uma ideia de quem a pessoa é.</p>
+      </div>
+      <div class="prose rv">
+        <p>Essa pessoa já tem várias canetas, então não compra por necessidade. Ela compra quando sai uma versão nova, quando aparece uma edição de colecionador ou quando precisa de refil para continuar com a caneta que já tem.</p>
+        <p class="muted" style="font-size:15px">Refil e edição de colecionador ficaram fora desta versão e entram nos próximos passos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 REFERÊNCIAS -->
+  <section class="wrap" id="referencias">
+    <div class="sec-head rv"><span class="num">03</span><h2>Referências</h2><p>Naveguei por vários sites e pelos templates indicados no curso e separei o que mais chamava atenção para um produto premium. A base veio de duas linguagens diferentes.</p></div>
+    <div class="refs">
+      <div class="card rv">
+        <span class="k">Apple · páginas de produto</span>
+        <p>Referência em apresentar produto como objeto de desejo.</p>
+        <ul>
+          <li>Vídeo que avança com o scroll</li>
+          <li>Fades de entrada</li>
+          <li>Efeito de vidro nos ícones e botões</li>
+          <li>Fundo limpo, com muito espaço em volta do produto</li>
+        </ul>
+      </div>
+      <div class="card rv">
+        <span class="k">Digital Architect · template do Aura.build</span>
+        <p>Sites de arquitetura vendem precisão e acabamento.</p>
+        <ul>
+          <li>Estética editorial e tipografia grande</li>
+          <li>Animações suaves</li>
+          <li>Paleta neutra de papel e tinta</li>
+          <li>O tom de "objeto projetado", que virou o modo técnico</li>
+        </ul>
+      </div>
+    </div>
+    <p class="plus rv"><b>Apple</b> traz o desejo e a simplicidade <span aria-hidden="true">+</span> <b>arquitetura</b> traz a precisão e o projeto</p>
+
+    <h3 class="rv" style="margin-top:40px">Como cheguei à combinação: o que foi meu e o que foi da IA</h3>
+    <ol class="steps">
+      <li class="rv"><span class="who">Eu</span>Pesquisei as referências: a Apple, pela internet, e os templates do curso.</li>
+      <li class="rv"><span class="who">Eu</span>Escolhi os elementos que combinavam com um produto premium.</li>
+      <li class="rv"><span class="who">Eu + Claude</span>Fiz a fusão dos design systems, com peso maior no de arquitetura, para a página não virar uma cópia da Apple.</li>
+      <li class="rv"><span class="who">Eu</span>Revisei o resultado e cortei os vícios de IA (veja em <a href="#versoes">Versões</a>).</li>
+    </ol>
+  </section>
+
+  <!-- 04 ESTRUTURA -->
+  <section class="wrap" id="estrutura">
+    <div class="sec-head rv"><span class="num">04</span><h2>Estrutura da página</h2><p>Como a pessoa já chega interessada, cada seção responde a uma pergunta que ela faria antes de comprar.</p></div>
+
+    <ol class="flow rv">
+      <li><span class="n">1</span><span class="t">Abertura</span><span class="q">Que caneta é essa?</span></li>
+      <li><span class="n">2</span><span class="t">Detalhes</span><span class="q">É boa mesmo?</span></li>
+      <li><span class="n">3</span><span class="t">Dia a dia</span><span class="q">Combina com a minha rotina?</span></li>
+      <li><span class="n">4</span><span class="t">Garantia</span><span class="q">E se eu me arrepender?</span></li>
+      <li><span class="n">5</span><span class="t">Assinatura</span><span class="q">Combina comigo?</span></li>
+      <li><span class="n">6</span><span class="t">Compra</span><span class="q">Quero.</span></li>
+    </ol>
+
+    <div class="part">
+      <div class="part-text rv">
+        <span class="tag">1 · Abertura</span>
+        <p class="q">"Que caneta é essa?"</p>
+        <p>É a primeira coisa que todo visitante vê, então é onde a impressão de produto premium precisa acontecer. O vídeo da caneta avança conforme a pessoa rola a tela, e a sofisticação aparece no próprio movimento, sem depender de texto.</p>
+      </div>
+      <figure class="rv"><div class="shot"><video src="artools/video.mp4" poster="assets/projects/artools-poster.webp" muted loop playsinline preload="metadata" controls aria-label="Vídeo da abertura: a caneta Artools Pigmentum girando sobre fundo claro"></video></div><figcaption>O vídeo da abertura. Na landing, ele avança junto com o scroll.</figcaption></figure>
+    </div>
+
+    <div class="part alt">
+      <div class="part-text rv">
+        <span class="tag">2 · Feita no detalhe</span>
+        <p class="q">"É boa mesmo?"</p>
+        <p>Selecionei os detalhes técnicos que mais impressionam (ponta de 0,1 mm, tinta pigmentada, fluxo contínuo, corpo e clip) para dar argumentos concretos à decisão de compra.</p>
+        <p>O <b>modo técnico</b> é um botão que mostra a caneta como desenho de projeto, com as peças internas e as medidas. Ao passar o mouse num cartão, a peça correspondente acende no desenho. Ele atende quem quer saber como a caneta funciona, e é opcional: não pesa para quem só quer ver o visual.</p>
+      </div>
+      <figure class="rv"><div class="shot"><img src="assets/projects/artools-case/modo-tecnico.webp" width="1440" height="900" loading="lazy" alt="Seção Feita no detalhe com o modo técnico ligado: a caneta aparece como desenho em linhas com as medidas 140 mm e Ø 10 mm, ao lado de cartões com ponta de 0,1 mm, tinta de 100 anos, fluxo contínuo, 9 gramas e clip de 10 mil ciclos."></div><figcaption>Modo técnico ligado: o desenho de projeto com as cotas (medidas).</figcaption></figure>
+    </div>
+
+    <div class="part">
+      <div class="part-text rv">
+        <span class="tag">3 · Um dia com a caneta</span>
+        <p class="q">"Combina com a minha rotina?"</p>
+        <p>Mostra a caneta acompanhando a pessoa do primeiro café à última ideia. A mensagem é de confiança: ela está sempre disponível e não deixa a pessoa na mão, nem quando fica esquecida destampada.</p>
+      </div>
+      <div class="pair rv">
+        <figure><div class="shot"><img src="assets/projects/artools-case/dia.webp" width="1440" height="900" loading="lazy" alt="Seção 'Do primeiro café à última ideia', com um relógio marcando 07:30 e o cartão 'Destampou, escreveu.'"></div></figure>
+        <figure><div class="shot"><img src="assets/projects/artools-case/mobile-dia.webp" width="390" height="844" loading="lazy" alt="A mesma seção no celular, com o relógio no topo e os cartões empilhados."></div></figure>
+      </div>
+    </div>
+
+    <div class="part alt">
+      <div class="part-text rv">
+        <span class="tag">4 · Garantia</span>
+        <p class="q">"E se eu me arrepender?"</p>
+        <p>"Escreva por 30 dias. Se falhar, é por nossa conta." A garantia dá segurança e mostra que a marca confia no próprio produto. A expectativa é que quase ninguém precise usá-la.</p>
+      </div>
+      <figure class="rv"><div class="shot"><img src="assets/projects/artools-case/garantia.webp" width="1440" height="900" loading="lazy" alt="Seção escura da garantia: 'Escreva por 30 dias. Se falhar, é por nossa conta.' e um cartão com 30 dias, troca imediata, frete de devolução e reembolso."></div></figure>
+    </div>
+
+    <div class="part">
+      <div class="part-text rv">
+        <span class="tag">5 · Assinatura</span>
+        <p class="q">"Combina comigo?"</p>
+        <p>Reforça o lado de estilo e status, pensando em quem assina documentos todo dia. O fundo imita papel e a caneta "assina o próprio nome" na tela. É uma prévia de como seria escrever com ela, como testar a caneta na loja.</p>
+      </div>
+      <figure class="rv"><div class="shot"><img src="assets/projects/artools-case/assinatura.webp" width="1440" height="900" loading="lazy" alt="Seção 'Aqui ela assina o próprio nome': a caneta escreve Pigmentum em letra cursiva sobre um fundo que imita papel, com uma lupa mostrando o traço de 0,1 mm."></div></figure>
+    </div>
+
+    <div class="part alt">
+      <div class="part-text rv">
+        <span class="tag">6 · Compra</span>
+        <p class="q">"Quero."</p>
+        <p>Quem rolou a página inteira já está mais perto de decidir, então o botão fica bem à vista no fim. Ele também aparece na abertura, no dia a dia, na garantia e na assinatura: quem já se decidiu compra no primeiro botão que vê.</p>
+        <p>A compra abre uma janela que leva ao WhatsApp. Escolhi assim pela praticidade: como é uma demonstração, foi a forma mais simples de fechar o fluxo sem simular uma loja. No teste, esse foi o ponto mais fraco.</p>
+      </div>
+      <figure class="rv"><div class="shot"><img src="assets/projects/artools-case/compra.webp" width="1440" height="900" loading="lazy" alt="Janela de compra sobre a página desfocada: 'Que bom que você deu mais um passo.', com o botão Falar com um vendedor e a opção Continuar explorando."></div></figure>
+    </div>
+  </section>
+
+  <!-- 05 DESIGN SYSTEM -->
+  <section class="wrap" id="design-system">
+    <div class="sec-head rv"><span class="num">05</span><h2>Design system</h2><p>A paleta e as fontes vieram do template Digital Architect, que já combinava com o projeto. Mantive a base e pedi só pequenos ajustes de tom. O fundo neutro deixa a caneta em destaque.</p></div>
+
+    <div class="swatches rv">
+      <div class="sw"><i style="background:#EAEAE5"></i><div><b>Papel</b><code>#EAEAE5</code><span class="muted">Fundo principal</span></div></div>
+      <div class="sw"><i style="background:#1C1917"></i><div><b>Tinta</b><code>#1C1917</code><span class="muted">Texto e botão principal</span></div></div>
+      <div class="sw"><i style="background:#78716C"></i><div><b>Grafite</b><code>#78716C</code><span class="muted">Texto de apoio</span></div></div>
+      <div class="sw"><i style="background:#FFFFFF;border-bottom:1px solid var(--mist)"></i><div><b>Branco</b><code>#FFFFFF</code><span class="muted">Cartões e destaques</span></div></div>
+    </div>
+    <p class="cap rv">O branco e o bege criam uma estética refinada; o bege lembra papel, e o quase preto, tinta.</p>
+
+    <div class="fonts">
+      <div class="font rv"><span>Títulos</span><p class="aa" style="font-family:'Space Grotesk',var(--font-display);font-weight:500">Ag</p><b>Space Grotesk</b><p>Geométrica e moderna, com ar de tecnologia.</p></div>
+      <div class="font rv"><span>Texto</span><p class="aa" style="font-family:Inter,sans-serif;font-weight:400">Aa</p><b>Inter</b><p>Fácil de ler. Quase sempre em peso leve.</p></div>
+      <div class="font rv"><span>Técnico</span><p class="aa" style="font-family:'JetBrains Mono',ui-monospace,monospace;font-weight:500">0,1</p><b>JetBrains Mono</b><p>Parece ficha técnica: botões, legendas e cotas.</p></div>
+    </div>
+
+    <p class="note rv" style="margin-top:20px"><b>Achado de acessibilidade:</b> o grafite <code>#78716C</code> sobre o fundo papel tem contraste de 4,0:1, um pouco abaixo do mínimo recomendado para texto pequeno (4,5:1). No design system, a regra passou a ser usar <code>#57534E</code> (6,3:1) para texto pequeno sobre o papel.</p>
+  </section>
+
+  <!-- 06 TESTE -->
+  <section class="wrap" id="teste">
+    <div class="sec-head rv"><span class="num">06</span><h2>Teste com usuários</h2><p>Mostrei a página para <b>4 pessoas</b> próximas, do trabalho e de casa, e fiz perguntas sobre cada parte. Três usaram o celular e uma o computador. Ninguém travou em nenhum ponto, e a navegação foi considerada intuitiva.</p></div>
+
+    <div class="table-wrap rv">
+      <table class="stack">
+        <thead><tr><th scope="col">Hipótese</th><th scope="col">Resultado</th><th scope="col">O que ouvi</th></tr></thead>
+        <tbody>
+          <tr><td>O vídeo da abertura passa a sensação de produto premium</td><td><span class="res ok"><iconify-icon icon="lucide:check"></iconify-icon>Confirmada</span></td><td>Causa impacto logo na primeira tela.</td></tr>
+          <tr><td>O botão de compra no fim ajuda quem chegou até ali</td><td><span class="res ok"><iconify-icon icon="lucide:check"></iconify-icon>Confirmada</span></td><td>Quem estava em dúvida e foi convencida ao longo da página encontra o botão "na frente do olho" e vai direto para a compra.</td></tr>
+          <tr><td>A garantia passa confiança</td><td><span class="res ok"><iconify-icon icon="lucide:check"></iconify-icon>Confirmada</span></td><td>"Se eu não gostar, tenho meu dinheiro de volta." Também foi lida como sinal de que a marca confia no produto.</td></tr>
+          <tr><td>O modo técnico ajuda quem quer detalhes</td><td><span class="res ok"><iconify-icon icon="lucide:check"></iconify-icon>Confirmada</span></td><td>Funciona para o público mais exigente, que gosta de saber como as coisas funcionam.</td></tr>
+          <tr><td>Comprar pelo WhatsApp passa confiança</td><td><span class="res no"><iconify-icon icon="lucide:x"></iconify-icon>Não confirmada</span></td><td>As pessoas preferem um carrinho, porque o atendimento pelo WhatsApp às vezes demora.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="split" style="margin-top:28px">
+      <div class="card rv"><span class="k">O que eu mudaria</span><p>Numa versão real, a compra principal seria por carrinho, e o WhatsApp ficaria como opção para quem tem dúvida ou quer algo especial, como a edição de colecionador.</p></div>
+      <div class="card rv"><span class="k">Limites do teste</span><p>Foram pessoas próximas, que tendem a ser gentis, e de perfil classe média, diferente do público que defini. Mesmo assim, se a página passou a sensação de produto premium para quem não costuma comprar canetas caras, ela cumpriu o objetivo. No próximo teste, eu chamaria pessoas do público que não me conhecem e daria tarefas para elas cumprirem sozinhas.</p></div>
+    </div>
+  </section>
+
+  <!-- 07 VERSÕES -->
+  <section class="wrap" id="versoes">
+    <div class="sec-head rv"><span class="num">07</span><h2>Versões</h2><p>A página passou por três rodadas de ajustes depois da primeira versão. Cada uma deixou a caneta com mais cara de produto caro.</p></div>
+
+    <div class="table-wrap rv">
+      <table class="stack">
+        <thead><tr><th scope="col">Versão</th><th scope="col">O que mudou e por quê</th></tr></thead>
+        <tbody>
+          <tr><td><b>Inicial</b></td><td>A fusão das referências, com o vídeo da abertura e as seções principais.</td></tr>
+          <tr><td><b>Versão 1</b></td><td>Caixa de compra, fades e barra de navegação. Surgiram no processo: vendo o site tomar forma, senti falta de animações e acabamentos que o deixassem mais premium. A caixa de compra também deu um destino aos botões "Comprar".</td></tr>
+          <tr><td><b>Versão 2</b></td><td>Tirar a "cara de IA" dos textos: trocar frases grandiosas e genéricas por fatos que a pessoa consegue imaginar (veja abaixo).</td></tr>
+          <tr><td><b>Final</b></td><td>Tirei a numeração de 01 a 05 dos cartões. Numerar cartões é um vício comum de layouts gerados por IA, e ali eles só enfeitavam, sem ajudar a leitura.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="rv" style="margin:40px 0 16px">Versão 2: texto concreto no lugar de texto grandioso</h3>
+    <div class="table-wrap rv">
+      <table class="stack">
+        <thead><tr><th scope="col">Antes</th><th scope="col">Depois</th></tr></thead>
+        <tbody>
+          <tr><td class="before">Engenharia aeroespacial.</td><td>Feita no detalhe.</td></tr>
+          <tr><td class="before">Feita para criadores que exigem perfeição em cada traço.</td><td>Uma fineliner de ponta 0,1 que pesa 9 gramas e não borra nem com marca-texto por cima.</td></tr>
+          <tr><td class="before">Polímero grau aeroespacial. Leveza de pluma com rigidez estrutural.</td><td>Pesa 9 gramas e tem seis faces, então não sai rolando da mesa.</td></tr>
+          <tr><td class="before">Um alimentador de fibras regula a tinta molécula a molécula.</td><td>Um feltro dentro do corpo solta só a tinta que a ponta precisa.</td></tr>
+          <tr><td class="before">Scroll to control</td><td>Role a página</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cap rv">Também saíram selos genéricos como "Secagem em 3s", "Zero borrões" e "pH neutro".</p>
+
+    <h3 class="rv" style="margin:48px 0 8px">Como nasceu o vídeo da abertura</h3>
+    <p class="muted rv" style="max-width:66ch;margin-bottom:20px">Criei no Gemini a imagem do primeiro quadro e a do último. Depois usei o Google Flow, com o modelo Veo 3, para gerar a transição entre os dois.</p>
+    <div class="frames rv">
+      <figure><div class="shot"><img src="assets/projects/artools-case/frame-inicial.webp" width="1024" height="572" loading="lazy" alt="Quadro inicial: a caneta branca Artools Pigmentum sozinha sobre fundo branco."></div><figcaption>Quadro inicial (Gemini)</figcaption></figure>
+      <iconify-icon class="arrow" icon="lucide:arrow-right" aria-hidden="true"></iconify-icon>
+      <figure><div class="shot"><img src="assets/projects/artools-case/frame-final.webp" width="1024" height="572" loading="lazy" alt="Quadro final: uma mão escrevendo em letra cursiva com a caneta Artools Pigmentum numa folha branca, com a tampa deitada ao lado."></div><figcaption>Quadro final (Gemini)</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 08 APRENDIZADOS -->
+  <section class="wrap" id="aprendizados">
+    <div class="sec-head rv"><span class="num">08</span><h2>Aprendizados</h2></div>
+    <p class="quote rv">Para um primeiro projeto, foi muito interessante. Aprendi sobre hierarquia visual, design system e usabilidade, e também um pouco de programação, como o uso de classes. Foram muitos conceitos novos de uma vez.</p>
+
+    <div class="learn">
+      <div class="card rv"><iconify-icon icon="lucide:users"></iconify-icon><h3>Testar muda a opinião</h3><p>Eu achava que o WhatsApp passava confiança. O teste mostrou que as pessoas preferem um carrinho.</p></div>
+      <div class="card rv"><iconify-icon icon="lucide:type"></iconify-icon><h3>Texto concreto convence mais</h3><p>"Não sai rolando da mesa" convence mais que "grau aeroespacial", porque a pessoa consegue imaginar.</p></div>
+      <div class="card rv"><iconify-icon icon="lucide:sparkles"></iconify-icon><h3>A IA executa, eu decido</h3><p>A IA fez a fusão, o código e o vídeo. A escolha das referências, a direção e os cortes foram meus, e boa parte do trabalho foi tirar os vícios dela.</p></div>
+      <div class="card rv"><iconify-icon icon="lucide:contrast"></iconify-icon><h3>Acessibilidade se confere</h3><p>Revisando o design system, vi que um cinza bonito pode não ter contraste suficiente. Agora eu confiro antes.</p></div>
+    </div>
+
+    <h3 class="rv" style="margin-top:48px">Se eu continuasse o projeto</h3>
+    <ul class="next rv">
+      <li><iconify-icon icon="lucide:shopping-cart"></iconify-icon>Carrinho como compra principal, com o WhatsApp como apoio.</li>
+      <li><iconify-icon icon="lucide:refresh-cw"></iconify-icon>Venda de refil, para quem já tem a caneta.</li>
+      <li><iconify-icon icon="lucide:gem"></iconify-icon>Uma edição de colecionador, para quem compra pela exclusividade.</li>
+      <li><iconify-icon icon="lucide:pen-line"></iconify-icon>Textos que falem mais de estilo e status. Parte deles ("marca-texto, aquarela, café. Pode vir") fala de uso funcional, mais próximo de estudante ou artista do que do público que defini.</li>
+      <li><iconify-icon icon="lucide:contrast"></iconify-icon>Aplicar na landing o cinza mais escuro nos textos pequenos.</li>
+      <li><iconify-icon icon="lucide:clipboard-check"></iconify-icon>Um novo teste com pessoas do público, com tarefas para cumprirem sozinhas.</li>
+    </ul>
+
+    <div class="end rv" style="margin-top:56px">
+      <p class="muted">A landing é um estudo pessoal: a Artools e a Pigmentum são fictícias, e os números do produto também.</p>
+      <div class="intro-actions">
+        <a class="theme-btn theme-btn--primary" href="artools/index.html" target="_blank" rel="noopener">Ver a landing ao vivo<iconify-icon icon="lucide:arrow-up-right"></iconify-icon></a>
+        <a class="theme-btn theme-btn--outline" href="index.html#projeto-artools"><iconify-icon icon="lucide:arrow-left"></iconify-icon>Voltar ao portfólio</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer><div class="wrap"><span>Antonio Zito · UX/UI Designer em formação</span><span>Estudo de caso · Artools Pigmentum · 2026</span></div></footer>
+
+<script>
+(function(){
+  var btn=document.getElementById("themeToggle"),root=document.documentElement,meta=document.getElementById("metaTheme");
+  function paint(){var d=root.dataset.theme==="dark";btn.innerHTML='<iconify-icon icon="lucide:'+(d?"sun":"moon")+'"></iconify-icon>';btn.setAttribute("aria-pressed",d);meta.content=d?"#0A0B0F":"#FFFFFF";}
+  btn.addEventListener("click",function(){root.dataset.theme=root.dataset.theme==="dark"?"light":"dark";try{localStorage.setItem("theme",root.dataset.theme)}catch(e){}paint();});
+  paint();
+  var els=document.querySelectorAll(".rv");
+  if(!("IntersectionObserver" in window)){els.forEach(function(e){e.classList.add("in")});return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}})},{rootMargin:"0px 0px -8% 0px",threshold:.05});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
