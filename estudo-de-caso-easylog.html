@@ -267,6 +267,16 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 .kw{font-family:var(--font-display);font-weight:700;letter-spacing:.08em;font-size:clamp(30px,5vw,44px);line-height:1;color:#092F4E;background:#fff;border:2px dashed #6B8BA8;border-radius:14px;padding:18px 20px;text-align:center}
 .kw small{display:block;font-family:var(--font-body);font-size:11px;letter-spacing:.06em;font-weight:600;color:#494A50;margin-bottom:10px}
 .price td:nth-child(n+2),.price th:nth-child(n+2){white-space:nowrap}
+@media (max-width:640px){
+  .price thead tr{display:block;padding:10px 16px;background:var(--snow)}
+  .price thead th{display:block;padding:0;border:0;background:none}
+  .price thead th:nth-child(n+2){display:none}
+  .price tr{display:block;padding:12px 16px;border-top:1px solid var(--mist)}
+  .price tbody tr:first-child{border-top:1px solid var(--mist)}
+  .price td{display:flex;justify-content:space-between;gap:12px;border:0;padding:3px 0;white-space:normal}
+  .price td:first-child{font-weight:600;padding-bottom:6px}
+  .price td:nth-child(n+2)::before{content:attr(data-l);font-size:13px;color:var(--graphite)}
+}
 .flag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:var(--r-pill);background:var(--blue-tint);color:var(--accent);margin-left:6px;vertical-align:2px}
 .open{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 @media (max-width:720px){.open{grid-template-columns:minmax(0,1fr)}}
@@ -286,7 +296,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
   <div class="topbar-in">
     <a class="back" href="index.html#projeto-hub"><iconify-icon icon="lucide:arrow-left"></iconify-icon><span class="full">Voltar ao portfólio</span><span class="short">Portfólio</span></a>
     <div class="top-right">
-      <a class="theme-btn theme-btn--outline" href="https://www.figma.com/design/jkjjwENNY1rHJQgjxkmBqy?node-id=84-1140" target="_blank" rel="noopener" style="height:42px;padding:0 16px;font-size:14px">Ver o protótipo<iconify-icon icon="lucide:arrow-up-right"></iconify-icon><span class="sr-only">(abre em nova aba)</span></a>
+      <a class="theme-btn theme-btn--outline" href="https://www.figma.com/proto/jkjjwENNY1rHJQgjxkmBqy/EasyLog?node-id=84-1141&amp;starting-point-node-id=84-1141&amp;scaling=scale-down" target="_blank" rel="noopener" style="height:42px;padding:0 16px;font-size:14px">Ver o protótipo<iconify-icon icon="lucide:arrow-up-right"></iconify-icon><span class="sr-only">(abre em nova aba)</span></a>
       <button class="btn-icon" id="themeToggle" type="button" aria-label="Alternar tema claro e escuro"><iconify-icon icon="lucide:moon"></iconify-icon></button>
     </div>
   </div>
@@ -301,7 +311,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       <h1>EasyLog</h1>
       <p class="lead">Entregas de loja de bairro em Teresina, cobradas por assinatura. O lojista sabe quanto vai pagar no mês e o motorista fica com <span class="serif">o frete inteiro</span>.</p>
       <div class="intro-actions">
-        <a class="theme-btn theme-btn--primary" href="https://www.figma.com/design/jkjjwENNY1rHJQgjxkmBqy?node-id=84-1140" target="_blank" rel="noopener">Ver o protótipo no Figma<iconify-icon icon="lucide:arrow-up-right"></iconify-icon><span class="sr-only">(abre em nova aba)</span></a>
+        <a class="theme-btn theme-btn--primary" href="https://www.figma.com/proto/jkjjwENNY1rHJQgjxkmBqy/EasyLog?node-id=84-1141&amp;starting-point-node-id=84-1141&amp;scaling=scale-down" target="_blank" rel="noopener">Ver o protótipo no Figma<iconify-icon icon="lucide:arrow-up-right"></iconify-icon><span class="sr-only">(abre em nova aba)</span></a>
         <a class="theme-btn theme-btn--outline" href="#entrega">Seguir a entrega #4830<iconify-icon icon="lucide:arrow-down"></iconify-icon></a>
         <a class="theme-btn theme-btn--outline" href="#limites">Ir para os limites<iconify-icon icon="lucide:arrow-down"></iconify-icon></a>
       </div>
@@ -405,9 +415,9 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
           <table class="price">
             <thead><tr><th scope="col">Lojista</th><th scope="col">Mensal</th><th scope="col">Incluídas</th><th scope="col">Excedente</th></tr></thead>
             <tbody>
-              <tr><td>Essencial</td><td>R$ 89</td><td>60</td><td>R$ 1,50</td></tr>
-              <tr><td>Pro <span class="flag">recomendado</span></td><td>R$ 189</td><td>200</td><td>R$ 0,99</td></tr>
-              <tr><td>Rede</td><td>R$ 349</td><td>ilimitado</td><td>sem taxa</td></tr>
+              <tr><td data-l="Plano">Essencial</td><td data-l="Mensal">R$ 89</td><td data-l="Incluídas">60</td><td data-l="Excedente">R$ 1,50</td></tr>
+              <tr><td data-l="Plano">Pro <span class="flag">recomendado</span></td><td data-l="Mensal">R$ 189</td><td data-l="Incluídas">200</td><td data-l="Excedente">R$ 0,99</td></tr>
+              <tr><td data-l="Plano">Rede</td><td data-l="Mensal">R$ 349</td><td data-l="Incluídas">ilimitado</td><td data-l="Excedente">sem taxa</td></tr>
             </tbody>
           </table>
         </div>
@@ -415,9 +425,9 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
           <table class="price">
             <thead><tr><th scope="col">Motorista</th><th scope="col">Preço</th><th scope="col">Taxa por entrega</th></tr></thead>
             <tbody>
-              <tr><td>Semanal</td><td>R$ 24,90</td><td>nenhuma</td></tr>
-              <tr><td>Pro <span class="flag">recomendado</span></td><td>R$ 79,90 / mês</td><td>nenhuma</td></tr>
-              <tr><td>Trimestral</td><td>R$ 199,90</td><td>nenhuma</td></tr>
+              <tr><td data-l="Plano">Semanal</td><td data-l="Preço">R$ 24,90</td><td data-l="Taxa por entrega">nenhuma</td></tr>
+              <tr><td data-l="Plano">Pro <span class="flag">recomendado</span></td><td data-l="Preço">R$ 79,90 / mês</td><td data-l="Taxa por entrega">nenhuma</td></tr>
+              <tr><td data-l="Plano">Trimestral</td><td data-l="Preço">R$ 199,90</td><td data-l="Taxa por entrega">nenhuma</td></tr>
             </tbody>
           </table>
         </div>
@@ -652,7 +662,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     <div class="end rv" style="margin-top:56px">
       <p class="muted">Projeto pessoal. O EasyLog, a Tintas &amp; Tintas Dirceu, as pessoas, os preços e os números das telas são fictícios.</p>
       <div class="intro-actions">
-        <a class="theme-btn theme-btn--primary" href="https://www.figma.com/design/jkjjwENNY1rHJQgjxkmBqy?node-id=84-1140" target="_blank" rel="noopener">Ver o protótipo no Figma<iconify-icon icon="lucide:arrow-up-right"></iconify-icon><span class="sr-only">(abre em nova aba)</span></a>
+        <a class="theme-btn theme-btn--primary" href="https://www.figma.com/proto/jkjjwENNY1rHJQgjxkmBqy/EasyLog?node-id=84-1141&amp;starting-point-node-id=84-1141&amp;scaling=scale-down" target="_blank" rel="noopener">Ver o protótipo no Figma<iconify-icon icon="lucide:arrow-up-right"></iconify-icon><span class="sr-only">(abre em nova aba)</span></a>
         <a class="theme-btn theme-btn--outline" href="index.html#projeto-hub"><iconify-icon icon="lucide:arrow-left"></iconify-icon>Voltar ao portfólio</a>
       </div>
     </div>

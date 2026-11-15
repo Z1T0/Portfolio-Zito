@@ -202,6 +202,7 @@ td.before{color:var(--graphite);text-decoration:line-through;text-decoration-col
 .res{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:4px 10px;border-radius:var(--r-pill);white-space:nowrap}
 .res.ok{background:var(--ok-soft);color:var(--ok)}
 .res.no{background:var(--no-soft);color:var(--no)}
+.res.mid{background:var(--blue-tint);color:var(--accent)}
 @media (max-width:640px){
   .stack thead{display:none}
   .stack tr{display:block;padding:14px 16px;border-top:1px solid var(--mist)}
@@ -295,7 +296,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     <div class="tldr">
       <div class="card rv"><span class="k">Desafio</span><p>Caneta é barata, todo mundo tem várias, e foto de catálogo não muda essa ideia. Como fazer alguém sentir que vale pagar mais por uma?</p></div>
       <div class="card rv"><span class="k">O que fiz</span><p>Uma landing que trata a caneta como lançamento de tecnologia: vídeo que avança com o scroll, detalhes técnicos, uso no dia a dia, garantia e compra.</p></div>
-      <div class="card rv"><span class="k">Resultado</span><p class="big">4 <small>de 5 hipóteses confirmadas</small></p><p>no teste com 4 pessoas. A que não se confirmou, a compra pelo WhatsApp, virou o principal aprendizado.</p></div>
+      <div class="card rv"><span class="k">Resultado</span><p class="big">3 <small>de 5 hipóteses se sustentaram</small></p><p>numa conversa com 4 pessoas próximas. A da garantia se sustentou só em parte, e a da compra pelo WhatsApp não se sustentou. As duas viraram os principais aprendizados.</p></div>
     </div>
   </section>
 
@@ -463,7 +464,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 
   <!-- 06 TESTE -->
   <section class="wrap" id="teste">
-    <div class="sec-head rv"><span class="num">06</span><h2>Teste com usuários</h2><p>Mostrei a página para <b>4 pessoas</b> próximas, do trabalho e de casa, e fiz perguntas sobre cada parte. Três usaram o celular e uma o computador. Ninguém travou em nenhum ponto, e a navegação foi considerada intuitiva.</p></div>
+    <div class="sec-head rv"><span class="num">06</span><h2>Teste com usuários</h2><p>Mostrei a página para <b>4 pessoas</b> próximas, do trabalho e de casa, e fiz perguntas sobre cada parte. Três usaram o celular e uma o computador. Ninguém disse que travou, mas eu não dei tarefas para cumprir. Revendo a página no celular depois, achei dois problemas que a conversa não pegou: o véu atrás do título escondia a caneta no topo e as medidas do desenho técnico ficavam pequenas demais para ler. Os dois já foram corrigidos.</p></div>
 
     <div class="table-wrap rv">
       <table class="stack">
@@ -471,7 +472,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
         <tbody>
           <tr><td>O vídeo da abertura passa a sensação de produto premium</td><td><span class="res ok"><iconify-icon icon="lucide:check"></iconify-icon>Confirmada</span></td><td>Causa impacto logo na primeira tela.</td></tr>
           <tr><td>O botão de compra no fim ajuda quem chegou até ali</td><td><span class="res ok"><iconify-icon icon="lucide:check"></iconify-icon>Confirmada</span></td><td>Quem estava em dúvida e foi convencida ao longo da página encontra o botão "na frente do olho" e vai direto para a compra.</td></tr>
-          <tr><td>A garantia passa confiança</td><td><span class="res ok"><iconify-icon icon="lucide:check"></iconify-icon>Confirmada</span></td><td>"Se eu não gostar, tenho meu dinheiro de volta." Também foi lida como sinal de que a marca confia no produto.</td></tr>
+          <tr><td>A garantia passa confiança</td><td><span class="res mid"><iconify-icon icon="lucide:circle-help"></iconify-icon>Em parte</span></td><td>"Se eu não gostar, tenho meu dinheiro de volta." Passou confiança, mas pelo motivo errado: a garantia cobre a caneta que falhar, não quem se arrependeu. O texto promete mais do que a regra cobre.</td></tr>
           <tr><td>O modo técnico ajuda quem quer detalhes</td><td><span class="res ok"><iconify-icon icon="lucide:check"></iconify-icon>Confirmada</span></td><td>Funciona para o público mais exigente, que gosta de saber como as coisas funcionam.</td></tr>
           <tr><td>Comprar pelo WhatsApp passa confiança</td><td><span class="res no"><iconify-icon icon="lucide:x"></iconify-icon>Não confirmada</span></td><td>As pessoas preferem um carrinho, porque o atendimento pelo WhatsApp às vezes demora.</td></tr>
         </tbody>
@@ -479,7 +480,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     </div>
 
     <div class="split" style="margin-top:28px">
-      <div class="card rv"><span class="k">O que eu mudaria</span><p>Numa versão real, a compra principal seria por carrinho, e o WhatsApp ficaria como opção para quem tem dúvida ou quer algo especial, como a edição de colecionador.</p></div>
+      <div class="card rv"><span class="k">O que eu mudaria</span><p>Numa versão real, a compra principal seria por carrinho, e o WhatsApp ficaria como opção para quem tem dúvida ou quer algo especial, como a edição de colecionador. Também mostraria o preço na página: pelo WhatsApp o valor só aparece na conversa, e isso pode explicar parte da preferência pelo carrinho.</p></div>
       <div class="card rv"><span class="k">Limites do teste</span><p>Foram pessoas próximas, que tendem a ser gentis, e de perfil classe média, diferente do público que defini. Mesmo assim, se a página passou a sensação de produto premium para quem não costuma comprar canetas caras, ela cumpriu o objetivo. No próximo teste, eu chamaria pessoas do público que não me conhecem e daria tarefas para elas cumprirem sozinhas.</p></div>
     </div>
   </section>
@@ -539,6 +540,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     <h3 class="rv" style="margin-top:48px">Se eu continuasse o projeto</h3>
     <ul class="next rv">
       <li><iconify-icon icon="lucide:shopping-cart"></iconify-icon>Carrinho como compra principal, com o WhatsApp como apoio.</li>
+      <li><iconify-icon icon="lucide:shield-check"></iconify-icon>Reescrever a garantia para deixar claro o que ela cobre: troca da caneta que falhar em 30 dias, não devolução por arrependimento.</li>
       <li><iconify-icon icon="lucide:refresh-cw"></iconify-icon>Venda de refil, para quem já tem a caneta.</li>
       <li><iconify-icon icon="lucide:gem"></iconify-icon>Uma edição de colecionador, para quem compra pela exclusividade.</li>
       <li><iconify-icon icon="lucide:pen-line"></iconify-icon>Textos que falem mais de estilo e status. Parte deles ("marca-texto, aquarela, café. Pode vir") fala de uso funcional, mais próximo de estudante ou artista do que do público que defini.</li>

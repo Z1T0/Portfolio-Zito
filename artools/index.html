@@ -308,7 +308,8 @@
             }
 
             .hero-veil {
-                background: linear-gradient(0deg, rgba(234, 234, 229, .96) 0%, rgba(234, 234, 229, .88) 50%, rgba(234, 234, 229, .5) 72%, rgba(234, 234, 229, 0) 86%);
+                /* denso só atrás do parágrafo e dos botões; a caneta, no meio da tela, fica à vista */
+                background: linear-gradient(0deg, rgba(234, 234, 229, .95) 0%, rgba(234, 234, 229, .85) 28%, rgba(234, 234, 229, .4) 42%, rgba(234, 234, 229, 0) 55%);
             }
         }
 
@@ -400,6 +401,10 @@
         .pen-stage.is-blueprint .bp-internal { opacity: 1; }
         .pen-stage { transition: background-color .8s; }
         .pen-stage.is-blueprint { background-color: rgba(255, 255, 255, .85); }
+        /* No modo técnico as cotas ganham destaque */
+        .pen-stage .dims text, .pen-stage .dims path { transition: fill .6s, stroke .6s; }
+        .pen-stage.is-blueprint .dims text { fill: #1c1917; }
+        .pen-stage.is-blueprint .dims path { stroke: #57534e; }
 
         /* Callouts numerados */
         .callout { cursor: pointer; }
@@ -689,9 +694,9 @@
                 <span class="nav-tag hidden sm:inline ml-2 pl-3 border-l text-[10px] font-mono uppercase tracking-widest">Conceito</span>
             </a>
             <nav class="nav-links hidden md:flex items-center gap-8 text-xs font-mono uppercase tracking-widest">
-                <a href="#explorar" data-scroll-to>Design</a>
-                <a href="#explorar" data-scroll-to>Tecnologia</a>
                 <a href="#explorar" data-scroll-to>Especificações</a>
+                <a href="#dia" data-scroll-to>Dia a dia</a>
+                <a href="#garantia" data-scroll-to>Garantia</a>
             </nav>
             <button type="button" data-buy class="btn-beam px-[1px] py-[1px] rounded-full">
                 <span class="btn-beam-content px-5 py-2 rounded-full text-xs font-mono uppercase tracking-widest">
@@ -957,12 +962,12 @@
                                     <path d="M324 56 H336 M324 834 H336" />
                                     <path d="M214 56 H322 M184 834 H322" stroke-dasharray="2 3" opacity=".7" />
                                     <text x="344" y="445" transform="rotate(90 344 445)" text-anchor="middle" dominant-baseline="middle"
-                                        font-family="JetBrains Mono" font-size="10" letter-spacing="2" fill="#78716c" stroke="none">140 MM</text>
+                                        font-family="JetBrains Mono" font-size="17" font-weight="500" letter-spacing="2" fill="#57534e" stroke="none">140 MM</text>
                                     <!-- diâmetro -->
                                     <path class="draw" pathLength="1" d="M148 34 H212" />
                                     <path d="M148 28 V40 M212 28 V40 M148 40 V54 M212 40 V54" />
-                                    <text x="180" y="18" text-anchor="middle" font-family="JetBrains Mono" font-size="10"
-                                        letter-spacing="2" fill="#78716c" stroke="none">Ø 10 MM</text>
+                                    <text x="180" y="18" text-anchor="middle" font-family="JetBrains Mono" font-size="17" font-weight="500"
+                                        letter-spacing="2" fill="#57534e" stroke="none">Ø 10 MM</text>
                                 </g>
 
                                 <!-- ===== CALLOUTS (ligados aos cards via data-spec) ===== -->
@@ -1657,12 +1662,12 @@
                 <div class="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-stone-300/50 blur-3xl" aria-hidden="true"></div>
 
                 <button type="button" data-buy-close aria-label="Fechar"
-                    class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full flex items-center justify-center text-stone-400 hover:text-stone-900 hover:bg-stone-200/70 transition-colors">
+                    class="absolute top-3 right-3 z-10 w-11 h-11 rounded-full flex items-center justify-center text-stone-500 hover:text-stone-900 hover:bg-stone-200/70 transition-colors">
                     <iconify-icon icon="solar:close-circle-linear" class="text-xl"></iconify-icon>
                 </button>
 
                 <div class="relative">
-                    <h2 id="buy-title" class="pr-10 font-display font-bold tracking-tighter leading-[0.95] text-[clamp(1.75rem,6vw,2.25rem)]">
+                    <h2 id="buy-title" class="pr-12 font-display font-bold tracking-tighter leading-[0.95] text-[clamp(1.75rem,6vw,2.25rem)]">
                         Que bom que você deu <span class="text-outline">mais um passo</span>.
                     </h2>
                     <p class="mt-4 text-stone-500 leading-relaxed font-light">
