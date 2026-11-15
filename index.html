@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Antonio Zito · UX/UI Designer</title>
-<meta name="description" content="Portfólio de Antonio Zito, UX/UI Designer em formação em Teresina, PI. Interfaces web e mobile no Figma, com mais de quatro anos de suporte e treinamento de usuários de sistemas web.">
+<meta name="description" content="Portfólio de Antonio Zito, UX/UI Designer em formação em Teresina, PI. Interfaces web e mobile no Figma, pensadas a partir do objetivo do cliente e da rotina de quem vai usar.">
 <meta name="author" content="Antonio Zito Menezes do Desterro Junior">
 <meta name="theme-color" content="#FFFFFF" id="metaTheme">
 <meta name="color-scheme" content="light dark">
@@ -570,6 +570,7 @@ body.is-loaded .arch-layer .go-to-project-btn{animation:tag-pop .9s var(--ease-s
 /* --- Preview: EasyLog (telas do protótipo em molduras de celular) --- */
 .mock-hub{position:absolute;inset:0;background:var(--g-arch);overflow:hidden}
 .mock-hub::before{content:"";position:absolute;inset:0;background-image:linear-gradient(to right,rgba(255,255,255,.14) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.14) 1px,transparent 1px);background-size:4cqw 4cqw;-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000,transparent 75%);mask-image:radial-gradient(ellipse at 50% 30%,#000,transparent 75%)}
+.mock-hub--kinetic{background:radial-gradient(ellipse 90% 80% at 50% 100%,#1F2A16 0%,#0D0F0E 70%)}
 .mock-hub .phones{position:absolute;inset:0;transform-origin:50% 100%}
 @container (max-width:520px){.mock-hub .phones{scale:1.3}}
 .mock-hub .rings{position:absolute;left:50%;top:58%;width:110cqw;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:repeating-radial-gradient(circle,rgba(255,255,255,.16) 0 1px,transparent 1px 4cqw);-webkit-mask-image:radial-gradient(circle,#000 25%,transparent 65%);mask-image:radial-gradient(circle,#000 25%,transparent 65%);animation:rotating 80s linear infinite}
@@ -1327,7 +1328,7 @@ const CONTENT = {
     primary: { label: "Ver projetos", target: "projetos" },
     secondary: { label: "Baixar CV" },
     stats: [
-      { value: 4, plus: true, unit: "anos", text: "treinando e dando suporte a usuários de sistemas web", icon: "lucide:headset" },
+      { value: 18, unit: "passos", text: "no protótipo do EasyLog, da loja até o painel web", icon: "lucide:mouse-pointer-click" },
       { value: 5, unit: "anos", text: "criando peças gráficas como designer autônomo", icon: "lucide:palette" },
       { value: 106, unit: "telas", text: "no EasyLog, entre apps e painel web", icon: "lucide:smartphone" },
       { value: 2, unit: "cursos", text: "em andamento na EBAC: UX Design e Design Gráfico", icon: "lucide:graduation-cap" }
@@ -1364,21 +1365,21 @@ const CONTENT = {
   },
   about: {
     kicker: "Sobre mim",
-    title: "Aprendi design <span class='serif'>ouvindo</span> quem usa.",
+    title: "Primeiro o cliente e <span class='serif'>quem usa.</span> Depois a tela.",
     meta: [
-      { icon: "lucide:briefcase-business", text: "Suporte e treinamento na Phocus" },
+      { icon: "lucide:book-open", text: "UX Design e Design Gráfico na EBAC" },
       { icon: "lucide:graduation-cap", text: "Sistemas de Informação, CEUPI" },
       { icon: "lucide:pen-tool", text: "Designer autônomo desde 2021" }
     ],
-    lead: "Há mais de quatro anos atendo e treino quem usa sistemas web de gestão todos os dias, e foi ali que aprendi a perceber [[onde a pessoa trava]] antes de pensar em qualquer tela.",
-    body: "No design, começo pelo problema e por quem vai usar. Desenho o fluxo, depois o wireframe e só então o visual no Figma. No <strong>EasyLog</strong> desenhei um serviço de entregas inteiro, do cadastro do motorista com foto da CNH ao painel web do lojista, pensando em quem usa o celular com uma mão, no meio da rua. Como designer autônomo, crio peças para pequenos negócios desde 2021, o que me ensinou a conversar com o cliente e entregar no prazo.",
+    lead: "Antes de abrir o Figma, quero entender o que o cliente precisa alcançar e o que o usuário precisa resolver. Uma tela boa é a que [[atende os dois ao mesmo tempo]].",
+    body: "Trabalho sempre na mesma ordem: primeiro o fluxo, depois o wireframe e só no fim o visual no Figma. No <strong>EasyLog</strong> desenhei um serviço de entregas inteiro, do cadastro do motorista com foto da CNH ao painel web do lojista, pensando em quem usa o celular com uma mão, no meio da rua. Como designer autônomo, crio peças para pequenos negócios desde 2021, o que me ensinou a conversar com o cliente e entregar no prazo.",
     pillarsTitle: "Como eu trabalho",
     pillarsText: "Três coisas que levo para todo projeto.",
     pillars: [
       {
         icon: "lucide:ear",
         title: "Ouvir antes de desenhar",
-        text: "Antes da primeira tela, quero entender quem usa, o que essa pessoa precisa resolver e onde ela costuma se perder."
+        text: "Converso com o cliente sobre o negócio e o objetivo dele, e procuro saber quem vai usar, o que essa pessoa precisa fazer e onde costuma se perder."
       },
       {
         icon: "lucide:mouse-pointer-click",
@@ -1411,8 +1412,22 @@ const CONTENT = {
         solution: "Voltei ao app do motorista e desenhei o que faltava: o app do lojista e o painel web. Defini a assinatura no lugar da comissão, os preços e uma palavra-chave para confirmar a retirada e outra para a entrega. O Claude montou as telas no Figma, e eu revisei cada uma.",
         result: { value: "106", unit: "telas em três frentes", text: "Com design system próprio e um protótipo de 18 passos que segue uma entrega da loja até o painel. Ainda falta testar com lojistas e motoristas." },
         tech: [ { text: "Figma", icon: "logos:figma" }, { text: "Protótipo navegável", icon: "lucide:mouse-pointer-click" }, { text: "Design system", icon: "lucide:component" }, { text: "Mobile e web", icon: "lucide:monitor-smartphone" }, { text: "Claude", icon: "lucide:sparkles" } ],
-        demo: { label: "Ver protótipo", href: "https://www.figma.com/design/jkjjwENNY1rHJQgjxkmBqy?node-id=84-1140" },
+        demo: { label: "Ver protótipo", href: "https://www.figma.com/proto/jkjjwENNY1rHJQgjxkmBqy/EasyLog?node-id=84-1141&starting-point-node-id=84-1141&scaling=scale-down" },
         case: { label: "Estudo de caso", href: "estudo-de-caso-easylog.html", icon: "lucide:book-open" }
+      },
+      {
+        id: "kinetic",
+        title: "KINETIC <span class='serif'>// LAB</span>",
+        category: { text: "E-commerce mobile", icon: "lucide:shopping-bag" },
+        year: "2026",
+        summary: "Loja de um tênis de corrida com cabedal, entressola e solado trocáveis, para quem tem medo de errar o tamanho comprando online.",
+        preview: { type: "hub", tone: "kinetic", shots: ["assets/projects/kineticlab-case/recomendacao.webp", "assets/projects/kineticlab-case/checkout.webp", "assets/projects/kineticlab-case/pdp-configurador.webp"] },
+        problem: "Pelo brief do desafio, 68% do abandono de carrinho vem da dúvida de tamanho. E um tênis de R$ 1.599 com peças trocáveis ainda precisa explicar o que cada peça faz.",
+        solution: "Um questionário que recomenda tênis e tamanho, uma página de produto que já abre configurada e um checkout com frete e garantia visíveis antes de pagar. Antes de testar, revisei os wireframes com o roteiro do teste e achei duas tarefas impossíveis.",
+        result: { value: "18", unit: "telas e estados no protótipo", text: "Cobrindo as 3 tarefas do teste de usabilidade com 2 pessoas, em 16/11. A pesquisa do projeto foi simulada e está marcada assim." },
+        tech: [ { text: "Figma", icon: "logos:figma" }, { text: "Protótipo navegável", icon: "lucide:mouse-pointer-click" }, { text: "Design system", icon: "lucide:component" }, { text: "Teste de usabilidade", icon: "lucide:users" }, { text: "Claude", icon: "lucide:sparkles" } ],
+        demo: { label: "Ver protótipo", href: "https://www.figma.com/proto/WHFA16vy2gCG04ZnnqaNjX/?node-id=35-18&starting-point-node-id=35%3A18&scaling=scale-down-width&content-scaling=fixed" },
+        case: { label: "Estudo de caso", href: "estudo-de-caso-kineticlab.html", icon: "lucide:book-open" }
       },
       {
         id: "artools",
@@ -1461,7 +1476,7 @@ const CONTENT = {
           "Protótipo navegável para testar com usuários",
           "Arquivo organizado para o desenvolvedor"
         ],
-        seen: ["hub"]
+        seen: ["hub", "kinetic"]
       },
       {
         icon: "lucide:monitor-smartphone",
@@ -1487,14 +1502,14 @@ const CONTENT = {
         seen: ["pecas"]
       },
       {
-        icon: "lucide:life-buoy",
-        title: "Material de ajuda e treinamento",
-        scope: "O que faço há anos na Phocus: ensinar gente a usar sistema web sem complicar. Serve para quem está lançando um sistema novo.",
+        icon: "lucide:scan-search",
+        title: "Revisão de usabilidade",
+        scope: "Para quem já tem um app, site ou sistema e sente que as pessoas se enrolam nele. Olho cada tela como o usuário vê e aponto onde ele trava.",
         deliverables: [
-          "Manual passo a passo com prints",
-          "Vídeos curtos de tutorial",
-          "Treinamento online com a equipe",
-          "Lista das dúvidas mais comuns para melhorar as telas"
+          "Análise das telas principais com prints comentados",
+          "Lista de problemas em ordem de prioridade",
+          "Sugestões de ajuste desenhadas no Figma",
+          "Conversa para explicar cada ponto"
         ]
       }
     ]
@@ -1541,7 +1556,7 @@ const CONTENT = {
       {
         icon: "lucide:palette",
         title: "Design gráfico e vídeo",
-        text: "Peças para clientes e tutoriais em vídeo.",
+        text: "Peças e vídeos curtos para clientes.",
         tools: [
           { name: "Photoshop", icon: "logos:adobe-photoshop", level: 2, since: 2021 },
           { name: "CorelDraw", icon: "simple-icons:coreldraw", level: 2, since: 2021 },
@@ -1560,7 +1575,7 @@ const CONTENT = {
     text: "Escolha o canal que for mais fácil para você. Respondo em até um dia útil.",
     // dobra 6
     kicker: "Contato",
-    headline: "Tem um projeto em mente? <span class='serif'>Vamos conversar.</span>",
+    headline: "Uma vaga ou um projeto? <span class='serif'>Vamos conversar.</span>",
     lead: "Pode ser um app, um site, uma vaga ou só uma ideia ainda solta. Escolha o jeito mais fácil para você.",
     response: "Respondo em até um dia útil, de segunda a sexta.",
     // Cal.com ou Calendly. Vazio = abre o WhatsApp pedindo um horário
@@ -1825,12 +1840,16 @@ const CONTENT = {
     </article>`).join("");
   /* ---------- DOBRA 3: PROJETOS ---------- */
   const previewHTML = (pv, title) => {
-    if (pv.type === "hub") return `
-      <div class="mock-hub" aria-hidden="true"><div class="rings"></div><div class="phones">
-        <div class="phone p-left"><div class="scr"><img src="assets/projects/easylog-case/lojista-inicio.webp" alt="" width="360" height="800" loading="lazy"></div></div>
-        <div class="phone p-right"><div class="scr"><img src="assets/projects/easylog-case/motorista-planos.webp" alt="" width="360" height="800" loading="lazy"></div></div>
-        <div class="phone p-center"><div class="scr"><img src="assets/projects/easylog-case/motorista-novo-pedido.webp" alt="" width="360" height="800" loading="lazy"></div></div>
+    if (pv.type === "hub") {
+      // pv.shots = [esquerda, direita, centro]; sem shots usa as telas do EasyLog
+      const [l, r, c] = pv.shots || ["assets/projects/easylog-case/lojista-inicio.webp", "assets/projects/easylog-case/motorista-planos.webp", "assets/projects/easylog-case/motorista-novo-pedido.webp"];
+      return `
+      <div class="mock-hub${pv.tone ? " mock-hub--" + esc(pv.tone) : ""}" aria-hidden="true"><div class="rings"></div><div class="phones">
+        <div class="phone p-left"><div class="scr"><img src="${esc(l)}" alt="" width="360" height="800" loading="lazy"></div></div>
+        <div class="phone p-right"><div class="scr"><img src="${esc(r)}" alt="" width="360" height="800" loading="lazy"></div></div>
+        <div class="phone p-center"><div class="scr"><img src="${esc(c)}" alt="" width="360" height="800" loading="lazy"></div></div>
       </div></div>`;
+    }
     if (pv.type === "video") return `
       <div class="mock-video">
         <img src="${esc(pv.poster)}" alt="Quadro do vídeo do projeto ${esc(title)}" loading="lazy" width="1280" height="720">

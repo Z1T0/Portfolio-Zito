@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KINETIC // LAB · Estudo de caso · Antonio Zito</title>
+<meta name="description" content="Estudo de caso do KINETIC // LAB: e-commerce mobile-first de um tênis de corrida modular. Leitura crítica do brief, questionário de ajuste, configurador, design system, protótipo, teste e limites.">
+<meta name="author" content="Antonio Zito Menezes do Desterro Junior">
+<meta name="theme-color" content="#FFFFFF" id="metaTheme">
+<meta name="color-scheme" content="light dark">
+<script>
+/* mesmo tema do portfólio: salvo ou o do sistema */
+(function(){var t;try{t=localStorage.getItem("theme")}catch(e){}
+if(t!=="dark"&&t!=="light")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+document.documentElement.dataset.theme=t;document.getElementById("metaTheme").content=t==="dark"?"#0A0B0F":"#FFFFFF";})();
+addEventListener("pagereveal",function(e){if(e.viewTransition)document.documentElement.classList.add("vt-arrive");});
+addEventListener("pageswap",function(e){if(!e.viewTransition)return;
+document.querySelectorAll(".hero-media .shot,.intro h1").forEach(function(el){el.style.viewTransitionName="none";});});
+addEventListener("pageshow",function(e){if(e.persisted)document.querySelectorAll(".hero-media .shot,.intro h1").forEach(function(el){el.style.viewTransitionName="";});});
+</script>
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="KINETIC // LAB · Estudo de caso">
+<meta property="og:description" content="Um tênis de corrida com peças trocáveis e um site para quem tem medo de errar o tamanho.">
+<meta property="og:image" content="assets/projects/kineticlab-case/capa.webp">
+
+<link rel="preload" href="assets/ds/fonts/inter-display-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script src="assets/ds/js/iconify-icon.min.js"></script>
+
+<style>
+@font-face{font-family:"Inter Display";src:url("assets/ds/fonts/inter-display-500.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Inter Display";src:url("assets/ds/fonts/inter-display-600.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Inter Display";src:url("assets/ds/fonts/inter-display-700.woff2") format("woff2");font-weight:700;font-display:swap}
+
+/* Tokens do portfólio (index.html) */
+:root{
+  color-scheme:light;
+  --white:#FFFFFF;--snow:#F6F7FA;--mist:#E9ECF3;--lilac:#DFE0EB;--steel:#C7CCD8;--graphite:#474747;--ink:#101010;--black:#0A0A0A;
+  --blue:#3458FF;--blue-600:#2442D9;--blue-pale:#CDD5FB;--blue-tint:#EEF1FF;
+  --accent:var(--blue);--on-color:#FFFFFF;
+  --background:var(--white);--foreground:var(--ink);
+  --ok:#0B7A47;--ok-soft:#E6F5EE;--no:#C8102E;--no-soft:#FFF0F2;
+  --font-display:"Inter Display","Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --font-serif:"Instrument Serif",Georgia,serif;
+  --r-sm:10px;--r-md:20px;--r-pill:999px;
+  --sh-md:0 10px 30px -12px rgba(16,16,16,.18);
+  --sh-glow:0 14px 40px -12px rgba(52,88,255,.55);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --gutter:16px;--max:1080px;
+}
+@media (min-width:768px){:root{--gutter:32px}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --white:#13151B;--snow:#191C24;--mist:#262A35;--lilac:#2C3140;--steel:#4A5163;--graphite:#A6ADBC;--ink:#F1F3F8;--black:#FFFFFF;
+  --blue-tint:#18204A;--blue-pale:#33448F;
+  --accent:#8EA2FF;
+  --background:#0A0B0F;
+  --ok:#3DDC97;--ok-soft:#0F2A1F;--no:#FF7A8E;--no-soft:#2A1218;
+  --sh-md:0 14px 34px -12px rgba(0,0,0,.7);
+  --sh-glow:0 14px 40px -12px rgba(52,88,255,.6);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-body);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,video{max-width:100%;display:block}
+a{color:inherit}
+::selection{background:var(--blue);color:var(--on-color)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:8px}
+.serif{font-family:var(--font-serif);font-style:italic;font-weight:400;letter-spacing:-.02em}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip-link{position:fixed;left:16px;top:-60px;z-index:3000;background:var(--ink);color:var(--white);padding:10px 16px;border-radius:var(--r-pill);text-decoration:none;font-weight:500;transition:top .3s var(--ease-out)}
+.skip-link:focus{top:16px}
+
+/* Topo */
+.topbar{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--background) 82%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--mist)}
+.topbar-in{max-width:calc(var(--max) + 2*var(--gutter));margin:0 auto;padding:12px var(--gutter);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.back{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-family:var(--font-display);font-weight:500;font-size:15px;padding:8px 14px 8px 10px;border-radius:var(--r-pill);border:1px solid var(--steel);transition:border-color .3s,background .3s}
+.back:hover{border-color:var(--ink);background:var(--snow)}
+.back{white-space:nowrap}.back .short{display:none}
+@media (max-width:480px){.back .full{display:none}.back .short{display:inline}}
+.top-right{display:flex;align-items:center;gap:8px}
+.btn-icon{width:42px;height:42px;border-radius:50%;display:inline-grid;place-items:center;border:1px solid var(--steel);background:var(--white);font-size:18px;cursor:pointer;color:var(--ink);transition:background .3s,color .3s,border-color .3s}
+.btn-icon:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
+
+/* Botões (DS .theme-btn, versão simples) */
+.theme-btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:var(--r-pill);border:1px solid transparent;font-family:var(--font-display);font-weight:500;font-size:15px;text-decoration:none;white-space:nowrap;transition:background .3s var(--ease-out),box-shadow .6s var(--ease-out),border-color .3s,transform .3s var(--ease-out)}
+.theme-btn:active{transform:scale(.97)}
+.theme-btn--primary{background:var(--ink);color:var(--white)}
+.theme-btn--primary:hover{box-shadow:var(--sh-glow)}
+.theme-btn--outline{background:transparent;color:var(--ink);border-color:var(--steel)}
+.theme-btn--outline:hover{border-color:var(--ink);background:var(--snow)}
+
+/* Layout */
+.wrap{max-width:calc(var(--max) + 2*var(--gutter));margin:0 auto;padding:0 var(--gutter)}
+main{display:flex;flex-direction:column;gap:96px;padding:56px 0 96px}
+@media (max-width:640px){main{gap:72px;padding-top:36px}}
+section{scroll-margin-top:90px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;line-height:1;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+h1,h2,h3{font-family:var(--font-display);margin:0;text-wrap:balance;letter-spacing:-.03em}
+h1{font-weight:600;font-size:clamp(40px,7vw,76px);line-height:1}
+h2{font-weight:600;font-size:clamp(28px,4vw,42px);line-height:1.1}
+h3{font-weight:600;font-size:20px;line-height:1.3;letter-spacing:-.015em}
+p{margin:0}
+.lead{font-size:clamp(18px,2.2vw,22px);color:var(--graphite);max-width:60ch;line-height:1.55}
+.muted{color:var(--graphite)}
+.prose{display:flex;flex-direction:column;gap:16px;max-width:68ch}
+.sec-head{display:flex;flex-direction:column;gap:14px;margin-bottom:32px}
+.sec-head .num{font-family:var(--font-display);font-weight:500;color:var(--graphite);font-size:15px;letter-spacing:.02em}
+.sec-head p{max-width:64ch;color:var(--graphite)}
+
+/* Abertura */
+.intro{display:flex;flex-direction:column;gap:22px}
+.intro-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--mist);border-radius:var(--r-md);margin-top:18px;overflow:hidden}
+.facts div{padding:18px 20px;border-left:1px solid var(--mist);display:flex;flex-direction:column;gap:6px;min-width:0}
+.facts div:first-child{border-left:0}
+.facts dt{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--graphite)}
+.facts dd{margin:0;font-size:15px;line-height:1.45}
+@media (max-width:820px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.facts div:nth-child(3){border-left:0}.facts div:nth-child(n+3){border-top:1px solid var(--mist)}}
+@media (max-width:420px){.facts{grid-template-columns:minmax(0,1fr)}.facts div{border-left:0}.facts div+div{border-top:1px solid var(--mist)}}
+
+/* Mídia */
+.shot{margin:0;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--mist);background:var(--snow);box-shadow:var(--sh-md)}
+.shot img,.shot video{width:100%;height:auto}
+figcaption,.cap{font-size:14px;color:var(--graphite);line-height:1.5;margin-top:10px}
+figure{margin:0}
+.hero-media{margin-top:40px}
+
+/* Resumo */
+.tldr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:820px){.tldr{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--snow);border:1px solid var(--mist);border-radius:var(--r-md);padding:24px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card .k{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.card p{font-size:16px;line-height:1.6}
+.big{font-family:var(--font-display);font-weight:600;font-size:44px;letter-spacing:-.04em;line-height:1}
+.big small{font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--graphite);margin-left:6px}
+
+/* Duas colunas */
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}
+@media (max-width:820px){.split{grid-template-columns:minmax(0,1fr);gap:24px}}
+.quote{border-left:3px solid var(--blue);padding:4px 0 4px 20px;font-family:var(--font-display);font-weight:500;font-size:clamp(20px,2.6vw,26px);line-height:1.35;letter-spacing:-.02em}
+.note{background:var(--blue-tint);border-radius:var(--r-sm);padding:16px 18px;font-size:15.5px;line-height:1.6}
+.note b{color:var(--accent)}
+
+/* Referências */
+.refs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:820px){.refs{grid-template-columns:minmax(0,1fr)}}
+.refs ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:15.5px}
+.plus{display:flex;align-items:center;justify-content:center;gap:14px;margin:22px 0 14px;font-family:var(--font-display);font-weight:500;color:var(--graphite);flex-wrap:wrap;text-align:center}
+.plus b{color:var(--ink)}
+.steps{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;counter-reset:s}
+@media (max-width:820px){.steps{grid-template-columns:minmax(0,1fr)}}
+.steps li{counter-increment:s;border:1px solid var(--mist);border-radius:var(--r-md);padding:18px;font-size:15px;line-height:1.55;display:flex;flex-direction:column;gap:8px}
+.steps li::before{content:counter(s);width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:var(--white);font-family:var(--font-display);font-weight:600;font-size:14px}
+.steps .who{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--graphite)}
+
+/* Estrutura */
+.flow{list-style:none;margin:0 0 40px;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+@media (max-width:900px){.flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.flow li{border:1px solid var(--mist);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.flow .n{font-family:var(--font-display);font-weight:600;font-size:13px;color:var(--accent)}
+.flow .t{font-family:var(--font-display);font-weight:600;font-size:15px;line-height:1.25}
+.flow .q{font-size:13.5px;color:var(--graphite);line-height:1.4}
+.part{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:40px;align-items:center;padding:36px 0;border-top:1px solid var(--mist)}
+.part.alt .part-text{order:2}
+@media (max-width:820px){.part{grid-template-columns:minmax(0,1fr);gap:20px}.part.alt .part-text{order:0}}
+.part-text{display:flex;flex-direction:column;gap:12px}
+.part-text .q{font-family:var(--font-serif);font-style:italic;font-size:22px;color:var(--accent);line-height:1.3}
+.part-text p{font-size:16.5px}
+.tag{display:inline-flex;align-self:flex-start;align-items:center;gap:6px;font-size:12.5px;font-weight:600;padding:5px 10px;border-radius:var(--r-pill);background:var(--snow);border:1px solid var(--mist);color:var(--graphite)}
+.pair{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1fr);gap:16px;align-items:end}
+@media (max-width:560px){.pair{grid-template-columns:minmax(0,1fr)}}
+
+/* Design system */
+.swatches{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:720px){.swatches{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.sw{border:1px solid var(--mist);border-radius:var(--r-md);overflow:hidden}
+.sw i{display:block;height:96px}
+.sw div{padding:12px 14px;display:flex;flex-direction:column;gap:2px;font-size:14px}
+.sw b{font-family:var(--font-display);font-size:16px}
+.sw code{font-size:13px;color:var(--graphite)}
+.fonts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+@media (max-width:720px){.fonts{grid-template-columns:minmax(0,1fr)}}
+.font{border:1px solid var(--mist);border-radius:var(--r-md);padding:20px;display:flex;flex-direction:column;gap:6px}
+.font .aa{font-size:52px;line-height:1;margin-bottom:6px;color:var(--ink)}
+.font span{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--graphite)}
+.font p{font-size:15px;color:var(--graphite)}
+
+/* Tabelas */
+.table-wrap{border:1px solid var(--mist);border-radius:var(--r-md);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15.5px;line-height:1.5}
+th,td{text-align:left;padding:14px 18px;border-top:1px solid var(--mist);vertical-align:top}
+thead th{border-top:0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--graphite);background:var(--snow)}
+td.before{color:var(--graphite);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--no) 60%,transparent)}
+.res{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:4px 10px;border-radius:var(--r-pill);white-space:nowrap}
+.res.ok{background:var(--ok-soft);color:var(--ok)}
+.res.no{background:var(--no-soft);color:var(--no)}
+@media (max-width:640px){
+  .stack thead{display:none}
+  .stack tr{display:block;padding:14px 16px;border-top:1px solid var(--mist)}
+  .stack tr:first-child{border-top:0}
+  .stack td{display:block;border:0;padding:4px 0}
+}
+
+/* Vídeo */
+.frames{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:14px;align-items:center}
+.frames .arrow{font-size:22px;color:var(--graphite)}
+@media (max-width:640px){.frames{grid-template-columns:minmax(0,1fr)}.frames .arrow{justify-self:center;transform:rotate(90deg)}}
+
+/* Aprendizados */
+.learn{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:28px}
+@media (max-width:720px){.learn{grid-template-columns:minmax(0,1fr)}}
+.learn .card iconify-icon{font-size:24px;color:var(--accent)}
+.next{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.next li{display:flex;gap:12px;align-items:flex-start;font-size:16px}
+.next iconify-icon{flex:none;margin-top:4px;color:var(--accent)}
+
+/* Fim */
+.end{border-top:1px solid var(--mist);padding-top:40px;display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+.end p{max-width:64ch}
+footer{border-top:1px solid var(--mist);padding:24px 0 40px;font-size:14px;color:var(--graphite)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+
+/* Entrada suave */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rv{opacity:1;transform:none;transition:none}}
+
+/* Transição entre páginas (portfólio <-> estudo de caso). Mesmo bloco no index.html.
+   A imagem e o título do card no portfólio "viajam" até estes dois elementos. */
+.hero-media .shot{view-transition-name:case-media}
+.intro h1{view-transition-name:case-title}
+/* chegando por transição: título e imagem já visíveis (a transição faz a entrada) */
+.vt-arrive .intro.rv,.vt-arrive .hero-media.rv{opacity:1;transform:none;transition:none}
+@media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}}
+::view-transition-group(*){animation-duration:.7s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+::view-transition-old(root){animation:vt-out .35s cubic-bezier(.4,0,1,1) both}
+::view-transition-new(root){animation:vt-in .6s cubic-bezier(.2,.8,.2,1) .12s both}
+@keyframes vt-out{to{opacity:0;transform:scale(.985)}}
+@keyframes vt-in{from{opacity:0;transform:translateY(24px)}}
+::view-transition-old(case-media),::view-transition-new(case-media){width:100%;height:100%;object-fit:cover;overflow:clip}
+::view-transition-image-pair(case-media){border-radius:20px;overflow:clip}
+::view-transition-old(case-title),::view-transition-new(case-title){width:auto;height:100%}
+
+
+/* EasyLog: telas de celular, palco da abertura e tabelas de preço */
+.stage{border-radius:var(--r-md);background:#092F4E;padding:40px 24px 0;display:flex;justify-content:center;align-items:flex-end;gap:20px;overflow:hidden;border:1px solid var(--mist);box-shadow:var(--sh-md)}
+.stage .phone{width:min(240px,30%);flex:none;border-radius:22px 22px 0 0;border-bottom:0;box-shadow:0 -10px 40px -10px rgba(0,0,0,.45)}
+.stage .phone:nth-child(2){width:min(270px,34%)}
+@media (max-width:560px){.stage{padding:24px 12px 0;gap:8px}.stage .phone{border-radius:12px 12px 0 0}}
+.phone{margin:0;border-radius:24px;overflow:hidden;border:1px solid var(--mist);background:#fff;box-shadow:var(--sh-md)}
+.phone img{width:100%;height:auto}
+.phones{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+.phones.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:640px){.phones.three{grid-template-columns:repeat(2,minmax(0,1fr))}.phones.three figure:nth-child(3){display:none}}
+.phones figcaption{margin-top:8px;font-size:13px}
+.who-l,.who-m,.who-w{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.who-l{background:#F9991F}.who-m{background:#2DA66B}.who-w{background:#6B8BA8}
+.legend{display:flex;flex-wrap:wrap;gap:18px;font-size:14px;color:var(--graphite);margin:-12px 0 24px}
+.status{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.status span{font-size:13px;font-weight:600;padding:5px 12px;border-radius:var(--r-pill)}
+.kw{font-family:var(--font-display);font-weight:700;letter-spacing:.08em;font-size:clamp(30px,5vw,44px);line-height:1;color:#092F4E;background:#fff;border:2px dashed #6B8BA8;border-radius:14px;padding:18px 20px;text-align:center}
+.kw small{display:block;font-family:var(--font-body);font-size:11px;letter-spacing:.06em;font-weight:600;color:#494A50;margin-bottom:10px}
+.price td:nth-child(n+2),.price th:nth-child(n+2){white-space:nowrap}
+@media (max-width:640px){
+  .price thead tr{display:block;padding:10px 16px;background:var(--snow)}
+  .price thead th{display:block;padding:0;border:0;background:none}
+  .price thead th:nth-child(n+2){display:none}
+  .price tr{display:block;padding:12px 16px;border-top:1px solid var(--mist)}
+  .price tbody tr:first-child{border-top:1px solid var(--mist)}
+  .price td{display:flex;justify-content:space-between;gap:12px;border:0;padding:3px 0;white-space:normal}
+  .price td:first-child{font-weight:600;padding-bottom:6px}
+  .price td:nth-child(n+2)::before{content:attr(data-l);font-size:13px;color:var(--graphite)}
+}
+.flag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:var(--r-pill);background:var(--blue-tint);color:var(--accent);margin-left:6px;vertical-align:2px}
+.open{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:720px){.open{grid-template-columns:minmax(0,1fr)}}
+.open li{border:1px solid var(--mist);border-radius:var(--r-md);padding:20px 22px;display:flex;flex-direction:column;gap:8px}
+.open li b{font-family:var(--font-display);font-size:17px;font-weight:600;letter-spacing:-.01em}
+.open li p{font-size:15.5px;color:var(--graphite)}
+.open .lvl{align-self:flex-start;font-size:12px;font-weight:600;padding:3px 10px;border-radius:var(--r-pill)}
+.lvl.alta{background:var(--no-soft);color:var(--no)}
+.lvl.media{background:#FEF1DE;color:#9A4F06}
+:root[data-theme="dark"] .lvl.media{background:#2E2210;color:#F9C46B}
+/* KINETIC: palco escuro no lugar do marinho do EasyLog */
+.stage{background:#0D0F0E}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="back" href="index.html#projeto-kinetic"><iconify-icon icon="lucide:arrow-left"></iconify-icon><span class="full">Voltar ao portfólio</span><span class="short">Portfólio</span></a>
+    <div class="top-right">
+      <a class="theme-btn theme-btn--outline" href="https://www.figma.com/proto/WHFA16vy2gCG04ZnnqaNjX/?node-id=35-18&amp;starting-point-node-id=35%3A18&amp;scaling=scale-down-width&amp;content-scaling=fixed" target="_blank" rel="noopener" style="height:42px;padding:0 16px;font-size:14px">Ver o protótipo<iconify-icon icon="lucide:arrow-up-right"></iconify-icon><span class="sr-only">(abre em nova aba)</span></a>
+      <button class="btn-icon" id="themeToggle" type="button" aria-label="Alternar tema claro e escuro"><iconify-icon icon="lucide:moon"></iconify-icon></button>
+    </div>
+  </div>
+</header>
+
+<main id="conteudo">
+
+  <!-- ABERTURA -->
+  <section class="wrap">
+    <div class="intro rv">
+      <span class="eyebrow"><iconify-icon icon="lucide:book-open"></iconify-icon>Estudo de caso · E-commerce mobile-first · 2026</span>
+      <h1>KINETIC // LAB</h1>
+      <p class="lead">Um tênis de corrida com cabedal, entressola e solado trocáveis. O desafio do brief era vender um produto de R$ 1.599 para quem tem medo de errar o <span class="serif">tamanho</span>.</p>
+      <div class="intro-actions">
+        <a class="theme-btn theme-btn--primary" href="https://www.figma.com/proto/WHFA16vy2gCG04ZnnqaNjX/?node-id=35-18&amp;starting-point-node-id=35%3A18&amp;scaling=scale-down-width&amp;content-scaling=fixed" target="_blank" rel="noopener">Ver o protótipo no Figma<iconify-icon icon="lucide:arrow-up-right"></iconify-icon><span class="sr-only">(abre em nova aba)</span></a>
+        <a class="theme-btn theme-btn--outline" href="#decisoes">Ver as decisões<iconify-icon icon="lucide:arrow-down"></iconify-icon></a>
+        <a class="theme-btn theme-btn--outline" href="#limites">Ir para os limites<iconify-icon icon="lucide:arrow-down"></iconify-icon></a>
+      </div>
+      <dl class="facts">
+        <div><dt>Tipo</dt><dd>Desafio de curso, com brief fechado e 2 dias de prazo</dd></div>
+        <div><dt>Meu papel</dt><dd>Leitura do brief, escopo, fluxos, decisões de produto, roteiro de teste e revisão de cada tela</dd></div>
+        <div><dt>Ferramentas</dt><dd>Figma; Claude na pesquisa simulada, nos textos e na montagem no Figma; Figma AI nas fotos do produto; Gemini na logo</dd></div>
+        <div><dt>Entrega</dt><dd>9 telas mobile, 3 desktop, design system e um protótipo com as 3 tarefas do teste</dd></div>
+      </dl>
+    </div>
+    <figure class="hero-media rv">
+      <div class="shot stage">
+        <img class="phone" src="assets/projects/kineticlab-case/home.webp" width="360" height="779" alt="Home mobile: título Troque só o que gastou, a vista explodida do tênis com as três peças numeradas e o botão Encontre seu ajuste." fetchpriority="high">
+        <img class="phone" src="assets/projects/kineticlab-case/pdp-configurador.webp" width="360" height="779" alt="Página do produto: configurador com 01 Cabedal, 02 Entressola com drop em milímetros e a ajuda O que é drop, 03 Solado e a grade de tamanhos.">
+        <img class="phone" src="assets/projects/kineticlab-case/recomendacao.webp" width="360" height="779" alt="Recomendação: KINETIC M1 para asfalto, com estabilidade, e o motivo de cada peça a partir das respostas.">
+      </div>
+      <figcaption>Home, configurador da página do produto e recomendação do questionário.</figcaption>
+    </figure>
+  </section>
+
+  <!-- RESUMO -->
+  <section class="wrap" aria-labelledby="resumo-t">
+    <h2 id="resumo-t" class="sr-only">Resumo</h2>
+    <div class="tldr">
+      <div class="card rv"><span class="k">Desafio</span><p>Pelo brief, 68% do abandono de carrinho vem da dúvida de tamanho. E um tênis modular ainda precisa explicar o que cada peça faz antes de alguém pagar R$ 1.599.</p></div>
+      <div class="card rv"><span class="k">O que fiz</span><p>Um questionário que recomenda tênis e tamanho, uma página de produto que já abre configurada e um checkout em uma tela, com frete e garantia visíveis antes do pagamento.</p></div>
+      <div class="card rv"><span class="k">Resultado até aqui</span><p class="big">18 <small>telas e estados no protótipo</small></p><p>cobrindo as 3 tarefas do teste de usabilidade com 2 pessoas, marcado para 16/11. O resultado entra nesta página depois.</p></div>
+    </div>
+  </section>
+
+  <!-- 01 BRIEF -->
+  <section class="wrap" id="brief">
+    <div class="sec-head rv"><span class="num">01</span><h2>O que eu mudei no brief</h2><p>O enunciado chegou pronto, com nome de funcionalidade, números e uma conta de economia. Li tudo antes de desenhar e mudei cinco pontos.</p></div>
+    <div class="table-wrap rv">
+      <table class="stack">
+        <thead><tr><th scope="col">No brief</th><th scope="col">No projeto</th></tr></thead>
+        <tbody>
+          <tr><td class="before">"Biometric Fit &amp; Stride Matcher"</td><td><b>"Encontre seu ajuste"</b>, um questionário. Não existe biometria no produto, então o nome prometia algo que a tela não entrega.</td></tr>
+          <tr><td class="before">"1 base + 3 refis = 1.800 km, 40% de economia"</td><td>A conta não fechava. Refiz com 2 refis: R$ 1.599 + 2 × R$ 349 = R$ 2.297 em 1.800 km, contra 3 pares de R$ 1.299. Dá <b>41%</b>.</td></tr>
+          <tr><td class="before">Configurador 3D no celular</td><td><b>Vista explodida</b> com as três peças separadas. O 3D completo ficou para uma versão futura.</td></tr>
+          <tr><td class="before">Texto em português de Portugal</td><td>Interface em português do Brasil.</td></tr>
+          <tr><td class="before">68% de abandono e 1,8% de conversão</td><td>Aparecem sempre como <b>dado do brief</b> ou como meta, nunca como resultado meu.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 02 PESQUISA -->
+  <section class="wrap" id="pesquisa">
+    <div class="sec-head rv"><span class="num">02</span><h2>Pesquisa simulada</h2><p>Com 2 dias de prazo, não entrevistei corredores. Montei a descoberta a partir do brief e marquei como simulada em todo o material. As duas personas abaixo são fictícias.</p></div>
+    <div class="refs">
+      <div class="card rv">
+        <span class="k">Renata, 34 · asfalto</span>
+        <p>Maratonista em São Paulo, 50 km por semana, pisada pronada. Já devolveu um tênis por causa do tamanho.</p>
+        <ul>
+          <li>Não sabe se precisa de placa de carbono</li>
+          <li>Odeia formulário longo no celular</li>
+          <li>Paga caro desde que tenha certeza</li>
+        </ul>
+      </div>
+      <div class="card rv">
+        <span class="k">Diego, 29 · rua e trilha</span>
+        <p>Corre 70 km por semana em Florianópolis, entre asfalto e trilha. Tem três pares para dar conta dos terrenos.</p>
+        <ul>
+          <li>A sola de trilha gasta no asfalto</li>
+          <li>Chuva vira problema no fim de semana</li>
+          <li>Compara ficha técnica antes de comprar</li>
+        </ul>
+      </div>
+    </div>
+    <p class="plus rv">As duas travam na mesma pergunta: <b>qual peça e qual tamanho</b>, sem poder experimentar antes.</p>
+  </section>
+
+  <!-- 03 DECISÕES -->
+  <section class="wrap" id="decisoes">
+    <div class="sec-head rv"><span class="num">03</span><h2>Decisões de produto</h2><p>Cada decisão responde a uma pergunta que a pessoa faz antes de comprar.</p></div>
+
+    <div class="part">
+      <div class="part-text rv">
+        <span class="tag">1 · Encontre seu ajuste</span>
+        <p class="q">"Qual tamanho eu peço?"</p>
+        <p>São cinco perguntas curtas: pisada, número que a pessoa costuma usar, quilômetros por semana, terreno e faixa de peso. Quase todas têm a opção "Não sei", e tocar numa resposta já leva à próxima.</p>
+        <p>A recomendação explica cada peça ("sua pisada é pronada, a Stable segura o pé por dentro"). O tamanho vem com "veste como seu número habitual" e troca grátis em 30 dias.</p>
+      </div>
+      <div class="phones rv">
+        <figure class="phone"><img src="assets/projects/kineticlab-case/quiz.webp" width="360" height="779" loading="lazy" alt="Questionário, passo 1 de 5: Como seu pé toca o chão, com as opções Pronada, Neutra, Supinada e Não sei."></figure>
+        <figure class="phone"><img src="assets/projects/kineticlab-case/recomendacao.webp" width="360" height="779" loading="lazy" alt="Recomendação com o motivo de cada peça e o tamanho 37 em destaque."></figure>
+      </div>
+    </div>
+
+    <div class="part alt">
+      <div class="part-text rv">
+        <span class="tag">2 · A página do produto já chega configurada</span>
+        <p class="q">"O que muda se eu trocar a sola?"</p>
+        <p>O configurador tem três passos: cabedal, entressola e solado. A estrutura veio do "Monte a sua" da loja lumiê, uma das referências: prévia ao vivo, passos numerados e total fixo embaixo.</p>
+        <p>Cada opção mostra o dado técnico com unidade e a diferença de preço. Na revisão do wireframe precisei perguntar o que era "drop", então a entressola ganhou um "O que é drop?" ao lado do título.</p>
+      </div>
+      <figure class="phone rv" style="max-width:300px;justify-self:center"><img src="assets/projects/kineticlab-case/pdp-configurador.webp" width="360" height="779" loading="lazy" alt="Configurador da página do produto com Aero Knit, Stable drop 10 mm e Road Grip selecionados, e a grade de tamanhos de 34 a 45 com o 35 riscado por estar esgotado."></figure>
+    </div>
+
+    <div class="part">
+      <div class="part-text rv">
+        <span class="tag">3 · O preço explicado por quilômetro</span>
+        <p class="q">"Por que pagar R$ 1.599 num tênis?"</p>
+        <p>A espuma da entressola cansa antes do resto do tênis. Na KINETIC, a pessoa troca só ela, por R$ 349, a cada 600 km. A conta aparece na Home e na página do produto, em barras e em reais por quilômetro.</p>
+      </div>
+      <div class="rv">
+        <div class="table-wrap">
+          <table class="price">
+            <thead><tr><th scope="col">Em 1.800 km</th><th scope="col">Total</th><th scope="col">Por km</th></tr></thead>
+            <tbody>
+              <tr><td data-l="Opção">KINETIC M1 + 2 refis <span class="flag">41% a menos</span></td><td data-l="Total">R$ 2.297</td><td data-l="Por km">R$ 1,28</td></tr>
+              <tr><td data-l="Opção">3 pares comuns de R$ 1.299</td><td data-l="Total">R$ 3.897</td><td data-l="Por km">R$ 2,17</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="cap">Preços definidos para o projeto, dentro da faixa que o brief indica.</p>
+      </div>
+    </div>
+
+    <div class="part alt">
+      <div class="part-text rv">
+        <span class="tag">4 · Frete e garantia antes de pagar</span>
+        <p class="q">"Quanto vou pagar no total?"</p>
+        <p>O frete aparece pelo CEP já na página do produto e se repete na sacola e no checkout. O botão diz o valor e a forma de pagamento: "Pagar R$ 1.788 com Pix".</p>
+        <p>Quando o pagamento é recusado, a tela diz que nada foi cobrado, que a sacola continua salva e oferece o Pix como saída.</p>
+      </div>
+      <div class="phones rv">
+        <figure class="phone"><img src="assets/projects/kineticlab-case/checkout.webp" width="360" height="779" loading="lazy" alt="Checkout em uma tela: pagamento expresso, contato, entrega com CEP validado mostrando frete grátis e chegada na quinta, 20/11."></figure>
+        <figure class="phone"><img src="assets/projects/kineticlab-case/recusado.webp" width="360" height="779" loading="lazy" alt="Pagamento recusado: aviso em vermelho, campo do cartão com erro explicando o que fazer e o botão Pagar com Pix."></figure>
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="part-text rv">
+        <span class="tag">5 · A compra já aponta para o refil</span>
+        <p class="q">"E quando a espuma acabar?"</p>
+        <p>O pedido confirmado mostra um hodômetro estimado da entressola, calculado pelo volume que a pessoa informou no questionário. Com 50 km por semana, o refil vem em cerca de 3 meses. Contar sozinho, pelo Strava, ficou para a próxima versão.</p>
+      </div>
+      <figure class="phone rv" style="max-width:300px;justify-self:center"><img src="assets/projects/kineticlab-case/confirmado.webp" width="360" height="779" loading="lazy" alt="Pedido confirmado com a linha do tempo da entrega e o hodômetro estimado da entressola: 000 de 600 km."></figure>
+    </div>
+  </section>
+
+  <!-- 04 REVISÃO -->
+  <section class="wrap" id="revisao">
+    <div class="sec-head rv"><span class="num">04</span><h2>A revisão antes do teste</h2><p>Antes da interface final, reli os wireframes com o brief e o roteiro do teste do lado. Duas tarefas eram impossíveis no wireframe.</p></div>
+    <div class="part">
+      <div class="phones rv">
+        <figure><div class="phone"><img src="assets/projects/kineticlab-case/wireframe-pdp.webp" width="360" height="779" loading="lazy" alt="Wireframe da página do produto em tons de cinza, com prévia vazia, chips sem explicação e tamanhos de 35 a 40."></div><figcaption>Wireframe</figcaption></figure>
+        <figure><div class="phone"><img src="assets/projects/kineticlab-case/pdp.webp" width="360" height="779" loading="lazy" alt="Página do produto final com a vista explodida, galeria, preço e o aviso de configuração pelo questionário."></div><figcaption>Tela final</figcaption></figure>
+      </div>
+      <div class="table-wrap rv">
+        <table class="stack">
+          <thead><tr><th scope="col">No wireframe</th><th scope="col">Na tela final</th></tr></thead>
+          <tbody>
+            <tr><td class="before">A tarefa 2 pedia para adicionar uma palmilha que não aparecia em nenhuma tela</td><td>Bloco "Combina com seu tênis", com foto, logo depois do configurador</td></tr>
+            <tr><td class="before">A tarefa pedia a sola de chuva, que já vinha marcada pela recomendação</td><td>Tarefa reescrita: trocar para a sola de trilha</td></tr>
+            <tr><td class="before">O checkout escondia o frete no resumo recolhido</td><td>Frete e prazo no bloco de entrega e na barra fixa</td></tr>
+            <tr><td class="before">Tamanhos de 35 a 40</td><td>De 34 a 45, com rolagem; o esgotado aparece riscado</td></tr>
+            <tr><td class="before">"drop 10", sem unidade</td><td>"drop 10 mm" e a ajuda "O que é drop?"</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 DESIGN SYSTEM -->
+  <section class="wrap" id="design-system">
+    <div class="sec-head rv"><span class="num">05</span><h2>Design system e identidade</h2><p>Juntei três referências: a loja lumiê deu a estrutura e o configurador, o Sports News os títulos grandes em caixa alta, e a Sport Tênis a dupla preto e verde. Como a marca se chama LAB, o produto aparece como numa prancha técnica.</p></div>
+    <figure class="rv"><div class="shot"><img src="assets/projects/kineticlab-case/fig01.webp" width="640" height="560" loading="lazy" alt="Figura técnica: vista explodida do tênis com marcadores 01 cabedal Aero Knit 92 g, 02 entressola Stable drop 10 mm e 600 km, 03 solado Road Grip 3 mm e 38 g."></div><figcaption>Fig. 01. Cada peça com o número que importa. Somadas, dão os 248 g da ficha técnica.</figcaption></figure>
+
+    <div class="swatches rv" style="margin-top:28px">
+      <div class="sw"><i style="background:#0D0F0E"></i><div><b>Ink</b><code>#0D0F0E</code><span class="muted">Texto e botão principal</span></div></div>
+      <div class="sw"><i style="background:#F3F4EF"></i><div><b>Paper</b><code>#F3F4EF</code><span class="muted">Fundo da página</span></div></div>
+      <div class="sw"><i style="background:#13753F"></i><div><b>Verde Pista</b><code>#13753F</code><span class="muted">Preço, link e sucesso</span></div></div>
+      <div class="sw"><i style="background:#C8F23A"></i><div><b>Sinal</b><code>#C8F23A</code><span class="muted">Destaque, só no escuro</span></div></div>
+    </div>
+    <p class="cap rv">O verde-limão tem contraste de 1,3:1 sobre o branco, então só aparece em fundo escuro. Na logo, o "// LAB" passa para o Verde Pista quando o fundo é claro.</p>
+
+    <div class="split" style="margin-top:28px">
+      <div class="card rv">
+        <span class="k">Tipografia</span>
+        <p class="aa" style="font-family:'Archivo Black',Inter,sans-serif;font-weight:900;font-size:52px;line-height:1;letter-spacing:-.02em">Aa</p>
+        <p>Archivo Black nos títulos, Inter no texto e JetBrains Mono para os dados técnicos, como drop, km e R$ por km. A fonte mono entrou no lugar da serifa itálica da lumiê, que tinha cara de joalheria.</p>
+      </div>
+      <div class="card rv">
+        <span class="k">Componentes com estado</span>
+        <p>13 cores e 13 estilos de texto em variáveis. Os campos têm foco, erro e sucesso, e a mensagem de erro diz o que fazer ("CEP incompleto. Digite os 8 números"). A opção esgotada continua visível, riscada. O foco é um anel duplo de 2 px, verde no claro e limão no escuro.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 DESKTOP -->
+  <section class="wrap" id="desktop">
+    <div class="sec-head rv"><span class="num">06</span><h2>Desktop</h2><p>Desenhei primeiro o celular. No desktop, os mesmos componentes ganham espaço: a explicação do drop já aparece aberta e a grade de tamanhos cabe inteira, sem rolagem.</p></div>
+    <figure class="rv"><div class="shot"><img src="assets/projects/kineticlab-case/desktop-pdp.webp" width="1440" height="1024" loading="lazy" alt="Página do produto no desktop: vista explodida grande à esquerda com as camadas clicáveis e, à direita, os passos 01 Cabedal, 02 Entressola com a explicação do drop aberta e 03 Solado."></div><figcaption>Página do produto: prévia à esquerda e passos à direita, como no configurador da lumiê.</figcaption></figure>
+    <div class="pair" style="margin-top:16px">
+      <figure class="rv"><div class="shot"><img src="assets/projects/kineticlab-case/desktop-home.webp" width="1440" height="1024" loading="lazy" alt="Home no desktop: título Troque só o que gastou, a figura técnica do tênis e os números R$ 1.599, 1.800 km e 41%."></div><figcaption>Home.</figcaption></figure>
+      <figure class="rv"><div class="shot"><img src="assets/projects/kineticlab-case/desktop-checkout.webp" width="1440" height="1024" loading="lazy" alt="Checkout no desktop: formulário em blocos à esquerda e resumo com itens, frete grátis com prazo e total à direita."></div><figcaption>Checkout, com o resumo fixo à direita.</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 07 TESTE -->
+  <section class="wrap" id="teste">
+    <div class="sec-head rv"><span class="num">07</span><h2>Protótipo e teste</h2><p>O protótipo tem um estado para cada combinação de sola e palmilha, para a sacola sempre mostrar o que a pessoa escolheu. O teste é moderado, com 2 pessoas e o celular na mão.</p></div>
+    <div class="table-wrap rv">
+      <table class="stack">
+        <thead><tr><th scope="col">Tarefa, como leio em voz alta</th><th scope="col">Conta como concluída quando</th></tr></thead>
+        <tbody>
+          <tr><td>1 · "Descubra qual tênis e qual tamanho a KINETIC recomenda para você."</td><td>A pessoa chega na recomendação</td></tr>
+          <tr><td>2 · "No fim de semana você vai correr numa trilha. Troque a sola para a de trilha e adicione uma palmilha."</td><td>Trail Lug selecionado e palmilha na sacola</td></tr>
+          <tr><td>3 · "Finalize a compra. Antes de pagar, confira o frete e a garantia."</td><td>Diz o valor do frete e "30 dias"</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note rv" style="margin-top:16px"><b>16/11:</b> o teste acontece amanhã. O que as duas pessoas fizerem, inclusive onde travarem, e o que eu mudar por causa disso entram nesta seção.</p>
+  </section>
+
+  <!-- 08 IA -->
+  <section class="wrap" id="processo">
+    <div class="sec-head rv"><span class="num">08</span><h2>Como trabalhei com a IA</h2><p>Eu decidi o produto e as regras. A IA executou e eu revisei cada etapa no Figma antes de seguir.</p></div>
+    <ol class="steps">
+      <li class="rv"><span class="who">Eu</span>Li o brief, decidi as cinco mudanças, o que entrava no MVP, os preços e as tarefas do teste.</li>
+      <li class="rv"><span class="who">Claude</span>Montou a pesquisa simulada a partir do brief, escreveu os textos e construiu as páginas no Figma seguindo essas decisões.</li>
+      <li class="rv"><span class="who">Eu</span>Revisei página por página. A dúvida do "drop" e as duas tarefas impossíveis apareceram nessa revisão.</li>
+      <li class="rv"><span class="who">Figma AI + Gemini</span>Geraram as fotos do tênis fictício e a logo. Não existem fotos reais de um tênis modular para usar.</li>
+    </ol>
+  </section>
+
+  <!-- 09 LIMITES -->
+  <section class="wrap" id="limites">
+    <div class="sec-head rv"><span class="num">09</span><h2>Limites e perguntas em aberto</h2><p>Antes de chamar o projeto de pronto, faltam estas coisas.</p></div>
+    <ul class="open">
+      <li class="rv"><span class="lvl alta">Alta</span><b>A pesquisa é simulada</b><p>Personas, entrevistas e citações são fictícias. Até o teste de 16/11, nenhuma pessoa real usou o produto.</p></li>
+      <li class="rv"><span class="lvl alta">Alta</span><b>Duas pessoas é pouco</b><p>O teste mostra onde alguém trava, mas não mede conversão nem devolução, que são as metas do brief.</p></li>
+      <li class="rv"><span class="lvl media">Média</span><b>A primeira pergunta é a mais difícil</b><p>O questionário abre pela pisada, que a maioria das pessoas não sabe responder. Vou observar no teste se alguém trava ali; se travar, a pisada vai para o fim.</p></li>
+      <li class="rv"><span class="lvl media">Média</span><b>O tamanho ainda depende do número habitual</b><p>A opção "me ajude a medir o pé com uma folha A4" existe no questionário, mas a tela de medição não foi desenhada.</p></li>
+      <li class="rv"><span class="lvl media">Média</span><b>Metas sem plano de medição</b><p>Faltam os eventos que diriam se o design funciona: questionário concluído, tamanho aceito, módulo trocado, acessório adicionado e devolução por tamanho.</p></li>
+      <li class="rv"><span class="lvl media">Média</span><b>O protótipo tem atalhos</b><p>Os chips que não entram nas tarefas não respondem ao toque, e o checkout sempre mostra os 2 itens.</p></li>
+      <li class="rv"><span class="lvl media">Média</span><b>Imagens geradas por IA</b><p>A foto do cabedal Storm mostra um tênis com outra sola. Serve de ilustração, mas não é o M1.</p></li>
+    </ul>
+  </section>
+
+  <!-- 10 APRENDIZADOS -->
+  <section class="wrap" id="aprendizados">
+    <div class="sec-head rv"><span class="num">10</span><h2>Aprendizados</h2></div>
+    <p class="quote rv">A conta de economia do brief estava errada. Desde então leio o enunciado como leio uma tela: procurando o que não fecha.</p>
+
+    <div class="learn">
+      <div class="card rv"><iconify-icon icon="lucide:clipboard-check"></iconify-icon><h3>Revisar com o roteiro do teste do lado</h3><p>Lendo tarefa por tarefa, vi que duas eram impossíveis no wireframe. Sem essa leitura, o teste ia medir um defeito do protótipo.</p></div>
+      <div class="card rv"><iconify-icon icon="lucide:message-circle-question"></iconify-icon><h3>O jargão aparece na revisão</h3><p>Precisei perguntar o que era "drop". Se eu não sabia, quem testa também pode não saber, e a explicação entrou na tela.</p></div>
+      <div class="card rv"><iconify-icon icon="lucide:box"></iconify-icon><h3>A restrição deu a identidade</h3><p>Sem 3D no celular, a vista explodida virou a figura técnica que aparece na capa, na Home e no desktop.</p></div>
+      <div class="card rv"><iconify-icon icon="lucide:tag"></iconify-icon><h3>Marcar o que é simulado</h3><p>Escrever "simulado" em cada página deu mais trabalho e deixa claro para quem lê o que é hipótese e o que é evidência.</p></div>
+    </div>
+
+    <h3 class="rv" style="margin-top:48px">Próximos passos</h3>
+    <ul class="next rv">
+      <li><iconify-icon icon="lucide:users"></iconify-icon>Fazer o teste com 2 pessoas em 16/11 e trazer os achados para esta página.</li>
+      <li><iconify-icon icon="lucide:mic"></iconify-icon>Perguntar a cinco corredores reais se já desistiram de comprar tênis online por causa do tamanho e se sabem a própria pisada.</li>
+      <li><iconify-icon icon="lucide:list-ordered"></iconify-icon>Testar outra ordem no questionário, começando por tamanho e terreno.</li>
+      <li><iconify-icon icon="lucide:ruler"></iconify-icon>Desenhar a medição do pé com uma folha A4.</li>
+      <li><iconify-icon icon="lucide:activity"></iconify-icon>Definir os eventos que medem cada meta do brief.</li>
+    </ul>
+
+    <div class="end rv" style="margin-top:56px">
+      <p class="muted">Projeto de estudo. A KINETIC // LAB, as pessoas, os preços e os números das telas são fictícios. Processo completo, página por página: <a href="https://www.figma.com/design/WHFA16vy2gCG04ZnnqaNjX" target="_blank" rel="noopener" style="font-weight:600">arquivo no Figma<span class="sr-only"> (abre em nova aba)</span></a> e <a href="https://github.com/Z1T0/KineticLab" target="_blank" rel="noopener" style="font-weight:600">documentos no GitHub<span class="sr-only"> (abre em nova aba)</span></a>.</p>
+      <div class="intro-actions">
+        <a class="theme-btn theme-btn--primary" href="https://www.figma.com/proto/WHFA16vy2gCG04ZnnqaNjX/?node-id=35-18&amp;starting-point-node-id=35%3A18&amp;scaling=scale-down-width&amp;content-scaling=fixed" target="_blank" rel="noopener">Ver o protótipo no Figma<iconify-icon icon="lucide:arrow-up-right"></iconify-icon><span class="sr-only">(abre em nova aba)</span></a>
+        <a class="theme-btn theme-btn--outline" href="index.html#projeto-kinetic"><iconify-icon icon="lucide:arrow-left"></iconify-icon>Voltar ao portfólio</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+
+<footer><div class="wrap"><span>Antonio Zito · UX/UI Designer em formação</span><span>Estudo de caso · KINETIC // LAB · 2026</span></div></footer>
+
+<script>
+(function(){
+  var btn=document.getElementById("themeToggle"),root=document.documentElement,meta=document.getElementById("metaTheme");
+  function paint(){var d=root.dataset.theme==="dark";btn.innerHTML='<iconify-icon icon="lucide:'+(d?"sun":"moon")+'"></iconify-icon>';btn.setAttribute("aria-pressed",d);meta.content=d?"#0A0B0F":"#FFFFFF";}
+  btn.addEventListener("click",function(){root.dataset.theme=root.dataset.theme==="dark"?"light":"dark";try{localStorage.setItem("theme",root.dataset.theme)}catch(e){}paint();});
+  paint();
+  var els=document.querySelectorAll(".rv");
+  if(!("IntersectionObserver" in window)){els.forEach(function(e){e.classList.add("in")});return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}})},{rootMargin:"0px 0px -8% 0px",threshold:.05});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
