@@ -383,7 +383,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
         <a class="theme-btn theme-btn--outline" href="#limites">Ir para os limites<iconify-icon icon="lucide:arrow-down"></iconify-icon></a>
       </div>
       <dl class="facts">
-        <div><dt>Tipo</dt><dd>Desafio de curso, com brief fechado e 2 dias de prazo</dd></div>
+        <div><dt>Tipo</dt><dd>Desafio de curso, com brief fechado</dd></div>
         <div><dt>Meu papel</dt><dd>Leitura do brief, escopo, fluxos, decisões de produto, roteiro de teste e revisão de cada tela</dd></div>
         <div><dt>Ferramentas</dt><dd>Figma. O Claude gerou a pesquisa simulada, os textos e as telas a partir das minhas decisões; Figma AI e Gemini, as fotos e a logo</dd></div>
         <div><dt>Entrega</dt><dd>10 telas mobile, 3 desktop, design system, protótipo com as 3 tarefas e uma avaliação simulada</dd></div>
@@ -405,8 +405,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     <div class="tldr four">
       <div class="card rv"><span class="k">Meu papel</span><p>Li o brief e corrigi cinco pontos dele. Defini o escopo e as tarefas do teste e revisei cada tela contra o roteiro.</p></div>
       <div class="card rv"><span class="k">Decisão principal</span><p>Troquei o "Biometric Fit" por um questionário de cinco perguntas que recomenda tênis e tamanho. A página do produto já abre configurada.</p></div>
-      <div class="card rv"><span class="k">Resultado até aqui</span><p>Achei e corrigi duas tarefas impossíveis antes de avaliar. Na avaliação simulada com 5 perfis, a recomendação respondeu 37 para todo mundo.</p></div>
-      <div class="card rv"><span class="k">Próximo passo</span><p>Fazer a recomendação ler as respostas e testar com pessoas reais. A pesquisa e a avaliação deste projeto são simuladas.</p></div>
+      <div class="card rv"><span class="k">Resultado até aqui</span><p>Achei e corrigi duas tarefas impossíveis antes de avaliar. Na avaliação simulada com 5 perfis, a recomendação respondeu 37 para todo mundo, e eu corrigi.</p></div>
+      <div class="card rv"><span class="k">Próximo passo</span><p>Testar com pessoas reais. A pesquisa e a avaliação deste projeto são simuladas; a recomendação já foi corrigida no protótipo.</p></div>
     </div>
   </section>
 
@@ -429,7 +429,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 
   <!-- 02 PESQUISA -->
   <section class="wrap" id="pesquisa">
-    <div class="sec-head rv"><span class="num">02</span><h2>Pesquisa simulada</h2><p>Com 2 dias de prazo, não entrevistei corredores. Montei a descoberta a partir do brief e marquei como simulada em todo o material. As duas personas abaixo são fictícias.</p></div>
+    <div class="sec-head rv"><span class="num">02</span><h2>Pesquisa simulada</h2><p>Não entrevistei corredores. Montei a descoberta a partir do brief e marquei como simulada em todo o material. As duas personas abaixo são fictícias.</p></div>
     <div class="refs">
       <div class="card rv">
         <span class="k">Renata, 34 · asfalto</span>
@@ -463,7 +463,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
         <p class="q">"Qual tamanho eu peço?"</p>
         <p>São cinco perguntas curtas: pisada, número e largura do pé, quilômetros por semana, terreno e faixa de peso. Quase todas têm a opção "Não sei". Quando a pergunta tem uma resposta só, tocar numa opção já leva à próxima. Na do tamanho, a pessoa marca o número e a largura e toca em Continuar.</p>
         <p>A recomendação explica cada peça com o que a pessoa respondeu ("sua pisada é pronada e você prefere amortecimento"). No topo, ela escolhe o foco: amortecimento, com a Stable, ou resposta, com a Pulse, que custa R$ 200 a mais. O tamanho leva a largura em conta: quem tem pé largo sobe um número. Se ficar justo, a troca é grátis em 30 dias.</p>
-        <p>No protótipo, essa tela ainda é fixa e mostra as mesmas respostas para todo mundo. A avaliação simulada da seção 07 achou isso.</p>
+        <p>Na primeira versão do protótipo, essa tela era fixa e respondia 37 para todo mundo. A avaliação simulada da seção 07 achou isso, e a tela passou a ler as respostas.</p>
       </div>
       <div class="phones rv">
         <figure class="phone"><img src="assets/projects/kineticlab-case/quiz.webp" width="360" height="779" loading="lazy" alt="Questionário, passo 1 de 5: Como seu pé toca o chão, com as opções Pronada, Neutra, Supinada e Não sei."></figure>
@@ -608,7 +608,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 
   <!-- 07 TESTE -->
   <section class="wrap" id="teste">
-    <div class="sec-head rv"><span class="num">07</span><h2>Protótipo e avaliação simulada</h2><p>O protótipo tem 21 telas e estados, com um estado para cada combinação de sola e palmilha, para a sacola sempre mostrar o que a pessoa escolheu. Estas são as 3 tarefas do roteiro de teste.</p></div>
+    <div class="sec-head rv"><span class="num">07</span><h2>Protótipo e avaliação simulada</h2><p>O protótipo tem 26 telas e estados, com um estado para cada combinação de sola e palmilha, para a sacola sempre mostrar o que a pessoa escolheu. Estas são as 3 tarefas do roteiro de teste.</p></div>
     <div class="table-wrap rv">
       <table class="stack">
         <thead><tr><th scope="col">Tarefa, como leio em voz alta</th><th scope="col">Conta como concluída quando</th></tr></thead>
@@ -635,14 +635,14 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     </div>
     <p class="rv" style="max-width:68ch;margin-top:20px">Os 5 perfis concluíram as 3 tarefas, e frete, prazo e garantia de 30 dias apareceram antes do botão de pagar. A hipótese principal não se sustentou: a recomendação é uma tela fixa e responde 37 e pisada pronada para todo mundo, e essa é justamente a dúvida que o produto promete resolver.</p>
 
-    <h3 class="rv" style="margin-top:40px">O que vai mudar</h3>
+    <h3 class="rv" style="margin-top:40px">O que mudou</h3>
     <ul class="open" style="margin-top:16px">
-      <li class="rv"><span class="lvl alta">Alta</span><b>A recomendação vai ler as respostas</b><p>O número e a largura do passo 2 viram variáveis do Figma, e a recomendação, a página do produto e a sacola leem essas variáveis. Pisada e terreno ganham 3 variantes da tela.</p></li>
-      <li class="rv"><span class="lvl alta">Alta</span><b>O "Não sei" vai cumprir o que promete</b><p>Duas perguntas curtas depois do "Não sei" da pisada, textos próprios nos passos 3 e 4 e a tela de medição com a folha A4.</p></li>
-      <li class="rv"><span class="lvl media">Média</span><b>O pagamento vai esperar a pessoa</b><p>A aba "Cartão" abre o formulário, e a recusa só aparece depois de "Pagar". O Pix mostra "Código copiado" e "Aguardando o banco" antes da confirmação.</p></li>
-      <li class="rv"><span class="lvl media">Média</span><b>O total vai somar o que foi escolhido</b><p>A barra da página do produto passa a somar a palmilha e a dizer a configuração escolhida.</p></li>
+      <li class="rv"><span class="lvl alta">Alta</span><b>A recomendação lê as respostas</b><p>Variáveis do Figma guardam número, largura, pisada e terreno, e a recomendação, a página do produto e a sacola leem essas variáveis. Quem marca 42 e pé largo vê "42 · Considere subir um número".</p></li>
+      <li class="rv"><span class="lvl alta">Alta</span><b>O "Não sei" cumpre o que promete</b><p>Duas perguntas depois do "Não sei" da pisada: para que lado o tênis velho tomba e onde dói depois de correr. A medição com a folha A4 virou uma tela em que cada medida em cm já vira um número.</p></li>
+      <li class="rv"><span class="lvl media">Média</span><b>O pagamento espera a pessoa</b><p>A aba "Cartão" abre o formulário, e a recusa só aparece depois de "Pagar". O Pix mostra "Código copiado", e a confirmação chega sozinha alguns segundos depois.</p></li>
+      <li class="rv"><span class="lvl media">Média</span><b>O total soma o que foi escolhido</b><p>A barra da página do produto diz a sola e o tamanho escolhidos e soma a palmilha: "Trail Lug + palmilha · tamanho 42", R$ 1.788.</p></li>
     </ul>
-    <p class="note rv" style="margin-top:16px"><b>Mudanças planejadas, ainda não feitas.</b> Perfis, resultados e os 7 achados estão na página 10 do Figma; as mudanças, na página 11.</p>
+    <p class="note rv" style="margin-top:16px"><b>Mudanças feitas e testadas no protótipo em 15/11.</b> Perfis, resultados e os 7 achados estão na página 10 do Figma; o antes e depois, na página 11. Ainda falta testar com pessoas reais.</p>
   </section>
 
   <!-- 08 IA -->
@@ -693,12 +693,11 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     <ul class="open">
       <li class="rv"><span class="lvl alta">Alta</span><b>A pesquisa é simulada</b><p>Personas, entrevistas e citações são fictícias. Nenhuma pessoa real usou o produto.</p></li>
       <li class="rv"><span class="lvl alta">Alta</span><b>A avaliação também é simulada</b><p>Uma IA no papel de 5 perfis acha falhas de lógica, mas sabe onde estão os botões e não se cansa. Ela não mostra onde uma pessoa real hesita nem mede conversão ou devolução, que são as metas do brief.</p></li>
-      <li class="rv"><span class="lvl alta">Alta</span><b>A recomendação é fixa no protótipo</b><p>Responde 37, pé médio e pisada pronada para qualquer resposta. A correção está planejada na seção 07.</p></li>
       <li class="rv"><span class="lvl media">Média</span><b>A primeira pergunta é a mais difícil</b><p>O questionário abre pela pisada, que a maioria das pessoas não sabe responder. Na simulação, quem não sabia tocou em "Não sei" e seguiu. Falta ver com pessoas reais se a ordem atrapalha; se atrapalhar, a pisada vai para o fim.</p></li>
-      <li class="rv"><span class="lvl media">Média</span><b>A medição do pé não existe</b><p>O questionário pergunta o número e a largura, mas a opção "me ajude a medir o pé com uma folha A4" ainda não tem tela.</p></li>
+      <li class="rv"><span class="lvl media">Média</span><b>A medição do pé é simples</b><p>A tela da folha A4 converte centímetros em número por uma tabela. Não mede a largura nem o peito do pé, e ninguém real testou se as instruções são fáceis de seguir.</p></li>
       <li class="rv"><span class="lvl media">Média</span><b>Segundo solado só no desktop</b><p>Sem acessório ou segundo solado, nenhum pedido chega aos R$ 2.250 da meta de tíquete. No celular, o segundo solado entra depois do teste, para não atrapalhar a tarefa 2.</p></li>
       <li class="rv"><span class="lvl media">Média</span><b>Desktop incompleto</b><p>O desktop tem Home, página do produto e checkout. Faltam o catálogo e um estado de erro.</p></li>
-      <li class="rv"><span class="lvl media">Média</span><b>O protótipo tem atalhos</b><p>Os chips que não entram nas tarefas não respondem ao toque, e o checkout sempre mostra os 2 itens. Quem escolhe a Pulse na recomendação vê a página do produto com a Stable. A aba "Cartão" já abre como recusada.</p></li>
+      <li class="rv"><span class="lvl media">Média</span><b>O protótipo tem atalhos</b><p>Os chips que não entram nas tarefas não respondem ao toque, e o checkout sempre mostra os 2 itens. Quem escolhe a Pulse na recomendação vê a página do produto com a Stable.</p></li>
       <li class="rv"><span class="lvl media">Média</span><b>Imagens geradas por IA</b><p>A foto do cabedal Storm mostra um tênis com outra sola. Serve de ilustração, mas não é o M1.</p></li>
     </ul>
   </section>
@@ -718,7 +717,6 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 
     <h3 class="rv" style="margin-top:48px">Próximos passos</h3>
     <ul class="next rv">
-      <li><iconify-icon icon="lucide:sliders-horizontal"></iconify-icon>Fazer a recomendação, a página do produto e a sacola lerem as respostas do questionário.</li>
       <li><iconify-icon icon="lucide:users"></iconify-icon>Aplicar o roteiro com 2 corredores de verdade e comparar com a avaliação simulada.</li>
       <li><iconify-icon icon="lucide:mic"></iconify-icon>Perguntar a cinco corredores reais se já desistiram de comprar tênis online por causa do tamanho e se sabem a própria pisada.</li>
       <li><iconify-icon icon="lucide:list-ordered"></iconify-icon>Testar outra ordem no questionário, começando por tamanho e terreno.</li>
