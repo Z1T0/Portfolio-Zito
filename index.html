@@ -525,24 +525,8 @@ body.is-loaded .arch-layer .go-to-project-btn{animation:tag-pop .9s var(--ease-s
 .project-num{flex:none;font-family:var(--font-serif);font-style:italic;font-size:30px;line-height:1;color:var(--steel);transition:color var(--d-base)}
 .project:hover .project-num{color:var(--accent)}
 
-/* Problema → Solução → Resultado */
-.case{list-style:none;margin:20px 0 0;padding:0;display:grid}
-.case li{position:relative;display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;padding-bottom:16px}
-.case li:not(:last-child)::before{content:"";position:absolute;left:14.5px;top:34px;bottom:4px;width:1px;background:linear-gradient(var(--steel),var(--mist))}
-.case-dot{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:14px;background:var(--snow);border:1px solid var(--mist);color:var(--graphite);transition:background var(--d-base),color var(--d-base),border-color var(--d-base)}
-.case li.is-result .case-dot{background:var(--brand);border-color:var(--brand);color:var(--on-color)}
-.project:hover .case li:not(.is-result) .case-dot{border-color:var(--brand-pale);color:var(--accent)}
-.case-k{margin:6px 0 4px;font-size:11.5px;line-height:1;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--graphite)}
-.case li.is-result .case-k{color:var(--accent)}
-.case-v{margin:0;font-size:14.5px;line-height:1.6;color:var(--graphite)}
-.case-metric{display:flex;align-items:baseline;gap:8px;margin:2px 0 4px}
-.case-metric .t-number{font-size:34px;color:var(--ink)}
-.case-metric span{font-family:var(--font-display);font-weight:500;font-size:14px;letter-spacing:-.01em;color:var(--ink)}
+.project-about{margin:16px 0 18px;font-size:15px;line-height:1.65;color:var(--graphite);max-width:640px}
 @container (min-width:760px){
-  .project--featured .case{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:26px;padding-top:22px;border-top:1px solid var(--mist)}
-  .project--featured .case li{grid-template-columns:1fr;gap:10px;padding:0;align-content:start}
-  .project--featured .case li:not(:last-child)::before{left:42px;right:-12px;top:14.5px;bottom:auto;width:auto;height:1px;background:linear-gradient(90deg,var(--steel),var(--mist))}
-  .project--featured .case-k{margin-top:0}
   .project--featured .tech{margin-top:24px}
 }
 
@@ -1445,7 +1429,7 @@ const CONTENT = {
   projects: {
     kicker: "Projetos",
     title: "O que eu já <span class='serif'>tirei do papel.</span>",
-    text: "São projetos de estudo. Cada um conta o problema, o que eu decidi e o que saiu dele. O EasyLog é o maior, e o KINETIC // LAB mostra o processo inteiro, do brief ao teste.",
+    text: "São projetos de estudo. Cada um conta o problema, o que eu decidi e o que saiu dele. O EasyLog é o maior, e o KINETIC // LAB mostra o processo inteiro, do brief à avaliação.",
     // preview: "hub" (celulares em CSS), "video" (poster + vídeo em loop) ou "print" (composição de peças)
     // href vazio = botão aparece desativado com "Em breve"
     list: [
@@ -1457,9 +1441,7 @@ const CONTENT = {
         summary: "Plataforma que liga lojas de bairro de Teresina a motoristas autônomos para fazer entregas. Tem app para a loja, app para o motorista e um painel web.",
         preview: { type: "hub" },
         featured: true,
-        problem: "Nos apps de entrega grandes, a loja paga comissão alta por pedido, e o motorista perde parte de cada corrida em taxa.",
-        solution: "Troquei a comissão por planos de assinatura: a loja paga um plano com pacote de entregas, e o motorista fica com 100% do frete.",
-        result: { value: "3", unit: "apps conectados numa mesma entrega", text: "O protótipo segue um pedido do início ao fim: a loja chama, o motorista retira e entrega, e o painel registra tudo." },
+        about: "Em vez de comissão por pedido, a loja paga um plano mensal com um pacote de entregas, e o motorista fica com todo o frete. O protótipo acompanha um pedido desde a chamada da loja até o registro no painel. Ainda não testei com lojistas nem com motoristas.",
         tech: [ { text: "Figma", icon: "logos:figma" }, { text: "Protótipo navegável", icon: "lucide:mouse-pointer-click" }, { text: "Design system", icon: "lucide:component" }, { text: "Mobile e web", icon: "lucide:monitor-smartphone" }, { text: "Claude", icon: "lucide:sparkles" } ],
         demo: { label: "Ver protótipo", href: "https://www.figma.com/proto/jkjjwENNY1rHJQgjxkmBqy/EasyLog?node-id=84-1141&starting-point-node-id=84-1141&scaling=scale-down" },
         case: { label: "Estudo de caso", href: "estudo-de-caso-easylog.html", icon: "lucide:book-open" }
@@ -1472,10 +1454,8 @@ const CONTENT = {
         summary: "Loja online, para celular, de um tênis de corrida fictício com partes que o cliente pode trocar. Projeto feito a partir de um desafio de UX.",
         preview: { type: "hub", tone: "kinetic", shots: ["assets/projects/kineticlab-case/recomendacao.webp", "assets/projects/kineticlab-case/checkout.webp", "assets/projects/kineticlab-case/pdp-configurador.webp"] },
         featured: true,
-        problem: "Comprar tênis online dá medo de errar o tamanho. Pelo desafio, essa dúvida causa 68% dos carrinhos abandonados, e um tênis de R$ 1.599 ainda precisa explicar suas peças.",
-        solution: "Criei um questionário de cinco perguntas que recomenda o tênis e o tamanho, e um checkout que mostra frete e garantia antes do pagamento.",
-        result: { value: "2", unit: "falhas corrigidas antes do teste", text: "Lendo as telas junto com o roteiro do teste, vi duas tarefas que ninguém conseguiria concluir e corrigi. A pesquisa do projeto foi simulada e está marcada assim." },
-        tech: [ { text: "Figma", icon: "logos:figma" }, { text: "Protótipo navegável", icon: "lucide:mouse-pointer-click" }, { text: "Design system", icon: "lucide:component" }, { text: "Teste de usabilidade", icon: "lucide:users" }, { text: "Claude", icon: "lucide:sparkles" } ],
+        about: "Pelo desafio, a dúvida sobre o tamanho causa 68% dos carrinhos abandonados. Criei um questionário de cinco perguntas que indica o tênis e o número, e um checkout que mostra frete e garantia antes do pagamento. A pesquisa e a avaliação foram simuladas e estão marcadas assim.",
+        tech: [ { text: "Figma", icon: "logos:figma" }, { text: "Protótipo navegável", icon: "lucide:mouse-pointer-click" }, { text: "Design system", icon: "lucide:component" }, { text: "Avaliação simulada", icon: "lucide:users" }, { text: "Claude", icon: "lucide:sparkles" } ],
         demo: { label: "Ver protótipo", href: "https://www.figma.com/proto/WHFA16vy2gCG04ZnnqaNjX/?node-id=35-18&starting-point-node-id=35%3A18&scaling=scale-down-width&content-scaling=fixed" },
         case: { label: "Estudo de caso", href: "estudo-de-caso-kineticlab.html", icon: "lucide:book-open" }
       },
@@ -1486,9 +1466,7 @@ const CONTENT = {
         year: "2026",
         summary: "Página de venda de uma caneta fictícia, a Artools. O desafio era fazer um objeto barato parecer algo que dá vontade de ter.",
         preview: { type: "video", poster: "assets/projects/artools-poster.webp", video: "artools/video2.mp4", label: "Prévia do vídeo" },
-        problem: "Caneta custa pouco, todo mundo tem várias em casa, e ninguém para pra olhar uma.",
-        solution: "Apresentei a caneta como um lançamento de tecnologia: fundo limpo, muito espaço em volta e um vídeo que avança conforme a página rola.",
-        result: { value: "4", unit: "pessoas viram a página", text: "Gostaram do vídeo. A compra, que abria uma conversa no WhatsApp, foi o que menos convenceu, e numa próxima versão vira carrinho." },
+        about: "Caneta todo mundo tem, e ninguém repara nela. Apresentei a Artools como um lançamento de tecnologia, com fundo limpo e um vídeo que avança conforme a página rola. Fiz uma conversa simulada com 4 perfis, que mostrou que a compra pelo WhatsApp foi o que menos convenceu. Falta testar com pessoas reais.",
         tech: [ { text: "HTML", icon: "logos:html-5" }, { text: "CSS", icon: "logos:css-3" }, { text: "JavaScript", icon: "logos:javascript" }, { text: "GSAP", icon: "lucide:move" }, { text: "Antigravity", icon: "lucide:sparkles" } ],
         demo: { label: "Live demo", href: "artools/index.html" },
         case: { label: "Estudo de caso", href: "estudo-de-caso-artools.html", icon: "lucide:book-open" }
@@ -1500,9 +1478,7 @@ const CONTENT = {
         year: "2026",
         summary: "As regras de cor, tipografia, componentes e animação que este portfólio segue, documentadas numa página só.",
         preview: { type: "video", poster: "assets/projects/ds-poster.webp" },
-        problem: "Um site com várias páginas e dois temas fica incoerente quando cada cor e cada botão são decididos na hora.",
-        solution: "Defini tokens de cor, tipo, espaço e movimento para os temas claro e escuro, e documentei como usar cada um.",
-        result: { value: "16", unit: "pares de cor com contraste calculado", text: "A página mostra o contraste de cada par nos dois temas e marca o que é só decorativo e não pode virar texto." },
+        about: "Cada cor e cada botão saem de um token, nos dois temas. Calculei o contraste de 16 pares de cor e marquei os que servem só de decoração e não podem virar texto.",
         tech: [ { text: "Tokens", icon: "lucide:braces" }, { text: "Tema claro e escuro", icon: "lucide:sun-moon" }, { text: "WCAG", icon: "lucide:accessibility" }, { text: "HTML e CSS", icon: "lucide:code-xml" } ],
         demo: { label: "Ver design system", href: "design_system.html" }
       },
@@ -1513,9 +1489,7 @@ const CONTENT = {
         year: "Desde 2021",
         summary: "Identidade visual, posts e impressos para pequenos negócios de alimentação, saúde, academia e eventos, feitos como designer autônomo.",
         preview: { type: "print" },
-        problem: "Quem tem um negócio pequeno costuma ter pouco tempo para explicar o que quer e precisa da peça pronta logo.",
-        solution: "Começo com uma conversa curta sobre o público e o objetivo da peça, mostro uma primeira versão cedo e ajusto junto com o cliente.",
-        result: { value: "5", unit: "anos como autônomo", text: "As peças que posso mostrar estão reunidas no meu Behance." },
+        about: "Começo com uma conversa curta sobre o público e o objetivo da peça, mostro uma primeira versão cedo e ajusto junto com o cliente. As peças que posso mostrar estão no Behance.",
         tech: [ { text: "Photoshop", icon: "logos:adobe-photoshop" }, { text: "CorelDraw", icon: "simple-icons:coreldraw" }, { text: "InDesign", icon: "logos:adobe-indesign" } ],
         demo: { label: "Ver no Behance", href: "https://www.behance.net/antoniozitome" }
       }
@@ -1952,13 +1926,7 @@ const CONTENT = {
         <div class="project-head">
           <div><h3>${p.title}</h3><p class="project-sum">${esc(p.summary)}</p></div>
         </div>
-        <ol class="case">
-          <li><span class="case-dot" aria-hidden="true"><iconify-icon icon="lucide:circle-help"></iconify-icon></span><div><p class="case-k">O problema</p><p class="case-v">${esc(p.problem)}</p></div></li>
-          <li><span class="case-dot" aria-hidden="true"><iconify-icon icon="lucide:pen-tool"></iconify-icon></span><div><p class="case-k">O que eu fiz</p><p class="case-v">${esc(p.solution)}</p></div></li>
-          <li class="is-result"><span class="case-dot" aria-hidden="true"><iconify-icon icon="lucide:flag"></iconify-icon></span><div><p class="case-k">O resultado</p>
-            <div class="case-metric"><span class="t-number">${esc(p.result.value)}</span><span>${esc(p.result.unit)}</span></div>
-            <p class="case-v">${esc(p.result.text)}</p></div></li>
-        </ol>
+        <p class="project-about">${esc(p.about)}</p>
         <div class="tech" aria-label="Ferramentas usadas">${p.tech.map((t) => `<span><iconify-icon icon="${t.icon}"></iconify-icon>${esc(t.text)}</span>`).join("")}</div>
         ${(p.demo?.href || p.case?.href) ? `<div class="project-actions">${actionHTML(p.demo, "demo")}${actionHTML(p.case, "case")}</div>` : ""}
       </div>
