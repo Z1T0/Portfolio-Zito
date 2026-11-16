@@ -1057,7 +1057,6 @@ body.is-leaving{opacity:0;transition:opacity .22s ease}
           <div class="about-title">
             <p class="subtitle scroll-animation" data-animation="fade_from_bottom"><iconify-icon icon="lucide:user-round"></iconify-icon><span data-bind="about.kicker"></span></p>
             <h2 class="section-title scroll-animation" id="aboutTitle" data-animation="rotate_up" data-delay="100" data-bind-html="about.title"></h2>
-            <div class="about-meta scroll-animation" data-animation="fade_from_bottom" data-delay="200" id="aboutMeta"></div>
           </div>
           <div class="about-text">
             <p class="lead-reveal" id="aboutLead" data-reveal></p>
@@ -1257,11 +1256,6 @@ const CONTENT = {
   about: {
     kicker: "Sobre mim",
     title: "Começo pelo cliente e por quem <span class='serif'>usa</span>. A tela vem depois.",
-    meta: [
-      { icon: "lucide:book-open", text: "UX Design e Design Gráfico na EBAC" },
-      { icon: "lucide:graduation-cap", text: "Sistemas de Informação, CEUPI" },
-      { icon: "lucide:pen-tool", text: "Designer autônomo desde 2021" }
-    ],
     lead: "Antes de desenhar qualquer coisa, quero entender o que o cliente precisa alcançar e o que o usuário precisa resolver, para chegar a uma tela que [[atenda os dois ao mesmo tempo]].",
     body: "Há 4 anos trabalho com usuários de sistemas web de gestão e vejo de perto onde as pessoas travam. Nos meus projetos, defino primeiro as regras de negócio, uso IA para acelerar as telas e ajusto cada uma até ficar do jeito certo. Como designer autônomo, faço peças para pequenos negócios desde 2021.",
     pillarsTitle: "Como eu trabalho",
@@ -1697,7 +1691,6 @@ const CONTENT = {
 
   /* ---------- DOBRA 2 ---------- */
   const A = CONTENT.about;
-  $("#aboutMeta").innerHTML = A.meta.map((m) => `<span class="chip-soft"><iconify-icon icon="${m.icon}"></iconify-icon>${esc(m.text)}</span>`).join("");
   // lead com palavras que acendem no scroll; trecho entre [[ ]] fica azul
   $("#aboutLead").innerHTML = A.lead.split(/(\[\[.*?\]\])/).map((part) => {
     const accent = part.startsWith("[[");
@@ -1763,7 +1756,6 @@ const CONTENT = {
           <div><h3>${p.title}</h3><p class="project-sum">${esc(p.summary)}</p></div>
         </div>
         <p class="project-about">${esc(p.about)}</p>
-        <div class="tech" aria-label="Ferramentas usadas">${p.tech.map((t) => `<span><iconify-icon icon="${t.icon}"></iconify-icon>${esc(t.text)}</span>`).join("")}</div>
         ${(p.demo?.href || p.case?.href) ? `<div class="project-actions">${actionHTML(p.demo, "demo")}${actionHTML(p.case, "case")}</div>` : ""}
       </div>
     </article>`).join("");
