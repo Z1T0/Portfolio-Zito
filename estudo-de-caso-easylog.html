@@ -27,6 +27,7 @@ addEventListener("pageshow",function(e){if(e.persisted)document.querySelectorAll
 <link rel="canonical" href="https://portfoliozitomenezes.vercel.app/estudo-de-caso-easylog.html">
 <!-- Tokens: fonte única (cores, tipo, espaço, raio, sombra, movimento) -->
 <link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/components.css">
 
 <link rel="preload" href="assets/ds/fonts/inter-display-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -60,16 +61,7 @@ a{color:inherit}
 .back{white-space:nowrap}.back .short{display:none}
 @media (max-width:480px){.back .full{display:none}.back .short{display:inline}}
 .top-right{display:flex;align-items:center;gap:8px}
-.btn-icon{width:42px;height:42px;border-radius:50%;display:inline-grid;place-items:center;border:1px solid var(--steel);background:var(--white);font-size:18px;cursor:pointer;color:var(--ink);transition:background .3s,color .3s,border-color .3s}
-.btn-icon:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
-
-/* Botões (DS .theme-btn, versão simples) */
-.theme-btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:var(--r-pill);border:1px solid transparent;font-family:var(--font-display);font-weight:500;font-size:15px;text-decoration:none;white-space:nowrap;transition:background .3s var(--ease-out),box-shadow .6s var(--ease-out),border-color .3s,transform .3s var(--ease-out)}
-.theme-btn:active{transform:scale(.97)}
-.theme-btn--primary{background:var(--ink);color:var(--white)}
-.theme-btn--primary:hover{box-shadow:var(--sh-glow)}
-.theme-btn--outline{background:transparent;color:var(--ink);border-color:var(--steel)}
-.theme-btn--outline:hover{border-color:var(--ink);background:var(--snow)}
+/* Botões: .theme-btn e .btn-icon vêm de css/components.css (ajustes de contexto mais abaixo) */
 
 /* Layout */
 .wrap{max-width:calc(var(--max) + 2*var(--gutter));margin:0 auto;padding:0 var(--gutter)}
@@ -77,12 +69,12 @@ main{display:flex;flex-direction:column;gap:96px;padding:56px 0 96px}
 @media (max-width:640px){main{gap:72px;padding-top:36px}}
 section{scroll-margin-top:90px}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;line-height:1;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
-h1,h2,h3{font-family:var(--font-display);margin:0;text-wrap:balance;letter-spacing:-.03em}
-h1{font-weight:600;font-size:clamp(40px,7vw,76px);line-height:1}
-h2{font-weight:600;font-size:clamp(28px,4vw,42px);line-height:1.1}
-h3{font-weight:600;font-size:20px;line-height:1.3;letter-spacing:-.015em}
+h1,h2,h3{font-family:var(--font-display);margin:0;text-wrap:balance}
+h1{font-weight:700;font-size:var(--fs-h1);line-height:1.05;letter-spacing:-.04em}
+h2{font-weight:600;font-size:var(--fs-h2);line-height:1.1;letter-spacing:-.04em}
+h3{font-weight:500;font-size:var(--fs-h5);line-height:1.2;letter-spacing:-.02em}
 p{margin:0}
-.lead{font-size:clamp(18px,2.2vw,22px);color:var(--graphite);max-width:60ch;line-height:1.55}
+.lead{font-size:var(--fs-body-lg);color:var(--graphite);max-width:60ch;line-height:1.6;letter-spacing:-.01em}
 .muted{color:var(--graphite)}
 .prose{display:flex;flex-direction:column;gap:16px;max-width:68ch}
 .sec-head{display:flex;flex-direction:column;gap:14px;margin-bottom:32px}
@@ -282,7 +274,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 /* Cabeçalho: pílula de vidro flutuante, como a barra da home */
 .topbar{position:sticky;top:0;z-index:100;padding:10px var(--gutter) 0;background:none;border:0;backdrop-filter:none;-webkit-backdrop-filter:none}
 .topbar-in{max-width:var(--max);padding:7px;border-radius:var(--r-pill);background:rgba(var(--surface-rgb),.75);backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3);border:1px solid var(--mist);box-shadow:var(--sh-sm)}
-.btn-icon{width:44px;height:44px}
+.btn-icon{width:44px;height:44px;color:var(--ink)}
 .topbar .theme-btn{height:44px!important}
 @media (max-width:380px){.topbar .top-right .theme-btn{display:none}}
 
@@ -356,8 +348,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     </div>
     <figure class="hero-media rv">
       <div class="shot stage">
-        <img class="phone" src="assets/projects/easylog-case/lojista-veiculo-valor.webp" width="360" height="800" alt="App do lojista, nova entrega: utilitário leve recomendado para a carga, frete de R$ 38,50 com 100% para o motorista, taxa EasyLog de R$ 0,00 dentro do plano e total a pagar de R$ 38,50." fetchpriority="high">
-        <img class="phone from-bottom" src="assets/projects/easylog-case/motorista-novo-pedido.webp" width="360" height="800" alt="App do motorista: novo pedido com 28 segundos para aceitar, valor de R$ 38,50, carga grande num utilitário, retirada na Tintas & Tintas Dirceu e destino no Jóquei.">
+        <img class="phone" src="assets/projects/easylog-case/lojista-veiculo-valor.webp" width="360" height="800" alt="App do lojista, nova entrega: utilitário leve recomendado para a carga, 4,6 km da loja ao destino, frete de R$ 34,50 com 100% para o motorista, taxa EasyLog de R$ 0,00 dentro do plano e total a pagar de R$ 34,50." fetchpriority="high">
+        <img class="phone from-bottom" src="assets/projects/easylog-case/motorista-novo-pedido.webp" width="360" height="800" alt="App do motorista: novo pedido com 28 segundos para aceitar, valor de R$ 34,50, carga grande num utilitário, retirada na Tintas & Tintas Dirceu e destino no Jóquei.">
         <img class="phone from-bottom" src="assets/projects/easylog-case/lojista-confirmar-retirada.webp" width="360" height="800" alt="App do lojista: conferência da palavra-chave de retirada ESTRELA-94, com a lista de itens e o botão Confirmar retirada.">
       </div>
       <figcaption>A mesma entrega nas duas pontas: o lojista vê o frete antes de pedir, o motorista vê o valor antes de aceitar e o lojista confere a palavra-chave na retirada.</figcaption>
@@ -371,7 +363,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       <div class="card rv"><span class="k">Meu papel</span><p>Decidi o produto: assinatura no lugar de comissão, os seis planos, o veículo pelo peso da carga e a conferência por palavra-chave. Revisei cada tela.</p></div>
       <div class="card rv"><span class="k">Decisão principal</span><p>O motorista fica com 100% do frete, e o lojista paga um plano com pacote de entregas e taxa fixa.</p></div>
       <div class="card rv"><span class="k">Resultado</span><p>Um protótipo que segue a entrega #4830 da loja até o painel. Comparando as três frentes, achei e corrigi cinco divergências.</p></div>
-      <div class="card rv"><span class="k">Próximo passo</span><p>Testar com lojistas e motoristas e definir a regra que calcula o frete.</p></div>
+      <div class="card rv"><span class="k">Próximo passo</span><p>Testar com lojistas e motoristas, inclusive a regra provisória do frete.</p></div>
     </div>
   </section>
 
@@ -470,7 +462,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       <div class="part-text rv">
         <span class="tag">O que a assinatura resolve e o que não resolve</span>
         <p>Na prática, o pacote é uma taxa por entrega paga adiantado. No Pro, R$ 189 por 200 entregas dá R$ 0,95 por entrega. A diferença para a comissão é que essa taxa não sobe junto com o frete. O frete continua sendo cobrado por entrega e muda com distância, veículo e carga.</p>
-        <p>Então o que o lojista consegue prever é a parte da plataforma, cerca de 5% do que ele gasta com entregas. O resto depende do frete, e a regra dele ainda não existe.</p>
+        <p>Então o que o lojista consegue prever é a parte da plataforma, cerca de 5% do que ele gasta com entregas. O resto depende do frete. Para o estudo, usei uma regra fictícia: tarifa base do veículo mais um valor por km, contando só o trecho da loja até o destino (moto R$ 7 + R$ 1,70/km, carro R$ 11 + R$ 2,20/km, utilitário R$ 24,50 + R$ 2,20/km). Ela ainda não foi testada com motoristas.</p>
       </div>
       <div class="rv">
         <div class="table-wrap">
@@ -479,13 +471,13 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
             <tbody>
               <tr><td data-l="Item">Plano Pro</td><td data-l="Valor">R$ 189</td></tr>
               <tr><td data-l="Item">Excedente: 100 entregas além das 200, a R$ 0,99</td><td data-l="Valor">R$ 99</td></tr>
-              <tr><td data-l="Item">Frete: 300 entregas a R$ 16,52 de média</td><td data-l="Valor">R$ 4.956</td></tr>
-              <tr class="sum"><td data-l="Item">Total do mês</td><td data-l="Valor">R$ 5.244</td></tr>
+              <tr><td data-l="Item">Frete: 300 entregas a R$ 16,49 de média</td><td data-l="Valor">R$ 4.947</td></tr>
+              <tr class="sum"><td data-l="Item">Total do mês</td><td data-l="Valor">R$ 5.235</td></tr>
               <tr><td data-l="Item">Parte da EasyLog (plano + excedente)</td><td data-l="Valor">R$ 288 (5,5%)</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="cap">A loja fez 142 entregas até 14/11, perto de 10 por dia, o que dá cerca de 300 no mês. O custo médio de R$ 16,52 é o que aparece no painel. Se todas fossem de utilitário, como a #4830 (R$ 38,50), o frete passaria de R$ 11 mil e a assinatura cairia para 2,4% da conta.</p>
+        <p class="cap">A loja fez 142 entregas até 14/11, perto de 10 por dia, o que dá cerca de 300 no mês. O custo médio de R$ 16,49 é o que aparece no painel. Se todas fossem de utilitário, como a #4830 (R$ 34,50), o frete passaria de R$ 10 mil e a assinatura cairia para 2,7% da conta.</p>
       </div>
     </div>
 
@@ -496,7 +488,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
         <p>O lojista informa o tamanho da carga, e o app sugere o veículo: moto até 20 kg, carro até 200 kg, utilitário até 650 kg. O pedido só vai para motoristas com veículo compatível. Assim o motorista de moto não recebe um pedido de duas latas de tinta de 18 litros.</p>
       </div>
       <figure class="rv" style="max-width:300px;justify-self:center">
-        <div class="phone"><img src="assets/projects/easylog-case/lojista-veiculo-valor.webp" width="360" height="800" loading="lazy" alt="Nova entrega, etapa 3 de 3: utilitário leve recomendado para a carga, frete de R$ 38,50 com 100% para o motorista, taxa EasyLog de R$ 0,00 dentro do plano e o aviso de que é a entrega 143 de 200."></div>
+        <div class="phone"><img src="assets/projects/easylog-case/lojista-veiculo-valor.webp" width="360" height="800" loading="lazy" alt="Nova entrega, etapa 3 de 3: utilitário leve recomendado para a carga, 4,6 km da loja ao destino, frete de R$ 34,50 com 100% para o motorista, taxa EasyLog de R$ 0,00 dentro do plano e o aviso de que é a entrega 143 de 200."></div>
         <figcaption>Antes de pedir, o lojista vê na mesma tela o frete, a taxa zerada e em que ponto do pacote está ("entrega 143 de 200").</figcaption>
       </figure>
     </div>
@@ -518,10 +510,10 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       <div class="part-text rv">
         <span class="tag">4 · Tudo à vista antes do aceite</span>
         <p class="q">"Vale a pena aceitar?"</p>
-        <p>O pedido chega com o valor em destaque, o tipo de carga, a loja, o bairro de destino e a distância total. A meta é que o motorista decida dentro dos 30 segundos do timer sem abrir outra tela. Como a de "menos de um minuto" do lojista, essa meta não foi medida.</p>
+        <p>O pedido chega com o valor em destaque, o tipo de carga, a loja, o bairro de destino e duas distâncias: a que entra no frete, da loja ao destino, e o total que ele vai rodar contando a ida até a loja. A meta é que o motorista decida dentro dos 30 segundos do timer sem abrir outra tela. Como a de "menos de um minuto" do lojista, essa meta não foi medida.</p>
         <p class="muted" style="font-size:15.5px">Pergunta em aberto: na base do card, Recusar (contorno) e Aceitar entrega (preenchido, mais largo) têm a mesma altura e ficam lado a lado. Não registrei essa decisão. Um Aceitar bem mais forte ajudaria a aceitar antes do timer zerar, mas aumenta o risco de aceitar sem querer com uma mão só. Botões parecidos protegem contra esse toque errado e custam um pouco mais de leitura. Quero decidir isso num teste na rua.</p>
       </div>
-      <figure class="phone rv" style="max-width:300px;justify-self:center"><img src="assets/projects/easylog-case/motorista-novo-pedido.webp" width="360" height="800" loading="lazy" alt="Novo pedido no app do motorista: você recebe R$ 38,50, utilitário, carga grande com 2 latas de 18 L e 1 rolo, 6,4 km no total, retirada e destino, botões Recusar e Aceitar entrega."></figure>
+      <figure class="phone rv" style="max-width:300px;justify-self:center"><img src="assets/projects/easylog-case/motorista-novo-pedido.webp" width="360" height="800" loading="lazy" alt="Novo pedido no app do motorista: você recebe R$ 34,50, utilitário, carga grande com 2 latas de 18 L e 1 rolo, frete sobre 4,6 km e 6,4 km no total, retirada e destino, botões Recusar e Aceitar entrega."></figure>
     </div>
   </section>
 
@@ -533,11 +525,11 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     <div class="part">
       <div class="part-text rv">
         <span class="tag"><span class="who-l"></span>10:45 · Mariana pede</span>
-        <p>No balcão, Mariana toca em "Nova entrega" e preenche três etapas: quem recebe, o que vai e qual veículo. O frete de R$ 38,50 aparece antes de ela confirmar.</p>
+        <p>No balcão, Mariana toca em "Nova entrega" e preenche três etapas: quem recebe, o que vai e qual veículo. O frete de R$ 34,50, calculado sobre os 4,6 km da loja até o Jóquei, aparece antes de ela confirmar.</p>
       </div>
       <div class="phones rv">
         <figure class="phone"><img src="assets/projects/easylog-case/lojista-inicio.webp" width="360" height="800" loading="lazy" alt="Início do app do lojista com o botão Nova entrega, o resumo de hoje e as entregas em andamento."></figure>
-        <figure class="phone"><img src="assets/projects/easylog-case/lojista-veiculo-valor.webp" width="360" height="800" loading="lazy" alt="Etapa de veículo e custo da nova entrega, com total a pagar de R$ 38,50."></figure>
+        <figure class="phone"><img src="assets/projects/easylog-case/lojista-veiculo-valor.webp" width="360" height="800" loading="lazy" alt="Etapa de veículo e custo da nova entrega, com 4,6 km da loja ao destino e total a pagar de R$ 34,50."></figure>
       </div>
     </div>
 
@@ -566,24 +558,24 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     <div class="part alt">
       <div class="part-text rv">
         <span class="tag"><span class="who-m"></span>11:22 · Entrega concluída</span>
-        <p>No Jóquei, Marcos diz BRASIL-58. Carlos digita, conclui e vê o valor creditado: R$ 38,50, com a taxa EasyLog em R$ 0,00 na mesma tela.</p>
+        <p>No Jóquei, Marcos diz BRASIL-58. Carlos digita, conclui e vê o valor creditado: R$ 34,50, com a taxa EasyLog em R$ 0,00 na mesma tela.</p>
       </div>
       <div class="phones rv">
         <figure class="phone"><img src="assets/projects/easylog-case/motorista-destino-palavra.webp" width="360" height="800" loading="lazy" alt="Conferência de entrega: campo com a palavra BRASIL-58 informada pelo destinatário e o botão Concluir entrega."></figure>
-        <figure class="phone"><img src="assets/projects/easylog-case/motorista-concluida.webp" width="360" height="800" loading="lazy" alt="Entrega concluída: valor ganho de R$ 38,50, taxa EasyLog de R$ 0,00 e total do dia."></figure>
+        <figure class="phone"><img src="assets/projects/easylog-case/motorista-concluida.webp" width="360" height="800" loading="lazy" alt="Entrega concluída: valor ganho de R$ 34,50, taxa EasyLog de R$ 0,00 e total do dia de R$ 68,00 em 2 entregas."></figure>
       </div>
     </div>
 
     <div class="rv" style="padding-top:36px;border-top:1px solid var(--mist)">
       <span class="tag" style="margin-bottom:14px"><span class="who-w"></span>No painel web</span>
-      <figure><div class="shot"><img src="assets/projects/easylog-case/web-entregas.webp" width="1440" height="1024" loading="lazy" alt="Painel web, lista de entregas: tabela com código, destinatário, bairro, veículo, motorista, status, valor e data. A linha #4830, de Marcos Vinícius Mendes no Jóquei, aparece como Entregue, R$ 38,50."></div><figcaption>A mesma entrega #4830 aparece na lista do painel, com filtros por período, status e veículo.</figcaption></figure>
+      <figure><div class="shot"><img src="assets/projects/easylog-case/web-entregas.webp" width="1440" height="1024" loading="lazy" alt="Painel web, lista de entregas: tabela com código, destinatário, bairro, veículo, motorista, status, valor e data. A linha #4830, de Marcos Vinícius Mendes no Jóquei, aparece como Entregue, R$ 34,50."></div><figcaption>A mesma entrega #4830 aparece na lista do painel, com filtros por período, status e veículo.</figcaption></figure>
     </div>
   </section>
 
   <!-- 06 PAINEL -->
   <section class="wrap" id="painel">
     <div class="sec-head rv"><span class="num">06</span><h2>O painel de quem administra</h2><p>O app é para as entregas do dia. No painel, o dono olha o mês: quantas entregas foram feitas, quanto custaram, quando o pacote vai acabar e se vale trocar de plano.</p></div>
-    <figure class="rv"><div class="shot"><img src="assets/projects/easylog-case/web-dashboard.webp" width="1440" height="1024" loading="lazy" alt="Dashboard do painel web: 142 de 200 entregas no mês, custo total de R$ 2.345,82, custo médio de R$ 16,52, tempo médio de 38 minutos, gráfico de entregas por dia, uso do plano e tabela de entregas em andamento."></div><figcaption>Dashboard. O uso do plano (142 de 200) fica ao lado do gráfico, porque imagino que seja o que o dono procura primeiro.</figcaption></figure>
+    <figure class="rv"><div class="shot"><img src="assets/projects/easylog-case/web-dashboard.webp" width="1440" height="1024" loading="lazy" alt="Dashboard do painel web: 142 de 200 entregas no mês, custo total de R$ 2.342,00, custo médio de R$ 16,49, tempo médio de 38 minutos, gráfico de entregas por dia, uso do plano e tabela de entregas em andamento."></div><figcaption>Dashboard. O uso do plano (142 de 200) fica ao lado do gráfico, porque imagino que seja o que o dono procura primeiro.</figcaption></figure>
     <div class="split" style="margin-top:28px">
       <figure class="rv"><div class="shot"><img src="assets/projects/easylog-case/web-mapa.webp" width="1440" height="1024" loading="lazy" alt="Mapa ao vivo de Teresina com seis entregas em andamento, lista lateral com status e filtros por etapa."></div><figcaption>Mapa ao vivo das entregas em andamento, de todas as unidades.</figcaption></figure>
       <figure class="rv"><div class="shot"><img src="assets/projects/easylog-case/web-planos.webp" width="1440" height="1024" loading="lazy" alt="Assinatura e planos: plano Pro ativo, barra de 142 de 200 entregas com o aviso de que o pacote acaba por volta de 20/11, e a comparação entre Essencial, Pro e Rede."></div><figcaption>Assinatura: o painel avisa quando o pacote deve acabar ("por volta de 20/11") e compara os planos.</figcaption></figure>
@@ -695,11 +687,24 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
         <thead><tr><th scope="col">Tela</th><th scope="col">O que está errado</th><th scope="col">Correção</th></tr></thead>
         <tbody>
           <tr><td>Cadastro em análise (motorista)</td><td>O item "Veículo · Fiat Fiorino · QRS-4E21" usa ícone de moto. Como o pedido depende do veículo, o ícone também informa.</td><td>Ícone de utilitário, e o ícone de cada item vindo do tipo de veículo cadastrado</td></tr>
-          <tr><td>Dashboard (painel)</td><td>No card "Custo total", a linha "Motoristas R$ 2.345,82 · Taxas R$ 0,00 (dentro do plano)" passa da borda e é cortada.</td><td>Quebrar em duas linhas ou encurtar para "Taxas R$ 0,00"</td></tr>
           <tr><td>Dashboard e Assinatura (painel)</td><td>A regra diz que o verde só aparece quando dá certo ou quando entra dinheiro. No dashboard, a barra do dia 14 é verde só por ser hoje, e o uso do plano 142/200 é verde. Na tela de assinatura, o mesmo 142/200 é laranja.</td><td>Uma cor só para uso do plano nas duas telas (marinho), laranja só quando o pacote estiver perto do fim, e o dia de hoje marcado sem verde</td></tr>
           <tr><td>Assinatura (painel)</td><td>O aviso "a loja passa de 200 entregas por volta de 20/11" está em texto pequeno laranja. Preciso conferir o contraste dele.</td><td>Conferir o contraste e, se faltar, usar o par de cores do status de alerta</td></tr>
-          <tr><td>Nova entrega (lojista) e Novo pedido (motorista)</td><td>O lojista vê "Distância estimada 6,4 km" antes de pedir. No pedido do motorista, esses 6,4 km são 1,8 km até a loja mais 4,6 km depois da retirada. Assim, o frete do lojista inclui o deslocamento de um motorista que ainda não foi escolhido.</td><td>Os documentos do projeto só dizem "6,4 km" e não definem o que entra na conta, porque a regra do frete não existe. Minha proposta é o lojista ver só loja até destino (4,6 km) e o deslocamento até a loja ficar fora do frete. Isso muda o valor de R$ 38,50 e depende da regra do frete.</td></tr>
           <tr><td>Itens do pedido (lojista e motorista)</td><td>O lojista vê "2× lata de tinta acrílica 18 L / 1× rolo com extensor". O motorista vê "2x Lata de tinta acrílica 18 L / 1x Rolo de pintura com extensor".</td><td>O mesmo texto nas duas frentes, tirado da descrição que o lojista digita</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="rv" style="margin:48px 0 16px">Já corrigido: distância e valores do frete</h3>
+    <p class="muted rv" style="max-width:66ch;margin-bottom:20px">A mesma rodada achou um erro de regra. O lojista via "Distância estimada 6,4 km" e um frete de R$ 38,50 antes de pedir. No pedido do motorista, esses 6,4 km eram 1,8 km até a loja mais 4,6 km depois da retirada, ou seja, o frete incluía a ida de um motorista que ainda nem tinha sido escolhido.</p>
+    <div class="table-wrap rv">
+      <table class="stack">
+        <thead><tr><th scope="col">Antes</th><th scope="col">Depois</th><th scope="col">Por quê</th></tr></thead>
+        <tbody>
+          <tr><td class="before">Lojista: 6,4 km · R$ 38,50</td><td>Lojista: 4,6 km da loja ao destino · R$ 34,50</td><td>Quando o lojista pede, ainda não existe motorista, então a única distância conhecida é a da loja ao destino</td></tr>
+          <tr><td class="before">Motorista: "6,4 km no total" · você recebe R$ 38,50</td><td>Motorista: "Frete sobre 4,6 km · 6,4 km no total" · você recebe R$ 34,50</td><td>Ele continua vendo quanto vai rodar, e também quanto desse trajeto entra no frete</td></tr>
+          <tr><td class="before">Sem regra de frete</td><td>Utilitário: R$ 24,50 + 4,6 km × R$ 2,20 = R$ 34,62, arredondado para R$ 34,50</td><td>A tarifa base paga a ida até a loja e a espera na retirada. É uma regra fictícia, montada para chegar perto dos valores que as telas já tinham</td></tr>
+          <tr><td class="before">Histórico do motorista com fretes soltos: 4,1 km por R$ 26,00 e 9,2 km por R$ 44,00, ambos de utilitário</td><td>4,1 km por R$ 33,50 e 9,2 km por R$ 44,50. Semana de R$ 1.148,50</td><td>Com uma regra escrita, todo valor das telas tem que sair dela, inclusive os das outras entregas</td></tr>
+          <tr><td class="before">Ganhos de hoje: R$ 142,50 em 3 entregas no mapa e R$ 60,50 em 2 entregas no fim da #4830</td><td>R$ 33,50 em 1 entrega às 10:45, antes do pedido. R$ 68,00 em 2 entregas às 11:22</td><td>As duas telas são momentos do mesmo dia, então o mapa de espera mostra o que veio antes da #4830</td></tr>
         </tbody>
       </table>
     </div>
@@ -711,7 +716,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     <ul class="open">
       <li class="rv"><span class="lvl alta">Alta</span><b>Ninguém testou</b><p>Não conversei com lojistas nem com motoristas, e ninguém usou o protótipo. O problema e as soluções são hipóteses minhas.</p></li>
       <li class="rv"><span class="lvl alta">Alta</span><b>Preços sem validação</b><p>Não sei se R$ 79,90 por mês cabe no bolso do motorista nem se as assinaturas pagam a operação. Os números foram decididos por coerência entre eles, sem pesquisa.</p></li>
-      <li class="rv"><span class="lvl alta">Alta</span><b>Quem define o frete?</b><p>O frete de R$ 38,50 aparece pronto. Não desenhei a regra de cálculo (distância, veículo, carga) nem se o motorista pode recusar por achar baixo. E o frete é quase toda a conta do lojista: cerca de 95% na conta da seção 04. Também falta definir se os 6,4 km incluem o caminho do motorista até a loja (seção 10).</p></li>
+      <li class="rv"><span class="lvl alta">Alta</span><b>Quem define o frete?</b><p>Agora existe uma regra: tarifa base do veículo mais um valor por km, só da loja ao destino. Com ela, a #4830 custa R$ 34,50 pelos 4,6 km (seção 10). Mas os números são fictícios e ninguém conferiu se cobrem o custo do motorista. A carga ainda não entra na conta, e não decidi se o motorista pode recusar por achar o valor baixo. Isso pesa porque o frete é quase toda a conta do lojista, cerca de 95% na conta da seção 04.</p></li>
       <li class="rv"><span class="lvl alta">Alta</span><b>Estados de erro sem tela</b><p>Timer zerado, ninguém aceitou, palavra-chave errada, cancelamento, cadastro recusado depois do pagamento e primeiro dia sem entregas têm só a regra escrita na seção 08.</p></li>
       <li class="rv"><span class="lvl media">Média</span><b>A tela do destinatário não existe</b><p>Marcos recebe um link de acompanhamento por WhatsApp, mas a página que esse link abre não foi desenhada.</p></li>
       <li class="rv"><span class="lvl media">Média</span><b>"Menos de um minuto" e "30 segundos" não foram medidos</b><p>Criar uma entrega leva três etapas e uma revisão, e o motorista tem 30 segundos para decidir o pedido. As duas são metas. Sem um teste cronometrado, não sei se alguma delas foi cumprida.</p></li>
@@ -737,7 +742,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     <ul class="next rv">
       <li><iconify-icon icon="lucide:mic"></iconify-icon>Conversar com cinco lojistas do Dirceu e do Jóquei e cinco motoristas sobre como entregam hoje e quanto pagam.</li>
       <li><iconify-icon icon="lucide:timer"></iconify-icon>Testar o protótipo com tarefas: um lojista cria uma entrega (cronometrada) e um motorista aceita um pedido na rua, no sol.</li>
-      <li><iconify-icon icon="lucide:calculator"></iconify-icon>Desenhar a regra do frete e a conta da plataforma, para saber se os preços fecham.</li>
+      <li><iconify-icon icon="lucide:calculator"></iconify-icon>Comparar a regra provisória do frete com o que os motoristas cobram hoje e fechar a conta da plataforma, para saber se os preços fecham.</li>
       <li><iconify-icon icon="lucide:link"></iconify-icon>Desenhar a página de acompanhamento que o destinatário abre pelo link.</li>
       <li><iconify-icon icon="lucide:sun"></iconify-icon>Refazer o modo alto contraste e testar com o celular no sol.</li>
       <li><iconify-icon icon="lucide:library"></iconify-icon>Publicar o design system como biblioteca e trocar a cópia nas telas.</li>

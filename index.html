@@ -26,6 +26,7 @@ document.documentElement.dataset.theme=t;document.getElementById("metaTheme").co
 <link rel="canonical" href="https://portfoliozitomenezes.vercel.app/">
 <!-- Tokens: fonte única (cores, tipo, espaço, raio, sombra, movimento) -->
 <link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/components.css">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Foto de Antonio Zito">
@@ -99,43 +100,19 @@ body.lock{overflow:hidden}
 .page-loader span:last-child{font-family:var(--font-display);font-weight:500;font-size:13px;letter-spacing:.04em;color:var(--graphite)}
 
 /* =========================================================
-   BOTÕES (DS .theme-btn)
+   BOTÕES: o componente vem de css/components.css
+   (.theme-btn, .btn-roll, .btn-arrow, .btn-icon). Aqui ficam só os ajustes da home.
 ========================================================= */
-.theme-btn{--h:52px;position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:12px;height:var(--h);padding:0 26px;border-radius:var(--r-pill);border:1px solid transparent;font-family:var(--font-display);font-weight:500;font-size:16px;letter-spacing:-.01em;line-height:1;text-decoration:none;cursor:pointer;white-space:nowrap;overflow:hidden;transition:background var(--d-base) var(--ease-out),color var(--d-base),border-color var(--d-base),box-shadow var(--d-slow) var(--ease-out),transform var(--d-base) var(--ease-out),translate .5s var(--ease-out)}
-.theme-btn:active{transform:scale(.97)}
-.theme-btn--sm{--h:42px;padding:0 18px;font-size:14px;gap:8px}
+/* mesma transição do componente + translate do efeito magnético (.is-magnetic) */
+.theme-btn{transition:background var(--d-base) var(--ease-out),color var(--d-base),border-color var(--d-base),box-shadow var(--d-slow) var(--ease-out),transform var(--d-base) var(--ease-out),translate .5s var(--ease-out)}
 .theme-btn--block{width:100%}
-.theme-btn::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s var(--ease-out)}
-.theme-btn:hover::before{transform:translateX(120%)}
-.btn-roll{display:inline-block;position:relative;overflow:hidden;height:1.2em;line-height:1.2em}
-.btn-roll>span{display:block;transition:transform .5s var(--ease-out)}
-.btn-roll>span::after{content:attr(data-text);position:absolute;left:0;top:100%}
-.theme-btn:hover .btn-roll>span{transform:translateY(-100%)}
-.btn-arrow{position:relative;width:28px;height:28px;margin-right:-12px;border-radius:50%;display:grid;place-items:center;overflow:hidden;font-size:15px;flex:none}
-.btn-arrow iconify-icon{position:absolute;transition:transform .5s var(--ease-out)}
-.btn-arrow iconify-icon:last-child{transform:translateX(-160%)}
-.theme-btn:hover .btn-arrow iconify-icon:first-child{transform:translateX(160%)}
-.theme-btn:hover .btn-arrow iconify-icon:last-child{transform:translateX(0)}
-.btn-arrow--down iconify-icon:last-child{transform:translateY(-160%)}
-.theme-btn:hover .btn-arrow--down iconify-icon:first-child{transform:translateY(160%)}
-.theme-btn:hover .btn-arrow--down iconify-icon:last-child{transform:translateY(0)}
-.theme-btn--sm .btn-arrow{width:24px;height:24px;margin-right:-8px;font-size:13px}
-.theme-btn--primary{background:var(--ink);color:var(--white)}
-.theme-btn--primary .btn-arrow{background:var(--white);color:var(--ink)}
-.theme-btn--primary:hover{background:var(--black);box-shadow:var(--sh-glow)}
-.theme-btn--accent{background:var(--brand);color:var(--on-color)}
-.theme-btn--accent .btn-arrow{background:var(--on-color);color:var(--brand)}
-.theme-btn--accent:hover{background:var(--brand-600);box-shadow:var(--sh-glow)}
-.theme-btn--outline{background:rgba(var(--surface-rgb),.6);color:var(--ink);border-color:var(--steel)}
-.theme-btn--outline .btn-arrow{background:var(--mist)}
-.theme-btn--outline:hover{border-color:var(--ink);background:var(--snow)}
-.theme-btn--outline::before{background:linear-gradient(110deg,transparent 30%,rgba(var(--brand-rgb),.12) 50%,transparent 70%)}
-.btn-icon{width:44px;height:44px;flex:none;border-radius:50%;display:inline-grid;place-items:center;border:1px solid var(--steel);background:var(--white);font-size:19px;cursor:pointer;text-decoration:none;color:var(--ink);transition:background var(--d-base),color var(--d-base),border-color var(--d-base),transform var(--d-base) var(--ease-spring)}
-.btn-icon iconify-icon{transition:transform var(--d-base) var(--ease-out)}
-.btn-icon:hover{background:var(--ink);color:var(--white);border-color:var(--ink);transform:translateY(-2px)}
-.btn-icon:active{transform:scale(.92)}
-.btn-icon--glass{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.4);color:var(--white);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.btn-icon--glass:hover{background:rgba(255,255,255,.4);border-color:rgba(255,255,255,.7)}
+.btn-arrow{flex:none}
+.btn-icon{flex:none;text-decoration:none;color:var(--ink)}
+/* barra lateral e menu: os cinco ícones sociais ficam em 44px numa linha só */
+.socials .btn-icon{width:44px;height:44px}
+/* no carregamento a home usa o .spin próprio (bloco do formulário), sem o spinner do componente */
+.theme-btn.is-loading::after{content:none}
+.theme-btn.is-loading .btn-roll{opacity:1}
 .go-to-project-btn{position:relative;width:132px;height:132px;flex:none;border-radius:50%;display:grid;place-items:center;border:1px solid var(--steel);background:rgba(var(--surface-rgb),.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--ink);text-decoration:none;cursor:pointer;transition:background var(--d-slow) var(--ease-out),border-color var(--d-base),color var(--d-base)}
 .go-to-project-btn svg{position:absolute;inset:7px;width:calc(100% - 14px);height:calc(100% - 14px);animation:rotating 12s linear infinite}
 .go-to-project-btn text{font-family:var(--font-display);font-weight:600;font-size:14px;letter-spacing:.16em;text-transform:uppercase;fill:currentColor}
@@ -414,7 +391,7 @@ body.is-loaded .arch-layer .go-to-project-btn{animation:tag-pop .9s var(--ease-s
 .about-top{display:grid;gap:28px}
 @container (min-width:760px){.about-top{grid-template-columns:minmax(0,.9fr) minmax(0,1.25fr);gap:clamp(32px,6cqw,64px);align-items:start}.about-title{position:sticky;top:24px}}
 .about-title .subtitle{margin-bottom:22px}
-.section-title{margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(2rem,5.6cqw,3.25rem);line-height:1.06;letter-spacing:-.025em;text-wrap:balance}
+.section-title{margin:0;font-family:var(--font-display);font-weight:600;font-size:var(--fs-h2);line-height:1.1;letter-spacing:-.04em;text-wrap:balance}
 .section-title .serif{color:var(--accent);font-size:1.08em}
 .about-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
 .chip-soft{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 13px;border-radius:var(--r-pill);background:var(--snow);border:1px solid var(--mist);font-size:13px;color:var(--graphite);white-space:nowrap}
@@ -860,10 +837,7 @@ body.is-loaded .arch-layer .go-to-project-btn{animation:tag-pop .9s var(--ease-s
 [data-theme="dark"] .side-nav .indicator{background:var(--lilac);box-shadow:none}
 [data-theme="dark"] .hero-tag--dark iconify-icon{color:var(--brand)}
 [data-theme="dark"] .hero-tag{border-color:var(--mist)}
-[data-theme="dark"] .theme-btn::before{background:linear-gradient(110deg,transparent 30%,rgba(var(--brand-rgb),.25) 50%,transparent 70%)}
 [data-theme="dark"] .theme-btn--primary:hover{background:#FFFFFF}
-[data-theme="dark"] .theme-btn--outline{background:rgba(255,255,255,.04)}
-[data-theme="dark"] .theme-btn--outline:hover{border-color:var(--ink);background:rgba(255,255,255,.08)}
 [data-theme="dark"] .ticket-card{box-shadow:0 14px 30px -14px rgba(0,0,0,.8)}
 [data-theme="dark"] .arch{box-shadow:0 40px 80px -30px rgba(var(--brand-rgb),.35),inset 0 0 0 1px rgba(255,255,255,.12)}
 [data-theme="dark"] .service:hover .service-mark{color:var(--brand-tint)}
@@ -1288,7 +1262,7 @@ const CONTENT = {
     tags: [
       { text: "Figma", icon: "lucide:figma" },
       { text: "Wireframes e protótipos", icon: "lucide:pen-tool", tone: "dark" },
-      { text: "Design gráfico", icon: "lucide:palette" }
+      { text: "Design system", icon: "lucide:layers" }
     ],
     tools: [
       { text: "Figma", icon: "logos:figma" },

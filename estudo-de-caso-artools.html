@@ -29,11 +29,12 @@ addEventListener("pageshow",function(e){if(e.persisted)document.querySelectorAll
 <link rel="canonical" href="https://portfoliozitomenezes.vercel.app/estudo-de-caso-artools.html">
 <!-- Tokens: fonte única (cores, tipo, espaço, raio, sombra, movimento) -->
 <link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/components.css">
 
 <link rel="preload" href="assets/ds/fonts/inter-display-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <script src="assets/ds/js/iconify-icon.min.js"></script>
 
 <style>
@@ -62,16 +63,7 @@ a{color:inherit}
 .back{white-space:nowrap}.back .short{display:none}
 @media (max-width:480px){.back .full{display:none}.back .short{display:inline}}
 .top-right{display:flex;align-items:center;gap:8px}
-.btn-icon{width:42px;height:42px;border-radius:50%;display:inline-grid;place-items:center;border:1px solid var(--steel);background:var(--white);font-size:18px;cursor:pointer;color:var(--ink);transition:background .3s,color .3s,border-color .3s}
-.btn-icon:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
-
-/* Botões (DS .theme-btn, versão simples) */
-.theme-btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:var(--r-pill);border:1px solid transparent;font-family:var(--font-display);font-weight:500;font-size:15px;text-decoration:none;white-space:nowrap;transition:background .3s var(--ease-out),box-shadow .6s var(--ease-out),border-color .3s,transform .3s var(--ease-out)}
-.theme-btn:active{transform:scale(.97)}
-.theme-btn--primary{background:var(--ink);color:var(--white)}
-.theme-btn--primary:hover{box-shadow:var(--sh-glow)}
-.theme-btn--outline{background:transparent;color:var(--ink);border-color:var(--steel)}
-.theme-btn--outline:hover{border-color:var(--ink);background:var(--snow)}
+/* Botões: .theme-btn e .btn-icon vêm de css/components.css (ajustes de contexto mais abaixo) */
 
 /* Layout */
 .wrap{max-width:calc(var(--max) + 2*var(--gutter));margin:0 auto;padding:0 var(--gutter)}
@@ -79,12 +71,12 @@ main{display:flex;flex-direction:column;gap:96px;padding:56px 0 96px}
 @media (max-width:640px){main{gap:72px;padding-top:36px}}
 section{scroll-margin-top:90px}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;line-height:1;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
-h1,h2,h3{font-family:var(--font-display);margin:0;text-wrap:balance;letter-spacing:-.03em}
-h1{font-weight:600;font-size:clamp(40px,7vw,76px);line-height:1}
-h2{font-weight:600;font-size:clamp(28px,4vw,42px);line-height:1.1}
-h3{font-weight:600;font-size:20px;line-height:1.3;letter-spacing:-.015em}
+h1,h2,h3{font-family:var(--font-display);margin:0;text-wrap:balance}
+h1{font-weight:700;font-size:var(--fs-h1);line-height:1.05;letter-spacing:-.04em}
+h2{font-weight:600;font-size:var(--fs-h2);line-height:1.1;letter-spacing:-.04em}
+h3{font-weight:500;font-size:var(--fs-h5);line-height:1.2;letter-spacing:-.02em}
 p{margin:0}
-.lead{font-size:clamp(18px,2.2vw,22px);color:var(--graphite);max-width:60ch;line-height:1.55}
+.lead{font-size:var(--fs-body-lg);color:var(--graphite);max-width:60ch;line-height:1.6;letter-spacing:-.01em}
 .muted{color:var(--graphite)}
 .prose{display:flex;flex-direction:column;gap:16px;max-width:68ch}
 .sec-head{display:flex;flex-direction:column;gap:14px;margin-bottom:32px}
@@ -244,7 +236,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 /* Cabeçalho: pílula de vidro flutuante, como a barra da home */
 .topbar{position:sticky;top:0;z-index:100;padding:10px var(--gutter) 0;background:none;border:0;backdrop-filter:none;-webkit-backdrop-filter:none}
 .topbar-in{max-width:var(--max);padding:7px;border-radius:var(--r-pill);background:rgba(var(--surface-rgb),.75);backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3);border:1px solid var(--mist);box-shadow:var(--sh-sm)}
-.btn-icon{width:44px;height:44px}
+.btn-icon{width:44px;height:44px;color:var(--ink)}
 .topbar .theme-btn{height:44px!important}
 @media (max-width:380px){.topbar .top-right .theme-btn{display:none}}
 
@@ -354,12 +346,12 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     <div class="sec-head rv"><span class="num">02</span><h2>Para quem é</h2></div>
     <div class="split">
       <div class="prose rv">
-        <p><b>Profissionais de escritório que escrevem e assinam documentos todos os dias</b>, num perfil mais sofisticado.</p>
-        <p>Para essas pessoas, a caneta também é um acessório de estilo e status, como um relógio: pela caneta que alguém carrega, dá para ter uma ideia de quem a pessoa é.</p>
+        <p><b>Gente que desenha e escreve à mão todo dia</b>: ilustradores, designers, arquitetos, estudantes de design e quem mantém um caderno de anotações.</p>
+        <p>Para essas pessoas, a caneta é ferramenta de trabalho. Elas reparam se a linha sai igual do começo ao fim da folha, se a tinta borra quando passa marca-texto ou aquarela por cima e se a ponta fina aguenta meses de uso.</p>
       </div>
       <div class="prose rv">
-        <p>Essa pessoa já tem várias canetas, então não compra por necessidade. Ela compra quando sai uma versão nova, quando aparece uma edição de colecionador ou quando precisa de refil para continuar com a caneta que já tem.</p>
-        <p class="muted" style="font-size:15px">Refil e edição de colecionador ficaram fora desta versão e entram nos próximos passos.</p>
+        <p>Imagino que essa pessoa já tenha testado várias marcas antes de ficar com uma. Ela compra quando a caneta que usa acaba, quando quer outra espessura de ponta ou quando vê alguém desenhando com uma melhor. Continua sendo um produto caro, e o que justifica o preço é o traço.</p>
+        <p class="muted" style="font-size:15px">Esse perfil é suposição minha: ainda não conversei com ninguém desse grupo. Na primeira versão do case o público era outro, e mudei porque ele não combinava com o produto (veja <a href="#revisao-publico">Revisão</a>). Refil e outras espessuras de ponta ficaram fora desta versão e entram nos próximos passos.</p>
       </div>
     </div>
   </section>
@@ -409,7 +401,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       <li><span class="n">2</span><span class="t">Detalhes</span><span class="q">É boa mesmo?</span></li>
       <li><span class="n">3</span><span class="t">Dia a dia</span><span class="q">Combina com a minha rotina?</span></li>
       <li><span class="n">4</span><span class="t">Garantia</span><span class="q">E se ela falhar?</span></li>
-      <li><span class="n">5</span><span class="t">Assinatura</span><span class="q">Combina comigo?</span></li>
+      <li><span class="n">5</span><span class="t">Assinatura</span><span class="q">Como fica o traço?</span></li>
       <li><span class="n">6</span><span class="t">Compra</span><span class="q">Quero.</span></li>
     </ol>
 
@@ -457,8 +449,9 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     <div class="part">
       <div class="part-text rv">
         <span class="tag">5 · Assinatura</span>
-        <p class="q">"Combina comigo?"</p>
-        <p>Esta seção fala com quem assina documentos todo dia e liga para estilo e status. O fundo imita papel e a caneta "assina o próprio nome" na tela, como quando alguém rabisca numa folha para testar uma caneta na loja.</p>
+        <p class="q">"Como fica o traço?"</p>
+        <p>O fundo imita papel e a caneta "assina o próprio nome" na tela, como quando alguém rabisca numa folha para testar uma caneta na loja. A lupa acompanha a ponta e mostra a linha de 0,1 mm de perto, que é o que quem desenha quer ver antes de comprar.</p>
+        <p class="muted" style="font-size:15px">Na primeira versão, a pergunta era "Combina comigo?" e a seção falava com quem assina documentos e liga para status. Mudou junto com o público (veja <a href="#revisao-publico">Revisão</a>).</p>
       </div>
       <figure class="rv"><div class="shot"><img src="assets/projects/artools-case/assinatura.webp" width="1440" height="900" loading="lazy" alt="Seção 'Aqui ela assina o próprio nome': a caneta escreve Pigmentum em letra cursiva sobre um fundo que imita papel, com uma lupa mostrando o traço de 0,1 mm."></div></figure>
     </div>
@@ -498,7 +491,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 
   <!-- 06 TESTE -->
   <section class="wrap" id="teste">
-    <div class="sec-head rv"><span class="num">06</span><h2>Conversa simulada com 4 perfis</h2><p><b>Esta conversa foi simulada com IA.</b> Montei 4 perfis fictícios, parecidos com pessoas do meu trabalho e de casa, e perguntei a cada um sobre cada parte da página. As respostas são simuladas: nenhuma pessoa real usou a página. Sem pessoas reais e sem tarefas, o resultado só ajuda a levantar hipóteses; confirmar fica para um teste com o público. Revendo a página no celular depois, achei dois problemas que a simulação não pegou: o véu atrás do título escondia a caneta no topo e as medidas do desenho técnico ficavam pequenas demais para ler. Os dois já foram corrigidos.</p></div>
+    <div class="sec-head rv"><span class="num">06</span><h2>Conversa simulada com 4 perfis</h2><p><b>Esta conversa foi simulada com IA.</b> Montei 4 perfis fictícios, parecidos com pessoas do meu trabalho e de casa, e perguntei a cada um sobre cada parte da página. As respostas são simuladas: nenhuma pessoa real usou a página. Sem pessoas reais e sem tarefas, o resultado só ajuda a levantar hipóteses; confirmar fica para um teste com o público. A simulação também é anterior à troca de público: as hipóteses abaixo foram pensadas para os profissionais que assinam documentos, e nenhum dos 4 perfis desenha ou escreve à mão por ofício. Para o público de hoje, ela vale ainda menos. Revendo a página no celular depois, achei dois problemas que a simulação não pegou: o véu atrás do título escondia a caneta no topo e as medidas do desenho técnico ficavam pequenas demais para ler. Os dois já foram corrigidos.</p></div>
 
     <div class="table-wrap rv">
       <table class="stack">
@@ -512,10 +505,11 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
         </tbody>
       </table>
     </div>
+    <p class="cap rv">Com o público novo, eu começaria por hipóteses que a simulação não cobriu: se a lupa da assinatura e o modo técnico ajudam quem desenha a julgar a linha, e se a frase sobre marca-texto e aquarela por cima é a prova que essa pessoa procura. Nenhuma delas foi testada.</p>
 
     <div class="split" style="margin-top:28px">
-      <div class="card rv"><span class="k">O que eu mudaria</span><p>Numa versão real, a compra principal seria por carrinho, e o WhatsApp ficaria como opção para quem tem dúvida ou quer algo especial, como a edição de colecionador. O carrinho também mostraria o preço, que pelo WhatsApp só aparece na conversa. Isso pode explicar parte da preferência pelo carrinho.</p></div>
-      <div class="card rv"><span class="k">Limites da simulação</span><p>As respostas foram geradas com IA, a partir de perfis de classe média, diferentes do público que defini. Por isso trato o resultado como hipótese. No próximo passo, eu chamaria pessoas reais do público, que não me conhecem, e daria tarefas para elas cumprirem sozinhas.</p></div>
+      <div class="card rv"><span class="k">O que eu mudaria</span><p>Numa versão real, a compra principal seria por carrinho, e o WhatsApp ficaria como opção para quem tem dúvida ou quer algo fora do padrão, como várias canetas de uma vez para uma turma ou um escritório. O carrinho também mostraria o preço, que pelo WhatsApp só aparece na conversa. Isso pode explicar parte da preferência pelo carrinho.</p></div>
+      <div class="card rv"><span class="k">Limites da simulação</span><p>As respostas foram geradas com IA, a partir de perfis de classe média, que já eram diferentes do público definido na época (profissionais que assinam documentos). Depois troquei o público por quem desenha e escreve à mão, e a distância aumentou: nenhum perfil simulado tem essa rotina. Por isso trato o resultado como hipótese fraca. No próximo passo, eu chamaria ilustradores, designers, arquitetos e estudantes de design que não me conhecem e daria tarefas para cumprirem sozinhos.</p></div>
     </div>
   </section>
 
@@ -531,7 +525,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
           <tr><td><b>Versão 1</b></td><td>Caixa de compra, fades e barra de navegação. Surgiram no processo: vendo o site tomar forma, senti falta de animações e acabamentos que o deixassem mais premium. A caixa de compra também deu um destino aos botões "Comprar".</td></tr>
           <tr><td><b>Versão 2</b></td><td>Tirar a "cara de IA" dos textos: trocar frases grandiosas e genéricas por fatos que a pessoa consegue imaginar (veja abaixo).</td></tr>
           <tr><td><b>Final</b></td><td>Tirei a numeração de 01 a 05 dos cartões. Numerar cartões é um vício comum de layouts gerados por IA, e ali eles só enfeitavam, sem ajudar a leitura.</td></tr>
-          <tr><td><b>Revisão (nov/2026)</b></td><td>Numa rodada de avaliação do portfólio, simulada com IA, ficou claro que a landing contradizia este estudo: eu tinha cortado o exagero do meio da página e deixado o maior no título, e a garantia ainda prometia reembolso. Troquei os textos (veja abaixo) e apliquei o cinza mais escuro nos textos pequenos.</td></tr>
+          <tr><td><b>Revisão (nov/2026)</b></td><td>Numa rodada de avaliação do portfólio, simulada com IA, ficou claro que a landing contradizia este estudo: eu tinha cortado o exagero do meio da página e deixado o maior no título, e a garantia ainda prometia reembolso. Troquei os textos (veja abaixo) e apliquei o cinza mais escuro nos textos pequenos. Depois, um avaliador mostrou que o público do case não combinava com o produto, e mudei o público.</td></tr>
         </tbody>
       </table>
     </div>
@@ -569,6 +563,23 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     </div>
     <p class="cap rv">As imagens desta página mostram a versão anterior. A <a href="artools/index.html" target="_blank" rel="noopener">landing ao vivo</a> já está com os textos novos.</p>
 
+    <h3 class="rv" id="revisao-publico" style="margin:48px 0 8px">Revisão: o público não combinava com o produto</h3>
+    <p class="muted rv" style="max-width:66ch;margin-bottom:20px">Um avaliador apontou que o público e o produto não batiam. O case falava de profissionais que assinam documentos e escolhem caneta como escolhem relógio, mas a Pigmentum é uma fineliner de ponta 0,1 mm, e ninguém assina contrato com uma. A própria landing já falava com outra pessoa: "Marca-texto, aquarela, café. Pode vir." e um dia inteiro anotando. Mantive o produto e troquei o público por quem desenha e escreve à mão. A caneta continua cara, e quem paga por ela paga pela qualidade do traço.</p>
+    <div class="table-wrap rv">
+      <table class="stack">
+        <thead><tr><th scope="col">Onde</th><th scope="col">Antes</th><th scope="col">Depois</th></tr></thead>
+        <tbody>
+          <tr><td>Perfil</td><td class="before">Profissionais de escritório que escrevem e assinam documentos todos os dias, num perfil mais sofisticado.</td><td>Gente que desenha e escreve à mão todo dia: ilustradores, designers, arquitetos, estudantes de design e quem mantém um caderno de anotações.</td></tr>
+          <tr><td>Por que paga mais</td><td class="before">A caneta como acessório de estilo e status, como um relógio.</td><td>A linha igual do começo ao fim, a tinta que não borra e a ponta que dura.</td></tr>
+          <tr><td>Quando compra</td><td class="before">Versão nova, edição de colecionador ou refil.</td><td>Quando a caneta atual acaba, quando quer outra espessura de ponta ou quando vê alguém desenhando com uma melhor.</td></tr>
+          <tr><td>Pergunta da seção 5</td><td class="before">Combina comigo?</td><td>Como fica o traço?</td></tr>
+          <tr><td>Conversa simulada</td><td class="before">Tratada como hipótese.</td><td>Hipótese ainda mais fraca, porque os perfis foram montados para o público antigo.</td></tr>
+          <tr><td>Próximos passos</td><td class="before">Edição de colecionador e textos sobre estilo e status.</td><td>Outras espessuras de ponta e um dia a dia com a rotina de quem desenha.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cap rv">O público novo também é suposição. Combina melhor com o que a landing já mostrava, mas ninguém desse grupo viu a página até agora. Os textos da landing não mudaram com a troca, porque nenhum falava de status ou de assinar documentos.</p>
+
     <h3 class="rv" style="margin:48px 0 8px">Como nasceu o vídeo da abertura</h3>
     <p class="muted rv" style="max-width:66ch;margin-bottom:20px">Criei no Gemini a imagem do primeiro quadro e a do último. Depois usei o Google Flow, com o modelo Veo 3, para gerar a transição entre os dois.</p>
     <div class="frames rv">
@@ -594,9 +605,9 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     <ul class="next rv">
       <li><iconify-icon icon="lucide:shopping-cart"></iconify-icon>Carrinho como compra principal, com o WhatsApp como apoio.</li>
       <li><iconify-icon icon="lucide:refresh-cw"></iconify-icon>Venda de refil, para quem já tem a caneta.</li>
-      <li><iconify-icon icon="lucide:gem"></iconify-icon>Uma edição de colecionador, para quem compra pela exclusividade.</li>
-      <li><iconify-icon icon="lucide:pen-line"></iconify-icon>Textos que falem mais de estilo e status. Parte deles ("marca-texto, aquarela, café. Pode vir") fala de uso funcional, mais próximo de estudante ou artista do que do público que defini.</li>
-      <li><iconify-icon icon="lucide:clipboard-check"></iconify-icon>Um teste com pessoas reais do público, com tarefas para cumprirem sozinhas.</li>
+      <li><iconify-icon icon="lucide:layers"></iconify-icon>Outras espessuras de ponta, soltas ou em kit, para quem desenha com pesos de linha diferentes.</li>
+      <li><iconify-icon icon="lucide:pen-line"></iconify-icon>Rever o "um dia com a caneta", que ainda segue uma rotina de escritório (reunião, bolso da camisa, avião), e trocar por momentos de quem desenha: o esboço, a planta, a página do caderno.</li>
+      <li><iconify-icon icon="lucide:clipboard-check"></iconify-icon>Um teste com ilustradores, designers, arquitetos e estudantes de design, com tarefas para cumprirem sozinhos.</li>
     </ul>
 
     <div class="end rv" style="margin-top:56px">

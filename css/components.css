@@ -12,7 +12,7 @@
    (ex.: .topbar .theme-btn{--h:44px}), mas não redefine o componente.
    Se precisar de outra variante, ela entra aqui e no design system.
 
-   Ainda não está ligado em nenhuma página (16/11/2026).
+   Ligado em index.html e nos três estudo-de-caso-*.html (16/11/2026).
    Passo a passo da ligação: ../avaliacoes-portfolio/rodada-2/plano-tokens.md
 ============================================================= */
 
@@ -65,6 +65,7 @@
 .theme-btn--ghost::after{content:"";position:absolute;left:4px;right:4px;bottom:12px;height:1px;background:currentColor;transform:scaleX(.25);transform-origin:left;transition:transform .5s var(--ease-out)}
 .theme-btn--ghost:hover::after{transform:scaleX(1)}
 [data-theme="dark"] .theme-btn--outline{background:rgba(255,255,255,.04)}
+[data-theme="dark"] .theme-btn--outline:hover{background:rgba(255,255,255,.08)}
 [data-theme="dark"] .theme-btn::before{background:linear-gradient(110deg,transparent 30%,rgba(var(--brand-rgb),.25) 50%,transparent 70%)}
 /* estados */
 .theme-btn.is-disabled,.theme-btn:disabled{opacity:.38;cursor:not-allowed;box-shadow:none;transform:none}

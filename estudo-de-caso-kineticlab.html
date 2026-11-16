@@ -27,6 +27,7 @@ addEventListener("pageshow",function(e){if(e.persisted)document.querySelectorAll
 <link rel="canonical" href="https://portfoliozitomenezes.vercel.app/estudo-de-caso-kineticlab.html">
 <!-- Tokens: fonte única (cores, tipo, espaço, raio, sombra, movimento) -->
 <link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/components.css">
 
 <link rel="preload" href="assets/ds/fonts/inter-display-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -60,16 +61,7 @@ a{color:inherit}
 .back{white-space:nowrap}.back .short{display:none}
 @media (max-width:480px){.back .full{display:none}.back .short{display:inline}}
 .top-right{display:flex;align-items:center;gap:8px}
-.btn-icon{width:42px;height:42px;border-radius:50%;display:inline-grid;place-items:center;border:1px solid var(--steel);background:var(--white);font-size:18px;cursor:pointer;color:var(--ink);transition:background .3s,color .3s,border-color .3s}
-.btn-icon:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
-
-/* Botões (DS .theme-btn, versão simples) */
-.theme-btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:var(--r-pill);border:1px solid transparent;font-family:var(--font-display);font-weight:500;font-size:15px;text-decoration:none;white-space:nowrap;transition:background .3s var(--ease-out),box-shadow .6s var(--ease-out),border-color .3s,transform .3s var(--ease-out)}
-.theme-btn:active{transform:scale(.97)}
-.theme-btn--primary{background:var(--ink);color:var(--white)}
-.theme-btn--primary:hover{box-shadow:var(--sh-glow)}
-.theme-btn--outline{background:transparent;color:var(--ink);border-color:var(--steel)}
-.theme-btn--outline:hover{border-color:var(--ink);background:var(--snow)}
+/* Botões: .theme-btn e .btn-icon vêm de css/components.css (ajustes de contexto mais abaixo) */
 
 /* Layout */
 .wrap{max-width:calc(var(--max) + 2*var(--gutter));margin:0 auto;padding:0 var(--gutter)}
@@ -77,12 +69,12 @@ main{display:flex;flex-direction:column;gap:96px;padding:56px 0 96px}
 @media (max-width:640px){main{gap:72px;padding-top:36px}}
 section{scroll-margin-top:90px}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;line-height:1;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
-h1,h2,h3{font-family:var(--font-display);margin:0;text-wrap:balance;letter-spacing:-.03em}
-h1{font-weight:600;font-size:clamp(40px,7vw,76px);line-height:1}
-h2{font-weight:600;font-size:clamp(28px,4vw,42px);line-height:1.1}
-h3{font-weight:600;font-size:20px;line-height:1.3;letter-spacing:-.015em}
+h1,h2,h3{font-family:var(--font-display);margin:0;text-wrap:balance}
+h1{font-weight:700;font-size:var(--fs-h1);line-height:1.05;letter-spacing:-.04em}
+h2{font-weight:600;font-size:var(--fs-h2);line-height:1.1;letter-spacing:-.04em}
+h3{font-weight:500;font-size:var(--fs-h5);line-height:1.2;letter-spacing:-.02em}
 p{margin:0}
-.lead{font-size:clamp(18px,2.2vw,22px);color:var(--graphite);max-width:60ch;line-height:1.55}
+.lead{font-size:var(--fs-body-lg);color:var(--graphite);max-width:60ch;line-height:1.6;letter-spacing:-.01em}
 .muted{color:var(--graphite)}
 .prose{display:flex;flex-direction:column;gap:16px;max-width:68ch}
 .sec-head{display:flex;flex-direction:column;gap:14px;margin-bottom:32px}
@@ -284,7 +276,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 /* Cabeçalho: pílula de vidro flutuante, como a barra da home */
 .topbar{position:sticky;top:0;z-index:100;padding:10px var(--gutter) 0;background:none;border:0;backdrop-filter:none;-webkit-backdrop-filter:none}
 .topbar-in{max-width:var(--max);padding:7px;border-radius:var(--r-pill);background:rgba(var(--surface-rgb),.75);backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3);border:1px solid var(--mist);box-shadow:var(--sh-sm)}
-.btn-icon{width:44px;height:44px}
+.btn-icon{width:44px;height:44px;color:var(--ink)}
 .topbar .theme-btn{height:44px!important}
 @media (max-width:380px){.topbar .top-right .theme-btn{display:none}}
 
