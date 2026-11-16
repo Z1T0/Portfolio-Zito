@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Antonio Zito · UX/UI Designer</title>
-<meta name="description" content="Portfólio de Antonio Zito, UX/UI Designer em formação em Teresina, PI. Interfaces web e mobile pensadas a partir do objetivo do cliente e da rotina de quem vai usar.">
+<meta name="description" content="Portfólio de Antonio Zito, UX/UI Designer em Teresina, PI. Desenho interfaces web e mobile partindo do objetivo do cliente e da rotina de quem vai usar.">
 <meta name="author" content="Antonio Zito Menezes do Desterro Junior">
 <meta name="theme-color" content="#FFFFFF" id="metaTheme">
 <meta name="color-scheme" content="light dark">
@@ -19,17 +19,19 @@ document.documentElement.dataset.theme=t;document.getElementById("metaTheme").co
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Antonio Zito">
 <meta property="og:title" content="Antonio Zito · UX/UI Designer">
-<meta property="og:description" content="Interfaces web e mobile pensadas a partir de quem usa. Teresina, PI.">
+<meta property="og:description" content="Desenho interfaces web e mobile a partir da rotina de quem usa. Teresina, PI.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <meta property="og:image" content="https://portfoliozitomenezes.vercel.app/assets/img/og-antonio.jpg">
 <meta property="og:url" content="https://portfoliozitomenezes.vercel.app/">
 <link rel="canonical" href="https://portfoliozitomenezes.vercel.app/">
+<!-- Tokens: fonte única (cores, tipo, espaço, raio, sombra, movimento) -->
+<link rel="stylesheet" href="css/tokens.css">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Foto de Antonio Zito">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Antonio Zito · UX/UI Designer">
-<meta name="twitter:description" content="Interfaces web e mobile pensadas a partir de quem usa. Teresina, PI.">
+<meta name="twitter:description" content="Desenho interfaces web e mobile a partir da rotina de quem usa. Teresina, PI.">
 <meta name="twitter:image" content="https://portfoliozitomenezes.vercel.app/assets/img/og-antonio.jpg">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Person","name":"Antonio Zito Menezes do Desterro Junior","alternateName":"Antonio Zito","jobTitle":"UX/UI Designer","address":{"@type":"PostalAddress","addressLocality":"Teresina","addressRegion":"PI","addressCountry":"BR"},"sameAs":["https://www.linkedin.com/in/antonio-zito-4b64b71b0","https://www.behance.net/antoniozitome"]}
@@ -55,69 +57,11 @@ document.documentElement.dataset.theme=t;document.getElementById("metaTheme").co
 @font-face{font-family:"Inter Display";src:url("assets/ds/fonts/inter-display-700.woff2") format("woff2");font-weight:700;font-display:swap}
 @font-face{font-family:"Inter Display";src:url("assets/ds/fonts/inter-display-800.woff2") format("woff2");font-weight:800;font-display:swap}
 
-/* =========================================================
-   TOKENS (design_system.html)
-   Aliases semânticos no padrão shadcn: --background, --foreground,
-   --primary, --muted, --border, --radius
-========================================================= */
-:root,.project-media{
-  color-scheme:light;
-  --white:#FFFFFF;--snow:#F6F7FA;--mist:#E9ECF3;--lilac:#DFE0EB;--steel:#C7CCD8;--graphite:#474747;--ink:#101010;--black:#0A0A0A;
-  --brand:#3458FF;--brand-600:#2442D9;--brand-soft:#9AACFE;--brand-pale:#CDD5FB;--brand-tint:#EEF1FF;--navy:#03236D;
-  --brand-rgb:52,88,255;--shade-rgb:3,35,109;
-  --border-input:#858B9A;
-  --amber:#FFC036;--green:#28E98C;--green-ink:#0B7A47;--red:#FF2244;--red-ink:#D3112F;
-
-  --on-color:#FFFFFF;
-  --accent:var(--brand);
-  --surface-rgb:255,255,255;
-  --fg-rgb:16,16,16;
-  --dim:#6B7180;
-  --tk-alt:#DCE3FF;
-  --band:#101010;
-  --band-border:#101010;
-  --g-text:linear-gradient(180deg,#101010 35%,#474747 100%);
-  --bg-blob:.34;
-  --danger:#C8102E;
-  --danger-soft:#FFF0F2;
-  --success:#0B7A47;
-  --background:var(--white);
-  --foreground:var(--ink);
-  --primary:var(--brand);
-  --primary-foreground:var(--white);
-  --muted:var(--snow);
-  --muted-foreground:var(--graphite);
-  --border:var(--mist);
-  --radius:20px;
-
-  --g-arch:linear-gradient(180deg,#3457FF 0%,#DFE0EB 100%);
-  --g-glass:linear-gradient(307deg,rgba(255,255,255,.2) 0%,rgba(255,255,255,.02) 25% 45%,rgba(255,255,255,.2) 78%,rgba(255,255,255,0) 100%);
-  --g-ink:linear-gradient(180deg,#101010 35%,#474747 100%);
-  --g-beam:linear-gradient(270deg,rgba(var(--brand-rgb),0) 0%,rgb(var(--brand-rgb)) 52.7%,rgba(var(--brand-rgb),0) 100%);
-
-  --font-display:"Inter Display","Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-  --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-  --font-serif:"Instrument Serif",Georgia,serif;
-
-  --r-sm:10px;--r-md:20px;--r-lg:30px;--r-arch:300px;--r-pill:999px;
-  --sh-sm:0 1px 2px rgba(16,16,16,.06),0 2px 8px rgba(16,16,16,.04);
-  --sh-md:0 10px 30px -12px rgba(16,16,16,.18);
-  --sh-lg:0 30px 60px -20px rgba(16,16,16,.25);
-  --sh-glow:0 14px 40px -12px rgba(var(--brand-rgb),.55);
-
-  --ease-out:cubic-bezier(.16,1,.3,1);
-  --ease-power4:cubic-bezier(.23,1,.32,1);
-  --ease-spring:cubic-bezier(.34,1.56,.64,1);
-  --ease-inout:cubic-bezier(.65,0,.35,1);
-  --d-fast:160ms;--d-base:320ms;--d-slow:700ms;--d-reveal:1200ms;
-
-  --sidebar-w:340px;
-  --shell-gap:48px;
-  --shell-max:1280px;
-  --gutter:16px;
-  --topbar-h:68px;
-}
-@media (min-width:768px){:root{--gutter:24px}}
+/* Ajustes locais sobre css/tokens.css */
+/* cores da tela do app EasyLog desenhada no card (ilustração do produto, não são do sistema) */
+.project-media{--red:#FF2244;--red-ink:#D3112F}
+/* PENDENTE (passo 2): o sistema usa #8A91A2 no escuro */
+:root[data-theme="dark"]{--dim:#7D8496}
 
 /* =========================================================
    BASE
@@ -382,13 +326,14 @@ body.is-loaded .hero-word .char{animation:char-rise 1.2s var(--ease-power4) forw
 .ticket-dots i{width:5px;height:5px;border-radius:5px;background:rgba(var(--fg-rgb),.22)}
 .ticket-dots i.on{width:14px;background:var(--brand)}
 .ticket-head{padding:14px 16px 12px;border-bottom:1px dashed rgba(var(--fg-rgb),.18);display:flex;justify-content:space-between;gap:10px}
-.ticket-head .t-label{font-size:10.5px;color:var(--graphite);margin:0 0 6px}
+.ticket-head .t-label{font-size:12px;color:var(--graphite);margin:0 0 6px}
 .ticket-title{margin:0;font-family:var(--font-display);font-weight:600;font-size:17px;line-height:1.15;letter-spacing:-.03em}
-.ticket-title .serif{color:var(--accent);font-size:1.12em}
+.ticket-title .serif{color:var(--brand-600);font-size:1.12em}
+[data-theme="dark"] .ticket-title .serif{color:var(--accent)}
 .ticket-head iconify-icon{font-size:20px;flex:none}
 .ticket-body{padding:10px 16px 12px;display:grid;grid-template-columns:1fr;gap:8px}
 .ticket-body p{margin:0}
-.ticket-body .k{font-size:10.5px;color:var(--graphite);line-height:1.3}
+.ticket-body .k{font-size:12px;color:var(--graphite);line-height:1.3}
 .ticket-body .v{font-size:12.5px;font-weight:500;line-height:1.3}
 .barcode{grid-column:1/-1;height:20px;opacity:.72;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 5px,transparent 5px 8px,var(--ink) 8px 11px,transparent 11px 12px,var(--ink) 12px 13px,transparent 13px 17px)}
 .ticket-bottom{position:absolute;left:0;bottom:-10px;height:10px;width:100%;background:var(--tk);-webkit-mask:radial-gradient(circle at 10px 10px,transparent 5px,#000 5.5px) 0 0/20px 10px repeat-x;mask:radial-gradient(circle at 10px 10px,transparent 5px,#000 5.5px) 0 0/20px 10px repeat-x}
@@ -464,6 +409,9 @@ body.is-loaded .arch-layer .go-to-project-btn{animation:tag-pop .9s var(--ease-s
 .sc-bg .dots{position:absolute;inset:0;background-image:radial-gradient(rgba(var(--brand-rgb),.2) 1.2px,transparent 1.4px);background-size:22px 22px;-webkit-mask-image:radial-gradient(ellipse 55% 50% at 90% 10%,#000,transparent 70%);mask-image:radial-gradient(ellipse 55% 50% at 90% 10%,#000,transparent 70%);animation:grid-pan 60s linear infinite reverse}
 .sc-bg .blob{position:absolute;width:520px;height:520px;border-radius:50%;filter:blur(100px);opacity:.32;background:var(--brand-pale);left:-180px;bottom:-220px;animation:drift-b 26s var(--ease-inout) infinite alternate}
 .sc-bg .glow{position:absolute;width:420px;right:-140px;top:-160px;opacity:.28;animation:float-y 12s var(--ease-inout) infinite alternate}
+/* luzes decorativas em CSS (antes eram glow-wide.webp e glow-heart.webp, 712 KB) */
+.glow-wide{aspect-ratio:1400/1132;background:radial-gradient(ellipse 30% 24% at 50% 64%,rgba(var(--brand-rgb),.95),rgba(var(--brand-rgb),.55) 45%,transparent 100%),radial-gradient(ellipse 20% 30% at 27% 47%,rgba(var(--brand-rgb),.7),transparent 100%),radial-gradient(ellipse 20% 27% at 74% 43%,rgba(var(--brand-rgb),.6),transparent 100%)}
+.glow-heart{aspect-ratio:1025/1400;background:radial-gradient(ellipse 26% 22% at 50% 64%,rgba(var(--brand-rgb),.95),rgba(var(--brand-rgb),.55) 45%,transparent 100%),radial-gradient(ellipse 20% 22% at 30% 42%,rgba(var(--brand-rgb),.7),transparent 100%),radial-gradient(ellipse 19% 20% at 70% 38%,rgba(var(--brand-rgb),.55),transparent 100%)}
 .sc-inner{padding:clamp(28px,5cqw,52px) clamp(20px,5cqw,52px) clamp(24px,4cqw,44px)}
 .about-top{display:grid;gap:28px}
 @container (min-width:760px){.about-top{grid-template-columns:minmax(0,.9fr) minmax(0,1.25fr);gap:clamp(32px,6cqw,64px);align-items:start}.about-title{position:sticky;top:24px}}
@@ -691,14 +639,15 @@ body.is-loaded .arch-layer .go-to-project-btn{animation:tag-pop .9s var(--ease-s
 .stack-head p{margin:2px 0 0;font-size:13.5px;line-height:1.45;color:var(--graphite)}
 .stack-head .sg-count{margin-left:auto;font-family:var(--font-serif);font-style:italic;font-size:28px;line-height:1;color:var(--steel)}
 .tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-@container (max-width:520px){.stack-group{padding:14px}.tool{padding:12px}.tool-time{font-size:11px}.tool .tool-level{font-size:11.5px;flex-direction:column;align-items:flex-start;gap:6px}.meter i{width:10px}}
+@container (max-width:520px){.stack-group{padding:14px}.tool{padding:12px}.tool-time{font-size:12px}.tool .tool-level{font-size:12px;flex-direction:column;align-items:flex-start;gap:6px}.meter i{width:10px}}
 .tool{position:relative;display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:var(--r-md);border:1px solid var(--mist);background:var(--white);transition:translate .5s var(--ease-spring),box-shadow .5s var(--ease-out),border-color var(--d-base)}
 .tool:hover{translate:0 -6px;box-shadow:var(--sh-md);border-color:var(--brand-pale)}
 .tool-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.tool-icon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:21px;background:var(--snow);border:1px solid var(--mist);color:var(--ink);transition:rotate .6s var(--ease-spring),scale .6s var(--ease-spring)}
+.tool-icon{width:40px;height:40px;overflow:hidden;flex:none;border-radius:12px;display:grid;place-items:center;font-size:21px;background:var(--snow);border:1px solid var(--mist);color:var(--ink);transition:rotate .6s var(--ease-spring),scale .6s var(--ease-spring)}
 .tool:hover .tool-icon{rotate:-8deg;scale:1.08}
-.tool-time{font-size:11.5px;font-weight:500;color:var(--graphite);white-space:nowrap}
+.tool-time{font-size:12px;font-weight:500;color:var(--graphite);white-space:nowrap}
 .tool b{display:block;font-family:var(--font-display);font-weight:600;font-size:15.5px;line-height:1.2;letter-spacing:-.02em}
+.tool-use{font-size:12.5px;line-height:1.4;color:var(--graphite);margin-top:-4px}
 .tool-level{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--graphite)}
 .meter{display:flex;gap:3px}
 .meter i{width:14px;height:4px;border-radius:4px;background:var(--mist)}
@@ -709,6 +658,21 @@ body.is-loaded .arch-layer .go-to-project-btn{animation:tag-pop .9s var(--ease-s
 @keyframes meter-pop{40%{transform:scaleY(1.9)}}
 .stack-legend{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin-top:16px;font-size:12.5px;color:var(--graphite)}
 .stack-legend span{display:inline-flex;align-items:center;gap:8px}
+/* resumo: só nomes em chips; o botão abre o nível de cada ferramenta */
+.stack.is-compact .tools{display:flex;flex-wrap:wrap;gap:8px}
+.stack.is-compact .tool{flex-direction:row;align-items:center;gap:8px;padding:5px 14px 5px 5px;border-radius:var(--r-pill)}
+.stack.is-compact .tool:hover{translate:0 -2px}
+.stack.is-compact .tool-icon{width:30px;height:30px;border-radius:50%;font-size:16px}
+.stack.is-compact .tool b{font-size:14px}
+.stack.is-compact .tool-time,.stack.is-compact .tool-use,.stack.is-compact .tool-level{display:none}
+.stack.is-compact .stack-head{margin-bottom:14px}
+.stack.is-compact .stack-group--wide{grid-column:auto}
+.stack-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px;margin-top:16px}
+.stack-foot .stack-legend{margin-top:0}
+.stack-legend[hidden]{display:none}
+.stack-toggle{margin-left:auto}
+.stack-toggle iconify-icon{transition:rotate .4s var(--ease-spring)}
+.stack-toggle[aria-expanded="true"] iconify-icon{rotate:180deg}
 
 /* =========================================================
    DOBRA 6: CONTATO + RODAPÉ
@@ -745,6 +709,12 @@ body.is-loaded .arch-layer .go-to-project-btn{animation:tag-pop .9s var(--ease-s
 .cform{position:relative;container-type:inline-size;padding:clamp(18px,3cqw,26px);border-radius:var(--r-lg);border:1px solid var(--mist);background:var(--white);box-shadow:var(--sh-sm)}
 .cform h3{margin:0 0 4px;font-family:var(--font-display);font-weight:600;font-size:22px;letter-spacing:-.03em}
 .cform>p{margin:0 0 18px;font-size:14px;color:var(--graphite)}
+.cdirect .quick{margin-top:0}
+@container (max-width:360px){.cdirect .qa{padding:12px}.cdirect .qa-icon{width:40px;height:40px}}
+.cdirect .cdirect-hint{margin:16px 0 0;font-size:13.5px;line-height:1.5;color:var(--graphite)}
+.cdirect-copy{display:inline-flex;align-items:center;gap:6px;margin:0;padding:2px 0;border:0;background:none;font:inherit;font-weight:600;color:var(--ink);cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--steel)}
+.cdirect-copy:hover{text-decoration-color:currentColor}
+.cdirect-copy iconify-icon{font-size:14px;color:var(--graphite)}
 .fields{display:grid;gap:14px}
 .two{display:grid;gap:14px}
 @container (min-width:440px){.fields .two{grid-template-columns:1fr 1fr}}
@@ -884,32 +854,6 @@ body.is-loaded .arch-layer .go-to-project-btn{animation:tag-pop .9s var(--ease-s
    do texto (#3458FF sobre escuro fica abaixo de 4.5:1);
    --brand continua como cor de preenchimento com texto branco.
 ========================================================= */
-:root[data-theme="dark"]{
-  color-scheme:dark;
-  --white:#13151B;--snow:#191C24;--mist:#262A35;--lilac:#2C3140;--steel:#4A5163;--graphite:#A6ADBC;--ink:#F1F3F8;--black:#FFFFFF;
-  --brand-tint:#18204A;--brand-pale:#33448F;--brand-soft:#A9B8FF;
-  --brand-rgb:52,88,255;--shade-rgb:3,35,109;
-  --accent:#8EA2FF;
-  --border-input:#6B7285;
-  --background:#0A0B0F;
-  --surface-rgb:16,18,24;
-  --fg-rgb:255,255,255;
-  --dim:#7D8496;
-  --tk-alt:#1E2850;
-  --band:#181C27;
-  --band-border:#262A35;
-  --g-arch:linear-gradient(180deg,#3457FF 0%,#1B2142 100%);
-  --g-text:linear-gradient(180deg,#FFFFFF 35%,#9AA2B4 100%);
-  --g-ink:linear-gradient(180deg,#F1F3F8 35%,#A6ADBC 100%);
-  --sh-sm:0 1px 2px rgba(0,0,0,.4),0 2px 8px rgba(0,0,0,.3);
-  --sh-md:0 14px 34px -12px rgba(0,0,0,.7);
-  --sh-lg:0 30px 60px -20px rgba(0,0,0,.8);
-  --sh-glow:0 14px 40px -12px rgba(var(--brand-rgb),.6);
-  --bg-blob:.16;
-  --danger:#FF7A8E;
-  --danger-soft:#2A1218;
-  --success:#3DDC97;
-}
 [data-theme="dark"] .page-bg .blob{opacity:var(--bg-blob)}
 [data-theme="dark"] .grain{mix-blend-mode:overlay;opacity:.05}
 [data-theme="dark"] .hero .glow,[data-theme="dark"] .sc-bg .glow{opacity:.22;mix-blend-mode:screen}
@@ -1078,8 +1022,8 @@ body.is-leaving{opacity:0;transition:opacity .22s ease}
       <div class="bg" aria-hidden="true">
         <div class="grid"></div>
         <canvas class="globe" id="heroGlobe"></canvas>
-        <img class="glow-2" src="assets/ds/img/glow-heart.webp" alt="" width="520" height="710">
-        <img class="glow" src="assets/ds/img/glow-wide.webp" alt="" width="900" height="727">
+        <div class="glow-2 glow-heart"></div>
+        <div class="glow glow-wide"></div>
         <div class="hero-spot" id="heroSpot"></div>
         <div class="grain"></div>
       </div>
@@ -1133,7 +1077,7 @@ body.is-leaving{opacity:0;transition:opacity .22s ease}
 
     <!-- DOBRA 2: SOBRE MIM & ABORDAGEM -->
     <section class="section section-card" id="sobre" aria-labelledby="aboutTitle">
-      <div class="sc-bg" aria-hidden="true"><div class="dots"></div><div class="blob"></div><img class="glow" src="assets/ds/img/glow-heart.webp" alt="" width="520" height="710" loading="lazy"><div class="grain"></div></div>
+      <div class="sc-bg" aria-hidden="true"><div class="dots"></div><div class="blob"></div><div class="glow glow-heart"></div><div class="grain"></div></div>
       <div class="sc-inner">
         <div class="about-top">
           <div class="about-title">
@@ -1185,7 +1129,7 @@ body.is-leaving{opacity:0;transition:opacity .22s ease}
 
     <!-- DOBRA 4: SERVIÇOS -->
     <section class="section section-card" id="servicos" aria-labelledby="servicesTitle">
-      <div class="sc-bg" aria-hidden="true"><div class="dots"></div><img class="glow" src="assets/ds/img/glow-heart.webp" alt="" width="520" height="710" loading="lazy"><div class="grain"></div></div>
+      <div class="sc-bg" aria-hidden="true"><div class="dots"></div><div class="glow glow-heart"></div><div class="grain"></div></div>
       <div class="sc-inner">
         <div class="projects-head">
           <div>
@@ -1216,14 +1160,19 @@ body.is-leaving{opacity:0;transition:opacity .22s ease}
           </div>
           <p class="scroll-animation" data-animation="fade_from_bottom" data-delay="200" data-bind="stack.text"></p>
         </div>
-        <div class="stack" id="stackList"></div>
-        <div class="stack-legend scroll-animation" data-animation="fade_from_bottom" id="stackLegend"></div>
+        <div class="stack is-compact" id="stackList"></div>
+        <div class="stack-foot">
+          <div class="stack-legend" id="stackLegend" hidden></div>
+          <button class="theme-btn theme-btn--outline theme-btn--sm stack-toggle" id="stackToggle" type="button" aria-expanded="false" aria-controls="stackList">
+            <span data-label>Ver meu nível em cada ferramenta</span><iconify-icon icon="lucide:chevron-down" aria-hidden="true"></iconify-icon>
+          </button>
+        </div>
       </div>
     </section>
 
     <!-- DOBRA 6: CONTATO -->
     <section class="section section-card" id="contato" aria-labelledby="contatoTitle">
-      <div class="sc-bg" aria-hidden="true"><div class="dots"></div><div class="blob"></div><img class="glow" src="assets/ds/img/glow-heart.webp" alt="" width="520" height="710" loading="lazy"><div class="grain"></div></div>
+      <div class="sc-bg" aria-hidden="true"><div class="dots"></div><div class="blob"></div><div class="glow glow-heart"></div><div class="grain"></div></div>
       <div class="sc-inner">
         <div class="contact-grid">
           <div class="contact-left">
@@ -1234,53 +1183,12 @@ body.is-leaving{opacity:0;transition:opacity .22s ease}
             <p class="contact-note scroll-animation" data-animation="fade_from_bottom" data-delay="340"><iconify-icon icon="lucide:clock-3" aria-hidden="true"></iconify-icon><span data-bind="contact.response"></span></p>
           </div>
 
-          <form class="cform scroll-animation" id="contactForm" data-animation="fade_from_bottom" data-delay="150" novalidate aria-labelledby="formTitle">
+          <div class="cform cdirect scroll-animation" data-animation="fade_from_bottom" data-delay="150" aria-labelledby="formTitle">
             <h3 id="formTitle" data-bind="contact.formTitle"></h3>
             <p data-bind="contact.formText"></p>
-            <div class="fields">
-              <div class="two">
-                <div class="field" data-field="name">
-                  <label for="f-name">Nome</label>
-                  <div class="control"><input id="f-name" name="name" type="text" autocomplete="name" placeholder="Como posso te chamar?" aria-describedby="e-name" required>
-                    <iconify-icon class="st st-err" icon="lucide:circle-alert" aria-hidden="true"></iconify-icon><iconify-icon class="st st-ok" icon="lucide:circle-check" aria-hidden="true"></iconify-icon></div>
-                  <div class="field-msg"><p class="field-error" id="e-name" aria-live="polite"></p></div>
-                </div>
-                <div class="field" data-field="email">
-                  <label for="f-email">E-mail</label>
-                  <div class="control"><input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="voce@empresa.com" aria-describedby="e-email" required>
-                    <iconify-icon class="st st-err" icon="lucide:circle-alert" aria-hidden="true"></iconify-icon><iconify-icon class="st st-ok" icon="lucide:circle-check" aria-hidden="true"></iconify-icon></div>
-                  <div class="field-msg"><p class="field-error" id="e-email" aria-live="polite"></p></div>
-                </div>
-              </div>
-              <div class="field" data-field="subject">
-                <label for="f-subject">Assunto</label>
-                <div class="control"><input id="f-subject" name="subject" type="text" placeholder="Ex.: vaga de UX/UI júnior" aria-describedby="e-subject" required maxlength="80">
-                  <iconify-icon class="st st-err" icon="lucide:circle-alert" aria-hidden="true"></iconify-icon><iconify-icon class="st st-ok" icon="lucide:circle-check" aria-hidden="true"></iconify-icon></div>
-                <div class="field-msg"><p class="field-error" id="e-subject" aria-live="polite"></p></div>
-              </div>
-              <div class="field" data-field="message">
-                <label for="f-message">Mensagem</label>
-                <div class="control"><textarea id="f-message" name="message" rows="5" placeholder="Conte o que você precisa, para quem é e se já tem prazo." aria-describedby="e-message c-message" required></textarea>
-                  <iconify-icon class="st st-err" icon="lucide:circle-alert" aria-hidden="true"></iconify-icon><iconify-icon class="st st-ok" icon="lucide:circle-check" aria-hidden="true"></iconify-icon></div>
-                <div class="field-msg"><p class="field-error" id="e-message" aria-live="polite"></p><span class="field-count" id="c-message">0/1500</span></div>
-              </div>
-              <div class="hp" aria-hidden="true"><label for="f-site">Deixe em branco</label><input id="f-site" name="site" type="text" tabindex="-1" autocomplete="off"></div>
-              <div class="cform-foot">
-                <button class="theme-btn theme-btn--accent is-magnetic" type="submit" id="formSubmit">
-                  <span class="spin" aria-hidden="true"></span>
-                  <span class="btn-roll"><span data-bind="contact.submit" data-bind-attr="data-text"></span></span>
-                  <span class="btn-arrow"><iconify-icon icon="lucide:send"></iconify-icon><iconify-icon icon="lucide:send"></iconify-icon></span>
-                </button>
-                <small id="formHint"></small>
-              </div>
-            </div>
-            <div class="cform-done" role="status" aria-live="polite">
-              <div class="ok" aria-hidden="true"><iconify-icon icon="lucide:check"></iconify-icon></div>
-              <h3 id="doneTitle"></h3>
-              <p id="doneText"></p>
-              <button class="theme-btn theme-btn--outline theme-btn--sm" type="button" id="formAgain"><span class="btn-roll"><span data-text="Escrever outra mensagem">Escrever outra mensagem</span></span></button>
-            </div>
-          </form>
+            <div class="quick" id="writeActions"></div>
+            <p class="cdirect-hint"><span data-bind="contact.mailHint"></span> <button class="cdirect-copy" type="button" data-copy="email" aria-label="Copiar e-mail"><span data-email></span><iconify-icon icon="lucide:copy" aria-hidden="true"></iconify-icon></button></p>
+          </div>
         </div>
       </div>
     </section>
@@ -1359,21 +1267,21 @@ const CONTENT = {
   cta: { label: "Iniciar conversa", target: "contato" },
   hero: {
     kicker: "UX/UI",
-    kickerText: "em formação",
+    kickerText: "web e mobile",
     word: "Designer",
-    srTitle: "Antonio Zito, UX/UI Designer em formação",
-    headline: "Há 4 anos treino pessoas para usar um sistema web. Agora desenho as <span class='serif'>telas</span>.",
+    srTitle: "Antonio Zito, UX/UI Designer web e mobile",
+    headline: "Há 4 anos treino pessoas para usar um sistema web. Agora decido o que cada <span class='serif'>tela</span> precisa fazer.",
     lead: "Procuro minha primeira vaga de UX/UI Designer júnior.",
     primary: { label: "Ver projetos", target: "projetos" },
     secondary: { label: "Baixar CV" },
     courses: [
       {
-        label: "Em formação",
+        label: "Cursando",
         title: "UX Design na <span class='serif'>EBAC</span>",
         fields: [ { k: "Previsão de conclusão", v: "02/2027" } ]
       },
       {
-        label: "Em formação",
+        label: "Cursando",
         title: "Design Gráfico na <span class='serif'>EBAC</span>",
         fields: [ { k: "Previsão de conclusão", v: "02/2027" } ],
         alt: true
@@ -1386,49 +1294,48 @@ const CONTENT = {
     ],
     tools: [
       { text: "Figma", icon: "logos:figma" },
-      { text: "Photoshop", icon: "logos:adobe-photoshop" },
-      { text: "CorelDraw", icon: "simple-icons:coreldraw" },
-      { text: "InDesign", icon: "logos:adobe-indesign" },
-      { text: "CapCut Pro", icon: "lucide:clapperboard" },
-      { text: "Filmora", icon: "lucide:film" },
-      { text: "OBS Studio", icon: "simple-icons:obsstudio" },
+      { text: "Wireframes", icon: "lucide:layout-template" },
+      { text: "Protótipo navegável", icon: "lucide:mouse-pointer-click" },
+      { text: "Design system", icon: "lucide:component" },
+      { text: "MindMeister", icon: "lucide:network" },
+      { text: "Claude Code", icon: "simple-icons:claude" },
       { text: "Antigravity", icon: "lucide:sparkles" },
-      { text: "MindMeister", icon: "lucide:network" }
+      { text: "Gemini", icon: "simple-icons:googlegemini" }
     ]
   },
   about: {
     kicker: "Sobre mim",
-    title: "Primeiro o cliente e <span class='serif'>quem usa.</span> Depois a tela.",
+    title: "Começo pelo cliente e por quem <span class='serif'>usa</span>. A tela vem depois.",
     meta: [
       { icon: "lucide:book-open", text: "UX Design e Design Gráfico na EBAC" },
       { icon: "lucide:graduation-cap", text: "Sistemas de Informação, CEUPI" },
       { icon: "lucide:pen-tool", text: "Designer autônomo desde 2021" }
     ],
-    lead: "Antes de desenhar qualquer coisa, quero entender o que o cliente precisa alcançar e o que o usuário precisa resolver. Uma tela boa é a que [[atende os dois ao mesmo tempo]].",
+    lead: "Antes de desenhar qualquer coisa, quero entender o que o cliente precisa alcançar e o que o usuário precisa resolver, para chegar a uma tela que [[atenda os dois ao mesmo tempo]].",
     body: "Há 4 anos trabalho com usuários de sistemas web de gestão. Na Phocus, uso todo dia um portal de ordens de serviço, treino a equipe nele e atendo clientes, então vejo de perto onde as pessoas travam. Nos meus projetos, defino primeiro as regras de negócio, uso IA para produzir as telas mais rápido e reviso cada uma antes de seguir. Como designer autônomo, faço peças para pequenos negócios desde 2021.",
     pillarsTitle: "Como eu trabalho",
     pillarsText: "Três coisas que levo para todo projeto.",
     pillars: [
       {
-        icon: "lucide:ear",
-        title: "Ouvir antes de desenhar",
-        text: "Converso com o cliente sobre o negócio e o objetivo dele, e procuro saber quem vai usar, o que essa pessoa precisa fazer e onde costuma se perder."
+        icon: "lucide:list-checks",
+        title: "Regra antes da tela",
+        text: "Antes de abrir o Figma, escrevo as regras do negócio: quem faz cada etapa, quanto custa e o que confirma cada passo. A IA gera as telas a partir dessas regras, e eu confiro uma por uma."
       },
       {
         icon: "lucide:mouse-pointer-click",
         title: "Usabilidade de quem usa",
-        text: "Poucos passos, botões grandes e a linguagem do usuário. Se precisa de manual, a tela ainda não está pronta."
+        text: "No suporte da Phocus, as mesmas dúvidas voltam toda semana. Por isso busco poucos passos, botões grandes e a linguagem de quem usa. Quando uma tela precisa de explicação, volto e mexo nela."
       },
       {
         icon: "lucide:component",
         title: "Design System primeiro",
-        text: "Cores, tipografia e componentes definidos antes das telas. Assim o projeto cresce sem cada página virar uma coisa diferente."
+        text: "Defino cores, tipografia e componentes antes das telas. Assim o projeto cresce sem cada página virar uma coisa diferente."
       }
     ]
   },
   projects: {
     kicker: "Projetos",
-    title: "O que eu já <span class='serif'>tirei do papel.</span>",
+    title: "O que eu já tirei do <span class='serif'>papel</span>.",
     text: "São projetos de estudo. Cada um conta o problema, o que eu decidi e o que saiu dele. O EasyLog é o maior, e o KINETIC // LAB mostra o processo inteiro, do brief à avaliação.",
     // preview: "hub" (celulares em CSS), "video" (poster + vídeo em loop) ou "print" (composição de peças)
     // href vazio = botão aparece desativado com "Em breve"
@@ -1454,26 +1361,26 @@ const CONTENT = {
         summary: "Loja online, para celular, de um tênis de corrida fictício com partes que o cliente pode trocar. Projeto feito a partir de um desafio de UX.",
         preview: { type: "hub", tone: "kinetic", shots: ["assets/projects/kineticlab-case/recomendacao.webp", "assets/projects/kineticlab-case/checkout.webp", "assets/projects/kineticlab-case/pdp-configurador.webp"] },
         featured: true,
-        about: "Pelo desafio, a dúvida sobre o tamanho causa 68% dos carrinhos abandonados. Criei um questionário de cinco perguntas que indica o tênis e o número, e um checkout que mostra frete e garantia antes do pagamento. A pesquisa e a avaliação foram simuladas e estão marcadas assim.",
-        tech: [ { text: "Figma", icon: "logos:figma" }, { text: "Protótipo navegável", icon: "lucide:mouse-pointer-click" }, { text: "Design system", icon: "lucide:component" }, { text: "Avaliação simulada", icon: "lucide:users" }, { text: "Claude", icon: "lucide:sparkles" } ],
+        about: "Feito em 2 dias a partir de um brief fechado. Segundo o brief, a dúvida sobre o tamanho causava 68% dos carrinhos abandonados. Criei um questionário de cinco perguntas que indica o tênis e o número, e um checkout que mostra frete e garantia antes do pagamento. A pesquisa e a avaliação foram simuladas e estão marcadas assim.",
+        tech: [ { text: "Figma", icon: "logos:figma" }, { text: "Protótipo navegável", icon: "lucide:mouse-pointer-click" }, { text: "Design system", icon: "lucide:component" }, { text: "Roteiro de teste", icon: "lucide:clipboard-list" }, { text: "Claude", icon: "lucide:sparkles" } ],
         demo: { label: "Ver protótipo", href: "https://www.figma.com/proto/WHFA16vy2gCG04ZnnqaNjX/?node-id=35-18&starting-point-node-id=35%3A18&scaling=scale-down-width&content-scaling=fixed" },
         case: { label: "Estudo de caso", href: "estudo-de-caso-kineticlab.html", icon: "lucide:book-open" }
       },
       {
         id: "artools",
-        title: "Artools",
+        title: "Artools Pigmentum",
         category: { text: "Landing page", icon: "lucide:monitor" },
         year: "2026",
-        summary: "Página de venda de uma caneta fictícia, a Artools. O desafio era fazer um objeto barato parecer algo que dá vontade de ter.",
+        summary: "Página de venda de uma caneta fictícia, a Artools Pigmentum. O desafio era fazer um objeto barato parecer algo que dá vontade de ter.",
         preview: { type: "video", poster: "assets/projects/artools-poster.webp", video: "artools/video2.mp4", label: "Prévia do vídeo" },
-        about: "Caneta todo mundo tem, e ninguém repara nela. Apresentei a Artools como um lançamento de tecnologia, com fundo limpo e um vídeo que avança conforme a página rola. Fiz uma conversa simulada com 4 perfis, que mostrou que a compra pelo WhatsApp foi o que menos convenceu. Falta testar com pessoas reais.",
-        tech: [ { text: "HTML", icon: "logos:html-5" }, { text: "CSS", icon: "logos:css-3" }, { text: "JavaScript", icon: "logos:javascript" }, { text: "GSAP", icon: "lucide:move" }, { text: "Antigravity", icon: "lucide:sparkles" } ],
+        about: "Como quase ninguém repara numa caneta, apresentei a Artools como um lançamento de tecnologia, com fundo limpo e um vídeo que avança conforme a página rola. Simulei com IA uma conversa com 4 perfis fictícios; nessa simulação, a compra pelo WhatsApp foi o que menos convenceu. Ainda não testei com pessoas reais.",
+        tech: [ { text: "HTML", icon: "logos:html-5" }, { text: "CSS", icon: "logos:css-3" }, { text: "JavaScript", icon: "logos:javascript" }, { text: "GSAP", icon: "lucide:move" }, { text: "Claude", icon: "lucide:sparkles" }, { text: "Antigravity", icon: "lucide:sparkles" } ],
         demo: { label: "Live demo", href: "artools/index.html" },
         case: { label: "Estudo de caso", href: "estudo-de-caso-artools.html", icon: "lucide:book-open" }
       },
       {
         id: "ds",
-        title: "Design system <span class='serif'>do portfólio</span>",
+        title: "Design system do <span class='serif'>portfólio</span>",
         category: { text: "Design system", icon: "lucide:component" },
         year: "2026",
         summary: "As regras de cor, tipografia, componentes e animação que este portfólio segue, documentadas numa página só.",
@@ -1498,8 +1405,8 @@ const CONTENT = {
   services: {
     kicker: "Freelas",
     title: "Também faço <span class='serif'>freelas.</span>",
-    text: "Meu foco é uma vaga de UX/UI júnior. Enquanto isso, atendo pequenos negócios nestes formatos.",
-    note: "Seu caso não está aqui? <span class='serif'>Me conta</span> o que você precisa.",
+    text: "Atendo pequenos negócios em três formatos. As peças de design gráfico estão no Behance.",
+    note: "Se o seu caso não está aqui, me <span class='serif'>conta</span> o que você precisa.",
     noteCta: "Conversar",
     // seen: projetos onde o serviço aparece (id do card em CONTENT.projects.list)
     list: [
@@ -1518,7 +1425,7 @@ const CONTENT = {
       {
         icon: "lucide:monitor-smartphone",
         title: "Landing pages",
-        scope: "Página única para apresentar um produto ou serviço, com o visual pensado para celular desde o começo.",
+        scope: "Página única para apresentar um produto ou serviço, desenhada primeiro para o celular.",
         deliverables: [
           "Layout responsivo em HTML, CSS e JavaScript",
           "Animações de rolagem leves",
@@ -1542,7 +1449,7 @@ const CONTENT = {
   },
   experience: {
     kicker: "Experiência",
-    title: "Onde aprendi a <span class='serif'>olhar o usuário.</span>",
+    title: "Onde aprendi a olhar o <span class='serif'>usuário</span>.",
     text: "No trabalho atual, passo o dia com quem usa um sistema web de gestão.",
     list: [
       { when: "05/2022 – atual", role: "Analista de Suporte e Administrativo", org: "Phocus Serviços e Representações", icon: "lucide:headset", current: true,
@@ -1557,7 +1464,7 @@ const CONTENT = {
   },
   stack: {
     kicker: "Ferramentas",
-    title: "O que eu uso <span class='serif'>no dia a dia.</span>",
+    title: "O que eu uso para <span class='serif'>trabalhar</span>.",
     text: "Separei por etapa do trabalho. O nível é como eu me avalio hoje, e o tempo conta desde quando comecei a usar em projetos.",
     levels: ["Básico", "Intermediário", "Avançado"],
     // level: 1 a 3 · since: ano em que começou a usar em projetos
@@ -1565,16 +1472,39 @@ const CONTENT = {
       {
         icon: "lucide:pen-tool",
         title: "Design e prototipagem",
-        text: "Onde o fluxo e as telas ganham forma.",
+        text: "Onde desenho o fluxo e as telas.",
         tools: [
-          { name: "Figma", icon: "logos:figma", level: 2, since: 2025 },
-          { name: "MindMeister", icon: "lucide:network", level: 2, since: 2023 }
+          { name: "Figma", icon: "logos:figma", level: 1, since: 2025 },
+          { name: "MindMeister", icon: "lucide:network", level: 1, since: 2023 }
+        ]
+      },
+      {
+        icon: "lucide:users",
+        title: "Testes de usabilidade",
+        text: "Para ver gente de verdade usando o fluxo antes de ir pro ar.",
+        tools: [
+          { name: "UserTesting", icon: "lucide:user-check", level: 1, since: 2026, use: "Testes remotos gravados com pessoas do público-alvo" },
+          { name: "Lookback", icon: "lucide:video", level: 1, since: 2026, use: "Sessões moderadas ao vivo com o usuário" },
+          { name: "Userlytics", icon: "lucide:route", level: 1, since: 2026, use: "Testes remotos que mostram o caminho do usuário" },
+          { name: "Optimal Workshop", icon: "lucide:network", level: 1, since: 2026, use: "Card sorting e tree test para a navegação" },
+          { name: "Lyssna (ex-UsabilityHub)", icon: "lucide:mouse-pointer-click", level: 1, since: 2026, use: "Teste de 5 segundos, primeiro clique e preferência" }
+        ]
+      },
+      {
+        icon: "lucide:activity",
+        title: "Comportamento e feedback",
+        text: "O que as pessoas fazem no produto e o que elas dizem dele.",
+        tools: [
+          { name: "Hotjar", icon: "simple-icons:hotjar", level: 1, since: 2026, use: "Mapas de calor e gravações de sessão" },
+          { name: "FullStory", icon: "lucide:radio", level: 1, since: 2026, use: "Acompanha a sessão do usuário em tempo real" },
+          { name: "SurveyMonkey", icon: "simple-icons:surveymonkey", level: 1, since: 2026, use: "Questionários e pesquisas de satisfação" },
+          { name: "Usabilla", icon: "lucide:message-square-more", level: 1, since: 2026, use: "Feedback visual direto na página" }
         ]
       },
       {
         icon: "lucide:sparkles",
         title: "IA no processo",
-        text: "Uso para acelerar, revisando tudo que sai.",
+        text: "Uso para ganhar tempo e reviso tudo que sai.",
         tools: [
           { name: "Antigravity", icon: "lucide:sparkles", level: 2, since: 2026 },
           { name: "Claude Code", icon: "simple-icons:claude", level: 2, since: 2026 },
@@ -1600,7 +1530,7 @@ const CONTENT = {
         text: "Peças e vídeos curtos para clientes.",
         tools: [
           { name: "Photoshop", icon: "logos:adobe-photoshop", level: 2, since: 2021 },
-          { name: "CorelDraw", icon: "simple-icons:coreldraw", level: 2, since: 2021 },
+          { name: "CorelDraw", icon: "simple-icons:coreldraw", level: 1, since: 2021 },
           { name: "InDesign", icon: "logos:adobe-indesign", level: 1, since: 2024 },
           { name: "CapCut Pro", icon: "lucide:clapperboard", level: 2, since: 2022 },
           { name: "Filmora", icon: "lucide:film", level: 1, since: 2022 },
@@ -1612,21 +1542,21 @@ const CONTENT = {
   contact: {
     // modal antigo (só aparece se a seção #contato não existir)
     badge: "Contato",
-    title: "Vamos <span class='serif'>conversar?</span>",
+    title: "Vamos <span class='serif'>conversar</span>?",
     text: "Escolha o canal que for mais fácil para você. Respondo em até um dia útil.",
     // dobra 6
     kicker: "Contato",
-    headline: "Tem uma vaga de UX/UI júnior? <span class='serif'>Vamos conversar.</span>",
+    headline: "Tem uma vaga de UX/UI júnior? Vamos <span class='serif'>conversar</span>.",
     lead: "Também respondo sobre freelas e ideias ainda soltas. Escolha o jeito mais fácil para você.",
     response: "Respondo em até um dia útil, de segunda a sexta.",
     // Cal.com ou Calendly. Vazio = abre o WhatsApp pedindo um horário
     scheduleUrl: "",
     scheduleText: "Oi, Antonio! Vi seu portfólio e queria marcar uma conversa de 30 minutos. Qual horário fica bom para você?",
-    // Formspree (https://formspree.io/f/xxxx) ou Web3Forms. Vazio = abre o e-mail da pessoa com a mensagem pronta
-    formEndpoint: "",
+    // sem serviço de envio: o card da direita oferece e-mail (abrir ou copiar) e LinkedIn
     formTitle: "Prefere escrever?",
-    formText: "Todos os campos são obrigatórios. Leva menos de um minuto.",
-    submit: "Enviar mensagem",
+    formText: "Conte o que você precisa, para quem é e se já tem prazo.",
+    mailSubject: "[Portfólio] Contato",
+    mailHint: "Abre o app de e-mail deste aparelho. Se nada abrir, copie o endereço:",
     footerStack: [
       { icon: "logos:html-5", text: "HTML" },
       { icon: "logos:css-3", text: "CSS" },
@@ -1915,7 +1845,7 @@ const CONTENT = {
   };
   $("#projectList").innerHTML = CONTENT.projects.list.map((p, i) => `
     <article id="projeto-${p.id}" class="project has-spotlight${p.featured ? " project--featured" : ""} scroll-animation" data-animation="fade_from_bottom" data-delay="${i * 120}">
-      <div class="project-media">
+      <div class="project-media" data-theme="light">
         <div class="project-badges">
           <span class="pbadge"><iconify-icon icon="${p.category.icon}"></iconify-icon>${esc(p.category.text)}</span>
           <span class="pbadge">${esc(p.year)}</span>
@@ -1985,11 +1915,23 @@ const CONTENT = {
       <ul class="tools" role="list" style="list-style:none;margin:0;padding:0">${g.tools.map((t) => `
         <li class="tool">
           <div class="tool-top"><span class="tool-icon" aria-hidden="true"><iconify-icon icon="${t.icon}"></iconify-icon></span><span class="tool-time">${timeText(t.since)}</span></div>
-          <b>${esc(t.name)}</b>
-          <span class="tool-level">${meter(t.level)}${esc(ST.levels[t.level - 1])}</span>
+          <b>${esc(t.name)}</b>${t.use ? `<span class="tool-use">${esc(t.use)}</span>` : ""}
+          <span class="tool-level">${meter(t.level)}${esc(t.level ? ST.levels[t.level - 1] : "Em estudo")}</span>
         </li>`).join("")}</ul>
     </div>`).join("");
   $("#stackLegend").innerHTML = ST.levels.map((l, i) => `<span>${meter(i + 1)}${esc(l)}</span>`).join("");
+  // começa resumido (só os nomes); o botão mostra nível, tempo e uso de cada ferramenta
+  $("#stackToggle").addEventListener("click", (e) => {
+    const btn = e.currentTarget, open = btn.getAttribute("aria-expanded") !== "true";
+    btn.setAttribute("aria-expanded", String(open));
+    $("#stackList").classList.toggle("is-compact", !open);
+    $("#stackLegend").hidden = !open;
+    btn.querySelector("[data-label]").textContent = open ? "Mostrar só os nomes" : "Ver meu nível em cada ferramenta";
+    if (!open) {
+      const sec = $("#competencias");
+      if (sec.getBoundingClientRect().top < 0) sec.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    }
+  });
 
   /* ---------- DOBRA 6: CONTATO ---------- */
   const CT = CONTENT.contact;
@@ -2015,7 +1957,19 @@ const CONTENT = {
       <span class="qa-end" aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></span>
       <span class="sr-only">(abre em nova aba)</span>
     </a>`;
-  $("#formHint").textContent = CT.formEndpoint ? "A mensagem chega direto no meu e-mail." : "Ao enviar, seu app de e-mail abre com a mensagem pronta.";
+  $("#writeActions").innerHTML = `
+    <a class="qa" href="mailto:${esc(P.email)}?subject=${encodeURIComponent(CT.mailSubject)}">
+      <span class="qa-icon" aria-hidden="true"><iconify-icon icon="lucide:mail-plus"></iconify-icon></span>
+      <span class="qa-text"><b>Escrever e-mail</b><span>${esc(P.email)}</span></span>
+      <span class="qa-end" aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></span>
+    </a>
+    <a class="qa" href="${esc(CONTENT.socials[0].href)}" target="_blank" rel="noopener">
+      <span class="qa-icon" aria-hidden="true"><iconify-icon icon="lucide:linkedin"></iconify-icon></span>
+      <span class="qa-text"><b>LinkedIn</b><span>Mandar mensagem</span></span>
+      <span class="qa-end" aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></span>
+      <span class="sr-only">(abre em nova aba)</span>
+    </a>`;
+  $$("[data-email]").forEach((e) => { e.textContent = P.email; });
 
   /* rodapé */
   $("#footCopy").textContent = `© ${new Date().getFullYear()} ${P.name}`;
@@ -2404,114 +2358,6 @@ const CONTENT = {
     })();
   })($("#heroGlobe"));
 })();
-</script>
-<script type="module">
-/* =========================================================
-   FORMULÁRIO DE CONTATO: validação com Zod (CDN) + fallback
-========================================================= */
-const form = document.getElementById("contactForm");
-const C = CONTENT.contact, P = CONTENT.profile;
-const toast = (...a) => window.toast?.(...a);
-const MSG = {
-  name: { req: "Escreva seu nome.", min: "Seu nome precisa de pelo menos 2 letras.", max: "Nome muito longo." },
-  email: { req: "Informe seu e-mail para eu poder responder.", fmt: "Confira o e-mail, parece faltar algo (ex.: voce@empresa.com)." },
-  subject: { req: "Diga em poucas palavras o assunto.", min: "Assunto muito curto.", max: "Use no máximo 80 caracteres." },
-  message: { req: "Escreva sua mensagem.", min: "Conte um pouco mais, pelo menos 20 caracteres.", max: "Use no máximo 1500 caracteres." }
-};
-const MAX_MSG = 1500;
-
-// Zod quando o CDN responder; até lá (ou se falhar) vale o validador com as mesmas regras
-let schema = null;
-import("https://cdn.jsdelivr.net/npm/zod@3.23.8/+esm").then(({ z }) => {
-  schema = z.object({
-    name: z.string().trim().min(1, MSG.name.req).min(2, MSG.name.min).max(80, MSG.name.max),
-    email: z.string().trim().min(1, MSG.email.req).email(MSG.email.fmt),
-    subject: z.string().trim().min(1, MSG.subject.req).min(3, MSG.subject.min).max(80, MSG.subject.max),
-    message: z.string().trim().min(1, MSG.message.req).min(20, MSG.message.min).max(MAX_MSG, MSG.message.max)
-  });
-}).catch(() => {});
-function fallback(name, v) {
-  v = v.trim(); const m = MSG[name];
-  if (!v) return m.req;
-  if (name === "email") return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? "" : m.fmt;
-  if (name === "name") return v.length < 2 ? m.min : v.length > 80 ? m.max : "";
-  if (name === "subject") return v.length < 3 ? m.min : v.length > 80 ? m.max : "";
-  if (name === "message") return v.length < 20 ? m.min : v.length > MAX_MSG ? m.max : "";
-  return "";
-}
-function check(name, v) {
-  if (schema) { const r = schema.shape[name].safeParse(v); return r.success ? "" : r.error.issues[0].message; }
-  return fallback(name, v);
-}
-
-const fields = ["name", "email", "subject", "message"];
-const touched = new Set();
-const el = (n) => form.elements[n];
-function paint(name, show) {
-  const input = el(name), box = form.querySelector(`[data-field="${name}"]`), err = check(name, input.value);
-  if (show) {
-    box.classList.toggle("is-invalid", !!err);
-    box.classList.toggle("is-valid", !err);
-    input.setAttribute("aria-invalid", err ? "true" : "false");
-    box.querySelector(".field-error").textContent = err;
-  }
-  return err;
-}
-fields.forEach((n) => {
-  const input = el(n);
-  input.addEventListener("blur", () => { if (input.value.trim() || touched.has(n)) { touched.add(n); paint(n, true); } });
-  input.addEventListener("input", () => { if (touched.has(n)) paint(n, true); });
-});
-const msg = el("message"), count = document.getElementById("c-message");
-const updCount = () => { const n = msg.value.length; count.textContent = `${n}/${MAX_MSG}`; count.classList.toggle("is-over", n > MAX_MSG); };
-msg.addEventListener("input", updCount); updCount();
-
-const btn = document.getElementById("formSubmit");
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  if (el("site").value) return;                       // armadilha para robô
-  fields.forEach((n) => touched.add(n));
-  const errors = fields.filter((n) => paint(n, true));
-  if (errors.length) {
-    const first = form.querySelector(`[data-field="${errors[0]}"]`);
-    errors.forEach((n) => { const b = form.querySelector(`[data-field="${n}"]`); b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake"); });
-    el(errors[0]).focus();
-    toast("Falta pouco", errors.length === 1 ? "Confira o campo marcado em vermelho." : `Confira os ${errors.length} campos marcados em vermelho.`, "info");
-    return;
-  }
-  const data = Object.fromEntries(fields.map((n) => [n, el(n).value.trim()]));
-  btn.classList.add("is-loading"); btn.setAttribute("aria-busy", "true");
-  try {
-    if (C.formEndpoint) {
-      const res = await fetch(C.formEndpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify({ ...data, _subject: `[Portfólio] ${data.subject}` }) });
-      if (!res.ok) throw new Error(res.status);
-      done("Mensagem enviada!", `Obrigado, ${data.name.split(" ")[0]}. Respondo em até um dia útil no ${data.email}.`);
-      toast("Mensagem enviada", "Respondo em até um dia útil.");
-    } else {
-      const body = `${data.message}\n\n${data.name}\n${data.email}`;
-      location.href = `mailto:${P.email}?subject=${encodeURIComponent("[Portfólio] " + data.subject)}&body=${encodeURIComponent(body)}`;
-      done("Sua mensagem está pronta", "Abri seu app de e-mail com tudo preenchido. É só conferir e enviar.");
-      toast("Mensagem pronta", "Seu app de e-mail abriu com o texto.");
-    }
-  } catch (_) {
-    toast("Não consegui enviar", `Tenta de novo ou escreve direto para ${P.email}.`, "info");
-  } finally {
-    btn.classList.remove("is-loading"); btn.removeAttribute("aria-busy");
-  }
-});
-function done(title, text) {
-  document.getElementById("doneTitle").textContent = title;
-  document.getElementById("doneText").textContent = text;
-  form.classList.add("is-sent");
-  form.querySelector(".cform-done").setAttribute("tabindex", "-1");
-  form.querySelector(".cform-done").focus({ preventScroll: true });
-}
-document.getElementById("formAgain").addEventListener("click", () => {
-  form.reset(); touched.clear(); updCount();
-  form.querySelectorAll(".field").forEach((f) => { f.classList.remove("is-invalid", "is-valid"); f.querySelector(".field-error").textContent = ""; });
-  fields.forEach((n) => el(n).removeAttribute("aria-invalid"));
-  form.classList.remove("is-sent"); el("name").focus();
-});
 </script>
 </body>
 </html>

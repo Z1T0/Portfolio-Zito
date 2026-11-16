@@ -15,6 +15,14 @@
 
    Contraste (WCAG 2.x) anotado ao lado de cada par que importa.
    Texto pede 4.5:1; borda de campo, ícone e foco pedem 3:1.
+
+   Componentes compartilhados (.theme-btn, .btn-icon, .input, .chip)
+   ficam em css/components.css, que depende deste arquivo.
+
+   Unificação de 16/11/2026: este arquivo tem todos os nomes que o
+   index e os três estudos de caso declaravam inline. Onde os valores
+   divergiam, vale o valor daqui. A tabela de decisões fica fora do
+   repositório, em ../avaliacoes-portfolio/rodada-2/plano-tokens.md.
 ============================================================= */
 
 :root,[data-theme="light"]{
@@ -23,7 +31,9 @@
   /* ---------- Neutros ---------- */
   --white:#FFFFFF;      /* superfície de card, campo, modal */
   --snow:#F6F7FA;       /* superfície alternada, faixa de specs */
-  --mist:#E9ECF3;       /* borda decorativa, divisor (não serve para campo) */
+  --mist:#E9ECF3;       /* borda decorativa, divisor (não serve para campo) · também fundo de chip e trilho
+                           ATENÇÃO: --brand sobre --mist dá 4.45:1 e reprova AA em texto normal (<24px, ou <18.66px bold).
+                           Texto azul em cima de --mist usa --accent-on-mist (#2442D9 · 6.22:1). */
   --lilac:#DFE0EB;      /* decorativo */
   --steel:#C7CCD8;      /* decorativo: contorno de botão, trilho. 1.61:1 no branco, NUNCA texto nem borda de campo */
   --graphite:#474747;   /* texto secundário · 9.29:1 no branco · 8.67:1 no snow */
@@ -31,7 +41,7 @@
   --black:#0A0A0A;
 
   /* ---------- Marca: azul ---------- */
-  --brand:#3458FF;       /* destaque, link, foco · 5.27:1 no branco · 4.92:1 no snow */
+  --brand:#3458FF;       /* destaque, link, foco · 5.27:1 no branco · 4.92:1 no snow · 4.45:1 no mist (REPROVA em texto normal: use --accent-on-mist) */
   --brand-600:#2442D9;   /* hover do botão de destaque · branco sobre ele 7.35:1 */
   --brand-soft:#9AACFE;  /* decorativo: luz de fundo, gradiente */
   --brand-pale:#CDD5FB;  /* decorativo: borda de hover, luz de fundo */
@@ -39,14 +49,28 @@
   --brand-rgb:52,88,255; /* para rgba(var(--brand-rgb), .x) */
   --on-brand:#FFFFFF;    /* texto sobre --brand · 5.27:1 */
   --accent:var(--brand); /* cor de texto de destaque (no escuro clareia) */
+  --accent-on-mist:var(--brand-600); /* texto azul sobre --mist · #2442D9 6.22:1 (o --brand ali dá só 4.45:1) */
+  --navy:#03236D;        /* decorativo, sem uso hoje (estava no index) */
+  --shade-rgb:3,35,109;  /* sombra azul-marinho: rgba(var(--shade-rgb), .x) */
+  --tk-alt:#DCE3FF;      /* fundo do ingresso alternativo (home) */
 
   /* ---------- Feedback (o verde é só status, nunca marca) ---------- */
   --green:#28E98C;       /* ponto de status, ícone. 1.60:1 no branco: não é texto */
   --success:#0B7A47;     /* texto de sucesso · 5.40:1 no branco */
+  --success-soft:#E6F5EE;/* fundo de célula "sim" nas tabelas dos casos */
+  --success-fill:#0B7A47;/* preenchimento verde com texto branco (botão "copiado", ícone do toast) ·
+                            branco sobre ele 5.40:1. Fica igual no escuro: o --success escuro (#3DDC97)
+                            com texto branco daria 1.77:1 */
   --amber:#FFC036;       /* aviso, ponto de "ocupado". Não é texto */
   --warning-ink:#8A5A00; /* texto de aviso sobre âmbar 20% · 5.41:1 */
   --danger:#C8102E;      /* texto e borda de erro · 5.88:1 no branco */
+  --danger-rgb:200,16,46;/* anel e fundo de erro: rgba(var(--danger-rgb), .12) */
   --danger-soft:#FFF0F2;
+
+  /* ---------- Desabilitado ---------- */
+  --disabled-ink:#9A9EA7; /* texto e rótulo de campo desabilitado · 2.68:1 no branco, 2.51:1 no snow.
+                             Abaixo de 4.5:1 de propósito: a WCAG 1.4.3 isenta componente desabilitado.
+                             Não usar em nenhum outro texto. No escuro fica o mesmo valor (6.34:1 no snow escuro). */
 
   /* ---------- Campo de formulário ---------- */
   --border-input:#858B9A; /* 3.41:1 no branco · 3.18:1 no snow (WCAG 1.4.11) */
@@ -57,9 +81,12 @@
   /* ---------- Página e vidro ---------- */
   --background:#FFFFFF;
   --surface-rgb:255,255,255; /* rgba(var(--surface-rgb), .75) = vidro */
+  --card-rgb:246,247,250;    /* mesmo valor do --snow, em RGB: cartão de vidro dos estudos de caso */
   --fg-rgb:16,16,16;         /* linhas do grid de fundo */
   --band:#101010;            /* faixa escura fixa */
+  --band-border:#101010;     /* borda da faixa escura (no escuro vira --mist) */
   --bg-blob:.34;             /* opacidade das luzes de fundo */
+  --blob:#9AACFE;            /* cor da luz de fundo dos estudos de caso (no escuro vira o azul da marca) */
 
   /* ---------- Aliases semânticos (padrão shadcn) ---------- */
   --foreground:var(--ink);
@@ -85,6 +112,25 @@
   --font-serif:"Instrument Serif",Georgia,"Times New Roman",serif;
   --font-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
 
+  /* ---------- Tamanho de fonte (a tabela "Tipografia" do design_system.html) ----------
+     Peso, entrelinha e tracking ficam nas classes .t-* do design system.
+     Os clamp() estão em rem para respeitar o zoom de texto do navegador. */
+  --fs-display:clamp(4.2rem,17vw,14.5rem);   /* 67 → 232px · Inter Display 800 */
+  --fs-h1:clamp(2.75rem,6vw,4.5rem);         /* 44 → 72px · 700 */
+  --fs-h2:clamp(2.25rem,4.6vw,3.5rem);       /* 36 → 56px · 600 */
+  --fs-h3:clamp(1.75rem,3vw,2.1875rem);      /* 28 → 35px · 600 */
+  --fs-h4:clamp(1.5rem,2.2vw,1.75rem);       /* 24 → 28px · 600 · fica abaixo do H3 também no celular */
+  --fs-h5:1.375rem;     /* 22px */
+  --fs-h6:1.125rem;     /* 18px */
+  --fs-number:clamp(1.5rem,2.4vw,2rem);      /* 24 → 32px · números com tabular-nums; no celular não passa do H3 */
+  --fs-body-lg:1.25rem; /* 20px */
+  --fs-body:1rem;       /* 16px */
+  --fs-body-sm:.875rem; /* 14px */
+  --fs-label:.8125rem;  /* 13px · caixa alta */
+  --fs-helper:.78125rem;/* 12.5px · texto de ajuda de campo */
+  --fs-caption:.75rem;  /* 12px · menor texto do sistema */
+  --fs-mono:.75rem;     /* 12px · código e chips */
+
   /* ---------- Espaço (base 4) ---------- */
   --s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-5:20px;--s-6:24px;--s-8:32px;--s-10:40px;--s-12:48px;--s-16:64px;--s-20:80px;--s-24:96px;--s-32:128px;
 
@@ -105,8 +151,13 @@
   --d-fast:160ms;--d-base:320ms;--d-slow:700ms;--d-reveal:1200ms;
 
   /* ---------- Layout ---------- */
-  --container:1200px;
-  --gutter:16px;
+  --container:1200px;   /* design system */
+  --max:1080px;         /* coluna de texto dos estudos de caso */
+  --shell-max:1280px;   /* home: largura máxima do conjunto barra lateral + conteúdo */
+  --sidebar-w:340px;    /* home: barra lateral com o card de perfil */
+  --shell-gap:48px;     /* home: espaço entre a barra lateral e o conteúdo */
+  --topbar-h:68px;      /* home: altura da pílula do topo no celular */
+  --gutter:16px;        /* 24px a partir de 768px (abaixo) */
 
   /* ---------- Nomes antigos (migração) ----------
      O index e os estudos de caso ainda usam estes nomes.
@@ -117,11 +168,13 @@
   --blue-pale:var(--brand-pale);
   --blue-tint:var(--brand-tint);
   --on-color:var(--on-brand);
-  --green-ink:var(--success);
+  --green-ink:var(--success-fill); /* no index é fundo com texto branco, não texto */
   --red:var(--danger);
   --red-ink:var(--danger);
   --ok:var(--success);
+  --ok-soft:var(--success-soft);
   --no:var(--danger);
+  --no-soft:var(--danger-soft);
 }
 @media (min-width:768px){:root{--gutter:24px}}
 
@@ -151,11 +204,16 @@
   --brand-tint:#18204A;  /* accent sobre ele 6.52:1 */
   --brand-rgb:52,88,255;
   --on-brand:#FFFFFF;    /* texto sobre --brand · 5.27:1 */
-  --accent:#8EA2FF;      /* texto de destaque · 8.21:1 no fundo · 7.61:1 na superfície */
+  --accent:#8EA2FF;      /* texto de destaque · 8.21:1 no fundo · 7.61:1 na superfície · 5.98:1 no mist */
+  --accent-on-mist:var(--accent); /* no escuro o --accent já passa sobre o mist */
+  --tk-alt:#1E2850;
 
   --success:#3DDC97;     /* 10.33:1 na superfície */
+  --success-soft:#0F2A1F;
+  /* --success-fill não muda: continua #0B7A47 com texto branco */
   --warning-ink:#FFC036;
   --danger:#FF7A8E;      /* 7.32:1 na superfície */
+  --danger-rgb:255,122,142;
   --danger-soft:#2A1218;
 
   --border-input:#6B7285; /* 4.09:1 no fundo · 3.80:1 na superfície */
@@ -163,9 +221,12 @@
 
   --background:#0A0B0F;
   --surface-rgb:16,18,24;
+  --card-rgb:25,28,36;   /* = --snow escuro */
   --fg-rgb:255,255,255;
   --band:#181C27;
+  --band-border:#262A35;
   --bg-blob:.16;
+  --blob:#3458FF;
 
   --g-arch:linear-gradient(180deg,#3457FF 0%,#1B2142 100%);
   --g-soft:linear-gradient(169deg,#33448F 29%,#18204A 109%);

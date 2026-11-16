@@ -25,6 +25,8 @@ addEventListener("pageshow",function(e){if(e.persisted)document.querySelectorAll
 <meta property="og:image" content="https://portfoliozitomenezes.vercel.app/assets/projects/easylog-case/og.jpg">
 <meta property="og:url" content="https://portfoliozitomenezes.vercel.app/estudo-de-caso-easylog.html">
 <link rel="canonical" href="https://portfoliozitomenezes.vercel.app/estudo-de-caso-easylog.html">
+<!-- Tokens: fonte única (cores, tipo, espaço, raio, sombra, movimento) -->
+<link rel="stylesheet" href="css/tokens.css">
 
 <link rel="preload" href="assets/ds/fonts/inter-display-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,41 +39,9 @@ addEventListener("pageshow",function(e){if(e.persisted)document.querySelectorAll
 @font-face{font-family:"Inter Display";src:url("assets/ds/fonts/inter-display-600.woff2") format("woff2");font-weight:600;font-display:swap}
 @font-face{font-family:"Inter Display";src:url("assets/ds/fonts/inter-display-700.woff2") format("woff2");font-weight:700;font-display:swap}
 
-/* Tokens do portfólio (index.html) */
-:root{
-  color-scheme:light;
-  --white:#FFFFFF;--snow:#F6F7FA;--mist:#E9ECF3;--lilac:#DFE0EB;--steel:#C7CCD8;--graphite:#474747;--ink:#101010;--black:#0A0A0A;
-  --brand:#3458FF;--brand-600:#2442D9;--brand-soft:#9AACFE;--brand-tint:#EEF1FF;
-  --accent:var(--brand);--on-color:#FFFFFF;
-  --surface-rgb:255,255,255;--card-rgb:246,247,250;--fg-rgb:16,16,16;--blob:#9AACFE;--bg-blob:.34;
-  --g-beam:linear-gradient(270deg,rgba(52,88,255,0) 0%,#3458FF 52.7%,rgba(52,88,255,0) 100%);
-  --ease-inout:cubic-bezier(.65,0,.35,1);
-  --sh-sm:0 1px 2px rgba(16,16,16,.06),0 2px 8px rgba(16,16,16,.04);
-  --background:var(--white);--foreground:var(--ink);
-  --ok:#0B7A47;--ok-soft:#E6F5EE;--no:#C8102E;--no-soft:#FFF0F2;
-  --font-display:"Inter Display","Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-  --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-  --font-serif:"Instrument Serif",Georgia,serif;
-  --r-sm:10px;--r-md:20px;--r-pill:999px;
-  --sh-md:0 10px 30px -12px rgba(16,16,16,.18);
-  --sh-glow:0 14px 40px -12px rgba(52,88,255,.55);
-  --ease-out:cubic-bezier(.16,1,.3,1);
-  --gutter:16px;--max:1080px;
-}
+/* Ajustes locais sobre css/tokens.css. PENDENTES (passo 2): o sistema usa gutter 24px, surface-rgb 16,18,24 e bg-blob .16 */
 @media (min-width:768px){:root{--gutter:32px}}
-:root[data-theme="dark"]{
-  color-scheme:dark;
-  --white:#13151B;--snow:#191C24;--mist:#262A35;--lilac:#2C3140;--steel:#4A5163;--graphite:#A6ADBC;--ink:#F1F3F8;--black:#FFFFFF;
-  --brand:#3458FF;--brand-600:#2442D9;--brand-soft:#33448F;--brand-tint:#18204A;
-  --accent:#8EA2FF;--on-color:#FFFFFF;
-  --surface-rgb:19,21,27;--card-rgb:25,28,36;--fg-rgb:255,255,255;--blob:#3458FF;--bg-blob:.12;
-  --g-beam:linear-gradient(270deg,rgba(52,88,255,0) 0%,#3458FF 52.7%,rgba(52,88,255,0) 100%);
-  --sh-sm:0 1px 2px rgba(0,0,0,.4),0 2px 8px rgba(0,0,0,.3);
-  --background:#0A0B0F;
-  --ok:#3DDC97;--ok-soft:#0F2A1F;--no:#FF7A8E;--no-soft:#2A1218;
-  --sh-md:0 14px 34px -12px rgba(0,0,0,.7);
-  --sh-glow:0 14px 40px -12px rgba(52,88,255,.6);
-}
+:root[data-theme="dark"]{--surface-rgb:19,21,27;--bg-blob:.12}
 
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -374,7 +344,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     <div class="intro rv">
       <span class="eyebrow"><iconify-icon icon="lucide:book-open"></iconify-icon>Estudo de caso · Produto digital · 2026</span>
       <h1>EasyLog</h1>
-      <p class="lead">Entregas de loja de bairro em Teresina, cobradas por assinatura. O lojista sabe quanto paga pela plataforma no mês e vê o frete de cada entrega antes de pedir. O motorista fica com <span class="serif">o frete inteiro</span>.</p>
+      <p class="lead">Entregas de loja de bairro em Teresina, cobradas por assinatura. O lojista sabe quanto paga pela plataforma no mês e vê o frete de cada entrega antes de pedir. O motorista fica com o frete <span class="serif">inteiro</span>.</p>
       <div class="intro-actions">
         <a class="theme-btn theme-btn--primary" href="https://www.figma.com/proto/jkjjwENNY1rHJQgjxkmBqy/EasyLog?node-id=84-1141&amp;starting-point-node-id=84-1141&amp;scaling=scale-down" target="_blank" rel="noopener">Ver o protótipo no Figma<iconify-icon icon="lucide:arrow-up-right"></iconify-icon><span class="sr-only">(abre em nova aba)</span></a>
         <a class="theme-btn theme-btn--outline" href="#entrega">Seguir a entrega #4830<iconify-icon icon="lucide:arrow-down"></iconify-icon></a>
@@ -383,7 +353,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       <dl class="facts">
         <div><dt>Tipo</dt><dd>Projeto pessoal, 2026</dd></div>
         <div><dt>Meu papel</dt><dd>Defini o produto, as regras de negócio, os preços e os fluxos, e revisei cada tela</dd></div>
-        <div><dt>Ferramentas</dt><dd>Figma. O Claude escreveu os prompts e gerou as telas a partir das minhas regras</dd></div>
+        <div><dt>Ferramentas</dt><dd>Figma e Claude. O Claude gerou as telas no Figma a partir das regras e dos textos que eu escrevi.</dd></div>
         <div><dt>Entrega</dt><dd>App do lojista, app do motorista e painel web, design system e um protótipo de ponta a ponta</dd></div>
       </dl>
     </div>
@@ -413,12 +383,11 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     <div class="sec-head rv"><span class="num">01</span><h2>A ideia</h2></div>
     <div class="split">
       <div class="prose rv">
-        <p>O EasyLog liga lojas de bairro de Teresina a motoristas autônomos que fazem as entregas.</p>
-        <p>Toda entrega começa com alguém no balcão da loja e termina com o motorista na porta do cliente. Por isso desenhei as duas pontas e o painel que acompanha as duas, e defini como o serviço se paga.</p>
-        <p>O projeto olha a entrega inteira: quem pede, quem entrega, quem administra e como o dinheiro circula entre eles.</p>
+        <p>O EasyLog liga lojas de bairro de Teresina a motoristas autônomos que fazem as entregas. Ele continua o Hub Logístico, que fiz em 2025 só com o app do motorista.</p>
+        <p>Toda entrega começa com alguém no balcão da loja e termina com o motorista na porta do cliente. Por isso desenhei as duas pontas e o painel que acompanha as duas, e defini quanto cada lado paga e para quem vai o dinheiro.</p>
       </div>
       <div class="prose rv">
-        <p class="quote">Desenhar só o motorista seria desenhar metade de uma entrega.</p>
+        <p class="quote">No Hub Logístico faltava a loja que pede a entrega e o dono que paga por ela.</p>
       </div>
     </div>
   </section>
@@ -446,7 +415,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
         </ul>
       </div>
     </div>
-    <p class="plus rv">Nos dois casos, <b>a loja entrega a mercadoria a um desconhecido</b> e <b>o motorista não sabe se está entregando à pessoa certa</b></p>
+    <p class="plus rv">Há ainda um problema que os dois dividem: <b>a loja entrega a mercadoria a um desconhecido</b> e <b>o motorista não sabe se está entregando à pessoa certa</b></p>
   </section>
 
   <!-- 03 FRENTES -->
@@ -552,7 +521,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       <div class="part-text rv">
         <span class="tag">4 · Tudo à vista antes do aceite</span>
         <p class="q">"Vale a pena aceitar?"</p>
-        <p>O pedido chega com o valor em destaque, o tipo de carga, a loja, o bairro de destino e a distância total. O motorista decide em 30 segundos sem abrir outra tela.</p>
+        <p>O pedido chega com o valor em destaque, o tipo de carga, a loja, o bairro de destino e a distância total. A meta é que o motorista decida dentro dos 30 segundos do timer sem abrir outra tela. Como a de "menos de um minuto" do lojista, essa meta não foi medida.</p>
+        <p class="muted" style="font-size:15.5px">Pergunta em aberto: na base do card, Recusar (contorno) e Aceitar entrega (preenchido, mais largo) têm a mesma altura e ficam lado a lado. Não registrei essa decisão. Um Aceitar bem mais forte ajudaria a aceitar antes do timer zerar, mas aumenta o risco de aceitar sem querer com uma mão só. Botões parecidos protegem contra esse toque errado e custam um pouco mais de leitura. Quero decidir isso num teste na rua.</p>
       </div>
       <figure class="phone rv" style="max-width:300px;justify-self:center"><img src="assets/projects/easylog-case/motorista-novo-pedido.webp" width="360" height="800" loading="lazy" alt="Novo pedido no app do motorista: você recebe R$ 38,50, utilitário, carga grande com 2 latas de 18 L e 1 rolo, 6,4 km no total, retirada e destino, botões Recusar e Aceitar entrega."></figure>
     </div>
@@ -616,7 +586,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
   <!-- 06 PAINEL -->
   <section class="wrap" id="painel">
     <div class="sec-head rv"><span class="num">06</span><h2>O painel de quem administra</h2><p>O app é para as entregas do dia. No painel, o dono olha o mês: quantas entregas foram feitas, quanto custaram, quando o pacote vai acabar e se vale trocar de plano.</p></div>
-    <figure class="rv"><div class="shot"><img src="assets/projects/easylog-case/web-dashboard.webp" width="1440" height="1024" loading="lazy" alt="Dashboard do painel web: 142 de 200 entregas no mês, custo total de R$ 2.345,82, custo médio de R$ 16,52, tempo médio de 38 minutos, gráfico de entregas por dia, uso do plano e tabela de entregas em andamento."></div><figcaption>Dashboard. O uso do plano (142 de 200) fica ao lado do gráfico, porque é a primeira coisa que o dono quer saber.</figcaption></figure>
+    <figure class="rv"><div class="shot"><img src="assets/projects/easylog-case/web-dashboard.webp" width="1440" height="1024" loading="lazy" alt="Dashboard do painel web: 142 de 200 entregas no mês, custo total de R$ 2.345,82, custo médio de R$ 16,52, tempo médio de 38 minutos, gráfico de entregas por dia, uso do plano e tabela de entregas em andamento."></div><figcaption>Dashboard. O uso do plano (142 de 200) fica ao lado do gráfico, porque imagino que seja o que o dono procura primeiro.</figcaption></figure>
     <div class="split" style="margin-top:28px">
       <figure class="rv"><div class="shot"><img src="assets/projects/easylog-case/web-mapa.webp" width="1440" height="1024" loading="lazy" alt="Mapa ao vivo de Teresina com seis entregas em andamento, lista lateral com status e filtros por etapa."></div><figcaption>Mapa ao vivo das entregas em andamento, de todas as unidades.</figcaption></figure>
       <figure class="rv"><div class="shot"><img src="assets/projects/easylog-case/web-planos.webp" width="1440" height="1024" loading="lazy" alt="Assinatura e planos: plano Pro ativo, barra de 142 de 200 entregas com o aviso de que o pacote acaba por volta de 20/11, e a comparação entre Essencial, Pro e Rede."></div><figcaption>Assinatura: o painel avisa quando o pacote deve acabar ("por volta de 20/11") e compara os planos.</figcaption></figure>
@@ -633,9 +603,27 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     </div>
   </section>
 
-  <!-- 08 DESIGN SYSTEM -->
+  <!-- 08 QUANDO DÁ ERRADO -->
+  <section class="wrap" id="erros">
+    <div class="sec-head rv"><span class="num">08</span><h2>Quando dá errado</h2><p>O protótipo segue o caminho em que tudo dá certo. Os estados abaixo ainda não têm tela revisada neste estudo de caso: a especificação previa frames para parte deles e existem versões geradas no Figma, mas nenhuma entrou no protótipo nem passou pela comparação entre frentes. Por enquanto, cada um é só a regra escrita abaixo.</p></div>
+    <div class="table-wrap rv">
+      <table class="stack">
+        <thead><tr><th scope="col">Situação</th><th scope="col">Quem vê</th><th scope="col">Regra que proponho</th></tr></thead>
+        <tbody>
+          <tr><td><b>O timer de 28 s zera</b></td><td><span class="who-m"></span>Motorista</td><td>O card some com o aviso "Este pedido foi oferecido a outro motorista" e o app volta a procurar entregas. Deixar o tempo acabar não conta como recusa.</td></tr>
+          <tr><td><b>Ninguém aceitou</b></td><td><span class="who-l"></span>Lojista</td><td>O pedido passa para o próximo motorista compatível enquanto Mariana vê "Procurando motorista". Se ninguém aceitar em alguns minutos (o número precisa de teste), ela escolhe entre continuar procurando, agendar ou trocar o veículo. O painel já mostra "#4840 · Aguardando motorista", e o app precisa mostrar o mesmo estado.</td></tr>
+          <tr><td><b>A palavra-chave não confere</b></td><td><span class="who-l"></span>Lojista, na retirada<br><span class="who-m"></span>Motorista, no destino</td><td>Na loja, a mercadoria não sai: o botão de liberar fica bloqueado, e Mariana confere o nome, a foto e a placa do motorista que o app já mostra. Se ainda não bater, ela cancela a entrega sem custo e o pedido volta para a fila. No destino, o motorista tem três tentativas. Depois disso, ele abre "Problema na entrega" e a mercadoria volta para a loja.</td></tr>
+          <tr><td><b>Cancelamento</b></td><td><span class="who-l"></span>Lojista<br><span class="who-m"></span>Motorista</td><td>O lojista cancela sem custo antes do aceite, e a entrega não conta no pacote. Depois do aceite, falta decidir se o motorista recebe pelo deslocamento até a loja. Se o motorista cancelar antes da retirada, o pedido volta para a fila na frente dos outros e o lojista é avisado. Depois da retirada, o app não deixa cancelar, só relatar um problema.</td></tr>
+          <tr><td><b>Cadastro recusado depois do pagamento</b></td><td><span class="who-m"></span>Motorista</td><td>Hoje a tela de análise mostra o Pix de R$ 79,90 aprovado com os documentos ainda em análise. Ou seja, o fluxo cobra antes de aprovar, uma decisão de negócio que eu não tinha tomado. Minha proposta é aprovar primeiro e cobrar depois. Se a cobrança antecipada ficar, a recusa definitiva devolve o valor inteiro na hora, a recusa por foto ilegível deixa reenviar o documento sem perder o plano, e o plano só começa a contar na aprovação.</td></tr>
+          <tr><td><b>Primeiro dia sem entregas</b></td><td><span class="who-l"></span>Lojista<br><span class="who-w"></span>Painel</td><td>O início do app mostra só o botão "Nova entrega" e uma linha sobre as duas palavras-chave, sem cards de resumo zerados. O painel troca o gráfico vazio por uma lista do que configurar (unidades, equipe, cartão) e mostra o plano em "0 de 200".</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 09 DESIGN SYSTEM -->
   <section class="wrap" id="design-system">
-    <div class="sec-head rv"><span class="num">08</span><h2>Design system</h2><p>Parti do Mobile Apps Prototyping Kit e do Map Navigation UI Kit para os apps, e da estrutura do Simple Design System para o painel. As cores saíram da logo. São 49 componentes no arquivo do design system, com 3 coleções de variáveis e 17 estilos de texto.</p></div>
+    <div class="sec-head rv"><span class="num">09</span><h2>Design system</h2><p>Parti do Mobile Apps Prototyping Kit e do Map Navigation UI Kit para os apps, e da estrutura do Simple Design System para o painel. As cores saíram da logo. São 49 componentes no arquivo do design system, com 3 coleções de variáveis e 17 estilos de texto.</p></div>
 
     <div class="swatches rv">
       <div class="sw"><i style="background:#092F4E"></i><div><b>Marinho</b><code>#092F4E</code><span class="muted">Ação e botão principal</span></div></div>
@@ -659,43 +647,37 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       </div>
       <div class="card rv">
         <span class="k">Tipografia</span>
-        <p class="aa" style="font-family:Inter,sans-serif;font-weight:800;font-size:52px;line-height:1;letter-spacing:-.02em">Aa</p>
+        <p class="aa" style="font-family:Inter,sans-serif;font-weight:700;font-size:52px;line-height:1;letter-spacing:-.02em">Aa</p>
         <p>Inter nas três frentes. Criei dois estilos que o kit não tinha: <b>Number</b>, para valores em reais, e <b>Keyword</b>, em 40 px com espaçamento largo, para a palavra-chave ser lida a um braço de distância.</p>
       </div>
     </div>
 
     <h3 class="rv" style="margin:48px 0 16px">Acessibilidade</h3>
     <div class="learn" style="margin-top:0">
-      <div class="card rv"><iconify-icon icon="lucide:contrast"></iconify-icon><h3>Contraste AA em todo texto</h3><p>Auditei 3.171 textos nas três frentes. O cinza <code>#8F9098</code>, que vinha do kit como cor de texto secundário, saiu do texto e ficou só em ícone desativado e borda.</p></div>
+      <div class="card rv"><iconify-icon icon="lucide:contrast"></iconify-icon><h3>Contraste AA em todo texto</h3><p>Auditei 3.171 textos nas três frentes, comparando a cor de cada texto com o fundo pela régua AA: 4,5:1 para texto comum e 3:1 para texto grande (24 px, ou 18 px em negrito). O cinza <code>#8F9098</code>, que vinha do kit como cor de texto secundário, saiu do texto e ficou só em ícone desativado e borda.</p></div>
       <div class="card rv"><iconify-icon icon="lucide:pointer"></iconify-icon><h3>Área de toque</h3><p>48 × 48 px nos apps e 24 × 24 no painel. Quando o elemento visível é menor, como um toggle ou link de texto, ele fica dentro de uma área de toque transparente.</p></div>
     </div>
 
-    <div class="part" style="margin-top:24px">
-      <div class="part-text rv">
-        <span class="tag">Modo alto contraste</span>
-        <p>Para o sol forte, a coleção de cores tem um segundo modo que escurece os tons médios e os cinzas. O motorista liga em Configurações.</p>
-        <p>Comparando as duas telas lado a lado, a diferença ficou pequena demais: a tela padrão já era escura o bastante, e o modo mexe em poucos tons. Isso entrou nos limites.</p>
-      </div>
-      <div class="phones rv">
-        <figure><div class="phone"><img src="assets/projects/easylog-case/motorista-novo-pedido.webp" width="360" height="800" loading="lazy" alt="Novo pedido no modo padrão."></div><figcaption>Padrão</figcaption></figure>
-        <figure><div class="phone"><img src="assets/projects/easylog-case/motorista-alto-contraste.webp" width="360" height="800" loading="lazy" alt="Mesmo pedido no modo alto contraste, visualmente muito parecido com o padrão."></div><figcaption>Alto contraste</figcaption></figure>
-      </div>
+    <div class="part-text rv" style="margin-top:24px;max-width:68ch">
+      <span class="tag">Modo alto contraste</span>
+      <p>Para o sol forte, a coleção de cores tem um segundo modo que escurece os tons médios e os cinzas. O motorista liga em Configurações.</p>
+      <p>Quando comparei as duas telas, a diferença ficou pequena demais: a tela padrão já era escura o bastante, e o modo mexe em poucos tons. Por isso não mostro a comparação aqui. O modo precisa ser refeito e está nos limites.</p>
     </div>
     <p class="note rv" style="margin-top:12px"><b>No Figma:</b> a página 🎨 Design System do arquivo de telas reúne cores, status, tipografia, espaçamentos, sombras, ícones e componentes, montada com instâncias dos componentes reais. <a href="https://www.figma.com/design/jkjjwENNY1rHJQgjxkmBqy?node-id=88-45" target="_blank" rel="noopener" style="font-weight:600">Abrir a prancha<span class="sr-only"> (abre em nova aba)</span></a></p>
   </section>
 
-  <!-- 09 PROCESSO -->
+  <!-- 10 PROCESSO -->
   <section class="wrap" id="processo">
-    <div class="sec-head rv"><span class="num">09</span><h2>Como trabalhei com a IA</h2><p>A IA gerou as telas. As regras, a divisão do trabalho e a revisão foram minhas. Dividi o projeto em dez subpartes (design system, depois três para cada frente), cada uma com a lista de telas e um checklist, para revisar uma antes de pedir a próxima.</p></div>
+    <div class="sec-head rv"><span class="num">10</span><h2>Como trabalhei com a IA</h2><p>Eu defini as regras de negócio, a divisão do trabalho e os textos, o Claude gerou as telas a partir disso e eu revisei cada uma. Dividi o projeto em dez subpartes (design system, depois três para cada frente), cada uma com a lista de telas e um checklist, para revisar uma antes de pedir a próxima.</p></div>
     <ol class="steps">
       <li class="rv"><span class="who">Eu</span>Decidi as três frentes, a assinatura no lugar da comissão, os preços dos seis planos, a capacidade de cada veículo e o glossário ("motorista", nunca "entregador").</li>
       <li class="rv"><span class="who">Eu</span>Criei a história de referência (a loja, a Mariana, o Carlos e a entrega #4830) para todas as telas usarem os mesmos dados.</li>
-      <li class="rv"><span class="who">Claude</span>Escreveu os prompts de cada subparte a partir dessas decisões e gerou as telas no Figma com os componentes do design system.</li>
+      <li class="rv"><span class="who">Claude</span>Gerou as telas de cada subparte no Figma a partir dessas regras, com os componentes do design system.</li>
       <li class="rv"><span class="who">Eu</span>Revisei cada subparte antes de seguir e comparei as três frentes lado a lado. As divergências da tabela abaixo saíram dessa comparação.</li>
     </ol>
 
     <h3 class="rv" style="margin:48px 0 16px">O que a revisão encontrou</h3>
-    <p class="muted rv" style="max-width:66ch;margin-bottom:20px">Gerando uma frente de cada vez, cada uma ficou certa sozinha e as três não batiam entre si. A história única da entrega #4830 saiu dessa rodada.</p>
+    <p class="muted rv" style="max-width:66ch;margin-bottom:20px">Como gerei uma frente de cada vez, cada uma saiu coerente sozinha, mas as três não batiam entre si. A história única da entrega #4830 saiu dessa rodada.</p>
     <div class="table-wrap rv">
       <table class="stack">
         <thead><tr><th scope="col">Antes</th><th scope="col">Depois</th></tr></thead>
@@ -708,32 +690,49 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
         </tbody>
       </table>
     </div>
+
+    <h3 class="rv" style="margin:48px 0 16px">O que a revisão deixou passar</h3>
+    <p class="muted rv" style="max-width:66ch;margin-bottom:20px">Minha revisão pegou dado e regra e deixou passar erros de interface. Uma segunda rodada de crítica, com avaliadores simulados por IA, achou estes. Eles ainda estão nas telas e entram na próxima correção.</p>
+    <div class="table-wrap rv">
+      <table class="stack">
+        <thead><tr><th scope="col">Tela</th><th scope="col">O que está errado</th><th scope="col">Correção</th></tr></thead>
+        <tbody>
+          <tr><td>Cadastro em análise (motorista)</td><td>O item "Veículo · Fiat Fiorino · QRS-4E21" usa ícone de moto. Como o pedido depende do veículo, o ícone também informa.</td><td>Ícone de utilitário, e o ícone de cada item vindo do tipo de veículo cadastrado</td></tr>
+          <tr><td>Dashboard (painel)</td><td>No card "Custo total", a linha "Motoristas R$ 2.345,82 · Taxas R$ 0,00 (dentro do plano)" passa da borda e é cortada.</td><td>Quebrar em duas linhas ou encurtar para "Taxas R$ 0,00"</td></tr>
+          <tr><td>Dashboard e Assinatura (painel)</td><td>A regra diz que o verde só aparece quando dá certo ou quando entra dinheiro. No dashboard, a barra do dia 14 é verde só por ser hoje, e o uso do plano 142/200 é verde. Na tela de assinatura, o mesmo 142/200 é laranja.</td><td>Uma cor só para uso do plano nas duas telas (marinho), laranja só quando o pacote estiver perto do fim, e o dia de hoje marcado sem verde</td></tr>
+          <tr><td>Assinatura (painel)</td><td>O aviso "a loja passa de 200 entregas por volta de 20/11" está em texto pequeno laranja. Preciso conferir o contraste dele.</td><td>Conferir o contraste e, se faltar, usar o par de cores do status de alerta</td></tr>
+          <tr><td>Nova entrega (lojista) e Novo pedido (motorista)</td><td>O lojista vê "Distância estimada 6,4 km" antes de pedir. No pedido do motorista, esses 6,4 km são 1,8 km até a loja mais 4,6 km depois da retirada. Assim, o frete do lojista inclui o deslocamento de um motorista que ainda não foi escolhido.</td><td>Os documentos do projeto só dizem "6,4 km" e não definem o que entra na conta, porque a regra do frete não existe. Minha proposta é o lojista ver só loja até destino (4,6 km) e o deslocamento até a loja ficar fora do frete. Isso muda o valor de R$ 38,50 e depende da regra do frete.</td></tr>
+          <tr><td>Itens do pedido (lojista e motorista)</td><td>O lojista vê "2× lata de tinta acrílica 18 L / 1× rolo com extensor". O motorista vê "2x Lata de tinta acrílica 18 L / 1x Rolo de pintura com extensor".</td><td>O mesmo texto nas duas frentes, tirado da descrição que o lojista digita</td></tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
-  <!-- 10 LIMITES -->
+  <!-- 11 LIMITES -->
   <section class="wrap" id="limites">
-    <div class="sec-head rv"><span class="num">10</span><h2>Limites e perguntas em aberto</h2><p>Antes de chamar o projeto de pronto, faltam estas coisas.</p></div>
+    <div class="sec-head rv"><span class="num">11</span><h2>Limites e perguntas em aberto</h2><p>Antes de chamar o projeto de pronto, faltam estas coisas.</p></div>
     <ul class="open">
       <li class="rv"><span class="lvl alta">Alta</span><b>Ninguém testou</b><p>Não conversei com lojistas nem com motoristas, e ninguém usou o protótipo. O problema e as soluções são hipóteses minhas.</p></li>
       <li class="rv"><span class="lvl alta">Alta</span><b>Preços sem validação</b><p>Não sei se R$ 79,90 por mês cabe no bolso do motorista nem se as assinaturas pagam a operação. Os números foram decididos por coerência entre eles, sem pesquisa.</p></li>
-      <li class="rv"><span class="lvl alta">Alta</span><b>Quem define o frete?</b><p>O frete de R$ 38,50 aparece pronto. Não desenhei a regra de cálculo (distância, veículo, carga) nem se o motorista pode recusar por achar baixo. E o frete é quase toda a conta do lojista: cerca de 95% na conta da seção 04.</p></li>
+      <li class="rv"><span class="lvl alta">Alta</span><b>Quem define o frete?</b><p>O frete de R$ 38,50 aparece pronto. Não desenhei a regra de cálculo (distância, veículo, carga) nem se o motorista pode recusar por achar baixo. E o frete é quase toda a conta do lojista: cerca de 95% na conta da seção 04. Também falta definir se os 6,4 km incluem o caminho do motorista até a loja (seção 10).</p></li>
+      <li class="rv"><span class="lvl alta">Alta</span><b>Estados de erro sem tela</b><p>Timer zerado, ninguém aceitou, palavra-chave errada, cancelamento, cadastro recusado depois do pagamento e primeiro dia sem entregas têm só a regra escrita na seção 08.</p></li>
       <li class="rv"><span class="lvl media">Média</span><b>A tela do destinatário não existe</b><p>Marcos recebe um link de acompanhamento por WhatsApp, mas a página que esse link abre não foi desenhada.</p></li>
-      <li class="rv"><span class="lvl media">Média</span><b>"Menos de um minuto" não foi medido</b><p>Criar uma entrega leva três etapas e uma revisão. É a meta, mas sem um teste cronometrado não sei se ela foi cumprida.</p></li>
+      <li class="rv"><span class="lvl media">Média</span><b>"Menos de um minuto" e "30 segundos" não foram medidos</b><p>Criar uma entrega leva três etapas e uma revisão, e o motorista tem 30 segundos para decidir o pedido. As duas são metas. Sem um teste cronometrado, não sei se alguma delas foi cumprida.</p></li>
       <li class="rv"><span class="lvl media">Média</span><b>Alto contraste fraco</b><p>As telas no modo alto contraste ficaram quase iguais às padrão. O modo precisa de mudanças mais visíveis, como fundo do mapa mais claro e bordas mais grossas.</p></li>
       <li class="rv"><span class="lvl media">Média</span><b>Design system não publicado</b><p>As telas usam uma cópia dos componentes, e não a biblioteca. Antes de publicar, uns 150 componentes que só existem nas telas precisam ir para o arquivo do design system.</p></li>
       <li class="rv"><span class="lvl media">Média</span><b>Protótipo feito de cópias</b><p>As 18 telas do protótipo são cópias das originais. Uma mudança numa tela precisa ser repetida à mão na cópia.</p></li>
     </ul>
   </section>
 
-  <!-- 11 APRENDIZADOS -->
+  <!-- 12 APRENDIZADOS -->
   <section class="wrap" id="aprendizados">
-    <div class="sec-head rv"><span class="num">11</span><h2>Aprendizados</h2></div>
-    <p class="quote rv">Um serviço tem vários fluxos, e todos precisam contar a mesma história.</p>
+    <div class="sec-head rv"><span class="num">12</span><h2>Aprendizados</h2></div>
+    <p class="quote rv">A maior parte das divergências que corrigi só aparecia quando eu punha as frentes lado a lado.</p>
 
     <div class="learn">
-      <div class="card rv"><iconify-icon icon="lucide:git-merge"></iconify-icon><h3>Uma história amarra as frentes</h3><p>Usar a mesma loja, o mesmo motorista e a mesma entrega em todas as telas mostrou na hora onde as frentes se contradiziam.</p></div>
+      <div class="card rv"><iconify-icon icon="lucide:git-merge"></iconify-icon><h3>Uma história amarra as frentes</h3><p>Com a Tintas &amp; Tintas, o Carlos e a #4830 em todas as telas, um código ou um nome diferente aparecia logo na comparação.</p></div>
       <div class="card rv"><iconify-icon icon="lucide:scale"></iconify-icon><h3>Regra de negócio vem antes da tela</h3><p>O preço aparece no cadastro, no pedido, no recibo, na assinatura e no painel. Definir antes evitou refazer dezenas de telas.</p></div>
-      <div class="card rv"><iconify-icon icon="lucide:sparkles"></iconify-icon><h3>Gerar por partes cria divergência</h3><p>Gerar uma frente por vez deixou cada uma coerente por dentro e diferente das outras. A revisão entre frentes teve que ser minha.</p></div>
+      <div class="card rv"><iconify-icon icon="lucide:sparkles"></iconify-icon><h3>Gerar por partes cria divergência</h3><p>O Claude manteve cada frente fiel ao próprio prompt, mas não às outras. Comparar uma frente com a outra ficou comigo.</p></div>
       <div class="card rv"><iconify-icon icon="lucide:contrast"></iconify-icon><h3>Conferir na tela, lado a lado</h3><p>O modo alto contraste existe nas variáveis, mas só olhando as telas lado a lado vi que ele quase não muda nada.</p></div>
     </div>
 

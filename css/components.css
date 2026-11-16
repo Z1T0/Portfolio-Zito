@@ -1,0 +1,122 @@
+/* =============================================================
+   COMPONENTES COMPARTILHADOS · Antonio Zito
+   Botão (.theme-btn), botão ícone (.btn-icon), campo (.field/.input)
+   e chip (.chip), com a especificação documentada em design_system.html.
+
+   Depende de css/tokens.css. Ordem no <head>:
+     <link rel="stylesheet" href="css/tokens.css">
+     <link rel="stylesheet" href="css/components.css">
+     <style> ...CSS da página... </style>
+
+   Regra: a página pode mudar o tamanho de um botão no contexto
+   (ex.: .topbar .theme-btn{--h:44px}), mas não redefine o componente.
+   Se precisar de outra variante, ela entra aqui e no design system.
+
+   Ainda não está ligado em nenhuma página (16/11/2026).
+   Passo a passo da ligação: ../avaliacoes-portfolio/rodada-2/plano-tokens.md
+============================================================= */
+
+/* ---------- Botão · .theme-btn ----------
+   Altura 52px · padding 0 26px · Inter Display 500 16px · gap 12px · pílula.
+   Texto que rola no hover (.btn-roll) e seta que troca (.btn-arrow). */
+.theme-btn{--h:52px;position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:var(--s-3);height:var(--h);padding:0 26px;border-radius:var(--r-pill);border:1px solid transparent;font-family:var(--font-display);font-weight:500;font-size:var(--fs-body);letter-spacing:-.01em;line-height:1;text-decoration:none;cursor:pointer;white-space:nowrap;overflow:hidden;transition:background var(--d-base) var(--ease-out),color var(--d-base),border-color var(--d-base),box-shadow var(--d-slow) var(--ease-out),transform var(--d-base) var(--ease-out)}
+.theme-btn:active{transform:scale(.97)}
+.theme-btn--sm{--h:40px;padding:0 18px;font-size:var(--fs-body-sm);gap:var(--s-2)}
+.theme-btn--lg{--h:60px;padding:0 var(--s-8);font-size:17px}
+/* brilho que atravessa */
+.theme-btn::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s var(--ease-out)}
+.theme-btn:hover::before{transform:translateX(120%)}
+/* texto que rola */
+.btn-roll{display:inline-block;position:relative;overflow:hidden;height:1.2em;line-height:1.2em}
+.btn-roll>span{display:block;transition:transform .5s var(--ease-out)}
+.btn-roll>span::after{content:attr(data-text);position:absolute;left:0;top:100%}
+.theme-btn:hover .btn-roll>span{transform:translateY(-100%)}
+/* seta que troca */
+.btn-arrow{position:relative;width:28px;height:28px;margin-right:-12px;border-radius:50%;display:grid;place-items:center;overflow:hidden;font-size:16px;transition:transform var(--d-base) var(--ease-out)}
+.btn-arrow iconify-icon{position:absolute;transition:transform .5s var(--ease-out)}
+.btn-arrow iconify-icon:last-child{transform:translateX(-160%)}
+.theme-btn:hover .btn-arrow iconify-icon:first-child{transform:translateX(160%)}
+.theme-btn:hover .btn-arrow iconify-icon:last-child{transform:translateX(0)}
+.btn-arrow--down iconify-icon:last-child{transform:translateY(-160%)}
+.theme-btn:hover .btn-arrow--down iconify-icon:first-child{transform:translateY(160%)}
+.theme-btn:hover .btn-arrow--down iconify-icon:last-child{transform:translateY(0)}
+.btn-arrow--left{margin:0 0 0 -8px!important;background:var(--mist)}
+.btn-arrow--left iconify-icon:last-child{transform:translateX(160%)}
+.theme-btn:hover .btn-arrow--left iconify-icon:first-child{transform:translateX(-160%)}
+.theme-btn:hover .btn-arrow--left iconify-icon:last-child{transform:translateX(0)}
+.theme-btn--sm .btn-arrow{width:24px;height:24px;margin-right:-8px;font-size:14px}
+/* variantes */
+.theme-btn--primary{background:var(--ink);color:var(--white)}
+.theme-btn--primary .btn-arrow{background:var(--white);color:var(--ink)}
+.theme-btn--primary:hover{background:var(--black);box-shadow:var(--sh-glow)}
+.theme-btn--accent{background:var(--brand);color:var(--on-brand)}
+.theme-btn--accent .btn-arrow{background:var(--on-brand);color:var(--brand)}
+.theme-btn--accent:hover{background:var(--brand-600);box-shadow:var(--sh-glow)}
+.theme-btn--outline{background:transparent;color:var(--ink);border-color:var(--steel)}
+.theme-btn--outline .btn-arrow{background:var(--mist)}
+.theme-btn--outline:hover{border-color:var(--ink);background:var(--snow)}
+.theme-btn--outline::before{background:linear-gradient(110deg,transparent 30%,rgba(var(--brand-rgb),.12) 50%,transparent 70%)}
+.theme-btn--soft{background:var(--mist);color:var(--ink)}
+.theme-btn--soft:hover{background:var(--brand-tint);color:var(--brand)}
+.theme-btn--glass{background:rgba(var(--surface-rgb),.55);color:var(--ink);border-color:var(--mist);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:var(--sh-sm)}
+.theme-btn--glass:hover{background:rgba(var(--surface-rgb),.85)}
+.theme-btn--ghost{background:transparent;color:var(--ink);padding:0 var(--s-1);overflow:visible}
+.theme-btn--ghost::before{display:none}
+.theme-btn--ghost::after{content:"";position:absolute;left:4px;right:4px;bottom:12px;height:1px;background:currentColor;transform:scaleX(.25);transform-origin:left;transition:transform .5s var(--ease-out)}
+.theme-btn--ghost:hover::after{transform:scaleX(1)}
+[data-theme="dark"] .theme-btn--outline{background:rgba(255,255,255,.04)}
+[data-theme="dark"] .theme-btn::before{background:linear-gradient(110deg,transparent 30%,rgba(var(--brand-rgb),.25) 50%,transparent 70%)}
+/* estados */
+.theme-btn.is-disabled,.theme-btn:disabled{opacity:.38;cursor:not-allowed;box-shadow:none;transform:none}
+.theme-btn.is-disabled::before,.theme-btn:disabled::before{display:none}
+.theme-btn.is-loading{pointer-events:none}
+.theme-btn.is-loading .btn-roll{opacity:0}
+.theme-btn.is-loading::after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:cmp-rotating .7s linear infinite}
+.theme-btn.is-focus{outline:2px solid var(--brand);outline-offset:3px}
+
+/* ---------- Botão ícone · .btn-icon ----------
+   48×48 · círculo · borda --steel · ícone 20px. Hover inverte para --ink. */
+.btn-icon{width:48px;height:48px;border-radius:50%;display:inline-grid;place-items:center;border:1px solid var(--steel);background:var(--white);font-size:20px;cursor:pointer;transition:background var(--d-base),color var(--d-base),border-color var(--d-base),transform var(--d-base) var(--ease-spring)}
+.btn-icon iconify-icon{transition:transform var(--d-base) var(--ease-out)}
+.btn-icon:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.btn-icon:hover iconify-icon{transform:rotate(-45deg)}
+.btn-icon:active{transform:scale(.92)}
+.btn-icon--glass{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.35);color:var(--white);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.btn-icon--glass:hover{background:rgba(255,255,255,.35);color:var(--white);border-color:rgba(255,255,255,.6)}
+
+/* ---------- Campo · .field / .input ----------
+   Altura 52px · padding 0 18px · raio 14px · fundo --white · borda --border-input (3.41:1).
+   Foco: borda --brand + anel 4px. Erro: --danger. Desabilitado: --disabled-ink. */
+.field{display:flex;flex-direction:column;gap:var(--s-2)}
+.field label{font-family:var(--font-display);font-weight:500;font-size:var(--fs-body-sm);letter-spacing:-.01em}
+.input-wrap{position:relative;display:flex;align-items:center}
+.input-wrap>iconify-icon{position:absolute;left:var(--s-4);font-size:20px;color:var(--graphite);pointer-events:none;transition:color var(--d-base)}
+.input{width:100%;height:52px;padding:0 18px;border-radius:14px;border:1px solid var(--border-input);background:var(--white);font-family:var(--font-body);font-size:15px;color:var(--ink);transition:border-color var(--d-base),box-shadow var(--d-base),background var(--d-base);-webkit-appearance:none;appearance:none}
+.input-wrap>iconify-icon~.input{padding-left:var(--s-12)}
+.input::placeholder{color:var(--dim)}
+.input:hover{border-color:var(--graphite)}
+.input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px rgba(var(--brand-rgb),.15)}
+.input-wrap:focus-within>iconify-icon{color:var(--accent)}
+textarea.input{height:auto;min-height:120px;padding:14px 18px;resize:vertical;line-height:1.6}
+select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23474747' stroke-width='1.5'%3E%3Cpath d='m19 9-7 6-7-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:44px;cursor:pointer}
+[data-theme="dark"] select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23A6ADBC' stroke-width='1.5'%3E%3Cpath d='m19 9-7 6-7-6'/%3E%3C/svg%3E")}
+.helper{font-size:var(--fs-helper);line-height:1.45;color:var(--graphite);display:flex;align-items:center;gap:6px}
+.field.is-error .input{border-color:var(--danger);box-shadow:0 0 0 4px rgba(var(--danger-rgb),.12)}
+.field.is-error .helper{color:var(--danger)}
+.field.is-error .input-wrap{animation:cmp-shake .45s var(--ease-out)}
+.field.is-success .input{border-color:var(--success)}
+.field.is-success .helper{color:var(--success)}
+.field.is-disabled .input{background:var(--snow);color:var(--disabled-ink);border-color:var(--mist);cursor:not-allowed}
+.field.is-disabled label{color:var(--disabled-ink)}
+
+/* ---------- Chip · .chip ----------
+   Etiqueta técnica em mono 12px (token, valor, versão). Não é botão. */
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:var(--fs-mono);line-height:1;padding:6px 9px;border-radius:8px;background:var(--snow);border:1px solid var(--mist);color:var(--graphite);white-space:nowrap}
+
+/* ---------- Animações próprias (prefixo cmp- para não colidir com as da página) ---------- */
+@keyframes cmp-rotating{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes cmp-shake{0%,100%{transform:none}20%{transform:translateX(-6px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(2px)}}
+@media (prefers-reduced-motion:reduce){
+  .theme-btn,.theme-btn::before,.btn-roll>span,.btn-arrow iconify-icon,.btn-icon,.btn-icon iconify-icon,.input{transition-duration:.001ms!important}
+  .field.is-error .input-wrap,.theme-btn.is-loading::after{animation-duration:.001ms!important;animation-iteration-count:1!important}
+}
