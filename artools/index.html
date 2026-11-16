@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Artools Pigmentum</title>
+    <title>Artools Pigmentum · landing de estudo</title>
     <meta name="description" content="A Artools Pigmentum redefine o equilíbrio entre peso, fluxo e design." />
 
     <!-- ============================================================
@@ -17,34 +17,14 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
-    <!-- Tailwind + Iconify — mesmas dependências do design system -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind compilado (v3.4.17) a partir das classes desta página — substitui o
+         Play CDN, que compilava no navegador a cada visita. Tokens iguais aos do
+         tailwind.config do design_system.html (stone, surface-light, fontes, spin-slow).
+         Se mudar classes no HTML, gere de novo (nesta pasta):
+         npx tailwindcss@3.4.17 -c tailwind.config.js -i tailwind.in.css -o tailwind.css --minify
+         O <link> fica DEPOIS do <style> abaixo, na mesma ordem em que o CDN injetava
+         o CSS dele (ex.: bg-white/60 dos cards precisa vencer o .flashlight-card). -->
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-
-    <script>
-        /* Tokens copiados 1:1 do tailwind.config do design_system.html */
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                        display: ['Space Grotesk', 'sans-serif'],
-                    },
-                    colors: {
-                        stone: {
-                            50: '#fafaf9', 100: '#f5f5f4', 200: '#e7e5e4', 300: '#d6d3d1', 400: '#a8a29e',
-                            500: '#78716c', 600: '#57534e', 700: '#44403c', 800: '#292524', 900: '#1c1917',
-                        },
-                        'surface-light': '#EAEAE5',
-                    },
-                    animation: {
-                        'spin-slow': 'spin 8s linear infinite',
-                    },
-                },
-            },
-        };
-    </script>
 
     <style>
         /* ============================================================
@@ -89,7 +69,7 @@
         }
 
 
-        /* ===== BOX DE COMPRA (modal flutuante -> WhatsApp) ===== */
+        /* ===== BOX DE COMPRA (modal flutuante: aviso de projeto de estudo) ===== */
         .buy-modal { position: fixed; inset: 0; z-index: 10000; display: grid; place-items: center; padding: 16px;
             visibility: hidden; pointer-events: none; transition: visibility 0s linear .5s; }
         .buy-modal.is-open { visibility: visible; pointer-events: auto; transition: none; }
@@ -119,8 +99,8 @@
         }
         .site-header .nav-mark { background: #1c1917; color: #fff; transition: background-color .5s, color .5s; }
         .site-header .nav-brand { color: #1c1917; transition: color .5s; }
-        .site-header .nav-brand-sub { color: #78716c; transition: color .5s; }
-        .site-header .nav-tag { color: #78716c; border-color: #d6d3d1; transition: color .5s, border-color .5s; }
+        .site-header .nav-brand-sub { color: #57534e; transition: color .5s; }
+        .site-header .nav-tag { color: #57534e; border-color: #d6d3d1; transition: color .5s, border-color .5s; }
         .site-header .nav-links a { color: #44403c; transition: color .3s; }
         .site-header .nav-links a:hover { color: #1c1917; }
         .site-header .btn-beam-content { transition: background-color .5s, color .5s; }
@@ -228,6 +208,9 @@
             -webkit-text-stroke: 1.5px var(--heavy);
             text-stroke: 1.5px var(--heavy);
         }
+        /* Na hero o contorno ganha miolo cor de papel: se a caneta do vídeo passar
+           por trás, o logotipo dela não aparece dentro das letras */
+        .hero-outline { color: rgba(234, 234, 229, .92); }
 
         /* ------------------------------------------------------------
            COREOGRAFIA DO SCROLL (sem pin — só CSS sticky):
@@ -308,8 +291,9 @@
             }
 
             .hero-veil {
-                /* denso só atrás do parágrafo e dos botões; a caneta, no meio da tela, fica à vista */
-                background: linear-gradient(0deg, rgba(234, 234, 229, .95) 0%, rgba(234, 234, 229, .85) 28%, rgba(234, 234, 229, .4) 42%, rgba(234, 234, 229, 0) 55%);
+                /* texto no topo (a caneta cruza o meio e a parte de baixo do quadro):
+                   véu denso de cima para baixo atrás do texto, caneta livre embaixo */
+                background: linear-gradient(180deg, rgba(234, 234, 229, .96) 0%, rgba(234, 234, 229, .9) 42%, rgba(234, 234, 229, .45) 56%, rgba(234, 234, 229, 0) 68%);
             }
         }
 
@@ -466,6 +450,9 @@
         .day-panel.is-night .day-tile { background-color: rgba(255, 255, 255, .06); border-color: rgba(255, 255, 255, .1); }
         .day-panel.is-night .day-chart-card .day-ink-value,
         .day-panel.is-night .day-tile span:first-child { color: #fafaf9; }
+        /* rótulos (stone-600 no claro) voltam a um cinza claro quando o painel escurece */
+        .day-panel.is-night .day-tile span:last-child,
+        .day-panel.is-night .day-chart-card span:first-child { color: #a8a29e; }
         #day-ink-line, #day-ink-dot { transition: stroke .8s, fill .8s; }
         .day-panel.is-night #day-ink-line { stroke: #fafaf9; }
         .day-panel.is-night #day-ink-dot { stroke: #fafaf9; fill: #1c1917; }
@@ -517,7 +504,7 @@
             transition: opacity .6s cubic-bezier(0.16, 1, 0.3, 1), transform .6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .6s, background-color .5s;
         }
         @media (min-width: 1024px) {
-            .day-track.is-ready .day-card:not(.is-current) { opacity: .4; transform: scale(.98); }
+            .day-track.is-ready .day-card:not(.is-current) { opacity: .85; transform: scale(.98); } /* .85: o texto dos cards fora de foco ainda passa 4,5:1 */
         }
         .day-track .day-card.is-current:not(.bg-stone-900) {
             background: rgba(255, 255, 255, .85);
@@ -559,10 +546,10 @@
             gap: .4rem 1.5rem;
             margin-bottom: .75rem;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
+            font-size: 12px;
             letter-spacing: .2em;
             text-transform: uppercase;
-            color: #a8a29e;
+            color: #57534e; /* stone-600: >= 4,5:1 sobre o papel (era #a8a29e, 2,1:1) */
         }
         .lex-defs {
             margin-top: 1.25rem;
@@ -570,11 +557,11 @@
             display: grid;
             gap: .35rem;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
+            font-size: 12px;
             line-height: 1.6;
-            color: #a8a29e;
+            color: #57534e;
         }
-        .lex-defs b { color: #78716c; font-weight: 500; margin-right: .25rem; }
+        .lex-defs b { color: #44403c; font-weight: 500; margin-right: .25rem; }
 
         .lexicon-compact .lex-word { font-size: clamp(5rem, 14vw, 14rem); }
 
@@ -590,6 +577,10 @@
         @media (max-width: 767px) {
             .lex-defs { display: none; }
             .lexicon-compact { display: none; } /* no celular o verbete "Precisão" cobria o título */
+        }
+        /* com 12px e stone-600 a linha de pronúncia ficou mais larga e encostava no título até 1279px */
+        @media (max-width: 1279px) {
+            .lexicon-compact .lex-meta { display: none; }
         }
 
         /* ============================================================
@@ -669,8 +660,14 @@
         @media (prefers-reduced-motion: reduce) {
             .scroll-line::after { animation: none; }
             .text-reveal-content, .reveal { transition: none; }
+            /* nada gira sozinho: feixe do botão, sol do relógio */
+            .btn-beam::before, iconify-icon.animate-spin-slow { animation: none; } /* seletor mais forte: o tailwind.css vem depois */
+            /* sem o vídeo guiado pela rolagem, a trilha da hero não precisa de 360vh */
+            .scroll-track { height: 200vh; height: 200svh; }
+            #hero-progress { display: none !important; }
         }
     </style>
+    <link rel="stylesheet" href="./tailwind.css">
 </head>
 
 <body class="antialiased selection:bg-stone-800 selection:text-white">
@@ -691,7 +688,7 @@
                     <iconify-icon icon="solar:pen-new-square-bold-duotone" class="text-xl"></iconify-icon>
                 </div>
                 <span class="nav-brand font-display font-medium tracking-tight text-lg">ARTOOLS</span>
-                <span class="nav-tag hidden sm:inline ml-2 pl-3 border-l text-[10px] font-mono uppercase tracking-widest">Conceito</span>
+                <span class="nav-tag hidden sm:inline ml-2 pl-3 border-l text-xs font-mono uppercase tracking-widest">Conceito</span>
             </a>
             <nav class="nav-links hidden md:flex items-center gap-8 text-xs font-mono uppercase tracking-widest">
                 <a href="#explorar" data-scroll-to>Especificações</a>
@@ -730,13 +727,13 @@
                 <!-- Scroll indicator -->
                 <div id="scroll-indicator"
                     class="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3 reveal delay-700">
-                    <span class="text-[10px] font-mono uppercase tracking-[0.25em] text-stone-500">Role a página</span>
+                    <span class="text-xs font-mono uppercase tracking-[0.25em] text-stone-600">Role a página</span>
                     <span class="scroll-line" aria-hidden="true"></span>
                 </div>
 
                 <!-- Progresso (micro-label mono, canto inferior direito) -->
-                <div class="hidden md:flex absolute bottom-8 right-8 z-10 items-center gap-3 font-mono text-[10px]
-                            uppercase tracking-widest text-stone-400">
+                <div id="hero-progress" aria-hidden="true" class="hidden md:flex absolute bottom-8 right-8 z-10 items-center gap-3 font-mono text-xs
+                            uppercase tracking-widest text-stone-600">
                     <span id="progress-label">000</span>
                     <span class="w-24 h-px bg-stone-300 relative overflow-hidden">
                         <span id="progress-bar" class="absolute inset-y-0 left-0 w-full bg-stone-900 origin-left"
@@ -749,19 +746,19 @@
             <!-- Camada de texto: rola com a página (não é sticky) -->
             <div class="hero-copy-layer">
                 <div class="relative z-10 h-full max-w-[1440px] mx-auto px-6 md:px-16 lg:px-24
-                            flex flex-col justify-end lg:justify-center pb-32 lg:pb-0 pt-24">
+                            flex flex-col justify-start lg:justify-center pb-16 lg:pb-0 pt-28 lg:pt-24">
                     <div id="hero-copy" class="max-w-xl lg:max-w-2xl will-change-transform">
 
                         <h1 class="font-display font-bold tracking-tighter leading-[0.88] text-stone-900
-                                   text-[clamp(2.25rem,5.6vw,5rem)] mb-5 md:mb-6 whitespace-nowrap">
+                                   text-[clamp(2.25rem,4.2vw,4.25rem)] mb-5 md:mb-6 whitespace-nowrap">
                             <span class="text-reveal-wrapper"><span class="text-reveal-content">A caneta</span></span>
                             <span class="text-reveal-wrapper"><span
-                                    class="text-reveal-content delay-200 text-outline">mais tecnológica</span></span>
+                                    class="text-reveal-content delay-200 text-outline hero-outline">mais tecnológica</span></span>
                             <span class="text-reveal-wrapper"><span class="text-reveal-content delay-300">do
                                     mundo.</span></span>
                         </h1>
 
-                        <p class="text-base md:text-xl text-stone-500 max-w-md md:max-w-lg leading-relaxed font-light
+                        <p class="text-base md:text-xl text-stone-600 max-w-md md:max-w-lg leading-relaxed font-light
                                   reveal delay-500">
                             Uma fineliner de ponta 0,1 que pesa 9 gramas e não borra nem com marca-texto por cima.
                             Para quem passa o dia com uma caneta na mão.
@@ -816,7 +813,7 @@
             <!-- Verbete de fundo: PRECISÃO -->
             <div class="lexicon lexicon-compact absolute top-[6.5rem] md:top-[8rem] right-0 z-0 text-right pr-6 md:pr-16" aria-hidden="true">
                 <div class="lex-meta justify-end">
-                    <span class="text-stone-500">pre·ci·são</span><span>/pɾe.siˈzɐ̃w̃/</span><span>s.f.</span><span>lat. praecisio</span><span class="hidden md:inline normal-case tracking-normal">— exatidão rigorosa; ausência de desvio.</span>
+                    <span class="text-stone-600">pre·ci·são</span><span>/pɾe.siˈzɐ̃w̃/</span><span>s.f.</span><span>lat. praecisio</span><span class="hidden 2xl:inline normal-case tracking-normal">— exatidão rigorosa; ausência de desvio.</span>
                 </div>
                 <p class="lex-word" data-lex-drift="-6">Precisão</p>
             </div>
@@ -828,9 +825,9 @@
                     <div class="lg:col-span-8">
                         <h2 class="font-display font-medium tracking-tighter leading-[0.95] text-[clamp(2.5rem,6vw,5.25rem)]">
                             <span class="text-reveal-wrapper"><span class="fold-line block text-stone-900">Feita no detalhe.</span></span>
-                            <span class="text-reveal-wrapper"><span class="fold-line block text-stone-300">Precisão de 0,1 mm.</span></span>
+                            <span class="text-reveal-wrapper"><span class="fold-line block text-stone-500">Precisão de 0,1 mm.</span></span>
                         </h2>
-                        <p class="fold-fade mt-8 max-w-lg text-base md:text-lg text-stone-500 font-light leading-relaxed">
+                        <p class="fold-fade mt-8 max-w-lg text-base md:text-lg text-stone-600 font-light leading-relaxed">
                             Ponta, tinta e corpo foram pensados juntos. Por isso o traço da última página do
                             caderno sai igual ao da primeira.
                         </p>
@@ -839,16 +836,16 @@
                     <!-- Stat tiles (componente do design system) -->
                     <div class="lg:col-span-4 grid grid-cols-3 gap-3">
                         <div class="fold-fade p-4 border border-stone-200 bg-white hover:scale-105 transition-transform duration-300 flex flex-col items-center justify-center gap-2 rounded-sm">
-                            <span class="text-2xl font-bold font-display">±5<span class="text-sm text-stone-400 ml-0.5">µm</span></span>
-                            <span class="text-[10px] uppercase font-mono text-stone-400 text-center">Tolerância</span>
+                            <span class="text-2xl font-bold font-display">±5<span class="text-sm text-stone-600 ml-0.5">µm</span></span>
+                            <span class="text-xs uppercase font-mono text-stone-600 text-center">Tolerância</span>
                         </div>
                         <div class="fold-fade p-4 border border-stone-200 bg-white hover:scale-105 transition-transform duration-300 flex flex-col items-center justify-center gap-2 rounded-sm">
-                            <span class="text-2xl font-bold font-display">9<span class="text-sm text-stone-400 ml-0.5">g</span></span>
-                            <span class="text-[10px] uppercase font-mono text-stone-400 text-center">Peso total</span>
+                            <span class="text-2xl font-bold font-display">9<span class="text-sm text-stone-600 ml-0.5">g</span></span>
+                            <span class="text-xs uppercase font-mono text-stone-600 text-center">Peso total</span>
                         </div>
                         <div class="fold-fade p-4 border border-stone-200 bg-white hover:scale-105 transition-transform duration-300 flex flex-col items-center justify-center gap-2 rounded-sm">
-                            <span class="text-2xl font-bold font-display">1<span class="text-sm text-stone-400 ml-0.5">km</span></span>
-                            <span class="text-[10px] uppercase font-mono text-stone-400 text-center">De traço</span>
+                            <span class="text-2xl font-bold font-display">1<span class="text-sm text-stone-600 ml-0.5">km</span></span>
+                            <span class="text-xs uppercase font-mono text-stone-600 text-center">De traço</span>
                         </div>
                     </div>
                 </div>
@@ -862,7 +859,7 @@
 
                             <!-- Toggle (componente do design system) -->
                             <label class="absolute top-5 right-5 z-10 flex items-center gap-3 cursor-pointer select-none">
-                                <span class="font-mono text-[10px] uppercase tracking-widest text-stone-500">Modo técnico</span>
+                                <span class="font-mono text-xs uppercase tracking-widest text-stone-600">Modo técnico</span>
                                 <span class="relative w-10 h-6 bg-stone-300 rounded-full transition-colors toggle-bg hover:bg-stone-400">
                                     <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform toggle-dot shadow-sm"></span>
                                 </span>
@@ -1016,9 +1013,9 @@
                         <!-- 01 · Ponta -->
                         <article class="fold-card spec-card flashlight-card group rounded-lg border border-stone-200 p-7 md:p-8 flex flex-col" data-spec="1">
                             <div class="relative z-10 mt-auto">
-                                <p class="font-display font-medium tracking-tighter text-5xl mb-3">0,1<span class="text-2xl text-stone-400 ml-1">mm</span></p>
+                                <p class="font-display font-medium tracking-tighter text-5xl mb-3">0,1<span class="text-2xl text-stone-600 ml-1">mm</span></p>
                                 <h3 class="text-xl font-display font-medium tracking-tight mb-2">Ponta de agulha em aço inox</h3>
-                                <p class="text-sm text-stone-500 leading-relaxed mb-6">Linhas finas como um fio de cabelo, com tolerância de ±5 mícrons. Idênticas do primeiro ao último traço.</p>
+                                <p class="text-sm text-stone-600 leading-relaxed mb-6">Linhas finas como um fio de cabelo, com tolerância de ±5 mícrons. Idênticas do primeiro ao último traço.</p>
                                 <!-- linha de 0,1 mm que se desenha no hover -->
                                 <div class="h-px bg-stone-200 relative overflow-hidden"><span class="absolute inset-y-0 left-0 w-0 bg-stone-900 group-hover:w-full transition-all duration-1000 ease-out"></span></div>
                             </div>
@@ -1027,9 +1024,9 @@
                         <!-- 02 · Tinta -->
                         <article class="fold-card spec-card flashlight-card group rounded-lg border border-stone-200 p-7 md:p-8 flex flex-col" data-spec="2">
                             <div class="relative z-10 mt-auto">
-                                <p class="font-display font-medium tracking-tighter text-5xl mb-3">100<span class="text-2xl text-stone-400 ml-1">anos</span></p>
+                                <p class="font-display font-medium tracking-tighter text-5xl mb-3">100<span class="text-2xl text-stone-600 ml-1">anos</span></p>
                                 <h3 class="text-xl font-display font-medium tracking-tight mb-2">Tinta pigmentada de arquivo</h3>
-                                <p class="text-sm text-stone-500 leading-relaxed">Preto absoluto, à prova d'água e resistente a UV. Não borra sobre marcadores nem desbota com o tempo.</p>
+                                <p class="text-sm text-stone-600 leading-relaxed">Preto absoluto, à prova d'água e resistente a UV. Não borra sobre marcadores nem desbota com o tempo.</p>
                             </div>
                         </article>
 
@@ -1038,10 +1035,10 @@
                             <div class="relative z-10 grid md:grid-cols-2 gap-8 items-end">
                                 <div>
                                     <h3 class="text-2xl font-display font-medium tracking-tight mb-2">Fluxo capilar contínuo</h3>
-                                    <p class="text-sm text-stone-500 leading-relaxed max-w-sm">Um feltro dentro do corpo solta só a tinta que a ponta precisa. Dá para escrever perto de um quilômetro de linha antes de ela acabar.</p>
+                                    <p class="text-sm text-stone-600 leading-relaxed max-w-sm">Um feltro dentro do corpo solta só a tinta que a ponta precisa. Dá para escrever perto de um quilômetro de linha antes de ela acabar.</p>
                                 </div>
                                 <div>
-                                    <p class="font-display font-medium tracking-tighter text-6xl md:text-7xl mb-4 tabular-nums"><span id="flow-counter">0</span><span class="text-3xl text-stone-400 ml-1">m</span></p>
+                                    <p class="font-display font-medium tracking-tighter text-6xl md:text-7xl mb-4 tabular-nums"><span id="flow-counter">0</span><span class="text-3xl text-stone-600 ml-1">m</span></p>
                                     <svg viewBox="0 0 400 90" class="w-full h-20 overflow-visible" aria-hidden="true">
                                         <path d="M2 70 C 40 70, 50 20, 90 30 S 140 80, 180 55 S 230 8, 270 30 S 330 78, 360 40 S 392 18, 398 22"
                                             fill="none" stroke="#e7e5e4" stroke-width="1.5" stroke-linecap="round" />
@@ -1055,18 +1052,18 @@
                         <!-- 04 · Corpo -->
                         <article class="fold-card spec-card flashlight-card group rounded-lg border border-stone-200 p-7 md:p-8 flex flex-col" data-spec="4">
                             <div class="relative z-10 mt-auto">
-                                <p class="font-display font-medium tracking-tighter text-5xl mb-3">9<span class="text-2xl text-stone-400 ml-1">g</span></p>
+                                <p class="font-display font-medium tracking-tighter text-5xl mb-3">9<span class="text-2xl text-stone-600 ml-1">g</span></p>
                                 <h3 class="text-xl font-display font-medium tracking-tight mb-2">Corpo leve e sextavado</h3>
-                                <p class="text-sm text-stone-500 leading-relaxed">Pesa 9 gramas e tem seis faces, então não sai rolando da mesa. Dá para escrever por horas sem cansar a mão.</p>
+                                <p class="text-sm text-stone-600 leading-relaxed">Pesa 9 gramas e tem seis faces, então não sai rolando da mesa. Dá para escrever por horas sem cansar a mão.</p>
                             </div>
                         </article>
 
                         <!-- 05 · Clip -->
                         <article class="fold-card spec-card flashlight-card group rounded-lg border border-stone-200 p-7 md:p-8 flex flex-col" data-spec="5">
                             <div class="relative z-10 mt-auto">
-                                <p class="font-display font-medium tracking-tighter text-5xl mb-3">10k<span class="text-2xl text-stone-400 ml-1">ciclos</span></p>
+                                <p class="font-display font-medium tracking-tighter text-5xl mb-3">10k<span class="text-2xl text-stone-600 ml-1">ciclos</span></p>
                                 <h3 class="text-xl font-display font-medium tracking-tight mb-2">Clip em aço mola temperado</h3>
-                                <p class="text-sm text-stone-500 leading-relaxed">Volta para o lugar mesmo depois de dez mil aberturas e segura firme no bolso da camisa.</p>
+                                <p class="text-sm text-stone-600 leading-relaxed">Volta para o lugar mesmo depois de dez mil aberturas e segura firme no bolso da camisa.</p>
                             </div>
                         </article>
                     </div>
@@ -1076,16 +1073,16 @@
             <!-- Marquee (componente do design system) -->
             <div class="relative z-10 border-t border-stone-300 bg-stone-100/50 py-4 overflow-hidden" aria-hidden="true">
                 <div class="animate-marquee whitespace-nowrap">
-                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">Só 9 gramas</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
-                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">Ponta 0,1 mm</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
-                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">Tinta de arquivo</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
-                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">À prova d'água</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
-                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">1 km de traço</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
-                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">Só 9 gramas</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
-                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">Ponta 0,1 mm</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
-                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">Tinta de arquivo</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
-                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">À prova d'água</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
-                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">1 km de traço</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-600">Só 9 gramas</span><span class="mx-8 inline-block w-px h-3 bg-stone-400 align-middle" aria-hidden="true"></span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-600">Ponta 0,1 mm</span><span class="mx-8 inline-block w-px h-3 bg-stone-400 align-middle" aria-hidden="true"></span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-600">Tinta de arquivo</span><span class="mx-8 inline-block w-px h-3 bg-stone-400 align-middle" aria-hidden="true"></span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-600">À prova d'água</span><span class="mx-8 inline-block w-px h-3 bg-stone-400 align-middle" aria-hidden="true"></span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-600">1 km de traço</span><span class="mx-8 inline-block w-px h-3 bg-stone-400 align-middle" aria-hidden="true"></span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-600">Só 9 gramas</span><span class="mx-8 inline-block w-px h-3 bg-stone-400 align-middle" aria-hidden="true"></span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-600">Ponta 0,1 mm</span><span class="mx-8 inline-block w-px h-3 bg-stone-400 align-middle" aria-hidden="true"></span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-600">Tinta de arquivo</span><span class="mx-8 inline-block w-px h-3 bg-stone-400 align-middle" aria-hidden="true"></span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-600">À prova d'água</span><span class="mx-8 inline-block w-px h-3 bg-stone-400 align-middle" aria-hidden="true"></span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-600">1 km de traço</span><span class="mx-8 inline-block w-px h-3 bg-stone-400 align-middle" aria-hidden="true"></span>
                 </div>
             </div>
         </section>
@@ -1113,7 +1110,7 @@
                 <!-- Verbete de fundo: PIGMENTUM (vertical, borda direita) -->
                 <div class="lexicon lexicon-vertical absolute top-[18%] right-[-2rem] md:right-0">
                     <div class="lex-meta">
-                        <span class="text-stone-500">pig·men·tum</span><span>/pigˈmẽ.tũ/</span><span>s.m.</span><span>lat. pingere, pintar</span>
+                        <span class="text-stone-600">pig·men·tum</span><span>/pigˈmẽ.tũ/</span><span>s.m.</span><span>lat. pingere, pintar</span>
                     </div>
                     <p class="lex-word" data-lex-drift="10">Pigmentum</p>
                 </div>
@@ -1136,16 +1133,16 @@
             <!-- Marquee do DS: a agenda do dia -->
             <div class="relative z-10 border-b border-stone-300 bg-stone-100/50 backdrop-blur-sm py-4 overflow-hidden" aria-hidden="true">
                 <div class="animate-marquee whitespace-nowrap">
-                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">07:30 · Café</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
-                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">10:00 · Reunião</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
-                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">13:00 · Em trânsito</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
-                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">16:00 · Revisão</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
-                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">23:40 · Ideia</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
-                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">07:30 · Café</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
-                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">10:00 · Reunião</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
-                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">13:00 · Em trânsito</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
-                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">16:00 · Revisão</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
-                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-400">23:40 · Ideia</span><span class="mx-8 text-xs font-mono text-stone-300">/</span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-600">07:30 · Café</span><span class="mx-8 inline-block w-px h-3 bg-stone-400 align-middle" aria-hidden="true"></span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-600">10:00 · Reunião</span><span class="mx-8 inline-block w-px h-3 bg-stone-400 align-middle" aria-hidden="true"></span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-600">13:00 · Em trânsito</span><span class="mx-8 inline-block w-px h-3 bg-stone-400 align-middle" aria-hidden="true"></span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-600">16:00 · Revisão</span><span class="mx-8 inline-block w-px h-3 bg-stone-400 align-middle" aria-hidden="true"></span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-600">23:40 · Ideia</span><span class="mx-8 inline-block w-px h-3 bg-stone-400 align-middle" aria-hidden="true"></span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-600">07:30 · Café</span><span class="mx-8 inline-block w-px h-3 bg-stone-400 align-middle" aria-hidden="true"></span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-600">10:00 · Reunião</span><span class="mx-8 inline-block w-px h-3 bg-stone-400 align-middle" aria-hidden="true"></span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-600">13:00 · Em trânsito</span><span class="mx-8 inline-block w-px h-3 bg-stone-400 align-middle" aria-hidden="true"></span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-600">16:00 · Revisão</span><span class="mx-8 inline-block w-px h-3 bg-stone-400 align-middle" aria-hidden="true"></span>
+                    <span class="mx-8 text-xs font-mono uppercase tracking-widest text-stone-600">23:40 · Ideia</span><span class="mx-8 inline-block w-px h-3 bg-stone-400 align-middle" aria-hidden="true"></span>
                 </div>
             </div>
 
@@ -1156,10 +1153,10 @@
                     <div class="lg:col-span-8">
                         <h2 class="font-display font-medium tracking-tighter leading-[0.95] text-[clamp(2.5rem,6vw,5.25rem)]">
                             <span class="text-reveal-wrapper"><span class="day-line block text-stone-900">Do primeiro café</span></span>
-                            <span class="text-reveal-wrapper"><span class="day-line block text-stone-300">à última ideia.</span></span>
+                            <span class="text-reveal-wrapper"><span class="day-line block text-stone-500">à última ideia.</span></span>
                         </h2>
                     </div>
-                    <p class="day-fade lg:col-span-4 text-base md:text-lg text-stone-500 font-light leading-relaxed text-balance">
+                    <p class="day-fade lg:col-span-4 text-base md:text-lg text-stone-600 font-light leading-relaxed text-balance">
                         Caneta boa é aquela que você esquece que está usando. Acompanhe a Pigmentum
                         do café da manhã até a ideia que aparece antes de dormir.
                     </p>
@@ -1186,11 +1183,11 @@
                                 <div class="flex items-end justify-between gap-4 lg:block">
                                     <div>
                                         <p id="day-clock" class="day-fg font-display font-medium tracking-tighter tabular-nums leading-none text-stone-900 text-5xl md:text-7xl lg:text-[7rem]">07:30</p>
-                                        <p id="day-moment" class="day-muted mt-2 lg:mt-4 font-mono text-xs uppercase tracking-widest text-stone-500">Lista do café</p>
+                                        <p id="day-moment" class="day-muted mt-2 lg:mt-4 font-mono text-xs uppercase tracking-widest text-stone-600">Lista do café</p>
                                     </div>
                                     <!-- tinta (mobile) -->
                                     <div class="lg:hidden text-right shrink-0">
-                                        <span class="day-muted font-mono text-[10px] uppercase tracking-widest text-stone-400 block mb-1">Tinta</span>
+                                        <span class="day-muted font-mono text-xs uppercase tracking-widest text-stone-600 block mb-1">Tinta</span>
                                         <span class="day-ink-value day-fg font-display font-bold text-2xl tabular-nums">100%</span>
                                     </div>
                                 </div>
@@ -1198,7 +1195,7 @@
                                 <!-- Data Visualization do DS: tinta ao longo do dia -->
                                 <div class="hidden lg:block mt-10 p-5 rounded-lg border border-stone-200 bg-white/70 day-chart-card">
                                     <div class="mb-4">
-                                        <span class="text-[10px] uppercase font-mono text-stone-400 block mb-1">Tinta restante</span>
+                                        <span class="text-xs uppercase font-mono text-stone-600 block mb-1">Tinta restante</span>
                                         <span class="day-ink-value text-3xl font-display font-medium tabular-nums text-stone-900">100%</span>
                                     </div>
                                     <svg viewBox="0 0 100 30" class="w-full h-auto overflow-visible" aria-hidden="true">
@@ -1225,7 +1222,7 @@
                                             <span class="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-stone-900 day-bar"></span>
                                         </span>
                                     </div>
-                                    <div class="day-muted flex justify-between mt-2 font-mono text-[10px] text-stone-400">
+                                    <div class="day-muted flex justify-between mt-2 font-mono text-xs text-stone-600">
                                         <span>00h</span><span>06h</span><span>12h</span><span>18h</span><span>24h</span>
                                     </div>
                                 </div>
@@ -1234,15 +1231,15 @@
                                 <div class="hidden lg:grid mt-8 grid-cols-3 gap-3">
                                     <div class="day-tile p-3 border border-stone-200 bg-white hover:scale-105 transition-transform duration-300 flex flex-col items-center justify-center gap-1 rounded-sm">
                                         <span id="day-hours" class="text-xl font-bold font-display tabular-nums text-stone-900">0h00</span>
-                                        <span class="text-[10px] uppercase font-mono text-stone-400">De uso</span>
+                                        <span class="text-xs uppercase font-mono text-stone-600">De uso</span>
                                     </div>
                                     <div class="day-tile p-3 border border-stone-200 bg-white hover:scale-105 transition-transform duration-300 flex flex-col items-center justify-center gap-1 rounded-sm">
                                         <span class="text-xl font-bold font-display text-stone-900">0</span>
-                                        <span class="text-[10px] uppercase font-mono text-stone-400">Borrões</span>
+                                        <span class="text-xs uppercase font-mono text-stone-600">Borrões</span>
                                     </div>
                                     <div class="day-tile p-3 border border-stone-200 bg-white hover:scale-105 transition-transform duration-300 flex flex-col items-center justify-center gap-1 rounded-sm">
                                         <span class="text-xl font-bold font-display text-stone-900">0</span>
-                                        <span class="text-[10px] uppercase font-mono text-stone-400">Vazamentos</span>
+                                        <span class="text-xs uppercase font-mono text-stone-600">Vazamentos</span>
                                     </div>
                                 </div>
                             </div>
@@ -1257,13 +1254,13 @@
                             data-time="07:30" data-moment="Lista do café" data-ink="100" data-night="0">
                             <div class="relative z-10">
                                 <div class="flex items-center justify-between mb-8">
-                                    <span class="text-xs font-mono uppercase tracking-widest text-stone-500 border border-stone-200 px-2 py-1 rounded-sm bg-stone-50">07:30</span>
+                                    <span class="text-xs font-mono uppercase tracking-widest text-stone-600 border border-stone-200 px-2 py-1 rounded-sm bg-stone-50">07:30</span>
                                     <div class="day-icon w-12 h-12 rounded-full bg-gradient-to-br from-stone-100 to-stone-200 border border-stone-100 flex items-center justify-center text-xl shadow-inner">
                                         <iconify-icon icon="solar:cup-hot-linear"></iconify-icon>
                                     </div>
                                 </div>
                                 <h3 class="text-2xl md:text-3xl font-display font-normal tracking-tight mb-3 group-hover:translate-x-2 transition-transform duration-300">Destampou, escreveu.</h3>
-                                <p class="text-sm md:text-base text-stone-500 leading-relaxed max-w-md mb-8">Nada de rabiscar o canto da folha para a tinta "pegar". A tinta sai na primeira encostada no papel, toda manhã.</p>
+                                <p class="text-sm md:text-base text-stone-600 leading-relaxed max-w-md mb-8">Nada de rabiscar o canto da folha para a tinta "pegar". A tinta sai na primeira encostada no papel, toda manhã.</p>
                                 <svg viewBox="0 0 400 40" class="w-full max-w-md h-10 overflow-visible" aria-hidden="true">
                                     <path class="day-stroke" pathLength="1" d="M2 28 C 30 6, 52 34, 80 18 S 130 8, 160 22 S 210 34, 240 16 S 300 8, 330 20 S 380 30, 398 14"
                                         fill="none" stroke="#1c1917" stroke-width="1.5" stroke-linecap="round" />
@@ -1276,20 +1273,20 @@
                             data-time="10:00" data-moment="Reunião que importa" data-ink="99.4" data-night="0">
                             <div class="relative z-10">
                                 <div class="flex items-center justify-between mb-8">
-                                    <span class="text-xs font-mono uppercase tracking-widest text-stone-500 border border-stone-200 px-2 py-1 rounded-sm bg-stone-50">10:00</span>
+                                    <span class="text-xs font-mono uppercase tracking-widest text-stone-600 border border-stone-200 px-2 py-1 rounded-sm bg-stone-50">10:00</span>
                                     <div class="day-icon w-12 h-12 rounded-full bg-gradient-to-br from-stone-100 to-stone-200 border border-stone-100 flex items-center justify-center text-xl shadow-inner">
                                         <iconify-icon icon="solar:notebook-linear"></iconify-icon>
                                     </div>
                                 </div>
                                 <h3 class="text-2xl md:text-3xl font-display font-normal tracking-tight mb-3 group-hover:translate-x-2 transition-transform duration-300">Seca antes de você virar a página.</h3>
-                                <p class="text-sm md:text-base text-stone-500 leading-relaxed max-w-md mb-8">Três segundos e o traço está fixo. Anote rápido, arraste a mão, feche o caderno. Canhotos, finalmente, em paz.</p>
+                                <p class="text-sm md:text-base text-stone-600 leading-relaxed max-w-md mb-8">Três segundos e o traço está fixo. Anote rápido, arraste a mão, feche o caderno. Canhotos, finalmente, em paz.</p>
                                 <div class="grid grid-cols-2 gap-3 max-w-md">
                                     <div class="p-4 rounded-lg border border-dashed border-stone-300 bg-stone-100/60">
-                                        <span class="block font-mono text-[10px] uppercase tracking-widest text-stone-400 mb-3">Caneta comum</span>
-                                        <span class="block font-display text-xl text-stone-500 blur-[1.5px] skew-x-[-8deg] opacity-80">Reunião 10h</span>
+                                        <span class="block font-mono text-xs uppercase tracking-widest text-stone-600 mb-3">Caneta comum</span>
+                                        <span class="block font-display text-xl text-stone-600 blur-[1.5px] skew-x-[-8deg] opacity-80">Reunião 10h</span>
                                     </div>
                                     <div class="p-4 rounded-lg border border-stone-200 bg-white shadow-sm">
-                                        <span class="block font-mono text-[10px] uppercase tracking-widest text-stone-400 mb-3">Pigmentum</span>
+                                        <span class="block font-mono text-xs uppercase tracking-widest text-stone-600 mb-3">Pigmentum</span>
                                         <span class="block font-display text-xl text-stone-900">Reunião 10h</span>
                                     </div>
                                 </div>
@@ -1302,13 +1299,13 @@
                             <iconify-icon icon="solar:plain-2-linear" class="absolute -right-4 -bottom-6 text-[10rem] text-stone-200/70 group-hover:-translate-y-2 group-hover:translate-x-2 transition-transform duration-700 z-0"></iconify-icon>
                             <div class="relative z-10">
                                 <div class="flex items-center justify-between mb-8">
-                                    <span class="text-xs font-mono uppercase tracking-widest text-stone-500 border border-stone-200 px-2 py-1 rounded-sm bg-stone-50">13:00</span>
+                                    <span class="text-xs font-mono uppercase tracking-widest text-stone-600 border border-stone-200 px-2 py-1 rounded-sm bg-stone-50">13:00</span>
                                     <div class="day-icon w-12 h-12 rounded-full bg-gradient-to-br from-stone-100 to-stone-200 border border-stone-100 flex items-center justify-center text-xl shadow-inner">
                                         <iconify-icon icon="solar:case-linear"></iconify-icon>
                                     </div>
                                 </div>
                                 <h3 class="text-2xl md:text-3xl font-display font-normal tracking-tight mb-3 group-hover:translate-x-2 transition-transform duration-300">Vai com você. Não vaza em você.</h3>
-                                <p class="text-sm md:text-base text-stone-500 leading-relaxed max-w-md">Tampa vedada e clip de aço que segura firme. No bolso da camisa, no fundo da bolsa ou dentro do avião, a sua roupa continua limpa.</p>
+                                <p class="text-sm md:text-base text-stone-600 leading-relaxed max-w-md">Tampa vedada e clip de aço que segura firme. No bolso da camisa, no fundo da bolsa ou dentro do avião, a sua roupa continua limpa.</p>
                             </div>
                         </article>
 
@@ -1317,13 +1314,13 @@
                             data-time="16:00" data-moment="Marca-texto por cima" data-ink="98.2" data-night="0.3">
                             <div class="relative z-10">
                                 <div class="flex items-center justify-between mb-8">
-                                    <span class="text-xs font-mono uppercase tracking-widest text-stone-500 border border-stone-200 px-2 py-1 rounded-sm bg-stone-50">16:00</span>
+                                    <span class="text-xs font-mono uppercase tracking-widest text-stone-600 border border-stone-200 px-2 py-1 rounded-sm bg-stone-50">16:00</span>
                                     <div class="day-icon w-12 h-12 rounded-full bg-gradient-to-br from-stone-100 to-stone-200 border border-stone-100 flex items-center justify-center text-xl shadow-inner">
                                         <iconify-icon icon="solar:pallete-2-linear"></iconify-icon>
                                     </div>
                                 </div>
                                 <h3 class="text-2xl md:text-3xl font-display font-normal tracking-tight mb-3 group-hover:translate-x-2 transition-transform duration-300">Marca-texto, aquarela, café. Pode vir.</h3>
-                                <p class="text-sm md:text-base text-stone-500 leading-relaxed max-w-md mb-8">O pigmento se fixa nas fibras do papel e não se dissolve. Pode grifar, pintar ou derramar café por cima que o traço fica onde você deixou.</p>
+                                <p class="text-sm md:text-base text-stone-600 leading-relaxed max-w-md mb-8">O pigmento se fixa nas fibras do papel e não se dissolve. Pode grifar, pintar ou derramar café por cima que o traço fica onde você deixou.</p>
                                 <!-- Hover: marca-texto passa por cima (sem apagar o traço) -->
                                 <div class="relative inline-block">
                                     <span class="relative z-10 font-display text-2xl md:text-3xl text-stone-900">Ideia aprovada.</span>
@@ -1340,7 +1337,7 @@
                             <div class="day-stars absolute inset-0 pointer-events-none opacity-40" aria-hidden="true"></div>
                             <div class="relative z-10">
                                 <div class="flex items-center justify-between mb-8">
-                                    <span class="inline-block px-2 py-1 bg-white/10 backdrop-blur text-white text-[10px] font-mono uppercase tracking-widest rounded-sm">23:40</span>
+                                    <span class="inline-block px-2 py-1 bg-white/10 backdrop-blur text-white text-xs font-mono uppercase tracking-widest rounded-sm">23:40</span>
                                     <div class="w-12 h-12 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-xl text-white group-hover:scale-110 transition-transform">
                                         <iconify-icon icon="solar:moon-stars-linear"></iconify-icon>
                                     </div>
@@ -1349,12 +1346,12 @@
                                 <p class="text-sm md:text-base text-stone-400 leading-relaxed max-w-md mb-8">A ideia chegou à meia-noite e a caneta estava largada sem tampa desde a tarde. A ponta aguenta até 24 horas aberta sem ressecar, então ainda estava pronta.</p>
                                 <div class="flex items-end gap-10">
                                     <div>
-                                        <span class="block font-display font-medium tracking-tighter text-5xl">24<span class="text-2xl text-stone-500 ml-1">h</span></span>
-                                        <span class="block font-mono text-[10px] uppercase tracking-widest text-stone-500 mt-1">Sem tampa</span>
+                                        <span class="block font-display font-medium tracking-tighter text-5xl">24<span class="text-2xl text-stone-400 ml-1">h</span></span>
+                                        <span class="block font-mono text-xs uppercase tracking-widest text-stone-400 mt-1">Sem tampa</span>
                                     </div>
                                     <div>
-                                        <span class="block font-display font-medium tracking-tighter text-5xl">97<span class="text-2xl text-stone-500 ml-1">%</span></span>
-                                        <span class="block font-mono text-[10px] uppercase tracking-widest text-stone-500 mt-1">Tinta ao fim do dia</span>
+                                        <span class="block font-display font-medium tracking-tighter text-5xl">97<span class="text-2xl text-stone-400 ml-1">%</span></span>
+                                        <span class="block font-mono text-xs uppercase tracking-widest text-stone-400 mt-1">Tinta ao fim do dia</span>
                                     </div>
                                 </div>
                             </div>
@@ -1371,7 +1368,7 @@
                     <div class="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-10">
                         <div>
                             <h3 class="font-display font-medium tracking-tighter leading-[0.95] text-4xl md:text-6xl">
-                                Um dia inteiro.<br><span class="text-stone-500">Nenhuma falha.</span>
+                                Um dia inteiro.<br><span class="text-stone-400">Nenhuma falha.</span>
                             </h3>
                         </div>
                         <div class="flex flex-wrap gap-3">
@@ -1422,7 +1419,7 @@
                 <div class="lg:col-span-7">
                     <h2 class="font-display font-medium tracking-tighter leading-[0.95] text-[clamp(2.25rem,4.2vw,4.5rem)]">
                         <span class="text-reveal-wrapper"><span class="flow-line block">Escreva por 30 dias.</span></span>
-                        <span class="text-reveal-wrapper"><span class="flow-line block text-stone-500">Se falhar, é por nossa conta.</span></span>
+                        <span class="text-reveal-wrapper"><span class="flow-line block text-stone-400">Se falhar, é por nossa conta.</span></span>
                     </h2>
                     <p class="flow-fade mt-8 max-w-md text-base md:text-lg text-stone-400 font-light leading-relaxed">
                         Use no caderno, no bolso, de madrugada. Se em 30 dias ela falhar um traço,
@@ -1498,7 +1495,7 @@
             </div>
 
             <div class="relative z-10 max-w-[1440px] mx-auto px-6 md:px-16 lg:px-24 py-24 md:py-32 text-center">
-                <p class="font-display font-medium tracking-tight text-2xl md:text-3xl text-stone-500 mb-16 md:mb-28">Aqui ela assina o próprio nome.</p>
+                <p class="font-display font-medium tracking-tight text-2xl md:text-3xl text-stone-600 mb-16 md:mb-28">Aqui ela assina o próprio nome.</p>
 
                 <svg id="sig-svg" viewBox="0 0 1000 360" class="w-full max-w-5xl mx-auto h-auto overflow-visible" role="img" aria-label="Caneta assinando Pigmentum à mão">
                     <defs>
@@ -1602,7 +1599,7 @@
                 </svg>
 
                 <div class="mt-8 flex justify-center">
-                    <button id="sig-replay" type="button" class="px-4 py-2 text-stone-500 hover:text-stone-900 text-sm font-medium transition-colors inline-flex items-center gap-2 group">
+                    <button id="sig-replay" type="button" class="px-4 py-2 text-stone-600 hover:text-stone-900 text-sm font-medium transition-colors inline-flex items-center gap-2 group">
                         <iconify-icon icon="solar:restart-linear" class="group-hover:-rotate-180 transition-transform duration-500"></iconify-icon>
                         Assinar de novo
                     </button>
@@ -1633,7 +1630,7 @@
         <footer id="comprar" data-nav-dark class="relative overflow-hidden bg-stone-900 text-stone-400 pt-16 md:pt-20 pb-16 px-8 md:px-12">
             <!-- Aviso de portfólio: produto conceitual, números fictícios -->
             <div class="relative z-10 max-w-[1440px] mx-auto mb-10 border border-stone-700 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-4 md:gap-10 md:items-center">
-                <span class="shrink-0 inline-flex items-center gap-2 self-start px-3 py-1.5 rounded-full border border-stone-600 text-[10px] font-mono uppercase tracking-widest text-stone-300">
+                <span class="shrink-0 inline-flex items-center gap-2 self-start px-3 py-1.5 rounded-full border border-stone-600 text-xs font-mono uppercase tracking-widest text-stone-300">
                     <iconify-icon icon="solar:info-circle-linear" class="text-sm"></iconify-icon>
                     Estudo pessoal
                 </span>
@@ -1652,9 +1649,10 @@
 
 
     <!-- ============================================================
-         BOX DE COMPRA — abre em qualquer CTA "Comprar" e leva ao WhatsApp
+         BOX DE COMPRA — abre em qualquer CTA "Comprar" e avisa que é projeto de estudo
+         (o produto não está à venda; nenhum número ou loja real)
          ============================================================ -->
-    <div id="buy-modal" class="buy-modal" role="dialog" aria-modal="true" aria-labelledby="buy-title" aria-hidden="true">
+    <div id="buy-modal" class="buy-modal" role="dialog" aria-modal="true" aria-labelledby="buy-title" aria-describedby="buy-desc" aria-hidden="true">
         <div class="buy-backdrop" data-buy-close></div>
         <div class="buy-card shadow-2xl shadow-stone-900/30">
             <div class="buy-ring" aria-hidden="true"></div>
@@ -1662,39 +1660,37 @@
                 <div class="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-stone-300/50 blur-3xl" aria-hidden="true"></div>
 
                 <button type="button" data-buy-close aria-label="Fechar"
-                    class="absolute top-3 right-3 z-10 w-11 h-11 rounded-full flex items-center justify-center text-stone-500 hover:text-stone-900 hover:bg-stone-200/70 transition-colors">
+                    class="absolute top-3 right-3 z-10 w-11 h-11 rounded-full flex items-center justify-center text-stone-600 hover:text-stone-900 hover:bg-stone-200/70 transition-colors">
                     <iconify-icon icon="solar:close-circle-linear" class="text-xl"></iconify-icon>
                 </button>
 
                 <div class="relative">
-                    <h2 id="buy-title" class="pr-12 font-display font-bold tracking-tighter leading-[0.95] text-[clamp(1.75rem,6vw,2.25rem)]">
-                        Que bom que você deu <span class="text-outline">mais um passo</span>.
+                    <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-stone-300 text-xs font-mono uppercase tracking-widest text-stone-600">
+                        <iconify-icon icon="solar:info-circle-linear" class="text-sm" aria-hidden="true"></iconify-icon>
+                        Projeto de estudo
+                    </span>
+                    <h2 id="buy-title" class="mt-5 pr-12 font-display font-bold tracking-tighter leading-[0.95] text-[clamp(1.75rem,6vw,2.25rem)]">
+                        A Pigmentum não está à venda.
                     </h2>
-                    <p class="mt-4 text-stone-500 leading-relaxed font-light">
-                        Um passo para melhorar o seu dia a dia, traço por traço. Fale com um vendedor no WhatsApp:
-                        ele tira suas dúvidas e fecha o pedido da sua Pigmentum com você.
+                    <p id="buy-desc" class="mt-4 text-stone-600 leading-relaxed">
+                        Esta página é um estudo de interface que fiz para o meu portfólio, e a caneta e os números dela são inventados.
+                        Deixei o botão de compra para mostrar onde o pedido entraria. Ele não leva a nenhuma loja nem a nenhum vendedor.
                     </p>
 
                     <div class="mt-8 flex flex-col gap-2">
-                        <a id="buy-whatsapp" href="#" target="_blank" rel="noopener"
+                        <a id="buy-primary" href="../estudo-de-caso-artools.html"
                             class="group relative px-8 py-4 bg-stone-900 text-white overflow-hidden rounded-full text-center transition-all duration-300 hover:shadow-2xl hover:shadow-stone-900/25 hover:-translate-y-0.5">
-                            <span class="absolute inset-0 bg-[#1f7a4d] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></span>
+                            <span class="absolute inset-0 bg-stone-700 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></span>
                             <span class="relative z-10 font-mono text-xs uppercase tracking-widest inline-flex items-center justify-center gap-2">
-                                <iconify-icon icon="ic:baseline-whatsapp" class="text-lg"></iconify-icon>
-                                Falar com um vendedor
-                                <iconify-icon icon="solar:arrow-right-up-linear" class="text-base group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></iconify-icon>
+                                Ver o estudo de caso
+                                <iconify-icon icon="solar:arrow-right-linear" class="text-base group-hover:translate-x-0.5 transition-transform" aria-hidden="true"></iconify-icon>
                             </span>
                         </a>
                         <button type="button" data-buy-close
-                            class="px-8 py-3 rounded-full text-stone-500 hover:text-stone-900 font-mono text-[11px] uppercase tracking-widest transition-colors">
+                            class="px-8 py-3 rounded-full text-stone-600 hover:text-stone-900 font-mono text-xs uppercase tracking-widest transition-colors">
                             Continuar explorando
                         </button>
                     </div>
-
-                    <p class="mt-4 pt-5 border-t border-stone-200 text-[11px] text-stone-400 flex items-center gap-2">
-                        <iconify-icon icon="solar:chat-round-line-linear" class="text-sm"></iconify-icon>
-                        Você será redirecionado para o WhatsApp em uma nova aba.
-                    </p>
                 </div>
             </div>
         </div>
@@ -1754,16 +1750,13 @@
 
 
             /* ----------------------------------------------------------
-               BOX DE COMPRA — todo CTA "Comprar" abre o box; o botão
-               leva ao WhatsApp do vendedor com mensagem pré-preenchida
+               BOX DE COMPRA — todo CTA "Comprar" abre o box, que avisa que
+               a caneta não está à venda e aponta para o estudo de caso
                ---------------------------------------------------------- */
             (() => {
-                const WHATSAPP = '5586988291213';
-                const MSG = 'Olá! Vim pela página da Artools e tenho interesse na caneta Pigmentum.';
                 const modal = document.getElementById('buy-modal');
                 if (!modal) return;
-                const wa = document.getElementById('buy-whatsapp');
-                wa.href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(MSG);
+                const wa = document.getElementById('buy-primary');
                 let lastFocus = null;
 
                 const isOpen = () => modal.classList.contains('is-open');
@@ -1787,7 +1780,6 @@
 
                 document.querySelectorAll('[data-buy], a[href="#comprar"]').forEach((el) => el.addEventListener('click', open));
                 modal.querySelectorAll('[data-buy-close]').forEach((el) => el.addEventListener('click', close));
-                wa.addEventListener('click', () => setTimeout(close, 300));
                 document.addEventListener('keydown', (e) => {
                     if (!isOpen()) return;
                     if (e.key === 'Escape') close();
@@ -2103,6 +2095,18 @@
                 //     A cortina começa em 1.6 telas; o vídeo termina com ela cobrindo ~40%.
                 //     Curva ease-out: o final desacelera e "pousa" em vez de acabar de supetão.
                 const videoEase = gsap.parseEase('power1.out');
+
+                // Movimento reduzido: a hero vira uma imagem parada (1º frame).
+                // Sem scrub do vídeo, sem parallax do texto, sem zoom nem cortina animada.
+                if (reduceMotion) {
+                    playhead.target = playhead.current = 0;
+                    initFold();
+                    ScrollTrigger.sort();
+                    ScrollTrigger.refresh();
+                    extractFrames();
+                    return;
+                }
+
                 ScrollTrigger.create({
                     trigger: '#hero-track',
                     start: 'top top',
@@ -2128,6 +2132,18 @@
                         scrub: 0.3, invalidateOnRefresh: true,
                     },
                 });
+
+                // 4b'. Até lg o véu é denso no topo (atrás do texto); some junto com o texto
+                //      para não lavar o vídeo da mão que vem depois
+                if (window.matchMedia('(max-width: 1023px)').matches) {
+                    gsap.to('.hero-veil', {
+                        opacity: 0, ease: 'none',
+                        scrollTrigger: {
+                            trigger: '#hero-track', start: 'top top', end: () => '+=' + vh() * 0.6,
+                            scrub: 0.3, invalidateOnRefresh: true,
+                        },
+                    });
+                }
 
                 // 4c. Indicador de scroll some nos primeiros pixels
                 gsap.to(indicator, {
@@ -2335,6 +2351,7 @@
                 new IntersectionObserver(([entry]) => {
                     visible = entry.isIntersecting;
                     if (visible) {
+                        if (reduceMotion) return; // movimento reduzido: o vídeo fica parado no 1º frame
                         const p = vid.play(); if (p && p.catch) p.catch(() => {});
                         if (!reduceMotion) { cancelAnimationFrame(raf); drawFog(); }
                     } else {

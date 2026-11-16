@@ -1,61 +1,180 @@
-/*
-  TOKENS PROVISÓRIOS
-  Quando o design system estiver pronto, troque só os valores abaixo.
-  O resto do site lê tudo daqui (var(--nome)).
-*/
-:root {
-  /* Cores */
-  --color-bg: #f4f4f2;
-  --color-surface: #ffffff;
-  --color-text: #1b1b1b;
-  --color-text-muted: #5f5f5c;
-  --color-border: #d9d9d4;
-  --color-primary: #1b1b1b;          /* botões principais */
-  --color-on-primary: #ffffff;
-  --color-inverse-bg: #1b1b1b;       /* seção de contato */
-  --color-inverse-text: #f4f4f2;
-  --color-inverse-muted: #a3a39e;
-  --color-inverse-border: #353533;
+/* =============================================================
+   TOKENS DO PORTFÓLIO · Antonio Zito
+   Fonte única de cores, tipo, forma e movimento.
+   Documentação visual: design_system.html
 
-  /* Tipografia */
-  --font-display: "Space Grotesk", system-ui, sans-serif;
-  --font-body: "Inter", system-ui, sans-serif;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.5rem;
-  --text-2xl: clamp(1.75rem, 3.5vw, 2.5rem);
-  --text-3xl: clamp(2rem, 5vw, 3.5rem);
-  --text-hero: clamp(2.5rem, 7.5vw, 6rem);
-  --leading-tight: 1.05;
-  --leading-body: 1.65;
+   Como usar numa página:
+     1. <link rel="stylesheet" href="css/tokens.css"> antes do <style> da página.
+     2. Script no <head> que grava data-theme="light|dark" no <html>
+        (tema salvo em localStorage "theme" ou o do sistema).
+     3. No CSS da página, só var(--token). Nada de hex solto.
 
-  /* Espaçamento (base 4px) */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-12: 3rem;
-  --space-16: 4rem;
-  --space-24: 6rem;
+   O seletor [data-theme] também funciona num elemento qualquer:
+   <div data-theme="dark"> dentro de uma página clara usa os valores
+   do escuro (é assim que o design system mostra os temas lado a lado).
 
-  /* Forma */
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-pill: 999px;
+   Contraste (WCAG 2.x) anotado ao lado de cada par que importa.
+   Texto pede 4.5:1; borda de campo, ícone e foco pedem 3:1.
+============================================================= */
 
-  /* Layout */
-  --container: 1120px;
-  --gutter: 16px;
-  --header-h: 64px;
+:root,[data-theme="light"]{
+  color-scheme:light;
 
-  /* Movimento */
-  --ease-out: cubic-bezier(.16, 1, .3, 1);
-  --duration: 0.8s;
+  /* ---------- Neutros ---------- */
+  --white:#FFFFFF;      /* superfície de card, campo, modal */
+  --snow:#F6F7FA;       /* superfície alternada, faixa de specs */
+  --mist:#E9ECF3;       /* borda decorativa, divisor (não serve para campo) */
+  --lilac:#DFE0EB;      /* decorativo */
+  --steel:#C7CCD8;      /* decorativo: contorno de botão, trilho. 1.61:1 no branco, NUNCA texto nem borda de campo */
+  --graphite:#474747;   /* texto secundário · 9.29:1 no branco · 8.67:1 no snow */
+  --ink:#101010;        /* texto principal · 19.03:1 no branco */
+  --black:#0A0A0A;
+
+  /* ---------- Marca: azul ---------- */
+  --brand:#3458FF;       /* destaque, link, foco · 5.27:1 no branco · 4.92:1 no snow */
+  --brand-600:#2442D9;   /* hover do botão de destaque · branco sobre ele 7.35:1 */
+  --brand-soft:#9AACFE;  /* decorativo: luz de fundo, gradiente */
+  --brand-pale:#CDD5FB;  /* decorativo: borda de hover, luz de fundo */
+  --brand-tint:#EEF1FF;  /* fundo de badge e palco · brand sobre ele 4.68:1 */
+  --brand-rgb:52,88,255; /* para rgba(var(--brand-rgb), .x) */
+  --on-brand:#FFFFFF;    /* texto sobre --brand · 5.27:1 */
+  --accent:var(--brand); /* cor de texto de destaque (no escuro clareia) */
+
+  /* ---------- Feedback (o verde é só status, nunca marca) ---------- */
+  --green:#28E98C;       /* ponto de status, ícone. 1.60:1 no branco: não é texto */
+  --success:#0B7A47;     /* texto de sucesso · 5.40:1 no branco */
+  --amber:#FFC036;       /* aviso, ponto de "ocupado". Não é texto */
+  --warning-ink:#8A5A00; /* texto de aviso sobre âmbar 20% · 5.41:1 */
+  --danger:#C8102E;      /* texto e borda de erro · 5.88:1 no branco */
+  --danger-soft:#FFF0F2;
+
+  /* ---------- Campo de formulário ---------- */
+  --border-input:#858B9A; /* 3.41:1 no branco · 3.18:1 no snow (WCAG 1.4.11) */
+
+  /* ---------- Texto apagado ---------- */
+  --dim:#6B7180;          /* texto ainda não revelado, placeholder · 4.88:1 no branco · 4.56:1 no snow */
+
+  /* ---------- Página e vidro ---------- */
+  --background:#FFFFFF;
+  --surface-rgb:255,255,255; /* rgba(var(--surface-rgb), .75) = vidro */
+  --fg-rgb:16,16,16;         /* linhas do grid de fundo */
+  --band:#101010;            /* faixa escura fixa */
+  --bg-blob:.34;             /* opacidade das luzes de fundo */
+
+  /* ---------- Aliases semânticos (padrão shadcn) ---------- */
+  --foreground:var(--ink);
+  --primary:var(--brand);
+  --primary-foreground:var(--on-brand);
+  --muted:var(--snow);
+  --muted-foreground:var(--graphite);
+  --border:var(--mist);
+  --radius:20px;
+
+  /* ---------- Gradientes ---------- */
+  --g-arch:linear-gradient(180deg,#3457FF 0%,#DFE0EB 100%);
+  --g-soft:linear-gradient(169deg,#9AACFE 29%,#CDD5FB 109%);
+  --g-beam:linear-gradient(270deg,rgba(52,88,255,0) 0%,#3458FF 52.7%,rgba(52,88,255,0) 100%);
+  --g-glass:linear-gradient(307deg,rgba(255,255,255,.2) 0%,rgba(255,255,255,.02) 25% 45%,rgba(255,255,255,.2) 78%,rgba(255,255,255,0) 100%);
+  --g-ink:linear-gradient(180deg,#101010 35%,#474747 100%);
+  --g-text:linear-gradient(180deg,#101010 35%,#474747 100%);
+  --g-fade:linear-gradient(0deg,rgba(255,255,255,0) 24%,rgba(255,255,255,.8) 100%);
+
+  /* ---------- Tipografia ---------- */
+  --font-display:"Inter Display","Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --font-serif:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --font-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+
+  /* ---------- Espaço (base 4) ---------- */
+  --s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-5:20px;--s-6:24px;--s-8:32px;--s-10:40px;--s-12:48px;--s-16:64px;--s-20:80px;--s-24:96px;--s-32:128px;
+
+  /* ---------- Raio ---------- */
+  --r-sm:10px;--r-md:20px;--r-lg:30px;--r-xl:40px;--r-arch:300px;--r-pill:999px;
+
+  /* ---------- Sombra ---------- */
+  --sh-sm:0 1px 2px rgba(16,16,16,.06),0 2px 8px rgba(16,16,16,.04);
+  --sh-md:0 10px 30px -12px rgba(16,16,16,.18);
+  --sh-lg:0 30px 60px -20px rgba(16,16,16,.25);
+  --sh-glow:0 14px 40px -12px rgba(52,88,255,.55);
+
+  /* ---------- Movimento ---------- */
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --ease-power4:cubic-bezier(.23,1,.32,1);
+  --ease-spring:cubic-bezier(.34,1.56,.64,1);
+  --ease-inout:cubic-bezier(.65,0,.35,1);
+  --d-fast:160ms;--d-base:320ms;--d-slow:700ms;--d-reveal:1200ms;
+
+  /* ---------- Layout ---------- */
+  --container:1200px;
+  --gutter:16px;
+
+  /* ---------- Nomes antigos (migração) ----------
+     O index e os estudos de caso ainda usam estes nomes.
+     Apontam para os tokens novos; apagar quando ninguém mais usar. */
+  --blue:var(--brand);
+  --blue-600:var(--brand-600);
+  --blue-soft:var(--brand-soft);
+  --blue-pale:var(--brand-pale);
+  --blue-tint:var(--brand-tint);
+  --on-color:var(--on-brand);
+  --green-ink:var(--success);
+  --red:var(--danger);
+  --red-ink:var(--danger);
+  --ok:var(--success);
+  --no:var(--danger);
 }
+@media (min-width:768px){:root{--gutter:24px}}
 
-@media (min-width: 768px) {
-  :root { --gutter: 32px; }
+/* =============================================================
+   TEMA ESCURO · html[data-theme="dark"]
+   Os neutros invertem (--white vira a superfície escura, --ink vira
+   o texto claro), então quase todo componente funciona sem regra extra.
+   O azul continua como preenchimento com texto branco; o texto de destaque
+   (--accent) clareia para #8EA2FF, porque #3458FF no escuro dá só 3,73:1.
+============================================================= */
+[data-theme="dark"]{
+  color-scheme:dark;
+
+  --white:#13151B;      /* superfície */
+  --snow:#191C24;
+  --mist:#262A35;
+  --lilac:#2C3140;
+  --steel:#4A5163;      /* decorativo · 2.48:1 no fundo: nunca texto nem borda de campo */
+  --graphite:#A6ADBC;   /* texto secundário · 8.73:1 no fundo · 8.10:1 na superfície */
+  --ink:#F1F3F8;        /* texto principal · 16.44:1 na superfície */
+  --black:#FFFFFF;
+
+  --brand:#3458FF;       /* preenchimento · branco sobre ele 5.27:1 (como texto no escuro: 3.73:1, use --accent) */
+  --brand-600:#2442D9;   /* hover · branco sobre ele 7.35:1 */
+  --brand-soft:#A9B8FF;
+  --brand-pale:#33448F;
+  --brand-tint:#18204A;  /* accent sobre ele 6.52:1 */
+  --brand-rgb:52,88,255;
+  --on-brand:#FFFFFF;    /* texto sobre --brand · 5.27:1 */
+  --accent:#8EA2FF;      /* texto de destaque · 8.21:1 no fundo · 7.61:1 na superfície */
+
+  --success:#3DDC97;     /* 10.33:1 na superfície */
+  --warning-ink:#FFC036;
+  --danger:#FF7A8E;      /* 7.32:1 na superfície */
+  --danger-soft:#2A1218;
+
+  --border-input:#6B7285; /* 4.09:1 no fundo · 3.80:1 na superfície */
+  --dim:#8A91A2;          /* 6.23:1 no fundo · 5.78:1 na superfície */
+
+  --background:#0A0B0F;
+  --surface-rgb:16,18,24;
+  --fg-rgb:255,255,255;
+  --band:#181C27;
+  --bg-blob:.16;
+
+  --g-arch:linear-gradient(180deg,#3457FF 0%,#1B2142 100%);
+  --g-soft:linear-gradient(169deg,#33448F 29%,#18204A 109%);
+  --g-beam:linear-gradient(270deg,rgba(52,88,255,0) 0%,#3458FF 52.7%,rgba(52,88,255,0) 100%);
+  --g-ink:linear-gradient(180deg,#F1F3F8 35%,#A6ADBC 100%);
+  --g-text:linear-gradient(180deg,#FFFFFF 35%,#9AA2B4 100%);
+
+  --sh-sm:0 1px 2px rgba(0,0,0,.4),0 2px 8px rgba(0,0,0,.3);
+  --sh-md:0 14px 34px -12px rgba(0,0,0,.7);
+  --sh-lg:0 30px 60px -20px rgba(0,0,0,.8);
+  --sh-glow:0 14px 40px -12px rgba(52,88,255,.6);
 }

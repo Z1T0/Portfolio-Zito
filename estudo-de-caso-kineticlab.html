@@ -39,8 +39,12 @@ addEventListener("pageshow",function(e){if(e.persisted)document.querySelectorAll
 :root{
   color-scheme:light;
   --white:#FFFFFF;--snow:#F6F7FA;--mist:#E9ECF3;--lilac:#DFE0EB;--steel:#C7CCD8;--graphite:#474747;--ink:#101010;--black:#0A0A0A;
-  --blue:#3458FF;--blue-600:#2442D9;--blue-pale:#CDD5FB;--blue-tint:#EEF1FF;
-  --accent:var(--blue);--on-color:#FFFFFF;
+  --brand:#3458FF;--brand-600:#2442D9;--brand-soft:#9AACFE;--brand-tint:#EEF1FF;
+  --accent:var(--brand);--on-color:#FFFFFF;
+  --surface-rgb:255,255,255;--card-rgb:246,247,250;--fg-rgb:16,16,16;--blob:#9AACFE;--bg-blob:.34;
+  --g-beam:linear-gradient(270deg,rgba(52,88,255,0) 0%,#3458FF 52.7%,rgba(52,88,255,0) 100%);
+  --ease-inout:cubic-bezier(.65,0,.35,1);
+  --sh-sm:0 1px 2px rgba(16,16,16,.06),0 2px 8px rgba(16,16,16,.04);
   --background:var(--white);--foreground:var(--ink);
   --ok:#0B7A47;--ok-soft:#E6F5EE;--no:#C8102E;--no-soft:#FFF0F2;
   --font-display:"Inter Display","Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
@@ -56,8 +60,11 @@ addEventListener("pageshow",function(e){if(e.persisted)document.querySelectorAll
 :root[data-theme="dark"]{
   color-scheme:dark;
   --white:#13151B;--snow:#191C24;--mist:#262A35;--lilac:#2C3140;--steel:#4A5163;--graphite:#A6ADBC;--ink:#F1F3F8;--black:#FFFFFF;
-  --blue-tint:#18204A;--blue-pale:#33448F;
-  --accent:#8EA2FF;
+  --brand:#3458FF;--brand-600:#2442D9;--brand-soft:#33448F;--brand-tint:#18204A;
+  --accent:#8EA2FF;--on-color:#FFFFFF;
+  --surface-rgb:19,21,27;--card-rgb:25,28,36;--fg-rgb:255,255,255;--blob:#3458FF;--bg-blob:.12;
+  --g-beam:linear-gradient(270deg,rgba(52,88,255,0) 0%,#3458FF 52.7%,rgba(52,88,255,0) 100%);
+  --sh-sm:0 1px 2px rgba(0,0,0,.4),0 2px 8px rgba(0,0,0,.3);
   --background:#0A0B0F;
   --ok:#3DDC97;--ok-soft:#0F2A1F;--no:#FF7A8E;--no-soft:#2A1218;
   --sh-md:0 14px 34px -12px rgba(0,0,0,.7);
@@ -69,8 +76,8 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-body);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img,video{max-width:100%;display:block}
 a{color:inherit}
-::selection{background:var(--blue);color:var(--on-color)}
-:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:8px}
+::selection{background:var(--brand);color:var(--on-color)}
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:8px}
 .serif{font-family:var(--font-serif);font-style:italic;font-weight:400;letter-spacing:-.02em}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .skip-link{position:fixed;left:16px;top:-60px;z-index:3000;background:var(--ink);color:var(--white);padding:10px 16px;border-radius:var(--r-pill);text-decoration:none;font-weight:500;transition:top .3s var(--ease-out)}
@@ -143,8 +150,8 @@ figure{margin:0}
 /* Duas colunas */
 .split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}
 @media (max-width:820px){.split{grid-template-columns:minmax(0,1fr);gap:24px}}
-.quote{border-left:3px solid var(--blue);padding:4px 0 4px 20px;font-family:var(--font-display);font-weight:500;font-size:clamp(20px,2.6vw,26px);line-height:1.35;letter-spacing:-.02em}
-.note{background:var(--blue-tint);border-radius:var(--r-sm);padding:16px 18px;font-size:15.5px;line-height:1.6}
+.quote{border-left:3px solid var(--brand);padding:4px 0 4px 20px;font-family:var(--font-display);font-weight:500;font-size:clamp(20px,2.6vw,26px);line-height:1.35;letter-spacing:-.02em}
+.note{background:var(--brand-tint);border-radius:var(--r-sm);padding:16px 18px;font-size:15.5px;line-height:1.6}
 .note b{color:var(--accent)}
 
 /* Referências */
@@ -277,7 +284,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
   .price td:first-child{font-weight:600;padding-bottom:6px}
   .price td:nth-child(n+2)::before{content:attr(data-l);font-size:13px;color:var(--graphite)}
 }
-.flag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:var(--r-pill);background:var(--blue-tint);color:var(--accent);margin-left:6px;vertical-align:2px}
+.flag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:var(--r-pill);background:var(--brand-tint);color:var(--accent);margin-left:6px;vertical-align:2px}
 .open{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 @media (max-width:720px){.open{grid-template-columns:minmax(0,1fr)}}
 .open li{border:1px solid var(--mist);border-radius:var(--r-md);padding:20px 22px;display:flex;flex-direction:column;gap:8px}
@@ -289,9 +296,65 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 :root[data-theme="dark"] .lvl.media{background:#2E2210;color:#F9C46B}
 /* KINETIC: palco escuro no lugar do marinho do EasyLog */
 .stage{background:#0D0F0E}
+
+/* =========================================================
+   FAMÍLIA VISUAL DA HOME (mesmos elementos do index.html):
+   fundo com grade e brilho, cabeçalho em pílula de vidro,
+   pílulas de seção, cartões de vidro e o acento azul.
+========================================================= */
+.page-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.page-bg .grid{position:absolute;inset:0;background-image:linear-gradient(to right,rgba(var(--fg-rgb),.045) 1px,transparent 1px),linear-gradient(to bottom,rgba(var(--fg-rgb),.045) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse 80% 70% at 30% 10%,#000 10%,transparent 75%);mask-image:radial-gradient(ellipse 80% 70% at 30% 10%,#000 10%,transparent 75%);animation:grid-pan 40s linear infinite}
+.page-bg .blob{position:absolute;border-radius:50%;filter:blur(110px);opacity:var(--bg-blob);background:var(--blob)}
+.page-bg .blob.a{width:44vw;height:44vw;max-width:680px;max-height:680px;top:-16%;left:-12%;animation:drift-a 24s var(--ease-inout) infinite alternate}
+.page-bg .blob.b{width:40vw;height:40vw;max-width:620px;max-height:620px;bottom:-20%;right:-10%;animation:drift-b 28s var(--ease-inout) infinite alternate}
+@keyframes grid-pan{to{background-position:64px 64px}}
+@keyframes drift-a{to{transform:translate(8vw,6vh) scale(1.08)}}
+@keyframes drift-b{to{transform:translate(-6vw,-8vh) scale(1.05)}}
+@keyframes beam{from{background-position:200% 0}to{background-position:-200% 0}}
+
+/* Cabeçalho: pílula de vidro flutuante, como a barra da home */
+.topbar{position:sticky;top:0;z-index:100;padding:10px var(--gutter) 0;background:none;border:0;backdrop-filter:none;-webkit-backdrop-filter:none}
+.topbar-in{max-width:var(--max);padding:7px;border-radius:var(--r-pill);background:rgba(var(--surface-rgb),.75);backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3);border:1px solid var(--mist);box-shadow:var(--sh-sm)}
+.btn-icon{width:44px;height:44px}
+.topbar .theme-btn{height:44px!important}
+@media (max-width:380px){.topbar .top-right .theme-btn{display:none}}
+
+/* Pílulas: o selo do topo e o número de cada seção seguem o .subtitle da home */
+.eyebrow,.sec-head .num{position:relative;overflow:hidden;align-self:flex-start;display:inline-flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:13px;font-weight:500;line-height:1;letter-spacing:.06em;text-transform:uppercase;color:var(--graphite);border:1px solid var(--steel);padding:9px 18px 9px 14px;border-radius:var(--r-pill);background:rgba(var(--surface-rgb),.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.eyebrow iconify-icon{font-size:16px;color:var(--accent)}
+.sec-head .num::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.eyebrow::after,.sec-head .num::after{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:var(--g-beam);background-size:200% 100%;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:beam 4s linear infinite;pointer-events:none}
+
+/* Cartões e blocos de vidro sobre o fundo */
+.card{background:rgba(var(--card-rgb),.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.facts,.table-wrap,.open li,.steps li,.flow li,.font,.sw{background:rgba(var(--surface-rgb),.6)}
+.theme-btn--outline{background:rgba(var(--surface-rgb),.4)}
+.lead .serif{font-size:1.1em;line-height:1}
+
+/* Imagens */
+.shot:not(.stage){background:transparent}
+.plus{display:block}
+.stage{padding:40px 24px 0;gap:24px}
+.stage .phone{width:min(300px,30%);aspect-ratio:9/14;object-fit:cover;object-position:50% 0}
+.stage .phone:nth-child(2){width:min(340px,34%)}
+.stage .phone.from-bottom{object-position:50% 100%}
+@media (max-width:560px){.stage{padding:20px 10px 0;gap:8px}}
+.fig-natural{max-width:640px;margin-inline:auto}
+.part.stacked{grid-template-columns:minmax(0,1fr);gap:24px}
+.part.stacked .phones{grid-template-columns:repeat(2,minmax(0,300px));justify-content:center}
+.part.stacked .pair{grid-template-columns:minmax(0,1fr) minmax(0,300px);align-items:end}
+@media (max-width:560px){.part.stacked .pair{grid-template-columns:minmax(0,1fr)}}
+
+/* Resumo em 30 segundos e conta do mês */
+.tldr-title{font-size:clamp(20px,2.4vw,24px);letter-spacing:-.02em;margin-bottom:16px}
+.tldr.four{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:820px){.tldr.four{grid-template-columns:minmax(0,1fr)}}
+.price.month tr.sum td{font-weight:600;border-top:2px solid var(--steel)}
+@media (prefers-reduced-motion:reduce){.page-bg .grid,.page-bg .blob,.eyebrow::after,.sec-head .num::after{animation:none}}
 </style>
 </head>
 <body>
+<div class="page-bg" aria-hidden="true"><div class="grid"></div><div class="blob a"></div><div class="blob b"></div></div>
 <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
 <header class="topbar">
@@ -320,27 +383,28 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       <dl class="facts">
         <div><dt>Tipo</dt><dd>Desafio de curso, com brief fechado e 2 dias de prazo</dd></div>
         <div><dt>Meu papel</dt><dd>Leitura do brief, escopo, fluxos, decisões de produto, roteiro de teste e revisão de cada tela</dd></div>
-        <div><dt>Ferramentas</dt><dd>Figma; Claude na pesquisa simulada, nos textos e na montagem no Figma; Figma AI nas fotos do produto; Gemini na logo</dd></div>
+        <div><dt>Ferramentas</dt><dd>Figma. O Claude gerou a pesquisa simulada, os textos e as telas a partir das minhas decisões; Figma AI e Gemini, as fotos e a logo</dd></div>
         <div><dt>Entrega</dt><dd>9 telas mobile, 3 desktop, design system e um protótipo com as 3 tarefas do teste</dd></div>
       </dl>
     </div>
     <figure class="hero-media rv">
       <div class="shot stage">
         <img class="phone" src="assets/projects/kineticlab-case/home.webp" width="360" height="779" alt="Home mobile: título Troque só o que gastou, a vista explodida do tênis com as três peças numeradas e o botão Encontre seu ajuste." fetchpriority="high">
-        <img class="phone" src="assets/projects/kineticlab-case/pdp-configurador.webp" width="360" height="779" alt="Página do produto: configurador com 01 Cabedal, 02 Entressola com drop em milímetros e a ajuda O que é drop, 03 Solado e a grade de tamanhos.">
+        <img class="phone" src="assets/projects/kineticlab-case/pdp.webp" width="360" height="779" alt="Página do produto: foto do tênis com a prévia ao vivo, o título KINETIC M1, o preço de R$ 1.599 e o aviso de que o tênis já vem configurado pelo questionário, com o tamanho 37.">
         <img class="phone" src="assets/projects/kineticlab-case/recomendacao.webp" width="360" height="779" alt="Recomendação: KINETIC M1 para asfalto, com estabilidade, e o motivo de cada peça a partir das respostas.">
       </div>
-      <figcaption>Home, configurador da página do produto e recomendação do questionário.</figcaption>
+      <figcaption>Home, página do produto já configurada e recomendação do questionário.</figcaption>
     </figure>
   </section>
 
   <!-- RESUMO -->
   <section class="wrap" aria-labelledby="resumo-t">
-    <h2 id="resumo-t" class="sr-only">Resumo</h2>
-    <div class="tldr">
-      <div class="card rv"><span class="k">Desafio</span><p>Pelo brief, 68% do abandono de carrinho vem da dúvida de tamanho. E um tênis modular ainda precisa explicar o que cada peça faz antes de alguém pagar R$ 1.599.</p></div>
-      <div class="card rv"><span class="k">O que fiz</span><p>Um questionário que recomenda tênis e tamanho, uma página de produto que já abre configurada e um checkout em uma tela, com frete e garantia visíveis antes do pagamento.</p></div>
-      <div class="card rv"><span class="k">Resultado até aqui</span><p class="big">20 <small>telas e estados no protótipo</small></p><p>cobrindo as 3 tarefas do teste de usabilidade com 2 pessoas, marcado para 16/11. O resultado entra nesta página depois.</p></div>
+    <h2 id="resumo-t" class="tldr-title rv">Resumo em 30 segundos</h2>
+    <div class="tldr four">
+      <div class="card rv"><span class="k">Meu papel</span><p>Li o brief e corrigi cinco pontos dele. Defini o escopo e as tarefas do teste e revisei cada tela contra o roteiro.</p></div>
+      <div class="card rv"><span class="k">Decisão principal</span><p>Troquei o "Biometric Fit" por um questionário de cinco perguntas que recomenda tênis e tamanho. A página do produto já abre configurada.</p></div>
+      <div class="card rv"><span class="k">Resultado até aqui</span><p>Achei e corrigi duas tarefas impossíveis antes do teste. O protótipo tem 20 telas e estados.</p></div>
+      <div class="card rv"><span class="k">Próximo passo</span><p>O teste com 2 pessoas acontece em 16/11, e o resultado entra nesta página. A pesquisa do projeto é simulada.</p></div>
     </div>
   </section>
 
@@ -411,7 +475,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
         <p>O configurador tem três passos: cabedal, entressola e solado. A estrutura veio do "Monte a sua" da loja lumiê, uma das referências: prévia ao vivo, passos numerados e total fixo embaixo.</p>
         <p>Cada opção mostra o dado técnico com unidade e a diferença de preço. Na revisão do wireframe precisei perguntar o que era "drop", então a entressola ganhou um "O que é drop?" ao lado do título.</p>
       </div>
-      <figure class="phone rv" style="max-width:300px;justify-self:center"><img src="assets/projects/kineticlab-case/pdp-configurador.webp" width="360" height="779" loading="lazy" alt="Configurador da página do produto com Aero Knit, Stable drop 10 mm e Road Grip selecionados, e a grade de tamanhos de 34 a 45, com o 35 em cinza por estar esgotado."></figure>
+      <figure class="phone rv" style="max-width:300px;justify-self:center"><img src="assets/projects/kineticlab-case/pdp-configurador.webp" width="360" height="768" loading="lazy" alt="Configurador da página do produto com Aero Knit, Stable drop 10 mm e Road Grip selecionados, e a grade de tamanhos de 34 a 45, com o 35 em cinza por estar esgotado."></figure>
     </div>
 
     <div class="part">
@@ -430,7 +494,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
             </tbody>
           </table>
         </div>
-        <p class="cap">Preços definidos para o projeto, dentro da faixa que o brief indica.</p>
+        <p class="cap">Premissas da conta: o par comparado custa R$ 1.299, cabedal e solado duram os 1.800 km sem troca, e o frete dos refis não entra. Com uma troca de solado (R$ 279), a economia cai para cerca de 34%. Contra um par de R$ 899, cai para cerca de 15%. Os preços foram definidos para o projeto, dentro da faixa que o brief indica.</p>
       </div>
     </div>
 
@@ -461,7 +525,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
   <!-- 04 REVISÃO -->
   <section class="wrap" id="revisao">
     <div class="sec-head rv"><span class="num">04</span><h2>A revisão antes do teste</h2><p>Fiz duas revisões antes do teste. Na primeira, reli os wireframes com o brief e o roteiro do teste do lado, e duas tarefas eram impossíveis. Na segunda, já com as telas prontas, reli o brief item por item.</p></div>
-    <div class="part">
+    <div class="part stacked">
       <div class="phones rv">
         <figure><div class="phone"><img src="assets/projects/kineticlab-case/wireframe-pdp.webp" width="360" height="779" loading="lazy" alt="Wireframe da página do produto em tons de cinza, com prévia vazia, chips sem explicação e tamanhos de 35 a 40."></div><figcaption>Wireframe</figcaption></figure>
         <figure><div class="phone"><img src="assets/projects/kineticlab-case/pdp.webp" width="360" height="779" loading="lazy" alt="Página do produto final com a vista explodida, galeria, preço e o aviso de configuração pelo questionário."></div><figcaption>Tela final</figcaption></figure>
@@ -481,8 +545,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     </div>
 
     <h3 class="rv" style="margin-top:48px">A releitura do brief</h3>
-    <p class="rv" style="max-width:68ch">Abri o PDF do brief e conferi cada pedido abrindo as telas no Figma. Achei sete lacunas e corrigi as que não atrapalhavam o teste.</p>
-    <div class="part" style="margin-top:20px">
+    <p class="rv" style="max-width:68ch">Abri o PDF do brief e conferi cada pedido nas telas. Achei sete lacunas e corrigi as que não atrapalhavam o teste.</p>
+    <div class="part stacked" style="margin-top:20px">
       <div class="phones rv">
         <figure><div class="phone"><img src="assets/projects/kineticlab-case/quiz-tamanho.webp" width="360" height="779" loading="lazy" alt="Passo 2 de 5 do questionário: grade de tamanhos de 34 a 45 e três opções de largura do pé, Fino, Médio e Largo."></div><figcaption>Passo 2 novo</figcaption></figure>
         <figure><div class="phone"><img src="assets/projects/kineticlab-case/pix.webp" width="360" height="779" loading="lazy" alt="Tela do Pix: total de R$ 1.788, validade do código, botão Copiar código Pix e o QR Code para pagar de outro aparelho."></div><figcaption>Tela do Pix</figcaption></figure>
@@ -492,7 +556,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
           <thead><tr><th scope="col">O brief pedia</th><th scope="col">Como estava</th><th scope="col">Como ficou</th></tr></thead>
           <tbody>
             <tr><td>Tamanho "com base na anatomia do pé"</td><td class="before">Só o número, entre 36, 37 e 38</td><td>Grade de 34 a 45 e a largura do pé</td></tr>
-            <tr><td>Perguntar o foco: amortecimento ou resposta</td><td class="before">Não era perguntado</td><td>Escolha no topo da recomendação. Não virou o sexto passo porque a matriz CSD supõe que mais de cinco passos fazem gente desistir</td></tr>
+            <tr><td>Perguntar o foco: amortecimento ou resposta</td><td class="before">Não era perguntado</td><td>Escolha no topo da recomendação. Não virou o sexto passo porque a matriz CSD (certezas, suposições e dúvidas) supõe que mais de cinco passos fazem gente desistir</td></tr>
             <tr><td>Recomendação baseada nas respostas</td><td class="before">Citava "manhã cedo em São Paulo" e "50 km por semana", que ninguém tinha informado</td><td>Cada motivo cita uma resposta do questionário</td></tr>
             <tr><td>"Pix com QR Code instantâneo"</td><td class="before">O checkout prometia o QR, mas a tela não existia</td><td>Tela do Pix, com "Copiar código" em destaque</td></tr>
             <tr><td>Frete "via detecção de localização ou CEP"</td><td class="before">Só CEP</td><td>"Usar minha localização" ao lado do CEP</td></tr>
@@ -506,7 +570,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
   <!-- 05 DESIGN SYSTEM -->
   <section class="wrap" id="design-system">
     <div class="sec-head rv"><span class="num">05</span><h2>Design system e identidade</h2><p>Juntei três referências: a loja lumiê deu a estrutura e o configurador, o Sports News os títulos grandes em caixa alta, e a Sport Tênis a dupla preto e verde. Como a marca se chama LAB, o produto aparece como numa prancha técnica.</p></div>
-    <figure class="rv"><div class="shot"><img src="assets/projects/kineticlab-case/fig01.webp" width="640" height="560" loading="lazy" alt="Figura técnica: vista explodida do tênis com marcadores 01 cabedal Aero Knit 92 g, 02 entressola Stable drop 10 mm e 600 km, 03 solado Road Grip 3 mm e 38 g."></div><figcaption>Fig. 01. Cada peça com o número que importa. Somadas, dão os 248 g da ficha técnica.</figcaption></figure>
+    <figure class="rv fig-natural"><div class="shot"><img src="assets/projects/kineticlab-case/fig01.webp" width="640" height="560" loading="lazy" alt="Figura técnica: vista explodida do tênis com marcadores 01 cabedal Aero Knit 92 g, 02 entressola Stable drop 10 mm e 600 km, 03 solado Road Grip 3 mm e 38 g."></div><figcaption>Fig. 01. Cada peça com o número que importa. Somadas, dão os 248 g da ficha técnica.</figcaption></figure>
 
     <div class="swatches rv" style="margin-top:28px">
       <div class="sw"><i style="background:#0D0F0E"></i><div><b>Ink</b><code>#0D0F0E</code><span class="muted">Texto e botão principal</span></div></div>
@@ -533,7 +597,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
   <section class="wrap" id="desktop">
     <div class="sec-head rv"><span class="num">06</span><h2>Desktop</h2><p>Desenhei primeiro o celular. No desktop, os mesmos componentes ganham espaço: a explicação do drop já aparece aberta e a grade de tamanhos cabe inteira, sem rolagem.</p></div>
     <figure class="rv"><div class="shot"><img src="assets/projects/kineticlab-case/desktop-pdp.webp" width="1440" height="1024" loading="lazy" alt="Página do produto no desktop: vista explodida grande à esquerda com as camadas clicáveis e, à direita, os passos 01 Cabedal, 02 Entressola com a explicação do drop aberta e 03 Solado."></div><figcaption>Página do produto: prévia à esquerda e passos à direita, como no configurador da lumiê.</figcaption></figure>
-    <div class="pair" style="margin-top:16px">
+    <div class="split" style="margin-top:16px;gap:16px">
       <figure class="rv"><div class="shot"><img src="assets/projects/kineticlab-case/desktop-home.webp" width="1440" height="1024" loading="lazy" alt="Home no desktop: título Troque só o que gastou, a figura técnica do tênis e os números R$ 1.599, 1.800 km e 41%."></div><figcaption>Home.</figcaption></figure>
       <figure class="rv"><div class="shot"><img src="assets/projects/kineticlab-case/desktop-checkout.webp" width="1440" height="1024" loading="lazy" alt="Checkout no desktop: formulário em blocos à esquerda e resumo com itens, frete grátis com prazo e total à direita."></div><figcaption>Checkout, com o resumo fixo à direita.</figcaption></figure>
     </div>
@@ -552,17 +616,17 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
         </tbody>
       </table>
     </div>
-    <p class="note rv" style="margin-top:16px"><b>16/11:</b> o teste acontece amanhã. O que as duas pessoas fizerem, inclusive onde travarem, e o que eu mudar por causa disso entram nesta seção.</p>
+    <p class="note rv" style="margin-top:16px"><b>Teste marcado para 16/11.</b> O que as duas pessoas fizerem, inclusive onde travarem, e o que eu mudar por causa disso entram nesta seção.</p>
   </section>
 
   <!-- 08 IA -->
   <section class="wrap" id="processo">
-    <div class="sec-head rv"><span class="num">08</span><h2>Como trabalhei com a IA</h2><p>Eu decidi o produto e as regras. A IA executou e eu revisei cada etapa no Figma antes de seguir.</p></div>
+    <div class="sec-head rv"><span class="num">08</span><h2>Como trabalhei com a IA</h2><p>A IA gerou a pesquisa simulada, os textos, as telas, as fotos e a logo. As decisões e a revisão foram minhas.</p></div>
     <ol class="steps">
-      <li class="rv"><span class="who">Eu</span>Li o brief, decidi as cinco mudanças, o que entrava no MVP, os preços e as tarefas do teste.</li>
-      <li class="rv"><span class="who">Claude</span>Montou a pesquisa simulada a partir do brief, escreveu os textos e construiu as páginas no Figma seguindo essas decisões.</li>
-      <li class="rv"><span class="who">Eu</span>Revisei página por página. A dúvida do "drop" e as duas tarefas impossíveis apareceram nessa revisão.</li>
-      <li class="rv"><span class="who">Figma AI + Gemini</span>Geraram as fotos do tênis fictício e a logo. Não existem fotos reais de um tênis modular para usar.</li>
+      <li class="rv"><span class="who">Eu</span>Li o brief, decidi as cinco mudanças, o que entrava no MVP, os preços, as três referências visuais e as tarefas do teste.</li>
+      <li class="rv"><span class="who">Claude, Figma AI e Gemini</span>O Claude montou a pesquisa simulada, os textos e as páginas no Figma seguindo essas decisões. Figma AI e Gemini geraram as fotos do tênis fictício e a logo.</li>
+      <li class="rv"><span class="who">Eu</span>Revisei página por página. A dúvida do "drop", as duas tarefas impossíveis e a recomendação que inventava "manhã cedo em São Paulo" apareceram nessa revisão.</li>
+      <li class="rv"><span class="who">Eu</span>Decidi pôr o foco no topo da recomendação, e não num sexto passo, e deixar o segundo solado no celular para depois do teste, para não atrapalhar a tarefa 2.</li>
     </ol>
   </section>
 
@@ -580,7 +644,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
         </tbody>
       </table>
     </div>
-    <p class="cap rv">Para comparar as duas versões num teste A/B, são necessárias umas 2.000 sessões em cada uma para enxergar a conversão subir de 1,8% para 3,2%.</p>
+    <p class="cap rv">Num teste A/B, ver a conversão subir de 1,8% para 3,2% pede umas 2.000 sessões em cada versão. Para a melhora que eu defendo abaixo, até 2,5%, são umas 6.700 em cada. Não sei quanto tráfego a loja tem, então não sei se isso leva uma semana ou alguns meses.</p>
 
     <h3 class="rv" style="margin-top:40px">Impacto estimado</h3>
     <div class="table-wrap rv">
@@ -594,6 +658,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       </table>
     </div>
     <p class="note rv" style="margin-top:16px"><b>Estimativa:</b> é um cenário montado com os números do brief e tíquete médio de R$ 1.800, o meio da faixa. Não é uma previsão. Antes de ter dados, eu defenderia o do meio.</p>
+    <p class="note rv" style="margin-top:12px"><b>Tíquete médio:</b> essa meta ficou fora da tabela. Com R$ 1.800 de média, +25% dá R$ 2.250, mais do que a configuração mais cara do tênis (R$ 2.039). Ela só fecha se boa parte dos pedidos levar acessório ou segundo solado, e o segundo solado ainda não está no celular.</p>
   </section>
 
   <!-- 10 LIMITES -->
@@ -604,7 +669,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       <li class="rv"><span class="lvl alta">Alta</span><b>Duas pessoas é pouco</b><p>O teste mostra onde alguém trava, mas não mede conversão nem devolução, que são as metas do brief.</p></li>
       <li class="rv"><span class="lvl media">Média</span><b>A primeira pergunta é a mais difícil</b><p>O questionário abre pela pisada, que a maioria das pessoas não sabe responder. Vou observar no teste se alguém trava ali; se travar, a pisada vai para o fim.</p></li>
       <li class="rv"><span class="lvl media">Média</span><b>A medição do pé não existe</b><p>O questionário pergunta o número e a largura, mas a opção "me ajude a medir o pé com uma folha A4" ainda não tem tela.</p></li>
-      <li class="rv"><span class="lvl media">Média</span><b>Segundo solado só no desktop</b><p>A meta de tíquete médio conta com a venda do segundo solado. No celular, ele entra depois do teste, para não atrapalhar a tarefa 2.</p></li>
+      <li class="rv"><span class="lvl media">Média</span><b>Segundo solado só no desktop</b><p>Sem acessório ou segundo solado, nenhum pedido chega aos R$ 2.250 da meta de tíquete. No celular, o segundo solado entra depois do teste, para não atrapalhar a tarefa 2.</p></li>
       <li class="rv"><span class="lvl media">Média</span><b>Desktop incompleto</b><p>O desktop tem Home, página do produto e checkout. Faltam o catálogo e um estado de erro.</p></li>
       <li class="rv"><span class="lvl media">Média</span><b>O protótipo tem atalhos</b><p>Os chips que não entram nas tarefas não respondem ao toque, e o checkout sempre mostra os 2 itens. Quem escolhe a Pulse na recomendação vê a página do produto com a Stable.</p></li>
       <li class="rv"><span class="lvl media">Média</span><b>Imagens geradas por IA</b><p>A foto do cabedal Storm mostra um tênis com outra sola. Serve de ilustração, mas não é o M1.</p></li>
@@ -614,7 +679,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
   <!-- 11 APRENDIZADOS -->
   <section class="wrap" id="aprendizados">
     <div class="sec-head rv"><span class="num">11</span><h2>Aprendizados</h2></div>
-    <p class="quote rv">A conta de economia do brief estava errada. Desde então leio o enunciado como leio uma tela: procurando o que não fecha.</p>
+    <p class="quote rv">A conta de economia do brief estava errada. Achei o erro porque li o enunciado como leio uma tela, procurando o que não fecha.</p>
 
     <div class="learn">
       <div class="card rv"><iconify-icon icon="lucide:clipboard-check"></iconify-icon><h3>Revisar com o roteiro do teste do lado</h3><p>Lendo tarefa por tarefa, vi que duas eram impossíveis no wireframe. Sem essa leitura, o teste ia medir um defeito do protótipo.</p></div>
