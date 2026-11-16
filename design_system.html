@@ -255,9 +255,9 @@ body.is-paused *,body.is-paused *::before,body.is-paused *::after{animation-play
 ============================================================ */
 .section-header{max-width:760px;margin-bottom:clamp(var(--s-12),6vw,var(--s-20))}
 .section-header.center{margin-left:auto;margin-right:auto;text-align:center}
-.subtitle{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--graphite);border:1px solid var(--steel);padding:8px 18px 8px 14px;border-radius:var(--r-pill);margin:0 0 28px;background:rgba(var(--surface-rgb),.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);position:relative;overflow:hidden}
-.subtitle iconify-icon{font-size:16px;color:var(--accent)}
-.subtitle::after{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:var(--g-beam);background-size:200% 100%;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:beam 4s linear infinite;pointer-events:none}
+.subtitle{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:clamp(1.05rem,1.6vw,1.25rem);font-weight:600;letter-spacing:-.01em;color:var(--ink);margin:0 0 28px;position:relative;padding-bottom:12px;border-bottom:1px solid var(--steel)}
+.subtitle iconify-icon{font-size:20px;color:var(--accent)}
+.subtitle::after{content:none}
 .section-header h2{margin:0 0 20px}
 .section-header h2 .serif{color:var(--accent)}
 .section-header p{margin:0;color:var(--graphite);max-width:620px}
@@ -1362,7 +1362,7 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
       </div>
       <div class="anim-card scroll-animation" data-animation="fade_from_bottom" data-delay="80">
         <div class="anim-stage has-spotlight"><div class="demo-beam">Borda com feixe</div></div>
-        <div class="anim-info"><h3>beam</h3><p>Gradiente de 270° correndo pela borda. Usado no subtitle.</p><div class="chips"><span class="chip">mask-composite</span></div></div>
+        <div class="anim-info"><h3>beam</h3><p>Gradiente de 270° correndo pela borda. Usado em destaques.</p><div class="chips"><span class="chip">mask-composite</span></div></div>
       </div>
       <div class="anim-card scroll-animation" data-animation="fade_from_bottom" data-delay="160">
         <div class="anim-stage has-spotlight"><div class="demo-glow"></div></div>
@@ -1424,7 +1424,7 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
     </div>
     <p class="footer-note">Alguns componentes partiram de templates estudados no curso (Portfon, Drake e Green Museum). Revisei a cor, os tokens e as regras de contraste para este site.</p>
     <div class="footer-row">
-      <span>Design system v1.1 · Antonio Zito · novembro de 2026</span>
+      <span>Design system v1.1 · Antonio Zito</span>
       <div class="brand-row">
         <a class="btn-icon" href="https://www.linkedin.com/in/antonio-zito-4b64b71b0" target="_blank" rel="noopener" aria-label="LinkedIn" data-tooltip="LinkedIn"><iconify-icon aria-hidden="true" icon="logos:linkedin-icon"></iconify-icon></a>
         <a class="btn-icon" href="https://www.behance.net/antoniozitome" target="_blank" rel="noopener" aria-label="Behance" data-tooltip="Behance"><iconify-icon aria-hidden="true" icon="simple-icons:behance"></iconify-icon></a>
@@ -1544,7 +1544,7 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
   var GRADIENTS = [
     {name:"Arco",token:"--g-arch",css:"linear-gradient(180deg,#3457FF 0%,#DFE0EB 100%)",stops:["#3457FF","#DFE0EB"],use:"Fundo do avatar e do Aa grande."},
     {name:"Suave",token:"--g-soft",css:"linear-gradient(169deg,#9AACFE 29%,#CDD5FB 109%)",stops:["#9AACFE","#CDD5FB"],use:"Mídia de cards e áreas de imagem vazias."},
-    {name:"Feixe",token:"--g-beam",css:"linear-gradient(270deg,rgba(52,88,255,0) 0%,#3458FF 52.7%,rgba(52,88,255,0) 100%)",stops:["#3458FF00","#3458FF","#3458FF00"],use:"Borda animada do subtitle e de destaques.",anim:true,bg:"#101010"},
+    {name:"Feixe",token:"--g-beam",css:"linear-gradient(270deg,rgba(52,88,255,0) 0%,#3458FF 52.7%,rgba(52,88,255,0) 100%)",stops:["#3458FF00","#3458FF","#3458FF00"],use:"Borda animada de destaques.",anim:true,bg:"#101010"},
     {name:"Vidro",token:"--g-glass",css:"linear-gradient(307deg,rgba(255,255,255,.2) 0%,rgba(255,255,255,.02) 25% 45%,rgba(255,255,255,.2) 78%,rgba(255,255,255,0) 100%)",stops:["#FFFFFF33","#FFFFFF05","#FFFFFF33"],use:"Reflexo sobre imagens.",bg:"linear-gradient(180deg,#3457FF,#DFE0EB)"},
     {name:"Ink",token:"--g-ink",css:"linear-gradient(180deg,#101010 35%,#474747 100%)",stops:["#101010","#474747"],use:"Preenchimento de texto grande e do rodapé."},
     {name:"Fade",token:"--g-fade",css:"linear-gradient(0deg,rgba(255,255,255,0) 24%,rgba(255,255,255,.8) 100%)",stops:["#FFFFFF00","#FFFFFFCC"],use:"Esconde a borda de cima de imagens e listas.",bg:"#3458FF"}

@@ -66,7 +66,7 @@ a{color:inherit}
 /* Botões: .theme-btn e .btn-icon vêm de css/components.css (ajustes de contexto mais abaixo) */
 
 /* Layout */
-.wrap{max-width:calc(var(--max) + 2*var(--gutter));margin:0 auto;padding:0 var(--gutter)}
+.wrap{width:100%;max-width:calc(var(--max) + 2*var(--gutter));margin:0 auto;padding:0 var(--gutter)}
 main{display:flex;flex-direction:column;gap:96px;padding:56px 0 96px}
 @media (max-width:640px){main{gap:72px;padding-top:36px}}
 section{scroll-margin-top:90px}
@@ -143,6 +143,8 @@ figure{margin:0}
 .part-text .q{font-family:var(--font-serif);font-style:italic;font-size:22px;color:var(--accent);line-height:1.3}
 .part-text p{font-size:16.5px}
 .tag{display:inline-flex;align-self:flex-start;align-items:center;gap:6px;font-size:12.5px;font-weight:600;padding:5px 10px;border-radius:var(--r-pill);background:var(--snow);border:1px solid var(--mist);color:var(--graphite)}
+.part-title{font-family:var(--font-display);font-size:21px;font-weight:600;line-height:1.25;letter-spacing:-.01em;color:var(--ink);margin:0}
+.kicker{font-family:var(--font-display);font-size:15px;font-weight:500;letter-spacing:.01em;color:var(--graphite);margin:0}
 .pair{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1fr);gap:16px;align-items:end}
 @media (max-width:560px){.pair{grid-template-columns:minmax(0,1fr)}}
 
@@ -293,7 +295,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
   <!-- ABERTURA -->
   <section class="wrap">
     <div class="intro rv">
-      <span class="eyebrow"><iconify-icon icon="lucide:book-open"></iconify-icon>Estudo de caso · Landing page · 2026</span>
+      <p class="kicker">Estudo de caso · Landing page · 2026</p>
       <h1>Artools Pigmentum</h1>
       <p class="lead">Como fazer uma caneta comum, que ninguém para pra olhar, parecer um produto que dá <span class="serif">vontade</span> de ter.</p>
       <div class="intro-actions">
@@ -301,68 +303,50 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
         <a class="theme-btn theme-btn--outline" href="https://www.figma.com/design/AJAIQgCQfMty0yV0la4cAx" target="_blank" rel="noopener">Ver no Figma<iconify-icon icon="lucide:figma"></iconify-icon><span class="sr-only">(abre em nova aba)</span></a>
         <a class="theme-btn theme-btn--outline" href="#teste">Ir para a conversa simulada<iconify-icon icon="lucide:arrow-down"></iconify-icon></a>
       </div>
-      <dl class="facts">
-        <div><dt>Tipo</dt><dd>Estudo pessoal, a partir de um desafio do curso da Asimov</dd></div>
-        <div><dt>Meu papel</dt><dd>Pesquisa de referências, direção visual, estrutura, textos e avaliação simulada</dd></div>
-        <div><dt>Ferramentas</dt><dd>Claude e Antigravity (código), Gemini (imagens), Google Flow com Veo 3 (vídeo)</dd></div>
-        <div><dt>Entrega</dt><dd>Landing page responsiva em HTML, CSS e JavaScript</dd></div>
-      </dl>
+      <p class="muted" style="max-width:66ch;margin-top:28px">Estudo pessoal, a partir de um desafio do curso da Asimov, e o meu primeiro projeto. A Artools e a caneta são fictícias. Escolhi as referências, a direção visual, a estrutura e os textos. O código saiu do Claude e do Antigravity, as imagens do Gemini e o vídeo do Google Flow, com o Veo 3.</p>
     </div>
     <figure class="hero-media rv">
       <div class="shot"><img src="assets/projects/artools-case/hero.webp" width="1440" height="900" alt="Primeira tela da landing: o título 'A caneta que escreve um quilômetro.' ao lado da caneta branca Artools Pigmentum, com os botões Comprar agora e Explorar." fetchpriority="high"></div>
-      <figcaption>A primeira tela da landing, no computador. Até a revisão de novembro, o título era "A caneta mais tecnológica do mundo." (veja <a href="#revisao">Revisão</a>).</figcaption>
+      <figcaption>A primeira tela, no computador.</figcaption>
     </figure>
-  </section>
-
-  <!-- RESUMO -->
-  <section class="wrap" aria-labelledby="resumo-t">
-    <h2 id="resumo-t" class="tldr-title rv">Resumo em 30 segundos</h2>
-    <div class="tldr four">
-      <div class="card rv"><span class="k">Meu papel</span><p>Escolhi as referências, defini a direção visual e a estrutura da página e simulei com IA uma conversa com 4 perfis fictícios sobre o resultado. O código e o vídeo foram gerados com IA.</p></div>
-      <div class="card rv"><span class="k">Decisão principal</span><p>Tratar a caneta como lançamento de tecnologia. Cada seção responde a uma dúvida de quem já chegou interessado.</p></div>
-      <div class="card rv"><span class="k">Resultado</span><p>Nas respostas simuladas, o vídeo e o modo técnico agradaram e o carrinho ganhou do WhatsApp. Trato isso como hipótese. Relendo a garantia por causa delas, vi que o texto prometia reembolso que a regra não cobria, e corrigi.</p></div>
-      <div class="card rv"><span class="k">Próximo passo</span><p>Testar com pessoas reais do público, com tarefas. Até agora a conversa foi simulada, e nenhuma pessoa real usou a página. A caneta é fictícia, por isso a página não mostra preço.</p></div>
-    </div>
   </section>
 
   <!-- 01 CONTEXTO -->
   <section class="wrap" id="contexto">
-    <div class="sec-head rv"><span class="num">01</span><h2>Contexto e objetivo</h2></div>
+    <div class="sec-head rv"><h2>Contexto e objetivo</h2></div>
     <div class="split">
       <div class="prose rv">
-        <p>O ponto de partida foi um desafio do curso da Asimov: criar a landing page de um produto. O produto proposto era uma caneta, e foi isso que me interessou.</p>
-        <p>Caneta é barata, todo mundo tem uma e quase ninguém presta atenção nela. Por isso achei um bom teste: se o design conseguisse fazer uma caneta parecer valiosa, a página estaria fazendo o trabalho dela.</p>
-        <p>Imaginei alguém que já viu a caneta numa vitrine ou numa rede social e entrou no site para saber mais. Essa pessoa já tem interesse; falta um motivo para escolher essa caneta e não outra.</p>
+        <p>O desafio do curso era criar a landing page de um produto, e o produto proposto era uma caneta. Foi isso que me fisgou.</p>
+        <p>Caneta é barata e ninguém presta atenção nela. Se o design conseguisse fazer uma parecer valiosa, a página estaria fazendo o trabalho dela.</p>
+        <p>Imaginei alguém que viu a caneta numa vitrine ou numa rede social e entrou no site para saber mais. Essa pessoa já quer; falta um motivo para escolher esta e não outra.</p>
       </div>
       <div class="prose rv">
         <p class="quote">A página serve para confirmar uma vontade que a pessoa já tem, para ela comprar sem medo de se arrepender.</p>
-        <p class="note">A página não mostra preço, porque a caneta é fictícia e não está à venda. Então, na conversa simulada, perguntei se dava vontade de ter a caneta. Saber quanto alguém pagaria por ela fica para um teste com preço.</p>
       </div>
     </div>
   </section>
 
   <!-- 02 PÚBLICO -->
   <section class="wrap" id="publico">
-    <div class="sec-head rv"><span class="num">02</span><h2>Para quem é</h2></div>
+    <div class="sec-head rv"><h2>Para quem é</h2></div>
     <div class="split">
       <div class="prose rv">
-        <p><b>Gente que desenha e escreve à mão todo dia</b>: ilustradores, designers, arquitetos, estudantes de design e quem mantém um caderno de anotações.</p>
+        <p>Gente que desenha e escreve à mão todo dia: ilustradores, designers, arquitetos, estudantes de design e quem mantém um caderno de anotações.</p>
         <p>Para essas pessoas, a caneta é ferramenta de trabalho. Elas reparam se a linha sai igual do começo ao fim da folha, se a tinta borra quando passa marca-texto ou aquarela por cima e se a ponta fina aguenta meses de uso.</p>
       </div>
       <div class="prose rv">
-        <p>Imagino que essa pessoa já tenha testado várias marcas antes de ficar com uma. Ela compra quando a caneta que usa acaba, quando quer outra espessura de ponta ou quando vê alguém desenhando com uma melhor. Continua sendo um produto caro, e o que justifica o preço é o traço.</p>
-        <p class="muted" style="font-size:15px">Esse perfil é suposição minha: ainda não conversei com ninguém desse grupo. Na primeira versão do case o público era outro, e mudei porque ele não combinava com o produto (veja <a href="#revisao-publico">Revisão</a>). Refil e outras espessuras de ponta ficaram fora desta versão e entram nos próximos passos.</p>
+        <p>Quem desenha testa várias marcas antes de ficar com uma, e paga mais pela caneta que tem o melhor traço.</p>
       </div>
     </div>
   </section>
 
   <!-- 03 REFERÊNCIAS -->
   <section class="wrap" id="referencias">
-    <div class="sec-head rv"><span class="num">03</span><h2>Referências</h2><p>Naveguei por vários sites e pelos templates indicados no curso e separei o que mais chamava atenção para um produto premium. A base veio de duas fontes bem diferentes: as páginas de produto da Apple e um template de arquitetura.</p></div>
+    <div class="sec-head rv"><h2>Referências</h2><p>Depois de passar por vários sites e pelos templates do curso, fiquei com duas fontes que não têm nada a ver uma com a outra.</p></div>
     <div class="refs">
       <div class="card rv">
         <span class="k">Apple · páginas de produto</span>
-        <p>Usei como modelo de como apresentar um produto para dar vontade de ter.</p>
+        <p>Ninguém apresenta um objeto para dar vontade de ter como a Apple.</p>
         <ul>
           <li>Vídeo que avança com o scroll</li>
           <li>Fades de entrada</li>
@@ -383,18 +367,11 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     </div>
     <p class="plus rv"><b>Apple</b> para dar vontade de ter <span aria-hidden="true">+</span> <b>arquitetura</b> para parecer um objeto bem projetado</p>
 
-    <h3 class="rv" style="margin-top:40px">Como cheguei à combinação: o que foi meu e o que foi da IA</h3>
-    <ol class="steps">
-      <li class="rv"><span class="who">Eu</span>Pesquisei as referências: a Apple, pela internet, e os templates do curso.</li>
-      <li class="rv"><span class="who">Eu</span>Escolhi os elementos de cada uma e defini a direção da fusão: peso maior no template de arquitetura, para a página não virar uma cópia da Apple.</li>
-      <li class="rv"><span class="who">Claude</span>Fez a fusão dos design systems e o código da página seguindo essa direção.</li>
-      <li class="rv"><span class="who">Eu</span>Revisei o resultado e cortei os vícios de IA (veja em <a href="#versoes">Versões</a>).</li>
-    </ol>
   </section>
 
   <!-- 04 ESTRUTURA -->
   <section class="wrap" id="estrutura">
-    <div class="sec-head rv"><span class="num">04</span><h2>Estrutura da página</h2><p>Como a pessoa já chega interessada, cada seção responde a uma pergunta que ela faria antes de comprar.</p></div>
+    <div class="sec-head rv"><h2>Estrutura da página</h2><p>A pessoa já chega interessada, então cada seção responde a uma pergunta que ela faria antes de comprar.</p></div>
 
     <ol class="flow rv">
       <li><span class="n">1</span><span class="t">Abertura</span><span class="q">Que caneta é essa?</span></li>
@@ -407,28 +384,25 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 
     <div class="part">
       <div class="part-text rv">
-        <span class="tag">1 · Abertura</span>
-        <p class="q">"Que caneta é essa?"</p>
-        <p>É a primeira tela que todo visitante vê, então a caneta precisa parecer cara logo ali. O vídeo avança conforme a pessoa rola a página, e apostei nele para passar essa impressão, com pouco texto por cima.</p>
+        <h3 class="part-title">Abertura</h3>
+        <p>Todo visitante vê essa tela, então a caneta tem que parecer cara logo ali. Apostei no vídeo que avança com o scroll e deixei pouco texto por cima.</p>
       </div>
       <figure class="rv"><div class="shot"><video src="artools/video.mp4" poster="assets/projects/artools-poster.webp" muted loop playsinline preload="metadata" controls aria-label="Vídeo da abertura: a caneta Artools Pigmentum girando sobre fundo claro"></video></div><figcaption>O vídeo da abertura. Na landing, ele avança junto com o scroll.</figcaption></figure>
     </div>
 
     <div class="part alt">
       <div class="part-text rv">
-        <span class="tag">2 · Feita no detalhe</span>
-        <p class="q">"É boa mesmo?"</p>
-        <p>Escolhi os detalhes técnicos que mais chamam atenção (ponta de 0,1 mm, tinta pigmentada, fluxo contínuo, corpo e clip) para a pessoa ter argumentos concretos na hora de decidir.</p>
-        <p>O <b>modo técnico</b> é um botão que mostra a caneta como desenho de projeto, com as peças internas e as medidas. Ao passar o mouse num cartão, a peça correspondente acende no desenho. É para quem quer saber como a caneta funciona por dentro. Como só aparece quando a pessoa aperta o botão, não atrapalha quem quer apenas ver a caneta.</p>
+        <h3 class="part-title">Feita no detalhe</h3>
+        <p>Ponta de 0,1 mm, tinta pigmentada, fluxo contínuo, corpo e clip: detalhes que dão argumento na hora de decidir.</p>
+        <p>O modo técnico é a parte de que mais gosto. Um botão transforma a caneta em desenho de projeto, com peças e medidas, e cada peça acende quando o mouse passa no cartão dela. Quem só quer ver a caneta nem precisa apertar.</p>
       </div>
       <figure class="rv"><div class="shot"><img src="assets/projects/artools-case/modo-tecnico.webp" width="1440" height="900" loading="lazy" alt="Seção Feita no detalhe com o modo técnico ligado: a caneta aparece como desenho em linhas com as medidas 140 mm e Ø 10 mm, ao lado de cartões com ponta de 0,1 mm, tinta de 100 anos, fluxo contínuo, 9 gramas e clip de 10 mil ciclos."></div><figcaption>Modo técnico ligado: o desenho de projeto com as cotas (medidas).</figcaption></figure>
     </div>
 
     <div class="part stacked">
       <div class="part-text rv">
-        <span class="tag">3 · Um dia com a caneta</span>
-        <p class="q">"Combina com a minha rotina?"</p>
-        <p>A seção acompanha um dia da pessoa, do primeiro café à última ideia, para mostrar que a caneta está sempre ali e não deixa ninguém na mão, nem quando fica esquecida destampada.</p>
+        <h3 class="part-title">Um dia com a caneta</h3>
+        <p>Um dia inteiro, do primeiro café à última ideia, com a caneta em todos os momentos, até esquecida destampada.</p>
       </div>
       <div class="pair rv">
         <figure><div class="shot"><img src="assets/projects/artools-case/dia.webp" width="1440" height="900" loading="lazy" alt="Seção 'Do primeiro café à última ideia', com um relógio marcando 07:30 e o cartão 'Destampou, escreveu.'"></div></figure>
@@ -438,43 +412,39 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 
     <div class="part alt">
       <div class="part-text rv">
-        <span class="tag">4 · Garantia</span>
-        <p class="q">"E se ela falhar?"</p>
-        <p>"Escreva por 30 dias. Se falhar, é por nossa conta." Com ela a pessoa compra com menos medo, e a marca mostra que confia na caneta. A ideia é que quase ninguém precise usar.</p>
-        <p>Ela cobre defeito: a caneta que falhar em 30 dias é trocada, com frete pago. Na primeira versão, a pergunta desta seção era "E se eu me arrepender?" e o texto falava em devolver o dinheiro, o que ia além dessa regra. Corrigi as duas coisas (veja <a href="#revisao">Revisão</a>).</p>
+        <h3 class="part-title">Garantia</h3>
+        <p>"Escreva por 30 dias. Se falhar, é por nossa conta." A garantia cobre defeito: a caneta que falhar em 30 dias é trocada, com frete pago.</p>
+        <p>Na primeira versão a pergunta era "E se eu me arrepender?" e o texto prometia devolver o dinheiro, o que ia além da regra.</p>
       </div>
       <figure class="rv"><div class="shot"><img src="assets/projects/artools-case/garantia.webp" width="1440" height="900" loading="lazy" alt="Seção escura da garantia: 'Escreva por 30 dias. Se falhar, é por nossa conta.' e um cartão com 30 dias de garantia contra defeito, troca imediata, frete de devolução e a linha que diz que a garantia cobre falha da caneta, não arrependimento."></div></figure>
     </div>
 
     <div class="part">
       <div class="part-text rv">
-        <span class="tag">5 · Assinatura</span>
-        <p class="q">"Como fica o traço?"</p>
-        <p>O fundo imita papel e a caneta "assina o próprio nome" na tela, como quando alguém rabisca numa folha para testar uma caneta na loja. A lupa acompanha a ponta e mostra a linha de 0,1 mm de perto, que é o que quem desenha quer ver antes de comprar.</p>
-        <p class="muted" style="font-size:15px">Na primeira versão, a pergunta era "Combina comigo?" e a seção falava com quem assina documentos e liga para status. Mudou junto com o público (veja <a href="#revisao-publico">Revisão</a>).</p>
+        <h3 class="part-title">Assinatura</h3>
+        <p>O fundo imita papel e a caneta "assina o próprio nome" na tela, como quem rabisca numa folha para testar caneta na loja. A lupa segue a ponta e mostra a linha de 0,1 mm de perto, que é o que quem desenha quer ver.</p>
       </div>
       <figure class="rv"><div class="shot"><img src="assets/projects/artools-case/assinatura.webp" width="1440" height="900" loading="lazy" alt="Seção 'Aqui ela assina o próprio nome': a caneta escreve Pigmentum em letra cursiva sobre um fundo que imita papel, com uma lupa mostrando o traço de 0,1 mm."></div></figure>
     </div>
 
     <div class="part alt">
       <div class="part-text rv">
-        <span class="tag">6 · Compra</span>
-        <p class="q">"Quero."</p>
-        <p>Quem rolou a página inteira já está mais perto de decidir, então o botão fica bem à vista no fim. Ele também aparece na abertura, no dia a dia, na garantia e na assinatura: quem já se decidiu compra no primeiro botão que vê.</p>
-        <p>Na primeira versão, a compra abria uma janela que levava ao WhatsApp. Escolhi assim pela praticidade: era a forma mais simples de fechar o fluxo sem simular uma loja. Na conversa simulada, foi o que menos convenceu. Como a caneta é fictícia e não está à venda, hoje o botão abre um aviso de que a página é um projeto de estudo.</p>
+        <h3 class="part-title">Compra</h3>
+        <p>O botão de compra fecha a página e se repete em quatro seções antes, porque quem já se decidiu compra no primeiro botão que vê.</p>
+        <p>Na primeira versão, a compra abria uma janela que levava ao WhatsApp. Escolhi pela praticidade, e foi o que menos convenceu na conversa simulada. Hoje o botão avisa que a página é um projeto de estudo.</p>
       </div>
-      <figure class="rv"><div class="shot"><img src="assets/projects/artools-case/compra.webp" width="1440" height="900" loading="lazy" alt="Janela de compra da versão avaliada na conversa simulada, sobre a página desfocada: 'Que bom que você deu mais um passo.', com o botão Falar com um vendedor e a opção Continuar explorando."></div><figcaption>A janela de compra na versão avaliada na conversa simulada, que levava ao WhatsApp.</figcaption></figure>
+      <figure class="rv"><div class="shot"><img src="assets/projects/artools-case/compra.webp" width="1440" height="900" loading="lazy" alt="Janela de compra da versão usada na conversa simulada, sobre a página desfocada: 'Que bom que você deu mais um passo.', com o botão Falar com um vendedor e a opção Continuar explorando."></div><figcaption>A janela de compra na versão usada na conversa simulada, que levava ao WhatsApp.</figcaption></figure>
     </div>
   </section>
 
   <!-- 05 DESIGN SYSTEM -->
   <section class="wrap" id="design-system">
-    <div class="sec-head rv"><span class="num">05</span><h2>Design system</h2><p>A paleta e as fontes vieram do template Digital Architect, que já combinava com o projeto. Mantive a base e pedi só pequenos ajustes de tom. O fundo neutro deixa a caneta em destaque.</p></div>
+    <div class="sec-head rv"><h2>Design system</h2><p>A paleta e as fontes vieram do template Digital Architect, que já combinava com o projeto. Mexi só em alguns tons.</p></div>
 
     <div class="swatches rv">
       <div class="sw"><i style="background:#EAEAE5"></i><div><b>Papel</b><code>#EAEAE5</code><span class="muted">Fundo principal</span></div></div>
       <div class="sw"><i style="background:#1C1917"></i><div><b>Tinta</b><code>#1C1917</code><span class="muted">Texto e botão principal</span></div></div>
-      <div class="sw"><i style="background:#57534E"></i><div><b>Grafite</b><code>#57534E</code><span class="muted">Texto de apoio (era #78716C)</span></div></div>
+      <div class="sw"><i style="background:#57534E"></i><div><b>Grafite</b><code>#57534E</code><span class="muted">Texto de apoio</span></div></div>
       <div class="sw"><i style="background:#FFFFFF;border-bottom:1px solid var(--mist)"></i><div><b>Branco</b><code>#FFFFFF</code><span class="muted">Cartões e destaques</span></div></div>
     </div>
     <p class="cap rv">Os nomes vêm daí: o bege lembra papel e o quase preto lembra tinta.</p>
@@ -485,104 +455,31 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       <div class="font rv"><span>Técnico</span><p class="aa" style="font-family:'JetBrains Mono',ui-monospace,monospace;font-weight:500">0,1</p><b>JetBrains Mono</b><p>Nos botões, legendas e cotas, para lembrar ficha técnica.</p></div>
     </div>
 
-    <p class="note rv" style="margin-top:20px"><b>Achado de acessibilidade:</b> o grafite <code>#78716C</code> sobre o fundo papel tem contraste de 4,0:1, um pouco abaixo do mínimo recomendado para texto pequeno (4,5:1). A regra passou a ser usar <code>#57534E</code> (6,3:1) para texto pequeno sobre o papel, e já está aplicada na landing, inclusive nas legendas do desenho técnico e da lupa da assinatura. O <code>#78716C</code> ficou só no segundo tom de dois títulos grandes, onde o mínimo é 3:1.</p>
-    <p class="note rv" style="margin-top:12px">Também documentei a página publicada num arquivo do Figma, com as variáveis de cor (modos claro e escuro), os estilos de texto, os componentes, as telas desktop e mobile e uma revisão crítica com o que eu corrigiria. <a href="https://www.figma.com/design/AJAIQgCQfMty0yV0la4cAx" target="_blank" rel="noopener" style="font-weight:600">Abrir o arquivo no Figma<span class="sr-only"> (abre em nova aba)</span></a></p>
   </section>
 
   <!-- 06 TESTE -->
   <section class="wrap" id="teste">
-    <div class="sec-head rv"><span class="num">06</span><h2>Conversa simulada com 4 perfis</h2><p><b>Esta conversa foi simulada com IA.</b> Montei 4 perfis fictícios, parecidos com pessoas do meu trabalho e de casa, e perguntei a cada um sobre cada parte da página. As respostas são simuladas: nenhuma pessoa real usou a página. Sem pessoas reais e sem tarefas, o resultado só ajuda a levantar hipóteses; confirmar fica para um teste com o público. A simulação também é anterior à troca de público: as hipóteses abaixo foram pensadas para os profissionais que assinam documentos, e nenhum dos 4 perfis desenha ou escreve à mão por ofício. Para o público de hoje, ela vale ainda menos. Revendo a página no celular depois, achei dois problemas que a simulação não pegou: o véu atrás do título escondia a caneta no topo e as medidas do desenho técnico ficavam pequenas demais para ler. Os dois já foram corrigidos.</p></div>
+    <div class="sec-head rv"><h2>Conversa simulada com 4 perfis</h2><p><b>Esta conversa foi simulada com IA.</b> Montei 4 perfis fictícios e perguntei a cada um sobre cada parte da página. Foi antes da troca de público: nenhum deles desenha por ofício.</p></div>
 
     <div class="table-wrap rv">
       <table class="stack">
         <thead><tr><th scope="col">Hipótese</th><th scope="col">Sinal na simulação</th><th scope="col">Resposta simulada</th></tr></thead>
         <tbody>
           <tr><td>O vídeo da abertura passa a sensação de produto premium</td><td><span class="res ok"><iconify-icon icon="lucide:thumbs-up"></iconify-icon>A favor</span></td><td>Chama atenção logo na primeira tela.</td></tr>
-          <tr><td>O botão de compra no fim ajuda quem chegou até ali</td><td><span class="res ok"><iconify-icon icon="lucide:thumbs-up"></iconify-icon>A favor</span></td><td>Quem estava em dúvida e foi convencida ao longo da página encontra o botão "na frente do olho" e vai direto para a compra.</td></tr>
-          <tr><td>A garantia passa confiança</td><td><span class="res mid"><iconify-icon icon="lucide:circle-help"></iconify-icon>Misto</span></td><td>"Se eu não gostar, tenho meu dinheiro de volta." Essa frase gerada me fez reler a página: a garantia cobre a caneta que falhar, não quem se arrependeu, e o texto prometia mais do que isso. A conclusão sobre a regra é minha; da simulação veio só a frase. Já corrigi na landing.</td></tr>
-          <tr><td>O modo técnico ajuda quem quer detalhes</td><td><span class="res ok"><iconify-icon icon="lucide:thumbs-up"></iconify-icon>A favor</span></td><td>Agrada ao público mais exigente, que gosta de saber como as coisas funcionam por dentro.</td></tr>
+          <tr><td>O botão de compra no fim ajuda quem chegou até ali</td><td><span class="res ok"><iconify-icon icon="lucide:thumbs-up"></iconify-icon>A favor</span></td><td>Quem se convenceu ao longo da página encontra o botão "na frente do olho".</td></tr>
+          <tr><td>A garantia passa confiança</td><td><span class="res mid"><iconify-icon icon="lucide:circle-help"></iconify-icon>Misto</span></td><td>"Se eu não gostar, tenho meu dinheiro de volta." Essa frase me fez reler a página: o texto prometia mais do que a garantia cobre. Já corrigi.</td></tr>
+          <tr><td>O modo técnico ajuda quem quer detalhes</td><td><span class="res ok"><iconify-icon icon="lucide:thumbs-up"></iconify-icon>A favor</span></td><td>Agrada quem gosta de saber como as coisas funcionam por dentro.</td></tr>
           <tr><td>Comprar pelo WhatsApp passa confiança</td><td><span class="res no"><iconify-icon icon="lucide:thumbs-down"></iconify-icon>Contra</span></td><td>Os perfis preferiram um carrinho, porque o atendimento pelo WhatsApp às vezes demora.</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="cap rv">Com o público novo, eu começaria por hipóteses que a simulação não cobriu: se a lupa da assinatura e o modo técnico ajudam quem desenha a julgar a linha, e se a frase sobre marca-texto e aquarela por cima é a prova que essa pessoa procura. Nenhuma delas foi testada.</p>
-
-    <div class="split" style="margin-top:28px">
-      <div class="card rv"><span class="k">O que eu mudaria</span><p>Numa versão real, a compra principal seria por carrinho, e o WhatsApp ficaria como opção para quem tem dúvida ou quer algo fora do padrão, como várias canetas de uma vez para uma turma ou um escritório. O carrinho também mostraria o preço, que pelo WhatsApp só aparece na conversa. Isso pode explicar parte da preferência pelo carrinho.</p></div>
-      <div class="card rv"><span class="k">Limites da simulação</span><p>As respostas foram geradas com IA, a partir de perfis de classe média, que já eram diferentes do público definido na época (profissionais que assinam documentos). Depois troquei o público por quem desenha e escreve à mão, e a distância aumentou: nenhum perfil simulado tem essa rotina. Por isso trato o resultado como hipótese fraca. No próximo passo, eu chamaria ilustradores, designers, arquitetos e estudantes de design que não me conhecem e daria tarefas para cumprirem sozinhos.</p></div>
-    </div>
+    <p class="cap rv">O carrinho também mostraria o preço, que pelo WhatsApp só aparece na conversa. Desconfio que isso pesou.</p>
+    <p class="cap rv">Abrindo a página no celular, achei dois problemas que a conversa não pegou: o véu atrás do título escondia a caneta e as medidas do desenho técnico ficavam ilegíveis. Corrigi os dois.</p>
+    <p class="cap rv">Com o público novo, eu perguntaria outra coisa: a lupa e o modo técnico ajudam quem desenha a julgar a linha?</p>
   </section>
 
-  <!-- 07 VERSÕES -->
-  <section class="wrap" id="versoes">
-    <div class="sec-head rv"><span class="num">07</span><h2>Versões</h2><p>Depois da primeira versão vieram quatro rodadas de ajustes. Nas três primeiras, mexi para a caneta ter mais cara de produto caro; na última, tirei promessas que o produto não cumpria.</p></div>
-
-    <div class="table-wrap rv">
-      <table class="stack">
-        <thead><tr><th scope="col">Versão</th><th scope="col">O que mudou e por quê</th></tr></thead>
-        <tbody>
-          <tr><td><b>Inicial</b></td><td>A fusão das referências, com o vídeo da abertura e as seções principais.</td></tr>
-          <tr><td><b>Versão 1</b></td><td>Caixa de compra, fades e barra de navegação. Surgiram no processo: vendo o site tomar forma, senti falta de animações e acabamentos que o deixassem mais premium. A caixa de compra também deu um destino aos botões "Comprar".</td></tr>
-          <tr><td><b>Versão 2</b></td><td>Tirar a "cara de IA" dos textos: trocar frases grandiosas e genéricas por fatos que a pessoa consegue imaginar (veja abaixo).</td></tr>
-          <tr><td><b>Final</b></td><td>Tirei a numeração de 01 a 05 dos cartões. Numerar cartões é um vício comum de layouts gerados por IA, e ali eles só enfeitavam, sem ajudar a leitura.</td></tr>
-          <tr><td><b>Revisão (nov/2026)</b></td><td>Numa rodada de avaliação do portfólio, simulada com IA, ficou claro que a landing contradizia este estudo: eu tinha cortado o exagero do meio da página e deixado o maior no título, e a garantia ainda prometia reembolso. Troquei os textos (veja abaixo) e apliquei o cinza mais escuro nos textos pequenos. Depois, um avaliador mostrou que o público do case não combinava com o produto, e mudei o público.</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3 class="rv" style="margin:40px 0 16px">Versão 2: texto concreto no lugar de texto grandioso</h3>
-    <div class="table-wrap rv">
-      <table class="stack">
-        <thead><tr><th scope="col">Antes</th><th scope="col">Depois</th></tr></thead>
-        <tbody>
-          <tr><td class="before">Engenharia aeroespacial.</td><td>Feita no detalhe.</td></tr>
-          <tr><td class="before">Feita para criadores que exigem perfeição em cada traço.</td><td>Uma fineliner de ponta 0,1 que pesa 9 gramas e não borra nem com marca-texto por cima.</td></tr>
-          <tr><td class="before">Polímero grau aeroespacial. Leveza de pluma com rigidez estrutural.</td><td>Pesa 9 gramas e tem seis faces, então não sai rolando da mesa.</td></tr>
-          <tr><td class="before">Um alimentador de fibras regula a tinta molécula a molécula.</td><td>Um feltro dentro do corpo solta só a tinta que a ponta precisa.</td></tr>
-          <tr><td class="before">Scroll to control</td><td>Role a página</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="cap rv">Também saíram selos genéricos como "Secagem em 3s", "Zero borrões" e "pH neutro".</p>
-
-    <h3 class="rv" id="revisao" style="margin:48px 0 8px">Revisão: promessas que o produto não cumpria</h3>
-    <p class="muted rv" style="max-width:66ch;margin-bottom:20px">Na garantia, a regra é trocar a caneta que falhar em 30 dias, sem devolução por arrependimento. O texto tinha que dizer isso, e o título tinha que seguir a mesma regra da Versão 2: um fato que a pessoa consegue imaginar.</p>
-    <div class="table-wrap rv">
-      <table class="stack">
-        <thead><tr><th scope="col">Onde</th><th scope="col">Antes</th><th scope="col">Depois</th></tr></thead>
-        <tbody>
-          <tr><td>Título da abertura</td><td class="before">A caneta mais tecnológica do mundo.</td><td>A caneta que escreve um quilômetro.</td></tr>
-          <tr><td>Fim do dia a dia</td><td class="before">Um dia inteiro. Nenhuma falha.</td><td>Um dia inteiro. E ainda sobra tinta.</td></tr>
-          <tr><td>Descrição para buscadores</td><td class="before">A Artools Pigmentum redefine o equilíbrio entre peso, fluxo e design.</td><td>Landing de estudo da Artools Pigmentum, uma fineliner fictícia de ponta 0,1 mm que pesa 9 gramas.</td></tr>
-          <tr><td>Texto da garantia</td><td class="before">Se em 30 dias ela falhar um traço, a gente troca a caneta ou devolve o seu dinheiro.</td><td>Se em 30 dias ela falhar um traço, a gente manda outra e paga o frete da devolução. A garantia cobre defeito da caneta. Se você só mudou de ideia, ela não cobre.</td></tr>
-          <tr><td>Cartão da garantia</td><td class="before">30 dias para testar no seu dia a dia.</td><td>30 dias de garantia contra defeito.</td></tr>
-          <tr><td>Lista da garantia</td><td class="before">Reembolso em até 7 dias úteis</td><td>Cobre falha da caneta, não arrependimento</td></tr>
-          <tr><td>Botão da garantia</td><td class="before">Testar a minha</td><td>Quero a minha</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3 class="rv" id="revisao-publico" style="margin:48px 0 8px">Revisão: o público não combinava com o produto</h3>
-    <p class="muted rv" style="max-width:66ch;margin-bottom:20px">Um avaliador apontou que o público e o produto não batiam. O case falava de profissionais que assinam documentos e escolhem caneta como escolhem relógio, mas a Pigmentum é uma fineliner de ponta 0,1 mm, e ninguém assina contrato com uma. A própria landing já falava com outra pessoa: "Marca-texto, aquarela, café. Pode vir." e um dia inteiro anotando. Mantive o produto e troquei o público por quem desenha e escreve à mão. A caneta continua cara, e quem paga por ela paga pela qualidade do traço.</p>
-    <div class="table-wrap rv">
-      <table class="stack">
-        <thead><tr><th scope="col">Onde</th><th scope="col">Antes</th><th scope="col">Depois</th></tr></thead>
-        <tbody>
-          <tr><td>Perfil</td><td class="before">Profissionais de escritório que escrevem e assinam documentos todos os dias, num perfil mais sofisticado.</td><td>Gente que desenha e escreve à mão todo dia: ilustradores, designers, arquitetos, estudantes de design e quem mantém um caderno de anotações.</td></tr>
-          <tr><td>Por que paga mais</td><td class="before">A caneta como acessório de estilo e status, como um relógio.</td><td>A linha igual do começo ao fim, a tinta que não borra e a ponta que dura.</td></tr>
-          <tr><td>Quando compra</td><td class="before">Versão nova, edição de colecionador ou refil.</td><td>Quando a caneta atual acaba, quando quer outra espessura de ponta ou quando vê alguém desenhando com uma melhor.</td></tr>
-          <tr><td>Pergunta da seção 5</td><td class="before">Combina comigo?</td><td>Como fica o traço?</td></tr>
-          <tr><td>Conversa simulada</td><td class="before">Tratada como hipótese.</td><td>Hipótese ainda mais fraca, porque os perfis foram montados para o público antigo.</td></tr>
-          <tr><td>Um dia com a caneta</td><td class="before">Uma rotina de escritório: "Reunião que importa" às 10:00, com "Reunião 10h" como exemplo de anotação, e "Bolso, bolsa, avião" às 13:00, com a caneta no bolso da camisa e dentro do avião. A frase grifada às 16:00 era "Ideia aprovada."</td><td>Um dia de quem desenha e anota: o esboço do café às 07:30, a anotação de aula às 10:00 ("Ponto de fuga"), a visita à obra às 13:00, com a caneta presa na prancheta ou solta na mochila, e "Cai na prova." grifado às 16:00. Às 23:40, a ideia que chega é a de um desenho.</td></tr>
-          <tr><td>Cartão do clip</td><td class="before">Segura firme no bolso da camisa.</td><td>Segura firme na capa do caderno.</td></tr>
-          <tr><td>Próximos passos</td><td class="before">Edição de colecionador e textos sobre estilo e status.</td><td>Outras espessuras de ponta.</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="cap rv">O público novo também é suposição. Combina melhor com o que a landing já mostrava, mas ninguém desse grupo viu a página até agora. Na troca, quase todos os textos da landing ficaram como estavam, porque nenhum falava de status ou de assinar documentos. O "um dia com a caneta" era a exceção: seguia a agenda de um escritório, e reescrevi os momentos sem mudar os horários, o título nem o desenho da seção.</p>
-
-    <h3 class="rv" style="margin:48px 0 8px">Como nasceu o vídeo da abertura</h3>
-    <p class="muted rv" style="max-width:66ch;margin-bottom:20px">Criei no Gemini a imagem do primeiro quadro e a do último. Depois usei o Google Flow, com o modelo Veo 3, para gerar a transição entre os dois.</p>
+  <section class="wrap" id="video">
+    <div class="sec-head rv"><h2>Como nasceu o vídeo da abertura</h2><p>Criei no Gemini a imagem do primeiro quadro e a do último. Depois usei o Google Flow, com o modelo Veo 3, para gerar a transição entre os dois.</p></div>
     <div class="frames rv">
       <figure><div class="shot"><img src="assets/projects/artools-case/frame-inicial.webp" width="1024" height="572" loading="lazy" alt="Quadro inicial: a caneta branca Artools Pigmentum sozinha sobre fundo branco."></div><figcaption>Quadro inicial (Gemini)</figcaption></figure>
       <iconify-icon class="arrow" icon="lucide:arrow-right" aria-hidden="true"></iconify-icon>
@@ -590,28 +487,9 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     </div>
   </section>
 
-  <!-- 08 APRENDIZADOS -->
-  <section class="wrap" id="aprendizados">
-    <div class="sec-head rv"><span class="num">08</span><h2>Aprendizados</h2></div>
-    <p class="quote rv">Foi o meu primeiro projeto. Na revisão, vi que tinha corrigido o texto no meio da página e esquecido o título e a garantia. Agora, quando mudo uma regra, procuro todos os lugares da página em que ela aparece.</p>
-
-    <div class="learn">
-      <div class="card rv"><iconify-icon icon="lucide:users"></iconify-icon><h3>Simular já mexeu numa certeza</h3><p>Eu achava que o WhatsApp passava confiança. Na conversa simulada, os perfis preferiram um carrinho. Falta confirmar com pessoas reais.</p></div>
-      <div class="card rv"><iconify-icon icon="lucide:type"></iconify-icon><h3>Texto concreto convence mais</h3><p>A pessoa imagina "não sai rolando da mesa" na hora. "Grau aeroespacial" não diz nada para quem só quer escrever.</p></div>
-      <div class="card rv"><iconify-icon icon="lucide:sparkles"></iconify-icon><h3>O que foi meu</h3><p>O código e o vídeo foram gerados com IA. Eu escolhi as referências, decidi o peso de cada uma na fusão e, revisando, cortei o que tinha cara de IA: frases grandiosas, selos genéricos e a numeração dos cartões.</p></div>
-      <div class="card rv"><iconify-icon icon="lucide:contrast"></iconify-icon><h3>Acessibilidade se confere</h3><p>Revisando o design system, vi que um cinza bonito pode não ter contraste suficiente. Agora confiro o contraste antes de fechar a paleta.</p></div>
-    </div>
-
-    <h3 class="rv" style="margin-top:48px">Se eu continuasse o projeto</h3>
-    <ul class="next rv">
-      <li><iconify-icon icon="lucide:shopping-cart"></iconify-icon>Carrinho como compra principal, com o WhatsApp como apoio.</li>
-      <li><iconify-icon icon="lucide:refresh-cw"></iconify-icon>Venda de refil, para quem já tem a caneta.</li>
-      <li><iconify-icon icon="lucide:layers"></iconify-icon>Outras espessuras de ponta, soltas ou em kit, para quem desenha com pesos de linha diferentes.</li>
-      <li><iconify-icon icon="lucide:clipboard-check"></iconify-icon>Um teste com ilustradores, designers, arquitetos e estudantes de design, com tarefas para cumprirem sozinhos.</li>
-    </ul>
-
-    <div class="end rv" style="margin-top:56px">
-      <p class="muted">A landing é um estudo pessoal: a Artools e a Pigmentum são fictícias, e os números do produto também. A conversa com usuários foi simulada com IA.</p>
+  <section class="wrap" id="fim">
+    <div class="end rv">
+      <p class="muted">Os números do produto são tão fictícios quanto a marca.</p>
       <div class="intro-actions">
         <a class="theme-btn theme-btn--primary" href="artools/index.html" target="_blank" rel="noopener">Ver a landing ao vivo<iconify-icon icon="lucide:arrow-up-right"></iconify-icon></a>
         <a class="theme-btn theme-btn--outline" href="index.html#projeto-artools"><iconify-icon icon="lucide:arrow-left"></iconify-icon>Voltar ao portfólio</a>
