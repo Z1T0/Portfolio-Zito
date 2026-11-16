@@ -1,14 +1,22 @@
-# Referências baixadas (sites de terceiros), não vão para o deploy
-TEMPLATES/
-
-# Imagem original da foto (fica só local)
-Gemini_Generated_Image_*.png
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
 
 # Configuração local do editor
 *.code-workspace
 .vscode/
 
-# Arquivos de sistema
-.DS_Store
-Thumbs.db
-desktop.ini
+# Pacotes e arquivos brutos (ficam só no computador)
+*.zip
+raw_files/
+
+# Referências baixadas de sites de terceiros
+TEMPLATES/
+templates/
+
+# Específico deste repositório
+# Foto original e versão terracota descartada (ficam só local)
+Gemini_Generated_Image_*.png
+assets/img/*-warm.webp
+assets/img/*-terracota.*
