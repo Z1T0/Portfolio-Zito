@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>KINETIC // LAB · Estudo de caso · Antonio Zito</title>
-<meta name="description" content="Estudo de caso do KINETIC // LAB: e-commerce mobile-first de um tênis de corrida modular. Leitura crítica do brief, questionário de ajuste, configurador, design system, protótipo, teste e limites.">
+<meta name="description" content="Estudo de caso do KINETIC // LAB: e-commerce mobile-first de um tênis de corrida modular. Leitura crítica do brief, questionário de ajuste, configurador, design system, protótipo, avaliação simulada e limites.">
 <meta name="author" content="Antonio Zito Menezes do Desterro Junior">
 <meta name="theme-color" content="#FFFFFF" id="metaTheme">
 <meta name="color-scheme" content="light dark">
@@ -22,7 +22,9 @@ addEventListener("pageshow",function(e){if(e.persisted)document.querySelectorAll
 <meta property="og:locale" content="pt_BR">
 <meta property="og:title" content="KINETIC // LAB · Estudo de caso">
 <meta property="og:description" content="Um tênis de corrida com peças trocáveis e um site para quem tem medo de errar o tamanho.">
-<meta property="og:image" content="assets/projects/kineticlab-case/capa.webp">
+<meta property="og:image" content="https://portfoliozitomenezes.vercel.app/assets/projects/kineticlab-case/og.jpg">
+<meta property="og:url" content="https://portfoliozitomenezes.vercel.app/estudo-de-caso-kineticlab.html">
+<link rel="canonical" href="https://portfoliozitomenezes.vercel.app/estudo-de-caso-kineticlab.html">
 
 <link rel="preload" href="assets/ds/fonts/inter-display-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -384,7 +386,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
         <div><dt>Tipo</dt><dd>Desafio de curso, com brief fechado e 2 dias de prazo</dd></div>
         <div><dt>Meu papel</dt><dd>Leitura do brief, escopo, fluxos, decisões de produto, roteiro de teste e revisão de cada tela</dd></div>
         <div><dt>Ferramentas</dt><dd>Figma. O Claude gerou a pesquisa simulada, os textos e as telas a partir das minhas decisões; Figma AI e Gemini, as fotos e a logo</dd></div>
-        <div><dt>Entrega</dt><dd>9 telas mobile, 3 desktop, design system e um protótipo com as 3 tarefas do teste</dd></div>
+        <div><dt>Entrega</dt><dd>10 telas mobile, 3 desktop, design system, protótipo com as 3 tarefas e uma avaliação simulada</dd></div>
       </dl>
     </div>
     <figure class="hero-media rv">
@@ -403,8 +405,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     <div class="tldr four">
       <div class="card rv"><span class="k">Meu papel</span><p>Li o brief e corrigi cinco pontos dele. Defini o escopo e as tarefas do teste e revisei cada tela contra o roteiro.</p></div>
       <div class="card rv"><span class="k">Decisão principal</span><p>Troquei o "Biometric Fit" por um questionário de cinco perguntas que recomenda tênis e tamanho. A página do produto já abre configurada.</p></div>
-      <div class="card rv"><span class="k">Resultado até aqui</span><p>Achei e corrigi duas tarefas impossíveis antes do teste. O protótipo tem 20 telas e estados.</p></div>
-      <div class="card rv"><span class="k">Próximo passo</span><p>O teste com 2 pessoas acontece em 16/11, e o resultado entra nesta página. A pesquisa do projeto é simulada.</p></div>
+      <div class="card rv"><span class="k">Resultado até aqui</span><p>Achei e corrigi duas tarefas impossíveis antes de avaliar. Na avaliação simulada com 5 perfis, a recomendação respondeu 37 para todo mundo.</p></div>
+      <div class="card rv"><span class="k">Próximo passo</span><p>Fazer a recomendação ler as respostas e testar com pessoas reais. A pesquisa e a avaliação deste projeto são simuladas.</p></div>
     </div>
   </section>
 
@@ -461,6 +463,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
         <p class="q">"Qual tamanho eu peço?"</p>
         <p>São cinco perguntas curtas: pisada, número e largura do pé, quilômetros por semana, terreno e faixa de peso. Quase todas têm a opção "Não sei". Quando a pergunta tem uma resposta só, tocar numa opção já leva à próxima. Na do tamanho, a pessoa marca o número e a largura e toca em Continuar.</p>
         <p>A recomendação explica cada peça com o que a pessoa respondeu ("sua pisada é pronada e você prefere amortecimento"). No topo, ela escolhe o foco: amortecimento, com a Stable, ou resposta, com a Pulse, que custa R$ 200 a mais. O tamanho leva a largura em conta: quem tem pé largo sobe um número. Se ficar justo, a troca é grátis em 30 dias.</p>
+        <p>No protótipo, essa tela ainda é fixa e mostra as mesmas respostas para todo mundo. A avaliação simulada da seção 07 achou isso.</p>
       </div>
       <div class="phones rv">
         <figure class="phone"><img src="assets/projects/kineticlab-case/quiz.webp" width="360" height="779" loading="lazy" alt="Questionário, passo 1 de 5: Como seu pé toca o chão, com as opções Pronada, Neutra, Supinada e Não sei."></figure>
@@ -605,7 +608,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 
   <!-- 07 TESTE -->
   <section class="wrap" id="teste">
-    <div class="sec-head rv"><span class="num">07</span><h2>Protótipo e teste</h2><p>O protótipo tem um estado para cada combinação de sola e palmilha, para a sacola sempre mostrar o que a pessoa escolheu. O teste é moderado, com 2 pessoas e o celular na mão.</p></div>
+    <div class="sec-head rv"><span class="num">07</span><h2>Protótipo e avaliação simulada</h2><p>O protótipo tem 21 telas e estados, com um estado para cada combinação de sola e palmilha, para a sacola sempre mostrar o que a pessoa escolheu. Estas são as 3 tarefas do roteiro de teste.</p></div>
     <div class="table-wrap rv">
       <table class="stack">
         <thead><tr><th scope="col">Tarefa, como leio em voz alta</th><th scope="col">Conta como concluída quando</th></tr></thead>
@@ -616,7 +619,30 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
         </tbody>
       </table>
     </div>
-    <p class="note rv" style="margin-top:16px"><b>Teste marcado para 16/11.</b> O que as duas pessoas fizerem, inclusive onde travarem, e o que eu mudar por causa disso entram nesta seção.</p>
+    <h3 class="rv" style="margin-top:48px">Avaliação simulada com 5 perfis</h3>
+    <p class="note rv" style="margin-top:12px"><b>Simulação feita com IA.</b> Sem tempo para recrutar corredores, percorri o protótipo com ajuda de IA no papel de 5 compradores fictícios, cada um por um caminho diferente. As falas são simuladas. Nenhuma pessoa real usou o produto.</p>
+    <div class="table-wrap rv" style="margin-top:20px">
+      <table class="stack">
+        <thead><tr><th scope="col">Perfil fictício</th><th scope="col">Caminho no protótipo</th><th scope="col">O que aconteceu</th></tr></thead>
+        <tbody>
+          <tr><td><b>Diego, 31</b><br>calça 42, pisada neutra, rua e trilha</td><td>Respondeu o questionário e seguiu até o Pix</td><td>Concluiu as 3 tarefas, mas leu "Você usa 37" e "pisada pronada". Confiança no tamanho: 1 de 5. <i>"Marquei 42 e ele manda eu ficar no 37?"</i></td></tr>
+          <tr><td><b>Lúcia, 47</b><br>não sabe a pisada nem o número</td><td>"Não sei" na pisada e "me ajude a medir o pé"</td><td>As 2 perguntas prometidas no "Não sei" não aparecem, e a medição com folha A4 não tem tela. <i>"Que perguntas?"</i></td></tr>
+          <tr><td><b>Marcos, 44</b><br>maratonista, compara preço</td><td>Trocou a sola e adicionou a palmilha</td><td>A barra continuou em "Configuração base · R$ 1.599"; só a sacola mostrou R$ 1.788. <i>"Entrou ou não?"</i></td></tr>
+          <tr><td><b>Bia, 27</b><br>paga no cartão</td><td>Tocou na aba "Cartão"</td><td>Viu "pagamento recusado" sem digitar nada e terminou pelo Pix. <i>"Eu nem digitei o cartão."</i></td></tr>
+          <tr><td><b>Seu Paulo, 58</b><br>paga no Pix, lê devagar</td><td>"Pagar com Pix" e "Copiar código Pix"</td><td>O pedido apareceu confirmado sem ele passar pelo banco. <i>"Copiei e já está pago?"</i></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="rv" style="max-width:68ch;margin-top:20px">Os 5 perfis concluíram as 3 tarefas, e frete, prazo e garantia de 30 dias apareceram antes do botão de pagar. A hipótese principal não se sustentou: a recomendação é uma tela fixa e responde 37 e pisada pronada para todo mundo, e essa é justamente a dúvida que o produto promete resolver.</p>
+
+    <h3 class="rv" style="margin-top:40px">O que vai mudar</h3>
+    <ul class="open" style="margin-top:16px">
+      <li class="rv"><span class="lvl alta">Alta</span><b>A recomendação vai ler as respostas</b><p>O número e a largura do passo 2 viram variáveis do Figma, e a recomendação, a página do produto e a sacola leem essas variáveis. Pisada e terreno ganham 3 variantes da tela.</p></li>
+      <li class="rv"><span class="lvl alta">Alta</span><b>O "Não sei" vai cumprir o que promete</b><p>Duas perguntas curtas depois do "Não sei" da pisada, textos próprios nos passos 3 e 4 e a tela de medição com a folha A4.</p></li>
+      <li class="rv"><span class="lvl media">Média</span><b>O pagamento vai esperar a pessoa</b><p>A aba "Cartão" abre o formulário, e a recusa só aparece depois de "Pagar". O Pix mostra "Código copiado" e "Aguardando o banco" antes da confirmação.</p></li>
+      <li class="rv"><span class="lvl media">Média</span><b>O total vai somar o que foi escolhido</b><p>A barra da página do produto passa a somar a palmilha e a dizer a configuração escolhida.</p></li>
+    </ul>
+    <p class="note rv" style="margin-top:16px"><b>Mudanças planejadas, ainda não feitas.</b> Perfis, resultados e os 7 achados estão na página 10 do Figma; as mudanças, na página 11.</p>
   </section>
 
   <!-- 08 IA -->
@@ -632,7 +658,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 
   <!-- 09 MEDIÇÃO -->
   <section class="wrap" id="medicao">
-    <div class="sec-head rv"><span class="num">09</span><h2>Como saber se funcionou</h2><p>O teste com 2 pessoas mostra onde alguém trava, mas não mede as metas do brief. Para isso, o site precisa registrar alguns eventos, e cada meta precisa de uma conta e de um número que não pode piorar.</p></div>
+    <div class="sec-head rv"><span class="num">09</span><h2>Como saber se funcionou</h2><p>Um teste com pessoas mostra onde alguém trava, mas não mede as metas do brief. Para isso, o site precisa registrar alguns eventos, e cada meta precisa de uma conta e de um número que não pode piorar.</p></div>
     <div class="table-wrap rv">
       <table class="stack">
         <thead><tr><th scope="col">Meta do brief</th><th scope="col">Como calcular</th><th scope="col">O que não pode piorar</th></tr></thead>
@@ -665,13 +691,14 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
   <section class="wrap" id="limites">
     <div class="sec-head rv"><span class="num">10</span><h2>Limites e perguntas em aberto</h2><p>Antes de chamar o projeto de pronto, faltam estas coisas.</p></div>
     <ul class="open">
-      <li class="rv"><span class="lvl alta">Alta</span><b>A pesquisa é simulada</b><p>Personas, entrevistas e citações são fictícias. Até o teste de 16/11, nenhuma pessoa real usou o produto.</p></li>
-      <li class="rv"><span class="lvl alta">Alta</span><b>Duas pessoas é pouco</b><p>O teste mostra onde alguém trava, mas não mede conversão nem devolução, que são as metas do brief.</p></li>
-      <li class="rv"><span class="lvl media">Média</span><b>A primeira pergunta é a mais difícil</b><p>O questionário abre pela pisada, que a maioria das pessoas não sabe responder. Vou observar no teste se alguém trava ali; se travar, a pisada vai para o fim.</p></li>
+      <li class="rv"><span class="lvl alta">Alta</span><b>A pesquisa é simulada</b><p>Personas, entrevistas e citações são fictícias. Nenhuma pessoa real usou o produto.</p></li>
+      <li class="rv"><span class="lvl alta">Alta</span><b>A avaliação também é simulada</b><p>Uma IA no papel de 5 perfis acha falhas de lógica, mas sabe onde estão os botões e não se cansa. Ela não mostra onde uma pessoa real hesita nem mede conversão ou devolução, que são as metas do brief.</p></li>
+      <li class="rv"><span class="lvl alta">Alta</span><b>A recomendação é fixa no protótipo</b><p>Responde 37, pé médio e pisada pronada para qualquer resposta. A correção está planejada na seção 07.</p></li>
+      <li class="rv"><span class="lvl media">Média</span><b>A primeira pergunta é a mais difícil</b><p>O questionário abre pela pisada, que a maioria das pessoas não sabe responder. Na simulação, quem não sabia tocou em "Não sei" e seguiu. Falta ver com pessoas reais se a ordem atrapalha; se atrapalhar, a pisada vai para o fim.</p></li>
       <li class="rv"><span class="lvl media">Média</span><b>A medição do pé não existe</b><p>O questionário pergunta o número e a largura, mas a opção "me ajude a medir o pé com uma folha A4" ainda não tem tela.</p></li>
       <li class="rv"><span class="lvl media">Média</span><b>Segundo solado só no desktop</b><p>Sem acessório ou segundo solado, nenhum pedido chega aos R$ 2.250 da meta de tíquete. No celular, o segundo solado entra depois do teste, para não atrapalhar a tarefa 2.</p></li>
       <li class="rv"><span class="lvl media">Média</span><b>Desktop incompleto</b><p>O desktop tem Home, página do produto e checkout. Faltam o catálogo e um estado de erro.</p></li>
-      <li class="rv"><span class="lvl media">Média</span><b>O protótipo tem atalhos</b><p>Os chips que não entram nas tarefas não respondem ao toque, e o checkout sempre mostra os 2 itens. Quem escolhe a Pulse na recomendação vê a página do produto com a Stable.</p></li>
+      <li class="rv"><span class="lvl media">Média</span><b>O protótipo tem atalhos</b><p>Os chips que não entram nas tarefas não respondem ao toque, e o checkout sempre mostra os 2 itens. Quem escolhe a Pulse na recomendação vê a página do produto com a Stable. A aba "Cartão" já abre como recusada.</p></li>
       <li class="rv"><span class="lvl media">Média</span><b>Imagens geradas por IA</b><p>A foto do cabedal Storm mostra um tênis com outra sola. Serve de ilustração, mas não é o M1.</p></li>
     </ul>
   </section>
@@ -685,12 +712,14 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       <div class="card rv"><iconify-icon icon="lucide:clipboard-check"></iconify-icon><h3>Revisar com o roteiro do teste do lado</h3><p>Lendo tarefa por tarefa, vi que duas eram impossíveis no wireframe. Sem essa leitura, o teste ia medir um defeito do protótipo.</p></div>
       <div class="card rv"><iconify-icon icon="lucide:message-circle-question"></iconify-icon><h3>O jargão aparece na revisão</h3><p>Precisei perguntar o que era "drop". Se eu não sabia, quem testa também pode não saber, e a explicação entrou na tela.</p></div>
       <div class="card rv"><iconify-icon icon="lucide:box"></iconify-icon><h3>A restrição deu a identidade</h3><p>Sem 3D no celular, a vista explodida virou a figura técnica que aparece na capa, na Home e no desktop.</p></div>
+      <div class="card rv"><iconify-icon icon="lucide:route"></iconify-icon><h3>Percorrer o caminho de outra pessoa</h3><p>Revisando tela por tela, a recomendação parecia certa. Só ao seguir o caminho de um perfil que calça 42 ficou claro que ela não lê as respostas.</p></div>
       <div class="card rv"><iconify-icon icon="lucide:tag"></iconify-icon><h3>Marcar o que é simulado</h3><p>Escrever "simulado" em cada página deu mais trabalho e deixa claro para quem lê o que é hipótese e o que é evidência.</p></div>
     </div>
 
     <h3 class="rv" style="margin-top:48px">Próximos passos</h3>
     <ul class="next rv">
-      <li><iconify-icon icon="lucide:users"></iconify-icon>Fazer o teste com 2 pessoas em 16/11 e trazer os achados para esta página.</li>
+      <li><iconify-icon icon="lucide:sliders-horizontal"></iconify-icon>Fazer a recomendação, a página do produto e a sacola lerem as respostas do questionário.</li>
+      <li><iconify-icon icon="lucide:users"></iconify-icon>Aplicar o roteiro com 2 corredores de verdade e comparar com a avaliação simulada.</li>
       <li><iconify-icon icon="lucide:mic"></iconify-icon>Perguntar a cinco corredores reais se já desistiram de comprar tênis online por causa do tamanho e se sabem a própria pisada.</li>
       <li><iconify-icon icon="lucide:list-ordered"></iconify-icon>Testar outra ordem no questionário, começando por tamanho e terreno.</li>
       <li><iconify-icon icon="lucide:ruler"></iconify-icon>Desenhar a medição do pé com uma folha A4.</li>
