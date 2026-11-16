@@ -343,7 +343,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
         <a class="theme-btn theme-btn--outline" href="#decisoes">Ver as decisões<iconify-icon icon="lucide:arrow-down"></iconify-icon></a>
         <a class="theme-btn theme-btn--outline" href="#limites">Ir para os limites<iconify-icon icon="lucide:arrow-down"></iconify-icon></a>
       </div>
-      <p class="muted" style="max-width:66ch;margin-top:28px">Desafio de curso, a partir de um brief fechado. Decidi o escopo, os fluxos, os preços e as tarefas do teste. O Claude gerou a pesquisa, os textos e as telas no Figma a partir disso, e o Figma AI e o Gemini fizeram as fotos e a logo. A pesquisa é simulada e o percurso das tarefas foi feito por uma IA no papel de 5 compradores. Nenhuma pessoa real testou o produto. São 10 telas mobile, 3 desktop e um protótipo com 3 tarefas.</p>
+      <p class="muted" style="max-width:66ch;margin-top:28px">Desafio de curso, a partir de um brief fechado. Li o brief com olhar crítico e refiz a conta de economia, que estava errada. Defini o escopo do MVP, a arquitetura e os fluxos, as decisões de produto e os preços, escolhi as três referências da direção visual e escrevi o roteiro e as tarefas do teste. Revisei cada tela e defini as correções do protótipo. Usei IA para ganhar tempo: o Claude montou a pesquisa simulada, os textos e as telas no Figma, e o Figma AI e o Gemini fizeram as fotos e a logo. O percurso das tarefas também foi simulado com IA. São 10 telas mobile, 3 desktop e um protótipo com 3 tarefas.</p>
     </div>
     <figure class="hero-media rv">
       <div class="shot stage">
@@ -357,7 +357,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 
   <!-- 01 PESQUISA -->
   <section class="wrap" id="pesquisa">
-    <div class="sec-head rv"><h2>Pesquisa simulada</h2><p>Não entrevistei corredores. Montei duas personas a partir do brief.</p></div>
+    <div class="sec-head rv"><h2>Pesquisa simulada</h2><p>Montei duas personas a partir do brief.</p></div>
     <div class="refs">
       <div class="card rv">
         <span class="k">Renata, 34 · asfalto</span>
@@ -388,7 +388,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
         <h3 class="part-title">Encontre seu ajuste</h3>
         <p class="q">"Qual tamanho eu peço?"</p>
         <p>Cinco perguntas curtas, quase todas com "Não sei": pisada, número e largura do pé, quilômetros por semana, terreno e peso. A recomendação justifica cada peça com uma resposta e deixa escolher o foco: amortecimento, com a Stable, ou resposta, com a Pulse, R$ 200 mais cara. Pé largo sobe um número, e a troca é grátis em 30 dias.</p>
-        <p>Na primeira versão essa tela era fixa e dizia 37 para todo mundo. Errei aqui e só vi no percurso da seção 06.</p>
+        <p>Na primeira versão essa tela era fixa e dizia 37 para todo mundo. Errei aqui e só vi no percurso simulado.</p>
       </div>
       <div class="phones rv">
         <figure class="phone"><img src="assets/projects/kineticlab-case/quiz.webp" width="360" height="779" loading="lazy" alt="Questionário, passo 1 de 5: Como seu pé toca o chão, com as opções Pronada, Neutra, Supinada e Não sei, nenhuma marcada."></figure>
@@ -449,46 +449,6 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     </div>
   </section>
 
-  <!-- 03 REVISÃO -->
-  <section class="wrap" id="revisao">
-    <div class="sec-head rv"><h2>A revisão antes do teste</h2><p>Reli os wireframes com o roteiro do teste do lado. Duas tarefas eram impossíveis.</p></div>
-    <div class="part stacked">
-      <div class="phones rv">
-        <figure><div class="phone"><img src="assets/projects/kineticlab-case/wireframe-pdp.webp" width="360" height="779" loading="lazy" alt="Wireframe da página do produto em cinza, com prévia vazia, chips sem explicação e tamanhos de 35 a 40."></div><figcaption>Wireframe</figcaption></figure>
-        <figure><div class="phone"><img src="assets/projects/kineticlab-case/pdp.webp" width="360" height="779" loading="lazy" alt="Página do produto final com a vista explodida, galeria, preço e o aviso de configuração pelo questionário."></div><figcaption>Tela final</figcaption></figure>
-      </div>
-      <div class="table-wrap rv">
-        <table class="stack">
-          <thead><tr><th scope="col">No wireframe</th><th scope="col">Na tela final</th></tr></thead>
-          <tbody>
-            <tr><td class="before">A tarefa 2 pedia uma palmilha que não aparecia em nenhuma tela</td><td>Bloco "Combina com seu tênis" logo depois do configurador</td></tr>
-            <tr><td class="before">A tarefa pedia a sola de chuva, que a recomendação já deixava marcada</td><td>Tarefa reescrita: trocar para a sola de trilha</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <h3 class="rv" style="margin-top:48px">A releitura do brief</h3>
-    <p class="rv" style="max-width:68ch">Com as telas prontas, conferi o brief pedido por pedido e achei quatro lacunas:</p>
-    <div class="part stacked" style="margin-top:20px">
-      <div class="phones rv">
-        <figure><div class="phone"><img src="assets/projects/kineticlab-case/quiz-tamanho.webp" width="360" height="779" loading="lazy" alt="Passo 2 de 5 do questionário: tamanhos de 34 a 45 e as larguras Fino, Médio e Largo."></div><figcaption>Passo 2 novo</figcaption></figure>
-        <figure><div class="phone"><img src="assets/projects/kineticlab-case/pix.webp" width="360" height="779" loading="lazy" alt="Tela do Pix: total de R$ 1.788, validade do código, botão Copiar código Pix e QR Code para outro aparelho."></div><figcaption>Tela do Pix</figcaption></figure>
-      </div>
-      <div class="table-wrap rv">
-        <table class="stack">
-          <thead><tr><th scope="col">O brief pedia</th><th scope="col">Como estava</th><th scope="col">Como ficou</th></tr></thead>
-          <tbody>
-            <tr><td>Tamanho "com base na anatomia do pé"</td><td class="before">Só o número, entre 36, 37 e 38</td><td>Grade de 34 a 45 e a largura do pé</td></tr>
-            <tr><td>Perguntar o foco: amortecimento ou resposta</td><td class="before">Não era perguntado</td><td>Escolha no topo da recomendação, para não criar um sexto passo</td></tr>
-            <tr><td>Recomendação baseada nas respostas</td><td class="before">Citava "manhã cedo em São Paulo", que ninguém tinha informado</td><td>Cada motivo cita uma resposta</td></tr>
-            <tr><td>"Pix com QR Code instantâneo"</td><td class="before">A tela do Pix não existia</td><td>Tela do Pix com "Copiar código" em destaque</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
   <!-- 04 DESIGN SYSTEM -->
   <section class="wrap" id="design-system">
     <div class="sec-head rv"><h2>Design system e identidade</h2><p>Juntei a estrutura da loja lumiê, os títulos em caixa alta do Sports News e o preto e verde da Sport Tênis. Como a marca se chama LAB, desenhei o tênis como numa prancha técnica.</p></div>
@@ -539,7 +499,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       </table>
     </div>
     <h3 class="rv" style="margin-top:48px">Percurso cognitivo com 5 perfis</h3>
-    <p class="note rv" style="margin-top:12px">Sem corredores para recrutar, pedi a uma IA que fizesse o papel de 5 compradores, cada um por um caminho. Isso só acha falha de lógica, então não há taxa de conclusão nem falas.</p>
+    <p class="note rv" style="margin-top:12px">Sem corredores para recrutar, pedi a uma IA que fizesse o papel de 5 compradores, cada um por um caminho.</p>
     <div class="table-wrap rv" style="margin-top:20px">
       <table class="stack">
         <thead><tr><th scope="col">Perfil</th><th scope="col">Problema encontrado</th></tr></thead>
@@ -552,31 +512,14 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
         </tbody>
       </table>
     </div>
-    <p class="rv" style="max-width:68ch;margin-top:20px">O erro grave era meu. Com a recomendação respondendo 37 para todo mundo, a ideia central do projeto nem chegou a ser posta à prova.</p>
 
     <h3 class="rv" style="margin-top:40px">O que mudou</h3>
-    <p class="rv" style="max-width:68ch;margin-top:16px">Agora as respostas ficam em variáveis do Figma, e quem marca 42 e pé largo vê "42 · Considere subir um número". O "Não sei" leva a duas perguntas sobre o tênis velho, e a folha A4 ganhou uma tela própria. A recusa do cartão só aparece depois de "Pagar", o Pix espera a confirmação e a barra soma a palmilha. Depois refiz os 5 caminhos para conferir.</p>
+    <p class="rv" style="max-width:68ch;margin-top:16px">As respostas agora ficam em variáveis do Figma, então a recomendação muda com o número e a largura do pé. Também entraram as perguntas do "Não sei", a tela da folha A4 e um pagamento que espera a confirmação.</p>
 
     <h3 class="rv" style="margin-top:48px">Revisão das telas</h3>
-    <p class="rv" style="max-width:68ch;margin-top:12px">Também corrigi mais três erros de tela. Quem escolhia a Pulse caía numa página com a Stable e R$ 1.599. O passo 1 vinha com "Pronada" marcada, o que trazia de volta o "37 para todo mundo". E o cartão recusado deixava o campo do número vermelho, convidando a redigitar um número que estava certo. Corrigi os três no Figma e no protótipo.</p>
+    <p class="rv" style="max-width:68ch;margin-top:12px">Corrigi também três erros: a Pulse abria com o preço da Stable, o passo 1 vinha com uma resposta já marcada e o cartão recusado deixava o campo vermelho.</p>
   </section>
 
-
-  <!-- 08 MEDIÇÃO -->
-  <section class="wrap" id="medicao">
-    <div class="sec-head rv"><h2>Como saber se funcionou</h2><p>Com a loja no ar, eu registraria o fim do questionário, a troca de peça, a sacola, o pagamento e o motivo de cada devolução.</p></div>
-    <div class="table-wrap rv">
-      <table class="stack">
-        <thead><tr><th scope="col">Meta do brief</th><th scope="col">Como calcular</th></tr></thead>
-        <tbody>
-          <tr><td>Conversão de 1,8% para 3,2%</td><td>Pedidos pagos ÷ sessões</td></tr>
-          <tr><td>Devolução por tamanho de 22% para menos de 6%</td><td>Devoluções por tamanho ÷ pares entregues, separando quem seguiu a recomendação</td></tr>
-          <tr><td>Configurador usado por mais de 45%</td><td>Sessões que concluíram o questionário ou trocaram uma peça ÷ sessões no produto</td></tr>
-          <tr><td>Tíquete médio 25% maior</td><td>Valor médio por pedido</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
 
   <!-- 09 LIMITES -->
   <section class="wrap" id="limites">
@@ -584,7 +527,6 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     <ul class="open">
       <li class="rv"><b>Nenhuma pessoa real usou o produto</b><p>A IA que fez o percurso sabe onde estão os botões e não se cansa, então não mostra onde alguém hesita.</p></li>
       <li class="rv"><b>A primeira pergunta é a mais difícil</b><p>O questionário abre pela pisada, e não sei se o corredor sabe dizer a própria. Se a ordem atrapalhar, a pisada vai para o fim.</p></li>
-      <li class="rv"><b>A meta de tíquete não fecha sozinha</b><p>Com um tíquete médio de R$ 1.800, o meio da faixa do brief, +25% dá R$ 2.250, mais que a configuração mais cara (R$ 2.039). Só chega lá com acessório ou segundo solado, que ainda não está no celular.</p></li>
     </ul>
     <p class="cap rv">A medição com a folha A4 não mede a largura do pé. O desktop não tem catálogo nem estado de erro, e a foto do cabedal Storm, gerada por IA, mostra um tênis com outra sola.</p>
   </section>
